@@ -11,12 +11,10 @@ let AuthForm = props => {
               name="name"
               component={Input}
               label="Your Name"
-              iconName="person"
             />
             <Field
               name="email"
               label="Your Email"
-              iconName="mail"
               component={InputPassword}
             />
             <Button large visiblePlus>Загрузить файлы</Button>
