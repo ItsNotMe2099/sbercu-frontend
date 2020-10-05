@@ -1,0 +1,31 @@
+.root{
+  background: #27AE60;
+  color: #F2F2F2;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+
+  svg{
+    margin: auto;
+  }
+  span{
+    margin: auto;
+    font-size: 12px;
+  }
+}
+
+.small{
+  width: 69px;
+  height: 33px;
+}
+
+.medium{
+  width: 98px;
+  height: 33px;
+}
+
+.large{
+  width: 144px;
+  height: 33px;
+}

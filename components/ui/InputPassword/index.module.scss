@@ -1,0 +1,16 @@
+.root{
+  position: relative;
+}
+
+.input{
+  border-bottom: 1px solid #E0E0E0;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  width: auto;
+  height: 22px;
+  padding-bottom: 6px;
+  &::placeholder{
+    color: #bdbdbd;
+  }
+}
