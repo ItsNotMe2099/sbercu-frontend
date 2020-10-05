@@ -4,7 +4,6 @@ interface Props {
   placeholder?: string
   meta: any
   isShown: boolean
-  onClick?: (e: React.MouseEvent) => void
   input
   label
   type
@@ -12,7 +11,7 @@ interface Props {
 
 const isShown = () => {
   var input = document.getElementById('password-input')
-  if(input.getAttribute('type') === 'password') {
+  if(input.getAttribute('type') == 'password') {
     return true
   }
   else {
@@ -33,7 +32,7 @@ export default function InputPassword(props: Props) {
         {...input}
       />
       <a href="#" onClick={isShown}>
-        {props.isShown ? <img src={`shown.svg`} alt="" /> : <img src={`notShown.svg`} alt="" />}
+        {props.isShown ? <img className={styles.icon} src={`img/field/shown.svg`} alt="" /> : <img className={styles.icon} src={`img/field/notShown.svg`} alt="" />}
       </a>
       {error &&
         touched && (

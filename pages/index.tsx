@@ -1,10 +1,11 @@
 import styles from './index.module.scss'
-import AuthForm from '../components/AuthForm';
+import AuthSection from '../components/AuthSection';
+import PasswordRecovery from '../components/PasswordRecovery';
 
 export default function Home() {
   return (
       <div className={styles.root}>
-          <AuthForm></AuthForm>
+          <PasswordRecovery />
       </div>
   )
 }

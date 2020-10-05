@@ -4,6 +4,8 @@ import PlusSvg from '../../svg/PlusSvg'
 interface Props {
   children: React.ReactNode
   visiblePlus?: boolean
+  vvlarge?: boolean
+  vlarge?: boolean
   large?: boolean
   medium?: boolean
   small?: boolean
@@ -16,6 +18,8 @@ export default function Button(props: Props) {
       onClick={props.onClick}
       className={`
         ${styles.root}
+        ${props.vvlarge && styles.vvlarge}
+        ${props.vlarge && styles.vlarge}
         ${props.large && styles.large}
         ${props.medium && styles.medium}
         ${props.small && styles.small}
