@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 
 interface Props {
@@ -9,44 +9,28 @@ interface Props {
   type
 }
 
-interface State {
-  isShown: boolean
-}
+export default function InputPassword(props: Props) {
 
-class InputPassword extends React.Component<Props, State> {
-
-  state = {
-    isShown: false,
-  }
-
-  handleClick = () => {
-    if(this.state.isShown) {
-      this.setState({
-        isShown: false,
-      })
-    }
-    else {
-      this.setState({
-        isShown: true,
-      })
-    }
-  }
-
-  render() {
-  const { error, touched } = this.props.meta
-  const { input, label, type } = this.props
+  const [isShown, setIsShown] = useState(false)
+  const { error, touched } = props.meta
+  const { input, label, type } = props
 
   return (
     <div className={styles.root}>
       <input
         className={styles.input}
-        type={this.state.isShown ? 'text' : 'password'}
+        type={isShown ? 'text' : 'password'}
         placeholder={label}
         {...input}
       />
-      <a href="#" onClick={this.handleClick}>
-        {this.state.isShown ? <img className={styles.icon} src={`img/field/shown.svg`} alt="" /> : <img className={styles.icon} src={`img/field/notShown.svg`} alt="" />}
+      {isShown ?
+      <a href="#" onClick={() => setIsShown(false)}>
+        <img className={styles.icon} src={`img/field/shown.svg`} alt="" /> 
       </a>
+      :
+      <a href="#" onClick={() => setIsShown(true)}>
+        <img className={styles.icon} src={`img/field/notShown.svg`} alt="" />
+      </a>}
       {error &&
         touched && (
         <div>
@@ -55,6 +39,3 @@ class InputPassword extends React.Component<Props, State> {
     </div>
   )
 }
-}
-
-export default InputPassword

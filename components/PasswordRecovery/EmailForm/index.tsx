@@ -9,7 +9,7 @@ let EmailForm = props => {
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.back}>
-              <Link href="#">
+              <Link href="/auth-page">
                 <a>← Назад</a>
               </Link>
             </div>

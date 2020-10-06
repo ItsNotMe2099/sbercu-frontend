@@ -1,11 +1,12 @@
 import styles from './index.module.scss'
 import AuthSection from 'components/AuthSection';
-import PasswordRecovery from 'components/PasswordRecovery';
+import PasswordRecovery from 'components/PasswordRecovery/PWRecoveryHeader';
+import Link from 'next/link'
 
 export default function Home() {
   return (
       <div className={styles.root}>
-          <PasswordRecovery />
+          <Link href="/auth-page"><a>AuthPage</a></Link>
       </div>
   )
 }

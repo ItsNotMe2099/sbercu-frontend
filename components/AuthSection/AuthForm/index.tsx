@@ -21,7 +21,7 @@ let AuthForm = props => {
             />
             <div className={styles.container}>
               <Button small>Войти</Button>
-              <Link href="#">
+              <Link href="/password-recovery-email">
                 <a className={styles.forgot}>Забыли пароль?</a>
               </Link>
             </div>
