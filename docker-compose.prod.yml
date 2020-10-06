@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  app:
+    driver: bridge
+services:
+    app:
+        build:
+          context: .
+          dockerfile: docker/app/Dockerfile
+          args:
+            - ENV_FILE=.env.prod
+        restart: always
+        networks:
+          - app
+    nginx:
+        build:
+          context: .
+          dockerfile: docker/nginx/Dockerfile
+          args:
+            - APP_IMAGE=${APP_IMAGE}
+        restart: always
+        networks:
+          - app
+        depends_on:
+          - app
+        environment:
+          VIRTUAL_HOST: spect.glob-com.ru, www.spect.glob-com.ru
+          LETSENCRYPT_HOST: spect.glob-com.ru
+          LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
+          VIRTUAL_PORT: 80
+
