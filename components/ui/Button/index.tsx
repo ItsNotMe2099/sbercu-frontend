@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import PlusSvg from '../../svg/PlusSvg'
+import PlusSvg from 'components/svg/PlusSvg'
 
 interface Props {
   children: React.ReactNode

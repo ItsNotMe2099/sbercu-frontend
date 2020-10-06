@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
-import InputPassword from '../../ui/InputPassword'
+import InputPassword from 'components/ui/InputPassword'
 import styles from './index.module.scss'
 import Link from 'next/link'
 import Input from 'components/ui/Input'
