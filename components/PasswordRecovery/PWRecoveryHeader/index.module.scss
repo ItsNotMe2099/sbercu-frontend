@@ -7,8 +7,9 @@
   border-radius: 5px;
   padding: 24px 29px 0 28px;
   @media (min-width: $md-min){
-    transform: translate(100%, 40%);
+    transform: translateY(40%);
     width: 422px;
+    margin: auto;
   }
   @media (max-width: $sm-max){
     width: 100%;
