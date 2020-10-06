@@ -32,7 +32,7 @@ services:
         depends_on:
           - app
         environment:
-          API_HOST: http://sber-cu-api-app
+          API_HOST: http://sber-cu-api-nginx
           VIRTUAL_HOST: dev.sbercu.glob-com.ru,sbercu.firelabs.ru
           LETSENCRYPT_HOST: dev.sbercu.glob-com.ru,dev.sbercu.firelabs.ru
           LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
