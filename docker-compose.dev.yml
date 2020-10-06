@@ -33,7 +33,7 @@ services:
           - app
         environment:
           API_HOST: http://sber-cu-api-nginx
-          VIRTUAL_HOST: dev.sbercu.glob-com.ru,sbercu.firelabs.ru
-          LETSENCRYPT_HOST: dev.sbercu.glob-com.ru,dev.sbercu.firelabs.ru
+          VIRTUAL_HOST: dev.sbercu.glob-com.ru, sbercu.firelabs.ru
+          LETSENCRYPT_HOST: dev.sbercu.glob-com.ru, dev.sbercu.firelabs.ru
           LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
           VIRTUAL_PORT: 80
