@@ -11,3 +11,8 @@ export function email(value: string) {
 export function passwordsMatch(value: string, allValues: any) {
   return value !== allValues.password ? 'Passwords don\'t match' : undefined
 }
+
+const minLength = min => value =>
+  value && value.length < min ? `Must be ${min} characters or more` : undefined
+
+export const minL = minLength(8)

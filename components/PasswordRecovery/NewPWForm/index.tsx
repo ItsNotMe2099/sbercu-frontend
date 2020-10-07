@@ -3,7 +3,7 @@ import Button from 'components/ui/Button'
 import InputPassword from 'components/ui/InputPassword'
 import styles from './index.module.scss'
 import PasswordRecoveryHeader from '../PWRecoveryHeader'
-import {required, passwordsMatch} from 'utils/validations'
+import {required, passwordsMatch, minL} from 'utils/validations'
 
 let NewPWForm = props => {
   const { handleSubmit } = props
@@ -18,13 +18,13 @@ let NewPWForm = props => {
               name="new-password"
               component={InputPassword}
               label="Введите пароль"
-              validate={[required, passwordsMatch]}
+              validate={[required, passwordsMatch, minL]}
             />
             <Field
               name="new-password-again"
               component={InputPassword}
               label="Введите пароль повторно"
-              validate={[required, passwordsMatch]}
+              validate={[required, passwordsMatch, minL]}
             />
               <div className={styles.send}>
               <Button vlarge>Сохранить</Button>
