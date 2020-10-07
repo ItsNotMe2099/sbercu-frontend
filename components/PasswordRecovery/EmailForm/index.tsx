@@ -4,6 +4,7 @@ import Input from 'components/ui/Input'
 import styles from './index.module.scss'
 import Link from 'next/link'
 import PasswordRecoveryHeader from '../PWRecoveryHeader'
+import {email, required} from 'utils/validations'
 
 let EmailForm = props => {
   const { handleSubmit } = props
@@ -21,6 +22,7 @@ let EmailForm = props => {
               name="email"
               component={Input}
               label="Почта"
+              validate={[email, required]}
             />
               <div className={styles.send}>
               <Button medium>Отправить</Button>

@@ -21,7 +21,7 @@ export default function Input(props: Props) {
       />
       {error &&
         touched && (
-        <div>
+        <div className={styles.error}>
           {error}
         </div>)}
     </div>

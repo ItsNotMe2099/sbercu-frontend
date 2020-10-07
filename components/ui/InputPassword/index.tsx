@@ -33,7 +33,7 @@ export default function InputPassword(props: Props) {
       </a>}
       {error &&
         touched && (
-        <div>
+        <div className={styles.error}>
           {error}
         </div>)}
     </div>
