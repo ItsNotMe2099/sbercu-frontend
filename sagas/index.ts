@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchSaga } from './sagas';
+import { watchOnSubmit } from './sagas';
 
 export const rootSaga = function* root() {
-  yield all([fork(watchSaga)]);
+  yield all([watchOnSubmit()]);
 };

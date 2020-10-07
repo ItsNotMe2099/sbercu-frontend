@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import { resetState } from 'actions'
+import React, { useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
 interface Props {
@@ -7,10 +9,13 @@ interface Props {
   input
   label
   type
+  value: string
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 export default function InputPassword(props: Props) {
 
+  const dispatch = useDispatch()
   const [isShown, setIsShown] = useState(false)
   const { error, touched } = props.meta
   const { input, label, type } = props
@@ -18,6 +23,7 @@ export default function InputPassword(props: Props) {
   return (
     <div className={styles.root}>
       <input
+        onChange={dispatch(resetState())}
         className={styles.input}
         type={isShown ? 'text' : 'password'}
         placeholder={label}

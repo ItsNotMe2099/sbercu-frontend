@@ -1,0 +1,6 @@
+export const SUBMIT = 'SUBMIT'
+export const SUCCESS = 'SUCCESS'
+export const ERROR = 'ERROR'
+export const RESET = 'RESET'
+export const LOADING = 'LOADING'
+export const LOADING_COMPLETE = 'LOADING_COMPLETE'

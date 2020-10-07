@@ -4,9 +4,12 @@ import InputPassword from 'components/ui/InputPassword'
 import styles from './index.module.scss'
 import Link from 'next/link'
 import Input from 'components/ui/Input'
-import {required} from 'utils/validations'
+import {email, required} from 'utils/validations'
+import { useDispatch, useSelector } from 'react-redux'
+import { IRootState } from 'types'
 
 let AuthForm = props => {
+  const formIsError = useSelector((state: IRootState) => state.submit.formIsError)
   const { handleSubmit } = props
   return (
           <form onSubmit={handleSubmit}>
@@ -14,8 +17,9 @@ let AuthForm = props => {
               name="login"
               component={Input}
               label="Логин"
-              validate={required}
+              validate={[required, email]}
             />
+            {formIsError ? <div className={styles.error}>Такая электронная почта не зарегистрирована</div> : null}
             <Field
               name="password"
               label="Пароль"
