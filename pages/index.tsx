@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
       <div className={styles.root}>
-          <Link href="/auth-page"><a>AuthPage</a></Link>
+          <Link href="/welcome"><a>Welcome</a></Link>
       </div>
   )
 }

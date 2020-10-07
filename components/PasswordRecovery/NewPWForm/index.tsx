@@ -2,10 +2,13 @@ import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
 import InputPassword from 'components/ui/InputPassword'
 import styles from './index.module.scss'
+import PasswordRecoveryHeader from '../PWRecoveryHeader'
 
 let NewPWForm = props => {
   const { handleSubmit } = props
   return (
+          <div className={styles.container}>
+            <PasswordRecoveryHeader/>
           <form onSubmit={handleSubmit}>
             <div className={styles.fakeMargin}></div>
             <div className={styles.head}>Придумайте новый пароль</div>
@@ -24,6 +27,7 @@ let NewPWForm = props => {
               <Button vlarge>Сохранить</Button>
               </div>
           </form>
+          </div>
   )
 }
 

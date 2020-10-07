@@ -3,10 +3,13 @@ import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import styles from './index.module.scss'
 import Link from 'next/link'
+import PasswordRecoveryHeader from '../PWRecoveryHeader'
 
 let EmailForm = props => {
   const { handleSubmit } = props
   return (
+          <div className={styles.container}>
+            <PasswordRecoveryHeader/>
           <form onSubmit={handleSubmit}>
             <div className={styles.back}>
               <Link href="/auth-page">
@@ -23,6 +26,7 @@ let EmailForm = props => {
               <Button medium>Отправить</Button>
               </div>
           </form>
+          </div>
   )
 }
 

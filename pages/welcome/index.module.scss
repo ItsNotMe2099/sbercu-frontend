@@ -1,0 +1,36 @@
+@import "scss/index";
+
+.container{
+  display: flex;
+  height: 374px;
+  background: #F2F2F2;
+  border-radius: 5px;
+  @media (min-width: $md-min){
+    transform: translateY(40%);
+    width: 422px;
+    margin: auto;
+  }
+  @media (max-width: $sm-max){
+    width: 100%;
+  }
+  &_inner{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    svg{ 
+      margin: auto
+    }
+  }
+}
+
+.text{
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #27AE60;
+}
+
+.fakeMargin{
+  height: 32.74px;
+}
+
