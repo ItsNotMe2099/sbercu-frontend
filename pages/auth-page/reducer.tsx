@@ -1,31 +1,32 @@
 import { ERROR, RESET, SUCCESS } from 'const'
+import ActionTypes from "pages/auth-page/const";
 
 export interface State {
   formIsSuccess: boolean
-  formIsError: boolean
+  formError: string
 }
 
 const initialState: State = {
   formIsSuccess: false,
-  formIsError: false
+  formError: ''
 }
 
 export default function loginSubmitReducer(state = {...initialState}, action) {
 
   switch(action.type) {
-    
-    case SUCCESS:
+
+    case ActionTypes.LOGIN_SUCCESS:
       state.formIsSuccess = true
       window.location.href = "/welcome";
       break
 
-    case ERROR:
-      state.formIsError = true
+    case ActionTypes.LOGIN_ERROR:
+      state.formError = action.payload
       break
-    
-    case RESET:
+
+    case ActionTypes.LOGIN_RESET:
       state.formIsSuccess = false
-      state.formIsError = false
+      state.formError = ''
       break
   }
 

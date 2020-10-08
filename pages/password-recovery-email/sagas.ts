@@ -1,36 +1,38 @@
+import ActionTypes from "pages/password-recovery-email/const";
 import { takeEvery, call, put } from 'redux-saga/effects';
-import {ERROR, SEND, SENDED} from 'const'
+import { ERROR, SEND, SENDED } from 'const'
 
 export function* watchOnEmailSubmit() {
     yield takeEvery(
-        SEND,
+        ActionTypes.PASSWORD_RECOVERY_SUBMIT,
         onSubmit
-      );
+    );
 }
 
 function* onSubmit(action) {
-    const result = yield call(submitToServer, action.payload)
-    if(result.message === "User not found") {
-        yield put({type: ERROR, result})
-      }
-    else {
-        yield put({type: SENDED, result})
-      }
-  }
-
-  async function submitToServer(data) {
     try {
-      let response = await fetch('https://dev.sbercu.firelabs.ru/api/auth/forgot', {
+        const result = yield call(submitToServer, action.payload)
+        yield put({ type: ActionTypes.PASSWORD_RECOVERY_SUCCESS, payload: result })
+    } catch (e) {
+
+        yield put({ type: ActionTypes.PASSWORD_RECOVERY_ERROR, payload: e.message })
+
+    }
+}
+
+async function submitToServer(data) {
+    let response = await fetch('https://dev.sbercu.firelabs.ru/api/auth/forgot', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      })
-      let responseJson = await response.json()
-      return responseJson
+    })
+    if (response.status >= 200 && response.status <= 299) {
+        let responseJson = await response.json()
+        return responseJson
+    } else {
+        let responseJson = await response.json()
+        throw new Error(responseJson.errors);
     }
-    catch(error) {
-      console.error(error)
-    }
-  }
+}

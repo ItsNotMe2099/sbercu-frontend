@@ -1,5 +1,5 @@
 export function required(value: string | number) {
-  return value || typeof value === 'number' ? undefined : 'Required field'
+  return value || typeof value === 'number' ? undefined : 'Обязательное поле'
 }
 
 export function email(value: string) {
@@ -9,7 +9,8 @@ export function email(value: string) {
 }
 
 export function passwordsMatch(value: string, allValues: any) {
-  return value !== allValues.password ? 'Passwords don\'t match' : undefined
+  console.log("passwordsMatch", value, allValues)
+  return value !== allValues.new_password ? 'Пароли не совпадают' : undefined
 }
 
 const minLength = min => value =>

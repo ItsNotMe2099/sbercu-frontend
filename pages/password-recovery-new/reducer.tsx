@@ -1,31 +1,30 @@
 import { ERROR, RESET, SAVED } from 'const'
+import ActionTypes from "pages/password-recovery-new/const";
 
 export interface State {
   formIsSuccess: boolean
-  formIsError: boolean
+  formError?: string
 }
 
 const initialState: State = {
   formIsSuccess: false,
-  formIsError: false
 }
 
 export default function NewPasswordReducer(state = {...initialState}, action) {
 
   switch(action.type) {
-    
-    case SAVED:
+    case ActionTypes.PASSWORD_RESET_SUCCESS:
       state.formIsSuccess = true
-      //window.location.href = "/welcome";
+      window.location.href = "/auth-page";
       break
 
-    case ERROR:
-      state.formIsError = true
+    case ActionTypes.PASSWORD_RESET_ERROR:
+      state.formError = action.payload
       break
-    
-    case RESET:
+
+    case ActionTypes.PASSWORD_RESET_RESET:
       state.formIsSuccess = false
-      state.formIsError = false
+      state.formError = ''
       break
   }
 

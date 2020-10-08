@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from 'types'
 
 let AuthForm = props => {
-  const formIsError = useSelector((state: IRootState) => state.loginSubmit.formIsError)
+  const formError = useSelector((state: IRootState) => state.loginSubmit.formError)
   const { handleSubmit } = props
   return (
           <form onSubmit={handleSubmit}>
@@ -20,7 +20,6 @@ let AuthForm = props => {
               label="Логин"
               validate={[required, email]}
             />
-            {formIsError ? <div className={styles.error}>Такая электронная почта не зарегистрирована</div> : null}
             </div>
             <div className={styles.inputContainer}>
             <Field
@@ -29,9 +28,10 @@ let AuthForm = props => {
               component={InputPassword}
               validate={required}
             />
-            {formIsError ? <div className={styles.error}>Неверный пароль</div> : null}
             </div>
-            <div className={styles.container}>
+              {formError ? <div className={styles.error}>{formError}</div> : null}
+
+              <div className={styles.container}>
               <Button small>Войти</Button>
               <Link href="/password-recovery-email">
                 <a className={styles.forgot}>Забыли пароль?</a>

@@ -1,12 +1,16 @@
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
 import InputPassword from 'components/ui/InputPassword'
+import { IRootState } from "types";
 import styles from './index.module.scss'
 import {required, passwordsMatch, minL} from 'utils/validations'
 import PasswordRecoveryHeader from 'components/PasswordRecovery/PWRecoveryHeader'
-
+import { useSelector } from 'react-redux'
 let NewPWForm = props => {
+
   const { handleSubmit } = props
+  const formError = useSelector((state: IRootState) => state.NewPasswordForm.formError)
+
   return (
           <div className={styles.container}>
             <PasswordRecoveryHeader/>
@@ -24,12 +28,13 @@ let NewPWForm = props => {
             </div>
             <div className={styles.inputContainer}>
             <Field
-              name="new_password_again"
+              name="new_password_confirm"
               component={InputPassword}
               label="Введите пароль повторно"
-              validate={[required, minL]}
+              validate={[required, passwordsMatch, minL]}
             />
             </div>
+            {formError ? <div className={styles.error}>{formError}</div> : null}
               <div className={styles.send}>
               <Button vlarge>Сохранить</Button>
               </div>

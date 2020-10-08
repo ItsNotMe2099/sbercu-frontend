@@ -1,3 +1,4 @@
+import { passwordRecoveryReset, passwordRecoverySubmit } from "pages/password-recovery-email/actions";
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { clickOnSend } from 'actions'
@@ -8,7 +9,9 @@ interface Props {}
 export default function EmailFormSection(props: Props) {
   const dispatch = useDispatch()
   const submit = values => {
-      dispatch(clickOnSend({email: values.email}))
+    console.log("Submit")
+      dispatch(passwordRecoveryReset())
+      dispatch(passwordRecoverySubmit({email: values.email}))
   }
     return (
 

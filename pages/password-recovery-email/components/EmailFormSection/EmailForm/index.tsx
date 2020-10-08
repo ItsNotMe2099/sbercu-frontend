@@ -10,7 +10,7 @@ import { IRootState } from 'types'
 
 let EmailForm = props => {
   const { handleSubmit } = props
-  const formIsError = useSelector((state: IRootState) => state.PWRecoverEmail.formIsError)
+  const formError = useSelector((state: IRootState) => state.PWRecoverEmail.formError)
   return (
           <div className={styles.container}>
             <PasswordRecoveryHeader/>
@@ -27,7 +27,7 @@ let EmailForm = props => {
               label="Почта"
               validate={[email, required]}
             />
-            {formIsError ? <div className={styles.error}>Такая электронная почта не зарегистрирована</div> : null}
+            {formError ? <div className={styles.error}>{formError}</div> : null}
               <div className={styles.send}>
               <Button medium>Отправить</Button>
               </div>
