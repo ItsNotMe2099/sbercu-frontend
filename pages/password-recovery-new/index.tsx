@@ -1,7 +1,7 @@
-import NewPWForm from "components/PasswordRecovery/NewPWForm";
+import NewPWFormSection from "components/PasswordRecovery/NewPWFormSection";
 
 export default function PasswordRecoveryNew() {
   return (
-         <NewPWForm/>
+         <NewPWFormSection/>
   )
 }

@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import {ERROR, SAVE, SAVED} from 'const'
 
-export function* watchOnEmailSubmit() {
+export function* watchOnNewPasswordSave() {
     yield takeEvery(
         SAVE,
         onSubmit
@@ -10,7 +10,7 @@ export function* watchOnEmailSubmit() {
 
 function* onSubmit(action) {
     const result = yield call(submitToServer, action.payload)
-    if(result.message === "User not found") {
+    if(result.errors) {
         yield put({type: ERROR, result})
       }
     else {

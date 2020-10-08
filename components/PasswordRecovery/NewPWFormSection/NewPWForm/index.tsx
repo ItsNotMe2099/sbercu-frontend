@@ -40,7 +40,7 @@ let NewPWForm = props => {
 
 
 NewPWForm = reduxForm ({
-  form: 'EmailFormRecovery',
+  form: 'NewPasswordForm',
 }) (NewPWForm)
 
 export default NewPWForm

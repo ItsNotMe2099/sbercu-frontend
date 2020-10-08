@@ -10,7 +10,7 @@ const initialState: State = {
   formIsError: false
 }
 
-export default function PWRecoverEmailReducer(state = {...initialState}, action) {
+export default function NewPasswordReducer(state = {...initialState}, action) {
 
   switch(action.type) {
     
