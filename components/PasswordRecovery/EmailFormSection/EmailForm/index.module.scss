@@ -19,23 +19,29 @@
 
 .send{
   position: absolute;
-  bottom: 26px;
+  bottom: 36px;
+}
+
+.back{
+  margin-bottom: 23px;
+  a{
+    font-size: 12px;
+    line-height: 14px;
+    color: #000;
+  }
 }
 
 .head{
   font-size: 24px;
   line-height: 28px;
-  margin: 0 0 9px 0;
+  margin: 0 0 23px 0;
   font-weight: bold;
 }
 
-.tip{
+.error{
   font-size: 10px;
   line-height: 12px;
   letter-spacing: -0.01em;
-  margin-bottom: 20px;
-}
-
-.fakeMargin{
-  height: 18px;
+  color: #FF1066;
+  margin: 8px 0 11px 0;
 }

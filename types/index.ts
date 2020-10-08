@@ -1,5 +1,7 @@
-import {State as submitState} from 'reducers/submitReducer'
+import {State as LoginSubmitState} from 'pages/auth-page/reducer'
+import {State as PWRecoverEmailState} from 'pages/password-recovery-email/reducer'
 
 export interface IRootState {
-  submit: submitState
+  loginSubmit: LoginSubmitState
+  PWRecoverEmail: PWRecoverEmailState
 }

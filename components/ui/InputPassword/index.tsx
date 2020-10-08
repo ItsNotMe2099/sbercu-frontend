@@ -1,6 +1,6 @@
 import { resetState } from 'actions'
 import React, { useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 interface Props {

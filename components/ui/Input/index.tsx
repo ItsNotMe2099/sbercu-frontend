@@ -1,6 +1,7 @@
 import { resetState } from 'actions'
 import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
 
 interface Props {
   placeholder?: string

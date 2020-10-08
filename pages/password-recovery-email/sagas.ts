@@ -1,30 +1,26 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import {ERROR, LOADING, LOADING_COMPLETE, SUBMIT, SUCCESS} from 'const'
+import {ERROR, SEND, SENDED} from 'const'
 
-export function* watchOnSubmit() {
+export function* watchOnEmailSubmit() {
     yield takeEvery(
-        SUBMIT,
+        SEND,
         onSubmit
       );
 }
 
 function* onSubmit(action) {
-    yield put({type: LOADING})
     const result = yield call(submitToServer, action.payload)
-    console.log(result)
-    if(result.message === "Логин и пароль неверные") {
-        yield put({type: LOADING_COMPLETE})
+    if(result.message === "User not found") {
         yield put({type: ERROR, result})
       }
-      else {
-        yield put({type: LOADING_COMPLETE})
-        yield put({type: SUCCESS, result})
+    else {
+        yield put({type: SENDED, result})
       }
   }
 
   async function submitToServer(data) {
     try {
-      let response = await fetch('https://dev.sbercu.firelabs.ru/api/auth/login', {
+      let response = await fetch('https://dev.sbercu.firelabs.ru/api/auth/forgot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

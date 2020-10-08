@@ -1,8 +1,10 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form';
-import submitReducer from './submitReducer';
+import loginSubmitReducer from 'pages/auth-page/reducer'
+import PWRecoverEmailReducer from 'pages/password-recovery-email/reducer'
 
 export default combineReducers({
   form: formReducer,
-  submit: submitReducer
+  loginSubmit: loginSubmitReducer,
+  PWRecoverEmail: PWRecoverEmailReducer
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import AuthForm from './AuthForm'
 import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { clickOnSubmit } from 'actions'
 
 interface Props {}

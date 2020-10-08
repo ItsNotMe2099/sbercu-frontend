@@ -1,7 +1,6 @@
-import EmailForm from "components/PasswordRecovery/EmailForm";
-
+import EmailFormSection from 'components/PasswordRecovery/EmailFormSection'
 export default function PasswordRecoveryEmail() {
   return (
-      <EmailForm/>
+      <EmailFormSection/>
   )
 }

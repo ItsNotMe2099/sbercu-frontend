@@ -5,14 +5,15 @@ import styles from './index.module.scss'
 import Link from 'next/link'
 import Input from 'components/ui/Input'
 import {email, required} from 'utils/validations'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { IRootState } from 'types'
 
 let AuthForm = props => {
-  const formIsError = useSelector((state: IRootState) => state.submit.formIsError)
+  const formIsError = useSelector((state: IRootState) => state.loginSubmit.formIsError)
   const { handleSubmit } = props
   return (
           <form onSubmit={handleSubmit}>
+            <div className={styles.inputContainer}>
             <Field
               name="login"
               component={Input}
@@ -20,12 +21,16 @@ let AuthForm = props => {
               validate={[required, email]}
             />
             {formIsError ? <div className={styles.error}>Такая электронная почта не зарегистрирована</div> : null}
+            </div>
+            <div className={styles.inputContainer}>
             <Field
               name="password"
               label="Пароль"
               component={InputPassword}
               validate={required}
             />
+            {formIsError ? <div className={styles.error}>Неверный пароль</div> : null}
+            </div>
             <div className={styles.container}>
               <Button small>Войти</Button>
               <Link href="/password-recovery-email">
