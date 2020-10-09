@@ -16,7 +16,7 @@ let RegistrationFirstStepForm = props => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <div>Проверьте данные о себе</div>
+                <div className={styles.head}>Проверьте данные о себе</div>
                 <div className={styles.inputContainer}>
                     <Field
                         name="email"
@@ -44,8 +44,8 @@ let RegistrationFirstStepForm = props => {
                     />
                 </div>
                 <span>
-                    <a href="#" onClick={handleSubmit}>Далее →</a>
-                    <a href="/">или Войти</a>
+                    <a href="#" className={styles.next} onClick={handleSubmit}>Далее →</a>
+                    <a href="/" className={styles.enter}>или Войти</a>
                 </span>
             </div>
 

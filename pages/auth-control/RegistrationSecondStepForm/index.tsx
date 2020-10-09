@@ -24,9 +24,9 @@ let RegistrationSecondStepForm = (props: Props) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <a href="#" onClick={props.onGoBack}>← Назад к данным о себе</a>
-                <div>Придумайте пароль</div>
-                <div>Должен содержать не менее 8 символов, заглавные, строчные латинские буквы и небуквенные
+                <a href="#" onClick={props.onGoBack} className={styles.back}>← Назад к данным о себе</a>
+                <div className={styles.head}>Придумайте пароль</div>
+                <div className={styles.tip}>Должен содержать не менее 8 символов, заглавные, строчные латинские буквы и небуквенные
                     символы
                 </div>
                 <div className={styles.inputContainer}>
@@ -46,6 +46,7 @@ let RegistrationSecondStepForm = (props: Props) => {
                     />
                 </div>
             </div>
+            <Button vvlarge>Зарегистрироваться</Button>
 
 
         </form>
