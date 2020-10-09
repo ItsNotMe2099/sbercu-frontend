@@ -1,4 +1,3 @@
-import { resetState } from 'actions'
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 
@@ -9,8 +8,6 @@ interface Props {
   input
   label
   type
-  value: string
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 export default function Input(props: Props) {
@@ -20,7 +17,6 @@ export default function Input(props: Props) {
   return (
     <div className={styles.root}>
       <input
-        onChange={dispatch(resetState())}
         className={styles.input}
         type={type}
         placeholder={label}

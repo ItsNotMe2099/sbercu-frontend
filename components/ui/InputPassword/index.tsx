@@ -1,4 +1,3 @@
-import { resetState } from 'actions'
 import React, { useState} from 'react'
 import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
@@ -9,8 +8,6 @@ interface Props {
   input
   label
   type
-  value: string
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 export default function InputPassword(props: Props) {
@@ -23,7 +20,6 @@ export default function InputPassword(props: Props) {
   return (
     <div className={styles.root}>
       <input
-        onChange={dispatch(resetState())}
         className={styles.input}
         type={isShown ? 'text' : 'password'}
         placeholder={label}
