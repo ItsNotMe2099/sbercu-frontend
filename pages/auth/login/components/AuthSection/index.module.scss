@@ -36,6 +36,9 @@
   a{
     color: #27AE60;
     text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
   }
 
   span:last-child{

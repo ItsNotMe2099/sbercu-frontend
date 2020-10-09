@@ -29,3 +29,10 @@ font-size: inherit;
   transition: background-color 5000s ease-in-out 0s;
   background: none;
 }
+
+a{
+  color: #27AE60;
+  &:hover{
+    text-decoration: none;
+  }
+}
