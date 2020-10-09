@@ -1,11 +1,13 @@
-import AuthSection from "pages/auth-page/components/AuthSection";
+import WelcomePage from "pages/welcome";
+import { withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
-import NewPWFormSection from 'components/PasswordRecovery/NewPWFormSection'
 
-export default function Home() {
+const Home = () => {
   return (
       <div className={styles.root}>
-          <AuthSection/>
+          <WelcomePage/>
       </div>
   )
+
 }
+export default withAuthSync(Home)

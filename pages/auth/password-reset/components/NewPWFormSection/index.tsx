@@ -1,0 +1,25 @@
+import { useRouter } from "next/router";
+import { passwordResetReset, passwordResetSubmit } from "pages/auth/password-reset/actions";
+import React, { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { clickOnSave } from 'actions'
+import { getParameterByName } from "utils/helpers";
+import NewPWForm from './NewPWForm'
+
+interface Props {}
+
+export default function NewPWFormSection(props: Props) {
+  const router = useRouter()
+  const { token } = router.query
+
+  const dispatch = useDispatch()
+  const submit = useCallback(values => {
+    console.log("Props", token)
+    dispatch(passwordResetReset());
+      dispatch(passwordResetSubmit({password: values.new_password, resetPasswordToken : token as string}))
+  }, [token]);
+    return (
+
+          <NewPWForm onSubmit={submit}/>
+    )
+  }

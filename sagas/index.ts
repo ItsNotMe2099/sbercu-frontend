@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects'
-import { watchOnLoginSubmit } from 'pages/auth-page/sagas'
-import { watchOnEmailSubmit } from 'pages/password-recovery-email/sagas'
-import { watchOnNewPasswordSave } from 'pages/password-recovery-new/sagas';
-import { watchOnRegistration } from 'pages/auth-control/sagas';
+import { watchOnLoginSubmit } from 'pages/auth/login/sagas'
+import { watchOnEmailSubmit } from 'pages/auth/password-forgot/sagas'
+import { watchOnNewPasswordSave } from 'pages/auth/password-reset/sagas';
+import { watchOnRegistration } from 'pages/auth/registration-invite/sagas';
 
 export const rootSaga = function* root() {
   yield all([watchOnLoginSubmit(),

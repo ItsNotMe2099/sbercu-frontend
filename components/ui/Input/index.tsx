@@ -7,7 +7,8 @@ interface Props {
   meta: any
   input
   label
-  type
+  type,
+  disabled?: boolean,
 }
 
 export default function Input(props: Props) {
@@ -19,6 +20,7 @@ export default function Input(props: Props) {
       <input
         className={styles.input}
         type={type}
+        disabled={props.disabled}
         placeholder={label}
         {...input}
       />
