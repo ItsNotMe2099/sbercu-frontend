@@ -2,7 +2,7 @@ import ActionTypes from "pages/auth-control/const";
 
 export interface State {
   firstStepIsComplete: boolean
-  formError: string
+  formError: string,
 }
 
 const initialState: State = {
