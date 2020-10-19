@@ -1,4 +1,4 @@
-import ActionTypes from "pages/auth/registration-invite/const";
+import ActionTypes from "./const";
 
 
 export interface State {

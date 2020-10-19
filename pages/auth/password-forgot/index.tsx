@@ -1,5 +1,5 @@
-import EmailFormSection from "./components/EmailFormSection";
-import EmailSent from "./components/EmailSent";
+import EmailFormSection from "components/auth/password-forgot/components/EmailFormSection";
+import EmailSent from "components/auth/password-forgot/components/EmailSent";
 import { useEffect } from "react";
 import { IRootState } from "types";
 import { useSelector } from 'react-redux'

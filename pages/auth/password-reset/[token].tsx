@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import NewPWFormSection from "./components/NewPWFormSection";
+import NewPWFormSection from "components/auth/password-reset/components/NewPWFormSection";
 
 export default function PasswordRecoveryNew() {
   return (

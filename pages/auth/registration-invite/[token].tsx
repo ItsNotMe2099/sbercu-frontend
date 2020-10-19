@@ -1,8 +1,9 @@
+import { getUserByInvite, regSubmit } from "components/auth/registration-invite/actions";
+import RegistrationFirstStepForm from "components/auth/registration-invite/RegistrationFirstStepForm";
+import RegistrationSecondStepForm from "components/auth/registration-invite/RegistrationSecondStepForm";
 import { useRouter } from "next/router";
 import { IRootState } from "types";
-import { getUserByInvite, regSubmit } from "./actions";
-import RegistrationFirstStepForm from "./RegistrationFirstStepForm";
-import RegistrationSecondStepForm from ".//RegistrationSecondStepForm";
+
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'

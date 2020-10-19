@@ -1,7 +1,7 @@
-import {State as LoginSubmitState} from 'pages/auth/login/reducer'
-import {State as PWRecoverEmailState} from 'pages/auth/password-forgot/reducer'
-import {State as NewPWFormState} from 'pages/auth/password-reset/reducer'
-import {State as regReducerState} from 'pages/auth/registration-invite/reducer'
+import {State as LoginSubmitState} from 'components/auth/login/reducer'
+import {State as PWRecoverEmailState} from 'components/auth/password-forgot/reducer'
+import {State as NewPWFormState} from 'components/auth/password-reset/reducer'
+import {State as regReducerState} from 'components/auth/registration-invite/reducer'
 
 export interface IRootState {
   loginSubmit: LoginSubmitState

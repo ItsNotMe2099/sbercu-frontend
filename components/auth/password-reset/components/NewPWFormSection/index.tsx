@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { passwordResetReset, passwordResetSubmit } from "pages/auth/password-reset/actions";
+import { passwordResetReset, passwordResetSubmit } from "components/auth/password-reset/actions";
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { clickOnSave } from 'actions'

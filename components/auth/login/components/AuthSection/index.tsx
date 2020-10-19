@@ -1,4 +1,4 @@
-import { loginReset, loginSubmit } from "pages/auth/login/actions";
+import { loginReset, loginSubmit } from "components/auth/login/actions";
 import React from 'react'
 import AuthForm from './AuthForm'
 import styles from './index.module.scss'

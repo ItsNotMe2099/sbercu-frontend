@@ -1,4 +1,4 @@
-import { passwordRecoveryReset } from "pages/auth/password-forgot/actions";
+import { passwordRecoveryReset } from "components/auth/password-forgot/actions";
 import { useEffect } from "react";
 import { IRootState } from "types";
 import styles from './index.module.scss'

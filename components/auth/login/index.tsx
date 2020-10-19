@@ -1,5 +1,4 @@
-import AuthSection from "components/auth/login/components/AuthSection";
-
+import AuthSection from './components/AuthSection';
 export default function AuthPage() {
   return (
           <AuthSection />

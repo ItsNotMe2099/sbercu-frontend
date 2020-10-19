@@ -1,4 +1,4 @@
-import { passwordRecoveryReset, passwordRecoverySubmit } from "pages/auth/password-forgot/actions";
+import { passwordRecoveryReset, passwordRecoverySubmit } from "components/auth/password-forgot/actions";
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { clickOnSend } from 'actions'
