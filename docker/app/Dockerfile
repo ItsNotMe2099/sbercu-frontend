@@ -14,8 +14,8 @@ ARG ENV_FILE=.env
 COPY enviroments/${ENV_FILE} ./.env
 
 # Building app
-
+RUN npm run build
 EXPOSE 8080/tcp
 
 # Running the app
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "start" ]
