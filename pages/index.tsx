@@ -1,12 +1,17 @@
+import Header from "components/layout/Header";
 import WelcomePage from "pages/welcome";
 import { withAuthSync } from "utils/auth";
+import Dashboard from "./dashboard";
 import styles from './index.module.scss'
 
 const Home = () => {
   return (
+    <>
+      <Header/>
       <div className={styles.root}>
-          <WelcomePage/>
+          <Dashboard/>
       </div>
+    </>
   )
 
 }

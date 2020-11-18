@@ -4,11 +4,13 @@ import loginSubmitReducer from 'components/auth/login/reducer'
 import PWRecoverEmailReducer from 'components/auth/password-forgot/reducer'
 import NewPasswordReducer from 'components/auth/password-reset/reducer';
 import registrationReducer from 'components/auth/registration-invite/reducer';
+import CategoryTagReducer from 'components/dashboard/TagSelect/reducer';
 
 export default combineReducers({
   form: formReducer,
   loginSubmit: loginSubmitReducer,
   PWRecoverEmail: PWRecoverEmailReducer,
   NewPasswordForm: NewPasswordReducer,
-  regReducer: registrationReducer
+  regReducer: registrationReducer,
+  CategoryTagReducer: CategoryTagReducer
 })

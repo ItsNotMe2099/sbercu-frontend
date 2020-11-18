@@ -36,7 +36,7 @@ let RegistrationSecondStepForm = (props: Props) => {
                     />
                 </div>
             </div>
-            <Button vvlarge>Зарегистрироваться</Button>
+            <Button vvlarge green>Зарегистрироваться</Button>
 
 
         </form>

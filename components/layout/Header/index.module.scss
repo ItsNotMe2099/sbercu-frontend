@@ -1,0 +1,40 @@
+@import "scss/index";
+
+.root{
+  padding: 30px 0;
+}
+
+.container{
+  width: $container-lg;
+  margin: auto;
+  display: flex;
+}
+
+.media{
+  font-weight: bold;
+  font-size: 24px;
+  color: #27AE60;
+  margin-right: 34px;
+}
+
+.inputContainer{
+  position: relative;
+  input{
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    height: 32px;
+    padding-left: 28px;
+  }
+  button{
+    padding: 4px 0 4px 4px;
+    position: absolute;
+    top: 0;
+    background: transparent;
+  }
+}
+
+.profile{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}

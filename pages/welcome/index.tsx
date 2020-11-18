@@ -11,7 +11,7 @@ export default function WelcomePage(props){
         <div className={styles.fakeMargin}></div>
           <div className={styles.text}>Добро пожаловать!</div>
           <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
-          <Button vlarge onClick={() => logout()}>Выйти</Button>
+          <Button green vlarge onClick={() => logout()}>Выйти</Button>
           </div>
       </div>
     </div>

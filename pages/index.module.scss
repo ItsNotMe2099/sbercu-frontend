@@ -1,3 +1,7 @@
+@import "scss/index";
+
 .root{
   position: relative;
+  width: $container-lg;
+  margin: auto;
 }

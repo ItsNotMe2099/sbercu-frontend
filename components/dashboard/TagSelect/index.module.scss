@@ -1,0 +1,81 @@
+@import "scss/index";
+.root{
+  position: relative;
+}
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  opacity: 0;
+  visibility: hidden;
+  //transform: translateY(-20px);
+  //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  padding: 7.5px 0px;
+  z-index: 5;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+.dropDownActive{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropDownTrigger {
+  text-decoration: none;
+  display: flex;
+  font-size: 14px;
+  color: #828282;
+  margin-right: 20px;
+  &:hover{
+    .dropdownItemLabel {
+      font-weight: 700;
+    }
+  }
+}
+
+.dropdownItem {
+  a {
+       font-weight: 600;
+       padding: 7.5px 15px;
+       display: flex;
+  }
+  &:hover{
+    .dropdownItemLabel {
+      font-weight: 700;
+    }
+  }
+}
+.dropdownItemIcon{
+  padding-right: 5px;
+  vertical-align: middle;
+}
+.dropdownItemLabel{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  padding-right: 6px;
+  vertical-align: middle;
+  @media screen and (max-width: $sm-max){
+
+  }
+}
+
+.arrowActive{
+  margin-left: 6px;
+}
+.arrow{
+  padding-left: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.container{
+  display: flex;
+}

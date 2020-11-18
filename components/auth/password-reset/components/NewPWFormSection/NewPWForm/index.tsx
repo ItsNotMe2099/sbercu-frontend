@@ -36,7 +36,7 @@ let NewPWForm = props => {
             </div>
             {formError ? <div className={styles.error}>{formError}</div> : null}
               <div className={styles.send}>
-              <Button vlarge>Сохранить</Button>
+              <Button vlarge green>Сохранить</Button>
               </div>
           </form>
           </div>

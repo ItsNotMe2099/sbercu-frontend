@@ -29,7 +29,7 @@ let EmailForm = props => {
             />
             {formError ? <div className={styles.error}>{formError}</div> : null}
               <div className={styles.send}>
-              <Button medium>Отправить</Button>
+              <Button medium green>Отправить</Button>
               </div>
           </form>
           </div>
