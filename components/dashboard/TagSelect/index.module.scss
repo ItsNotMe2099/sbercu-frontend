@@ -1,7 +1,4 @@
 @import "scss/index";
-.root{
-  position: relative;
-}
 .dropDown {
   background: #ffffff;
   position: absolute;
@@ -14,6 +11,9 @@
   border-radius: 9px;
   padding: 16px 25px;
   z-index: 5;
+  overflow-Y: scroll;
+  max-width: 458px;
+  max-height: 145px;
 }
 .dropDownActive{
     opacity: 1;
@@ -33,7 +33,6 @@
 }
 
 .dropdownItem {
-  a {
        padding: 7px;
        display: flex;
        background: #F2F2F2;
@@ -41,7 +40,9 @@
        font-size: 11px;
        color: #828282;
        text-decoration: none;
-  }
+       float: left;
+       margin: 0 0 16px 16px;
+  
 }
 
 .dropdownTriggerActive{
@@ -56,9 +57,14 @@
   vertical-align: middle;
 }
 
-.options{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 1vw;
-  row-gap: 1vw;
+.choosed{
+  padding: 7px;
+  display: flex;
+  background: #27AE60;
+  border-radius: 50px;
+  font-size: 11px;
+  color: #fff;
+  text-decoration: none;
+  float: left;
+  margin: 0 0 16px 16px;
 }
