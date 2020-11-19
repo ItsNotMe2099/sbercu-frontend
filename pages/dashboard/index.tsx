@@ -6,9 +6,15 @@ import { TagSelect } from "components/dashboard/TagSelect";
 
 export default function Dashboard(props){
   return (
-    <>
-      <TagSelect/>
-    </>
+    <div className={styles.root}>
+      <TagSelect categoryLabel="Подразделения"/>
+      <TagSelect categoryLabel="Разделы"/>
+      <TagSelect categoryLabel="Темы"/>
+      <TagSelect categoryLabel="Обязтельность"/>
+      <TagSelect categoryLabel="Форма обучения"/>
+      <TagSelect categoryLabel="Компетенции"/>
+      <TagSelect categoryLabel="Уровень менеджмента"/>
+    </div>
   )
 }
 

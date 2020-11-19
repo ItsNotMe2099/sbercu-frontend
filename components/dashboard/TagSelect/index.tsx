@@ -6,7 +6,11 @@ import cx from 'classnames'
 import { IRootState } from "types";
 import { fetchTag } from "./actions";
 
-export const TagSelect = () => {
+interface Props {
+  categoryLabel: string
+}
+
+export const TagSelect = (props: Props) => {
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -17,7 +21,7 @@ export const TagSelect = () => {
     console.log("Click");
   }
   //const options = useSelector((state: IRootState) => state.CategoryTagReducer.tags)
-  const options = [{label: 'test1', value: 1}, {label: 'test2', value: 2}]
+  const options = [{label: 'Системное мышление и решение проблем', value: 1}, {label: 'Клиентоцентричность', value: 2}, {label: 'Развитие команд и сотрудничество', value: 3}, {label: 'Продукты и рынки', value: 4}]
   const [value, setValue] = useState(options.find(item => item.value));
 
   const handleOptionClick = (e, item) => {
@@ -32,32 +36,17 @@ export const TagSelect = () => {
   }
   return (
     <div className={styles.root}>
-      <div className={styles.container}>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Подразделения</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Разделы</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Темы</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Обязательность</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Форма обучения</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Компетенции</a>
-        <a onClick={onClick} className={styles.dropDownTrigger}>Уровень менеджмента</a>
-      <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
-        <ul>
-          {value &&
-          <li className={styles.dropdownItem}><a href="" onClick={handleActiveOptionClick}>
-            <span className={styles.dropdownItemLabel}>{value.label}</span></a></li>
-          }
-          {options.filter(item => !value || item.value != value.value).map(item => (
-            <li className={styles.dropdownItem}
-            >
-              <a href="" onClick={(e) => handleOptionClick(e, item)}>
-                <span className={styles.dropdownItemLabel}>{item.label}</span>
-              </a>
-            </li>
-          ))}
-
-        </ul>
-      </nav>
-      </div>
+        <a href="#" onClick={onClick} className={cx(styles.dropDownTrigger, { [styles.dropdownTriggerActive]: isActive })}>{props.categoryLabel}</a>
+        <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
+          <div className={styles.options}>
+            {value &&
+            options.map(item => (
+            <div className={styles.dropdownItem}><a href="" onClick={handleActiveOptionClick}>
+              <span className={styles.dropdownItemLabel}>{item.label}</span></a>
+            </div>))
+            }
+        </div>
+        </nav>
     </div>
   );
 };
