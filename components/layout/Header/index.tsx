@@ -1,4 +1,5 @@
 import Button from "components/ui/Button";
+import Profile from "./components/profile";
 import styles from './index.module.scss'
 
 export default function Header(props){
@@ -15,9 +16,7 @@ export default function Header(props){
               <Button search></Button>
             </div>
           </form>
-          <div className={styles.profile}>
-            <a><img src="img/icons/profile.svg" alt=''/></a>
-          </div>
+          <Profile/>
         </div>
     </div>
   )
