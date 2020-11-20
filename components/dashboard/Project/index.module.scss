@@ -1,0 +1,25 @@
+@import "scss/index";
+
+.root{
+  margin-top: 16px;
+  margin-right: 24px;
+}
+
+.square{
+  width: 193px;
+  border-radius: 5px;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.title{
+  font-size: 14px;
+  text-align: center;
+  color: #000;
+  max-width: 150px;
+  margin: 16px auto auto auto;
+}
