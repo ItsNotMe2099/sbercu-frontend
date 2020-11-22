@@ -1,0 +1,115 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  width: $container-lg;
+  margin: auto;
+}
+
+.white{
+  background-color: #fff;
+}
+
+.head{
+  display: flex;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 24px;
+  margin-right: 33px;
+}
+
+.main{
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-top: 14px;
+}
+
+.duration{
+  font-size: 12px;
+  color: black;
+  margin-top: 20px;
+}
+
+.files{
+  display: flex;
+  flex-direction: column;
+  margin-top: 7px;
+}
+
+.image{
+  margin: auto 0;
+}
+
+.noFiles{
+  display: flex;
+  padding: 21px 32px 14px 32px;
+  background: #F2F2F2;
+  border-radius: 5px;
+  margin-top: 23px;
+}
+
+.text{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-right: 111px;
+  margin-top: 12px;
+}
+
+.firstText{
+  font-weight: bold;
+  font-size: 24px;
+  color: #000;
+}
+
+.secondText{
+  font-size: 14px;
+  color: #000;
+  margin-top: 11px;
+  width: 50%;
+}
+
+.iconText{
+  font-size: 12px;
+  color: #27AE60;
+  margin: auto 13px auto 0;
+  display: flex;
+  span{
+    width: 50%;
+  }
+  img{
+    width: 19px;
+    height: 22px;
+    margin-right: 13px;
+  }
+}
+
+.clock{
+  margin-right: 49px;
+  margin-top: 12px;
+}
+
+.human{
+  margin-right: 48px;
+  flex: 1;
+}
+
+.plant{
+  flex: 1;
+}
+
+.mainNoFiles{
+  display: flex;
+  margin-top: 13px;
+  div{
+    margin-right: 5px;
+    font-size: 16px;
+    color: #bdbdbd;
+    a{
+      color: #bdbdbd;
+      text-decoration: none;
+    }
+  }
+}

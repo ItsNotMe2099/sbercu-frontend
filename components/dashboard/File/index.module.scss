@@ -1,0 +1,45 @@
+@import "scss/index";
+
+.root{
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  padding-top: 13px;
+  padding-bottom: 8px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.inner{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-decoration: none;
+}
+
+.title{
+  font-size: 14px;
+  color: black;
+}
+
+.bottom{
+  display: flex;
+  margin-top: 6px;
+}
+
+.text{
+  font-size: 12px;
+  color: #828282;
+}
+
+.image{
+  margin: auto 22px auto 0;
+  width: 2%;
+}
+
+.separator{
+  width: 1px;
+  height: 1px;
+  border-radius: 50px;
+  border: 1px solid #828282;
+  margin: auto 5px;
+}

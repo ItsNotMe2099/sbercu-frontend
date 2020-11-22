@@ -7,7 +7,6 @@ import styles from './index.module.scss'
 const Home = () => {
   return (
     <>
-      <Header/>
       <div className={styles.root}>
           <Dashboard/>
       </div>
