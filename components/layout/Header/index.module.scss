@@ -26,13 +26,16 @@
 
 .inputContainer{
   position: relative;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 32px;
+  }
   input{
     border: 1px solid #BDBDBD;
     border-radius: 5px;
     height: 32px;
     padding-left: 28px;
     @media screen and (max-width: $sm-max) {
-      width: 100%;
+      display: none;
     }
   }
   button{
@@ -53,6 +56,9 @@
 
 .create{
   margin: auto 27px auto auto;
+  @media screen and (max-width: $sm-max) {
+    margin: auto 5px auto 0;
+  }
   a{
     display: flex;
   }
@@ -63,6 +69,9 @@
     font-size: 12px;
     color: #828282;
     margin: auto;
+    @media screen and (max-width: $sm-max) {
+      display: none;
+    }
   }
 }
 
@@ -71,4 +80,26 @@
   @media screen and (max-width: $sm-max) {
     margin-right: 11px;
   }
+}
+
+.download{
+  @media screen and (max-width: $sm-max) {
+    margin-right: 20px;
+    span{
+      display: none;
+      }
+    button{
+      padding: 8px 16px;
+      svg{
+        margin: auto;
+        height: 16px;
+      }
+    }
+  }
+}
+
+.notMedia{
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
 }
