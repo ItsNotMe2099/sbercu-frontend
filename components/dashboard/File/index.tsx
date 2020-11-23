@@ -37,12 +37,12 @@ export default function File(props: Props){
           <div className={styles.separator}></div>
           <div className={styles.text}>{props.author}</div>
           {props.additionalInfo ?
-          <>
-          <div className={styles.separator}></div>
-          <div className={styles.text}>{props.size}</div>
-          <div className={styles.separator}></div>
-          <div className={styles.text}>{props.length}</div>
-          </>
+          <div className={styles.additional}>
+            <div className={styles.separator}></div>
+            <div className={styles.text}>{props.size}</div>
+            <div className={styles.separator}></div>
+            <div className={styles.text}>{props.length}</div>
+          </div>
           :
           null}
         </div>

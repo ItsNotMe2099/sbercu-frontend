@@ -2,7 +2,9 @@
 
 .root{
   position: relative;
-  width: $container-lg;
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+  }
   margin: auto;
 }
 
@@ -12,24 +14,37 @@
 
 .head{
   display: flex;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .title{
   font-weight: bold;
   font-size: 24px;
   margin-right: 33px;
+  @media screen and (max-width: $sm-max) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .main{
   font-size: 12px;
   color: #bdbdbd;
   margin-top: 14px;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .duration{
   font-size: 12px;
   color: black;
   margin-top: 20px;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .files{
@@ -40,6 +55,10 @@
 
 .image{
   margin: auto 0;
+  @media screen and (max-width: $sm-max) {
+    margin: 0 0 5px 0;
+    align-self: end;
+  }
 }
 
 .noFiles{
@@ -48,14 +67,21 @@
   background: #F2F2F2;
   border-radius: 5px;
   margin-top: 23px;
+  @media screen and (max-width: $sm-max) {
+    padding: 25px 20px;
+    margin: 14px 22px 210px 22px;
+    flex-direction: column-reverse;
+  }
 }
 
 .text{
   display: flex;
   flex-direction: column;
-  width: 40%;
-  margin-right: 111px;
   margin-top: 12px;
+  @media screen and (min-width: $container-lg) {
+    width: 40%;
+    margin-right: 111px;
+  }
 }
 
 .firstText{
@@ -68,7 +94,9 @@
   font-size: 14px;
   color: #000;
   margin-top: 11px;
-  width: 50%;
+  @media screen and (min-width: $container-lg) {
+    width: 50%;
+  }
 }
 
 .iconText{
@@ -84,32 +112,55 @@
     height: 22px;
     margin-right: 13px;
   }
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
 }
 
 .clock{
   margin-right: 49px;
   margin-top: 12px;
+  @media screen and (max-width: $sm-max) {
+    margin: 0;
+    width: 30%;
+    height: 10%;
+  }
 }
 
 .human{
   margin-right: 48px;
-  flex: 1;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 17px;
+    width: 40%;
+  }
 }
 
 .plant{
-  flex: 1;
+  @media screen and (max-width: $sm-max) {
+    width: 20%;
+  }
 }
 
 .mainNoFiles{
   display: flex;
   margin-top: 13px;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
   div{
     margin-right: 5px;
     font-size: 16px;
     color: #bdbdbd;
+    @media screen and (max-width: $sm-max) {
+      font-size: 12px;
+    }
     a{
       color: #bdbdbd;
       text-decoration: none;
     }
   }
+}
+
+.images{
+  display: flex;
 }

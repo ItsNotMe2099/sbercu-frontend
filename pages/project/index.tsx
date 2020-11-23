@@ -24,11 +24,11 @@ export default function Project(props){
     <Header projectPage/>
     <div className={styles.root}>
       <div className={styles.head}>
-      {items.length !== 0 ? <div className={styles.title}>Цифровые навыки</div> : <div className={styles.title}>Управление проектами</div>}
+      {items.length !== 0 ? <div className={styles.title}>Цифровые навыки</div> : <div className={styles.title}><span>Управление</span> <span>проектами</span></div>}
         <div className={styles.image}><a><img src="img/icons/dots.svg" alt=''/></a></div>
       </div>
       {items.length !== 0 ? <div className={styles.main}>Главная</div> : <div className={styles.mainNoFiles}><div><Link href="">Главная</Link></div><div>←</div><div><Link href="">Цифровые навыки</Link></div></div>}
-      {items.length !== 0 ? <div className={styles.duration}>439 материала, 197 часов видео</div> : null}
+      {items.length !== 0 ? <div className={styles.duration}>439 материала, 197 часов видео</div> : <div className={styles.duration}>0 материалов</div>}
       {items.length !== 0 ?
       <div className={styles.files}>
         {items.map(item => (<File
@@ -48,9 +48,11 @@ export default function Project(props){
           <div className={styles.secondText}>В папках можно хранить любое фото, видео, аудио или текстовые материалы</div>
           <div className={styles.iconText}><img src="img/icons/files.svg" alt=''/><span>Перенесите сюда файл или нажмите для выбора файла на компьютере</span></div>
         </div>
-        <div className={styles.clock}><img src="img/icons/clock.svg" alt=''/></div>
-        <div className={styles.human}><img src="img/icons/human.svg" alt=''/></div>
-        <div className={styles.plant}><img src="img/icons/plant.svg" alt=''/></div>
+        <div className={styles.images}>
+          <img className={styles.clock} src="img/icons/clock.svg" alt=''/>
+          <img className={styles.human} src="img/icons/human.svg" alt=''/>
+          <img className={styles.plant} src="img/icons/plant.svg" alt=''/>
+        </div>
       </a>
       }
     </div>

@@ -73,3 +73,10 @@
     display: none;
   }
 }
+
+.additional{
+  display: flex;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
