@@ -8,6 +8,10 @@
   width: $container-lg;
   margin: auto;
   display: flex;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+    width: 100%;
+  }
 }
 
 .media{
@@ -15,6 +19,9 @@
   font-size: 24px;
   color: #27AE60;
   margin-right: 34px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 11px;
+  }
 }
 
 .inputContainer{
@@ -24,6 +31,9 @@
     border-radius: 5px;
     height: 32px;
     padding-left: 28px;
+    @media screen and (max-width: $sm-max) {
+      width: 100%;
+    }
   }
   button{
     padding: 4px 0 4px 4px;
@@ -34,7 +44,9 @@
 }
 
 .profile{
+  @media screen and (min-width: $container-lg) {
   flex: 1;
+  }
   display: flex;
   justify-content: flex-end;
 }
@@ -56,4 +68,7 @@
 
 .form{
   margin-right: 27px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 11px;
+  }
 }

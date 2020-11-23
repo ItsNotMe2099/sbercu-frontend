@@ -1,12 +1,18 @@
 @import "scss/index";
 
 .root{
-  border-top: 1px solid #e0e0e0;
+  @media screen and (min-width: $container-lg) {
+    border-top: 1px solid #e0e0e0;
+  }
   display: flex;
   padding-top: 13px;
   padding-bottom: 8px;
   padding-right: 10px;
   padding-left: 10px;
+  @media screen and (max-width: $sm-max) {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
 }
 
 .inner{
@@ -19,21 +25,36 @@
 .title{
   font-size: 14px;
   color: black;
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+  }
 }
 
 .bottom{
   display: flex;
   margin-top: 6px;
+  @media screen and (max-width: $sm-max) {
+    flex-direction: column-reverse;
+    margin-top: 0;
+  }
 }
 
 .text{
   font-size: 12px;
   color: #828282;
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+  }
 }
 
 .image{
   margin: auto 22px auto 0;
-  width: 2%;
+  @media screen and (min-width: $container-lg) {
+    width: 2%;
+  }
+  @media screen and (max-width: $sm-max) {
+    margin: 0 8px 0 0;
+  }
 }
 
 .separator{
@@ -42,4 +63,13 @@
   border-radius: 50px;
   border: 1px solid #828282;
   margin: auto 5px;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
+
+.dots{
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
 }

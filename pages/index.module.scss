@@ -2,6 +2,8 @@
 
 .root{
   position: relative;
-  width: $container-lg;
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+  }
   margin: auto;
 }

@@ -18,6 +18,14 @@ export default function Dashboard(props){
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
     {title: 'file1', author: 'tanya', length: '100', size: '500', date: '12.09.2019', type: 'video'}
   ]
+
+  const projects = [
+    {title: "Цифровые навыки", type: "blue"},
+    {title: "Цифровые навыки", type: "blue"},
+    {title: "Цифровые навыки", type: "blue"},
+    {title: "Цифровые навыки", type: "blue"},
+    {title: "Цифровые навыки", type: "blue"}
+  ]
   
   return (
     <body className={styles.white}>
@@ -31,26 +39,11 @@ export default function Dashboard(props){
         />
       </div>
       <div className={styles.projects}>
-        <Project 
-        color="#2D9CDB"
-        title="Цифровые навыки"
-        />
-        <Project 
-        color="#333333"
-        title="Инструменты обработки, анализа и визуализации..."
-        />
-        <Project 
-        color="#EB5757"
-        title="Основы программирования на языке Python"
-        />
-        <Project 
-        color="#F2C94C"
-        title="Школа CRO"
-        />
-        <Project 
-        color="#EB5757"
-        title="Основы программирования на языке Python"
-        />
+        {projects.map(item => (<Project
+          type={item.type}
+          title={item.title}
+          />
+          ))}
       </div>
       <div className={styles.more}>
         <a>

@@ -48,7 +48,7 @@ export default function File(props: Props){
         </div>
       </a>
       </Link>
-      <div><a><img src="img/icons/dots.svg" alt=''/></a></div>
+      <div className={styles.dots}><a><img src="img/icons/dots.svg" alt=''/></a></div>
     </div>
   )
 }

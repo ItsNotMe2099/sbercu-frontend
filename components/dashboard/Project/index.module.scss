@@ -1,12 +1,19 @@
 @import "scss/index";
 
 .root{
-  margin-top: 16px;
-  margin-right: 24px;
+  @media screen and (min-width: $container-lg) {
+    margin-top: 16px;
+    margin-right: 24px;
+  }
 }
 
 .square{
-  width: 193px;
+  @media screen and (min-width: $container-lg) {
+    width: 193px;
+  }
+  @media screen and (max-width: $sm-max) {
+    width: 128px;
+  }
   border-radius: 5px;
 }
 
@@ -17,7 +24,12 @@
 }
 
 .title{
-  font-size: 14px;
+  @media screen and (min-width: $container-lg) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+  }
   text-align: center;
   color: #000;
   max-width: 150px;

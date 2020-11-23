@@ -27,7 +27,9 @@
 }
 
 .root{
-  flex: 1;
+  @media screen and (min-width: $container-lg) {
+    flex: 1;
+    }
   display: flex;
   justify-content: flex-end;
 }
