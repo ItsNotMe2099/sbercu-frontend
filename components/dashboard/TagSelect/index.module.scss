@@ -2,7 +2,7 @@
 .dropDown {
   background: #ffffff;
   position: absolute;
-  top: 40px;
+  top: 130px;
   opacity: 0;
   visibility: hidden;
   //transform: translateY(-20px);
@@ -14,6 +14,10 @@
   overflow-Y: scroll;
   max-width: 458px;
   max-height: 145px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 22px;
+    padding: 15px 20px;
+  }
 }
 .dropDownActive{
     opacity: 1;
@@ -30,6 +34,10 @@
   font-size: 14px;
   color: #828282;
   margin-right: 20px;
+  flex-shrink: 0;
+  @media screen and (max-width: $sm-max) {
+    margin-bottom: 15px;
+  }
 }
 
 .dropdownItem {
@@ -70,7 +78,14 @@
 }
 
 .filtered{
-  margin-top: 24px;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+  @media screen and (min-width: $container-lg) {
+    margin-top: 24px;
+  }
   .choosed{
     margin: 0 16px 16px 0;
   }
@@ -78,6 +93,11 @@
 
 .root{
   display: flex;
+  @media screen and (max-width: $sm-max) {
+    overflow: scroll;
+    padding: 0 22px;
+  }
+
 }
 
 .delete{

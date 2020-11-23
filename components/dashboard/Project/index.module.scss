@@ -7,6 +7,10 @@
   }
 }
 
+.container{
+  text-decoration: none;
+}
+
 .square{
   @media screen and (min-width: $container-lg) {
     width: 193px;

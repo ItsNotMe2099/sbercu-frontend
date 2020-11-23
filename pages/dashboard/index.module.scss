@@ -39,7 +39,7 @@
     grid-gap: 20px;
     padding: 0 22px;
     margin-top: 16px;
-    div{
+    a{
       &:nth-child(n + 5){
         display: none;
       }
@@ -70,6 +70,7 @@
 .moreFiles{
   margin-top: 10px;
   display: flex;
+  margin-bottom: 12px;
   a{
     margin: auto;
     @media screen and (max-width: $sm-max) {

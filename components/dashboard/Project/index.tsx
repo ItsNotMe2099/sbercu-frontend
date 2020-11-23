@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './index.module.scss'
 
 interface Props{
@@ -22,9 +23,13 @@ export default function Project(props: Props){
   }
 
   return (
-    <div className={styles.root}>
+    <Link href="/project">
+      <a className={styles.container}>
+      <div className={styles.root}>
       <div className={styles.square} style={{backgroundColor: getColorByType(props.type)}}></div>
       <div className={styles.title}>{props.title}</div>
     </div>
+    </a>
+    </Link>
   )
 }
