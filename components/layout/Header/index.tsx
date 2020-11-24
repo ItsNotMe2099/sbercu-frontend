@@ -1,4 +1,5 @@
 import Button from "components/ui/Button";
+import InputSearch from "components/ui/Inputs/InputSearch";
 import Profile from "./components/profile";
 import styles from './index.module.scss'
 
@@ -12,15 +13,7 @@ export default function Header(props: Props){
         <div className={styles.container}>
           <div className={styles.media}>media.</div>
           <div className={styles.notMedia}>
-          <form className={styles.form} action='/search'>
-            <div className={styles.inputContainer}>
-              <input className={styles.search}
-                     name="query"
-                     type='text'
-              />
-              <Button search></Button>
-            </div>
-          </form>
+          <InputSearch/>
           {props.projectPage ?
           <>
           <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey>Создать папку</Button></div>

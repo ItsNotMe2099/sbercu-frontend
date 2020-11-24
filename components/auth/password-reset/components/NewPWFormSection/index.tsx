@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import { passwordResetReset, passwordResetSubmit } from "components/auth/password-reset/actions";
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { clickOnSave } from 'actions'
-import { getParameterByName } from "utils/helpers";
 import NewPWForm from './NewPWForm'
 
 interface Props {}

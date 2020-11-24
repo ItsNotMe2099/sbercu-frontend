@@ -1,5 +1,4 @@
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
 
 
 interface Props {
@@ -8,15 +7,16 @@ interface Props {
   input
   label
   type,
-  disabled?: boolean,
+  disabled?: boolean
+  tip?: string
 }
 
 export default function Input(props: Props) {
-  const dispatch = useDispatch()
   const { error, touched } = props.meta
   const { input, label, type } = props
   return (
     <div className={styles.root}>
+      <div className={styles.tip}>{props.tip}</div>
       <input
         className={styles.input}
         type={type}

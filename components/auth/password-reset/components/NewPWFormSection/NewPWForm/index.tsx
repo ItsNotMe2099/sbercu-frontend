@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
-import InputPassword from 'components/ui/InputPassword'
+import InputPassword from 'components/ui/Inputs/InputPassword'
 import { IRootState } from "types";
 import styles from './index.module.scss'
 import {required, passwordsMatch, minL} from 'utils/validations'

@@ -1,5 +1,4 @@
 import React, { useState} from 'react'
-import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
 
 export default function InputPassword(props: Props) {
 
-  const dispatch = useDispatch()
   const [isShown, setIsShown] = useState(false)
   const { error, touched } = props.meta
   const { input, label, type } = props
@@ -27,11 +25,11 @@ export default function InputPassword(props: Props) {
       />
       {isShown ?
       <a href="#" onClick={() => setIsShown(false)}>
-        <img className={styles.icon} src={`img/field/shown.svg`} alt="" /> 
+        <img className={styles.icon} src='img/field/shown.svg' alt="" /> 
       </a>
       :
       <a href="#" onClick={() => setIsShown(true)}>
-        <img className={styles.icon} src={`img/field/notShown.svg`} alt="" />
+        <img className={styles.icon} src='img/field/notShown.svg' alt="" />
       </a>}
       {error &&
         touched && (
