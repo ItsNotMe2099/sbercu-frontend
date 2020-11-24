@@ -1,12 +1,11 @@
 .root{
-  color: #F2F2F2;
   border-radius: 5px;
   border: 0;
   cursor: pointer;
   display: flex;
 
   svg{
-    margin: auto 11px auto auto;
+    margin: auto;
   }
   span{
     margin: auto;
@@ -14,30 +13,78 @@
   }
 }
 
-.small{
-  width: 69px;
-  height: 33px;
-}
-
-.medium{
-  width: 83px;
-  height: 33px;
-}
-
-.large{
-  width: 98px;
-  height: 33px;
-}
-
-.vlarge{
-  width: 105px;
-  height: 33px;
-}
-
-.vvlarge{
-  padding: 9px 16px;
-}
-
 .green{
   background: #27AE60;
+  color: #F2F2F2;
+}
+
+.notActive{
+  background: #E0E0E0;
+  color: #828282;
+}
+
+.transparent{
+  background-color: transparent;
+  color: #BDBDBD;
+}
+
+.white{
+  background-color: #fff;
+  color: #000;
+}
+
+.text{
+  &__darkGrey{
+    color: #828282;
+  }
+  &__white{
+    color: #F2F2F2;
+  }
+  &__lightGrey{
+    color: #BDBDBD;
+  }
+  &__green{
+    color: #27AE60;
+  }
+}
+
+.closeBtn{
+  width: 14px;
+  height: 14px;
+  background: url('../../../public/img/icons/close.svg');
+}
+
+.removeBtn{
+  width: 14px;
+  height: 18px;
+  background: url('../../../public/img/icons/remove.svg');
+}
+
+.btn{
+  &__lightGrey{
+    svg{
+      fill: #BDBDBD;
+    }
+  }
+  &__white{
+    svg{
+      fill: #F2F2F2;
+    }
+  }
+  &__darkGrey{
+    svg{
+      fill: #828282;
+    }
+  }
+  &__green{
+    svg{
+      fill: #27AE60;;
+    }
+  }
+}
+
+.brdr{
+  &__darkGrey{
+    border: 1px solid #828282;
+  }
 }

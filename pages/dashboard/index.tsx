@@ -1,7 +1,5 @@
-import Button from "components/ui/Button";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
-import Welcome from 'components/svg/Welcome'
 import { TagSelect } from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";

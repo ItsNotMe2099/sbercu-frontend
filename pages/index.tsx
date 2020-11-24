@@ -1,3 +1,4 @@
+import NewPWForm from "components/auth/password-reset/components/NewPWFormSection/NewPWForm";
 import Header from "components/layout/Header";
 import WelcomePage from "pages/welcome";
 import { withAuthSync } from "utils/auth";

@@ -32,7 +32,7 @@ let AuthForm = props => {
               {formError ? <div className={styles.error}>{formError}</div> : null}
 
               <div className={styles.container}>
-              <Button small green>Войти</Button>
+              <Button size='12px 15px' green>Войти</Button>
               <Link href="/auth/password-forgot">
                 <a className={styles.forgot}>Забыли пароль?</a>
               </Link>

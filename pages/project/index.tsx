@@ -1,7 +1,5 @@
-import Button from "components/ui/Button";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
-import Welcome from 'components/svg/Welcome'
 import File from "components/dashboard/File";
 import Header from "components/layout/Header";
 import Link from "next/link";

@@ -23,8 +23,8 @@ export default function Header(props: Props){
           </form>
           {props.projectPage ?
           <>
-          <div className={styles.create}><a><img src="img/icons/createFolder.svg" alt=''/><span>Создать папку</span></a></div>
-          <div className={styles.download}><Button vvlarge green visiblePlus><span>Загрузить файл</span></Button></div>
+          <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey>Создать папку</Button></div>
+          <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite><span>Загрузить файл</span></Button></div>
           </>
           :
           null
