@@ -2,12 +2,19 @@ import Button from "components/ui/Button";
 import InputSearch from "components/ui/Inputs/InputSearch";
 import Profile from "./components/profile";
 import styles from './index.module.scss'
+import { useSelector, useDispatch } from 'react-redux'
+import { IRootState } from "types";
+import CreateFolder from "./components/CreateFolder";
+import { createFolderOpen, modalClose } from "components/Modal/actions";
 
 interface Props{
   projectPage?: boolean
 }
 
 export default function Header(props: Props){
+
+  const dispatch = useDispatch()
+  const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   return (
     <div className={styles.root}>
         <div className={styles.container}>
@@ -16,8 +23,8 @@ export default function Header(props: Props){
           <InputSearch/>
           {props.projectPage ?
           <>
-          <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey>Создать папку</Button></div>
-          <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite><span>Загрузить файл</span></Button></div>
+          <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
+          <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
           </>
           :
           null
@@ -25,6 +32,8 @@ export default function Header(props: Props){
           <Profile/>
           </div>
         </div>
+        <CreateFolder isOpen={key === 'createFolder'}
+        onRequestClose={() => dispatch(modalClose())}/>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import CreateGroup from 'components/svg/CreateGroup'
 import Invite from 'components/svg/Invite'
 
 interface Props {
+  type?: "submit" | "button"
   children?: React.ReactNode
   visiblePlus?: boolean
   folder?: boolean
@@ -33,6 +34,7 @@ interface Props {
 export default function Button(props: Props) {
   return (
     <button
+      type={props.type}
       onClick={props.onClick}
       className={`
         ${styles.root}
@@ -75,4 +77,8 @@ export default function Button(props: Props) {
     <span>{props.children}</span>
     </button>
   )
+}
+
+Button.defaultProps = {
+  type: 'submit'
 }
