@@ -28,3 +28,16 @@ export interface IResponse {
   data: any
   err: any
 }
+
+export interface CreateProjectData{
+  name?: string
+  entryType?: string
+  projectManager?: string
+  projectManagerMail?: string
+  projectCover?: string
+  projectDescription?: string
+  projectAudience?: string
+  projectTarget?: string
+  projectContent?: string
+  tagsIds?: number[]
+}

@@ -5,6 +5,7 @@ import TagItem from './TagItem'
 
 interface Props{
   categoryText: string
+  dots?: boolean
 }
 
 export default function TagCategory(props: Props){
@@ -14,7 +15,10 @@ export default function TagCategory(props: Props){
     <div className={styles.root}>
       <div className={styles.head}>
         <div className={styles.categoryText}>{props.categoryText}</div>
-        <CategoryHead/>
+        {props.dots ?
+        <CategoryHead dots/>
+        :
+        <CategoryHead/>}
       </div>
       <div className={styles.clearfix}>
       {options.map(item => 

@@ -1,0 +1,16 @@
+.form{
+  display: flex;
+}
+
+.head{
+  border-bottom: 1px solid #828282;
+  span{
+    font-weight: bold;
+    font-size: 18px;
+    color: #828282;
+  }
+}
+
+.btnContainer{
+  display: flex;
+}

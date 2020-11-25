@@ -4,6 +4,7 @@ import cx from 'classnames'
 import { useDetectOutsideClick } from 'components/dashboard/TagSelect/useDetectOutsideClick'
 
 interface Props{
+  dots?: boolean
 }
 
 export default function CategoryHead(props: Props){
@@ -17,7 +18,7 @@ export default function CategoryHead(props: Props){
 
   return (
     <div className={styles.root}>
-        <a className={styles.dots} onClick={onClick}><img src="img/icons/dots.svg" alt=''/>
+        <a className={styles.dots} onClick={onClick}>{props.dots ? <img src="img/icons/dots.svg" alt=''/> : null}
           <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
             <div className={styles.option}><a>Редактировать</a></div>
             <div className={styles.option}><a>Удалить</a></div>

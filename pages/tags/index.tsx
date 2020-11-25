@@ -15,12 +15,12 @@ export default function Tags(props){
     <div className={styles.root}>
       <div className={styles.title}>Теги</div>
       <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
-      <TagCategory categoryText='Подразделения'/>
-      <TagCategory categoryText='Раздел'/>
-      <TagCategory categoryText='Тема'/>
-      <TagCategory categoryText='Форма обучения'/>
-      <TagCategory categoryText='Обязательность'/>
-      <TagCategory categoryText='Компетенции'/>
+      <TagCategory dots categoryText='Подразделения'/>
+      <TagCategory dots categoryText='Раздел'/>
+      <TagCategory dots categoryText='Тема'/>
+      <TagCategory dots categoryText='Форма обучения'/>
+      <TagCategory dots categoryText='Обязательность'/>
+      <TagCategory dots categoryText='Компетенции'/>
     </div>
     </body>
   )
