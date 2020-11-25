@@ -9,7 +9,8 @@ import { createFolderSubmit } from './actions'
 export default function CreateFolder(props){
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
-    dispatch(createFolderSubmit(data));
+    dispatch(createFolderSubmit({name: data.name, entryType: 'folder', parentId: 0}));
+    console.log('success')
   }
 
 

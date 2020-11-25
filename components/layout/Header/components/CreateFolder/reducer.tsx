@@ -17,6 +17,7 @@ const initialState: CreateFolderState = {
 export default function loginSubmitReducer(state = {...initialState}, action) {
   switch(action.type) {
     case ActionTypes.CREATE_FOLDER_SUBMIT:
+      console.log('working')
       state.formIsSuccess = false
       state.loading = true;
       break

@@ -21,7 +21,7 @@ export default function Modal(props: Props) {
     },
     content : {
       width: '441px',
-      borderRadius: '21px',
+      borderRadius: '5px',
       padding: '0',
       border: '0',
       margin: 'auto',
@@ -44,10 +44,7 @@ export default function Modal(props: Props) {
           :
           null}
         </div>
-        <div>
-        {props.children}
-        <Button transparent onClick={props.onRequestClose} type="button">{props.cancel}</Button>
-        </div>
+        <div className={styles.children}>{props.children}</div>
       </div>
     </ReactModal>
   )

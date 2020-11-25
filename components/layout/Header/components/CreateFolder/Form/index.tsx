@@ -3,10 +3,13 @@ import Input from 'components/ui/Inputs/Input'
 import styles from './index.module.scss'
 import Button from 'components/ui/Button'
 import { useState } from 'react'
+import { useDispatch} from 'react-redux'
+import { modalClose } from 'components/Modal/actions'
 
 let CreateFolderForm = props => {
   const { handleSubmit } = props
   const [value, setValue] = useState('')
+  const dispatch = useDispatch()
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -21,7 +24,8 @@ let CreateFolderForm = props => {
         {/*value === '' ?
           <Button notActive textWhite size="9px 16px" type="button">Создать</Button>
           :*/
-          <Button green size="9px 16px">Создать</Button>}
+            <Button green size="9px 16px">Создать</Button>}
+            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
   )

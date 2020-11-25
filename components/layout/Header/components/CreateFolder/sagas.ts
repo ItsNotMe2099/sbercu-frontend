@@ -4,7 +4,7 @@ import requestGen from "utils/requestGen";
 import ActionTypes from './const'
 import { IRequestData, IResponse, IRootState } from 'types'
 import { createFolderError, createFolderSubmit } from './actions';
-function* createFolderSaga() {
+export function* createFolderSaga() {
 
 
   yield takeLatest(ActionTypes.CREATE_FOLDER_SUBMIT,
@@ -22,5 +22,3 @@ function* createFolderSaga() {
     })
 
 }
-
-export default createFolderSaga
