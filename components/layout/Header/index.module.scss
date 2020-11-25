@@ -53,6 +53,13 @@
   }
 }
 
+.tagBtn{
+  margin: auto 27px auto auto;
+  @media screen and (max-width: $sm-max) {
+    margin: auto 5px auto 0;
+  }
+}
+
 .download{
   @media screen and (max-width: $sm-max) {
     margin-right: 20px;

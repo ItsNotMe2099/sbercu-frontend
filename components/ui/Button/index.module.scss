@@ -87,4 +87,17 @@
   &__darkGrey{
     border: 1px solid #828282;
   }
+  &__green{
+    border: 1px solid #27AE60;
+  }
+}
+
+.brdrRadius{
+  &__circle{
+    border-radius: 50px;
+  }
+}
+
+.rotate{
+  transform: rotate(-180deg);
 }

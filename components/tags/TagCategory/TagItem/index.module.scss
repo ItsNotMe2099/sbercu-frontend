@@ -1,0 +1,72 @@
+@import "scss/index";
+.root{
+  float: left;
+  
+}
+
+.item{
+  padding: 7px 16px;
+  display: flex;
+  background: #F2F2F2;
+  border-radius: 50px;
+  font-size: 11px;
+  color: #828282;
+  text-decoration: none;
+  margin: 0 16px 16px 0;
+}
+
+.choosed{
+  padding: 7px 16px;
+  display: flex;
+  background: #F2994A;
+  border-radius: 50px;
+  font-size: 11px;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 16px 16px 0;
+  position: relative;
+}
+
+.delete{
+  margin-right: 8px;
+}
+
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  top: 30px;
+  opacity: 0;
+  visibility: hidden;
+  //transform: translateY(-20px);
+  //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px 0 0 0;
+  z-index: 5;
+  min-width: 178px;
+  display: flex;
+  flex-direction: column;
+  left: -15px;
+}
+
+.dropDownActive{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  background: #FFFFFF;
+  border-radius: 5px;
+}
+
+.option{
+  padding: 0 10px 10px 10px;
+  a{
+    font-weight: bold;
+    font-size: 12px;
+    color: #000000;
+    text-decoration: none;
+  }
+  &:hover{
+    background-color: #F2F2F2;
+  }
+}

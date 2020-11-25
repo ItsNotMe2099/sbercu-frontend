@@ -1,0 +1,29 @@
+@import "scss/index";
+
+.root{
+  width: 70%;
+}
+
+.clearfix{
+  margin: 17px 0;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+}
+
+.categoryText{
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 21px;
+}
+
+.head{
+  display: flex;
+  margin-top: 6px;
+}
+
+.btnContainer{
+  float: left;
+}

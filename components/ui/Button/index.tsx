@@ -26,8 +26,11 @@ interface Props {
   btnGreen?: boolean
   btnWhite?: boolean
   brdrDarkGrey?: boolean
+  brdrGreen?: boolean
+  brdrRadiusCircle?: boolean
   createGroup?: boolean
   invite?: boolean
+  rotate?: boolean
   onClick?: (e: React.MouseEvent) => void
 }
 
@@ -48,6 +51,9 @@ export default function Button(props: Props) {
         ${props.textWhite && styles.text__white}
         ${props.closeBtn && styles.closeBtn}
         ${props.brdrDarkGrey && styles.brdr__darkGrey}
+        ${props.brdrGreen && styles.brdr__green}
+        ${props.brdrRadiusCircle && styles.brdrRadius__circle}
+        ${props.rotate && styles.rotate}
       `}
       style={{padding: props.size}}
     >
