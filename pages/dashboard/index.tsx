@@ -1,3 +1,7 @@
+import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actions";
+import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import { useEffect } from "react";
+import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
@@ -5,10 +9,19 @@ import Project from "components/dashboard/Project";
 import Quantity from "./components";
 import File from "components/dashboard/File";
 import Header from "components/layout/Header";
-
+import { useDispatch, useSelector } from 'react-redux'
 
 
 export default function Dashboard(props){
+  const dispatch = useDispatch();
+  const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
+  const projects = useSelector((state: IRootState) => state.catalog.projects)
+
+  useEffect(() => {
+    dispatch(fetchTagCategoryList());
+    dispatch(fetchCatalogProjects({entryType: 'project'}))
+  }, [])
+
   const items = [
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
@@ -17,29 +30,21 @@ export default function Dashboard(props){
     {title: 'file1', author: 'tanya', length: '100', size: '500', date: '12.09.2019', type: 'video'}
   ]
 
-  const projects = [
-    {title: "Цифровые навыки", type: "blue"},
-    {title: "Цифровые навыки", type: "blue"},
-    {title: "Цифровые навыки", type: "blue"},
-    {title: "Цифровые навыки", type: "blue"},
-    {title: "Цифровые навыки", type: "blue"}
-  ]
-  
+
   return (
     <body className={styles.white}>
     <Header/>
     <div className={styles.root}>
-      <TagSelect/>
+      <TagSelect items={tagCategories}/>
       <div className={styles.titleContainer}>
         <div className={styles.title}>Проекты</div>
         <Quantity
-        quantity='168'
+        quantity={projects.length}
         />
       </div>
       <div className={styles.projects}>
         {projects.map(item => (<Project
-          type={item.type}
-          title={item.title}
+          item={item}
           />
           ))}
       </div>
@@ -56,10 +61,12 @@ export default function Dashboard(props){
       </div>
       <div className={styles.files}>
         {items.map(item => (<File
-        date={item.date}
-        author={item.author}
-        title={item.title}
-        type={item.type}
+        item={{
+          id: 1,
+          name: item.title,
+          entryType: 'video',
+          createdAt: item.date
+        }}
         />))}
       </div>
       <div className={styles.moreFiles}>

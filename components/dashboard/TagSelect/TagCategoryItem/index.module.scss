@@ -1,10 +1,5 @@
 @import "scss/index";
-.tagSelector{
-  display: flex;
-  @media screen and (max-width: $sm-max) {
-    overflow: scroll;
-    padding: 0 22px;
-  }
+.root{
 
 }
 .dropDown {
@@ -17,7 +12,7 @@
   //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
-  padding: 16px 25px;
+  padding: 16px 25px 16px 0px;
   z-index: 5;
   overflow-Y: scroll;
   max-width: 458px;
@@ -47,19 +42,22 @@
     margin-bottom: 15px;
   }
 }
-
-.dropdownItem {
-       padding: 7px 16px;
-       display: flex;
-       background: #F2F2F2;
-       border-radius: 50px;
-       font-size: 11px;
-       color: #828282;
-       text-decoration: none;
-       float: left;
-       margin: 0 0 16px 16px;
-
+.isSelected{
+  position: relative;
+  padding-left: 6px;
+  &:before{
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #27AE60;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 0px
+  }
 }
+
 
 .dropdownTriggerActive{
   position: relative;
@@ -67,47 +65,4 @@
   color: #000000;
   padding-bottom: 6px;
   border-bottom: 2px solid #27AE60;
-}
-
-.dropdownItemLabel{
-  vertical-align: middle;
-}
-
-.choosed{
-  padding: 7px 16px;
-  display: flex;
-  background: #27AE60;
-  border-radius: 50px;
-  font-size: 11px;
-  color: #fff;
-  text-decoration: none;
-  float: left;
-  margin: 0 0 16px 16px;
-}
-
-.filtered{
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-}
-  @media screen and (min-width: $container-lg) {
-    margin-top: 24px;
-  }
-  .choosed{
-    margin: 0 16px 16px 0;
-  }
-}
-
-.root{
-  display: flex;
-  @media screen and (max-width: $sm-max) {
-    overflow: scroll;
-    padding: 0 22px;
-  }
-
-}
-
-.delete{
-  margin-right: 8px;
 }
