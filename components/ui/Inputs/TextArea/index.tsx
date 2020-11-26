@@ -7,7 +7,6 @@ interface Props {
   input
   label
   type
-  title?: string
 }
 
 export default function TextArea(props: Props) {
@@ -15,7 +14,6 @@ export default function TextArea(props: Props) {
   const { input, label, type } = props
   return (
     <div className={styles.root}>
-      <div className={styles.title}>{props.title}</div>
       <textarea
         className={`${styles.textarea} ${(error && touched) && styles.textareaError}`}
         type={type}

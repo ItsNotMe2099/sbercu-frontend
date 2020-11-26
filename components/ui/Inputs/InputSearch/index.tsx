@@ -16,7 +16,7 @@ export default function InputSearch(props: Props) {
               type='text'
               placeholder={props.placeholder}
           />
-          <Button search></Button>
+          <Button search type="button"></Button>
       </div>
     </form>
   )

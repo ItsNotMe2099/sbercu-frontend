@@ -17,13 +17,18 @@ export default function CategoryHead(props: Props){
   }
 
   return (
+    <>
+    {props.dots ?
     <div className={styles.root}>
-        <a className={styles.dots} onClick={onClick}>{props.dots ? <img src="img/icons/dots.svg" alt=''/> : null}
+        <a className={styles.dots} onClick={onClick}><img src="img/icons/dots.svg" alt=''/>
           <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
             <div className={styles.option}><a>Редактировать</a></div>
             <div className={styles.option}><a>Удалить</a></div>
           </nav>
         </a>
     </div>
+    :
+    null}
+    </>
   )
 }

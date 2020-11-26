@@ -1,0 +1,49 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+  }
+  margin: auto;
+}
+
+.white{
+  background-color: #fff;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.container{
+  width: 70%;
+}
+
+.inputContainer{
+  width: 35%;
+  form{
+    div{
+      input{
+        width: 100%;
+      }
+    }
+  }
+}
+
+.table{
+  display: table;
+  margin-top: 33px;
+}
+
+.tr{
+  display: table-row;
+  border: 1px solid #E0E0E0;
+}
+
+.td{
+  display: table-cell;
+  font-size: 12px;
+  color: #bdbdbd;
+}
