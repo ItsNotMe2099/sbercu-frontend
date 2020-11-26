@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import TagItem from './TagItem'
 
 interface Props{
-  categoryText: string
+  categoryText?: string
   dots?: boolean
   green?: boolean
 }

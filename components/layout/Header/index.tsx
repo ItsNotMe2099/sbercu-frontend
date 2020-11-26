@@ -10,6 +10,7 @@ import { createFolderOpen, modalClose } from "components/Modal/actions";
 interface Props{
   projectPage?: boolean
   tagsPage?: boolean
+  usersPage?: boolean
 }
 
 export default function Header(props: Props){
@@ -34,6 +35,13 @@ export default function Header(props: Props){
           <>
           <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button">Создать новый тег</Button></div>
           <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button">Создать новую коллекцию</Button></div>
+          </>
+          :
+          null
+          }
+          {props.usersPage ?
+          <>
+          <div className={styles.tagBtn}><Button transparent invite textGreen btnGreen type="button">Пригласить</Button></div>
           </>
           :
           null
