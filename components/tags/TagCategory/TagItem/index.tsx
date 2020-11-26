@@ -5,6 +5,7 @@ import { useDetectOutsideClick } from 'components/dashboard/TagSelect/useDetectO
 
 interface Props{
   label: string
+  green?: boolean
 }
 
 export default function TagItem(props: Props){
@@ -25,7 +26,8 @@ export default function TagItem(props: Props){
 
   return (
       <div className={styles.root}>
-        <a className={cx(styles.item, { [styles.choosed]: selected})} onClick={(e) => handleActiveOptionClick(e)}>
+        {props.green ?
+        <a className={cx(styles.item, { [styles.green]: selected})} onClick={(e) => handleActiveOptionClick(e)}>
           {selected ? <a className={styles.delete} onClick={(e) => onClickItem(e)}><img src="img/icons/delete.svg" alt=''/>
             <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
               <div className={styles.option}><a>Редактировать</a></div>
@@ -36,6 +38,19 @@ export default function TagItem(props: Props){
           null
           }
           <span>{props.label}</span></a>
+          :
+          <a className={cx(styles.item, { [styles.choosed]: selected})} onClick={(e) => handleActiveOptionClick(e)}>
+          {selected ? <a className={styles.delete} onClick={(e) => onClickItem(e)}><img src="img/icons/delete.svg" alt=''/>
+            <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
+              <div className={styles.option}><a>Редактировать</a></div>
+              <div className={styles.option}><a>Удалить</a></div>
+            </nav>
+          </a>
+          :
+          null
+          }
+          <span>{props.label}</span></a>
+        }
       </div>
   )
 }

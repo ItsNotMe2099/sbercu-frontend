@@ -1,0 +1,11 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  cursor: pointer;
+  display: flex;
+}
+.label{
+  font-size: 14px;
+  margin-left: 15px;
+}
