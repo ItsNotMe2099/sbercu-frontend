@@ -35,7 +35,12 @@ export default function AuthControl(props: Props) {
 
     }, [formData, firstStepIsComplete])
     const handleSecondStepSubmit = useCallback(values => {
-        dispatch(regSubmit({ ...formData, password: values.new_password as string, inviteToken: token as string, id: undefined, role: undefined }))
+        dispatch(regSubmit({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            password: values.new_password as string,
+            inviteToken: token as string
+        }))
     }, [formData, firstStepIsComplete, token])
     const handleSecondStepGoBack = () => {
         setFirstStepIsComplete(false);

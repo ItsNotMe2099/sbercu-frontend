@@ -2,7 +2,7 @@
 
 .container{
   display: flex;
-  height: 374px;
+  height: 422px;
   background: #F2F2F2;
   border-radius: 5px;
   @media (min-width: $md-min){
@@ -17,7 +17,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    svg{ 
+    svg{
       margin: auto
     }
   }

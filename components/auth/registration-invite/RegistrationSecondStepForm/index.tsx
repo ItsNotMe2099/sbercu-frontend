@@ -36,8 +36,7 @@ let RegistrationSecondStepForm = (props: Props) => {
                     />
                 </div>
             </div>
-            <Button green>Зарегистрироваться</Button>
-
+            <Button green size="9px 16px">Зарегистрироваться</Button>
 
         </form>
     )

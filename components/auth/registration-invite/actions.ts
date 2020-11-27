@@ -2,8 +2,8 @@ import ActionTypes from './const'
 import { action } from 'typesafe-actions'
 interface RegistrationData{
     email?: string,
-    name?: string,
-    surname?: string,
+    firstName?: string,
+    lastName?: string,
     password: string,
     inviteToken: string,
     role?: any,
