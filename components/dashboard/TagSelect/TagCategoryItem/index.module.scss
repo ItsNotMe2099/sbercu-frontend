@@ -1,11 +1,11 @@
 @import "scss/index";
 .root{
-
+position: relative;
 }
 .dropDown {
   background: #ffffff;
   position: absolute;
-  top: 130px;
+  top: 25px;
   opacity: 0;
   visibility: hidden;
   //transform: translateY(-20px);
@@ -15,10 +15,11 @@
   padding: 16px 25px 16px 0px;
   z-index: 5;
   overflow-Y: scroll;
-  max-width: 458px;
+  width: 458px;
   max-height: 145px;
   @media screen and (max-width: $sm-max) {
     margin-right: 22px;
+    max-width: 320px;
     padding: 15px 20px;
   }
 }

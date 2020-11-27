@@ -25,7 +25,7 @@ export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(
 })
 export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH_CATALOG_PROJECT_LIST, {
   api: {
-    url: `/api/catalog?${queryString.stringify({ page: data.page || 1, per_page: data.limit || 10, s: JSON.stringify({ entryType: 'project'})})}`,
+    url: `/api/catalog/projects?${queryString.stringify(data)}`,
     method: 'GET',
   }
 })

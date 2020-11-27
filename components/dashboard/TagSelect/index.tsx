@@ -1,19 +1,25 @@
 import { TagSelectCategoryItem } from "components/dashboard/TagSelect/TagCategoryItem";
 import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from './index.module.scss'
 import cx from 'classnames'
-import { IRootState, ITagCategory } from "types";
+import { IRootState, ITag, ITagCategory } from "types";
 import { fetchTag } from "./actions";
 
 interface Props {
-  items: ITagCategory[]
+  items: ITagCategory[],
+  onChangeSelectedTags?: (tags: ITag[]) => void
 }
 
 export const TagSelect = (props: Props) => {
   const dispatch = useDispatch();
   const [selectedTags, setSelectedTags] = useState([])
+  useEffect(() => {
+      if(props.onChangeSelectedTags){
+        props.onChangeSelectedTags(selectedTags);
+      }
+  }, [selectedTags])
   const handleTagClick = (selectedItem, selected) => {
     console.log("HandleTagClick", selectedItem, selected)
     if(selected) {

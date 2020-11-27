@@ -91,8 +91,8 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.listLoading = true;
       break
     case ActionTypes.FETCH_CATALOG_PROJECT_LIST + ApiActionTypes.SUCCESS:
-      state.projects = action.payload.data
-      state.projectsTotal = action.payload.total
+      state.projects = action.payload
+      state.projectsTotal =  state.projects.length
       state.listLoading = false;
       break
     case ActionTypes.FETCH_CATALOG_PROJECT_LIST + ApiActionTypes.FAIL:

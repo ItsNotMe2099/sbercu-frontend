@@ -22,6 +22,9 @@ export default function Dashboard(props){
     dispatch(fetchCatalogProjects({entryType: 'project'}))
   }, [])
 
+  const handleTagChangeTags = (tags) => {
+    dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
+  }
   const items = [
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
@@ -35,7 +38,7 @@ export default function Dashboard(props){
     <body className={styles.white}>
     <Header/>
     <div className={styles.root}>
-      <TagSelect items={tagCategories}/>
+      <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
       <div className={styles.titleContainer}>
         <div className={styles.title}>Проекты</div>
         <Quantity
