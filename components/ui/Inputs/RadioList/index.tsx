@@ -1,3 +1,4 @@
+import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import Radio from "components/ui/Inputs/RadioList/Radio";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import styles from './index.module.scss'
@@ -35,6 +36,7 @@ export const RadioList = (props) => {
                      value={item.value} isActive={item.value === input.value} label={item.label} onChange={handleCheckboxChanged}/>
         </div>
       ))}
+      <ErrorInput {...props}/>
       </div>
 
   );

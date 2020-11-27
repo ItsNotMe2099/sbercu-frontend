@@ -13,10 +13,7 @@ interface Props {
 
 export const TagSelect = (props: Props) => {
   const dispatch = useDispatch();
-  const dropdownRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [selectedTags, setSelectedTags] = useState([])
-  const [selectedCat, setSelectedCat] = useState([])
   const handleTagClick = (selectedItem, selected) => {
     console.log("HandleTagClick", selectedItem, selected)
     if(selected) {

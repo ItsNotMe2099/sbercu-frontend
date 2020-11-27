@@ -5,7 +5,9 @@ interface RegistrationData{
     name?: string,
     surname?: string,
     password: string,
-    inviteToken: string
+    inviteToken: string,
+    role?: any,
+    id?:any
 }
 
 export const regFirstStep = (data: RegistrationData) => action(ActionTypes.REG_FIRST_STEP, data)

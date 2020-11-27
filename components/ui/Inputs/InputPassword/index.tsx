@@ -1,3 +1,4 @@
+import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import React, { useState} from 'react'
 import styles from './index.module.scss'
 
@@ -25,17 +26,13 @@ export default function InputPassword(props: Props) {
       />
       {isShown ?
       <a href="#" onClick={() => setIsShown(false)}>
-        <img className={styles.icon} src='img/field/shown.svg' alt="" /> 
+        <img className={styles.icon} src='img/field/shown.svg' alt="" />
       </a>
       :
       <a href="#" onClick={() => setIsShown(true)}>
         <img className={styles.icon} src='img/field/notShown.svg' alt="" />
       </a>}
-      {error &&
-        touched && (
-        <div className={styles.error}>
-          {error}
-        </div>)}
+      <ErrorInput {...props}/>
     </div>
   )
 }

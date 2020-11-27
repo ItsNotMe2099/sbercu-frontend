@@ -1,56 +1,56 @@
 import { useRef, useState } from 'react'
+import { ITag } from "types";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import { useDetectOutsideClick } from 'components/dashboard/TagSelect/useDetectOutsideClick'
 
 interface Props{
-  label: string
+  item: ITag
+  isSelected?: boolean,
+  onClick?: (item, selected) => void
+  onEditClick?: (item) => void
+  onDeleteClick?: (item) => void
+  editMode: boolean
   green?: boolean
 }
 
-export default function TagItem(props: Props){
-  const [selected, setSelected] = useState(false)
+export default function TagItem({item, editMode, onClick, onDeleteClick, onEditClick, isSelected, ...props}: Props){
   const dropdownRefItem = useRef(null)
   const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
 
-  const onClickItem =(e) => {
+  const handleClick = (e) => {
     e.preventDefault()
-    setIsActiveItem(!isActiveItem)
-  }
-
-  const handleActiveOptionClick = (e) => {
-    e.preventDefault();
-    console.log("Click");
-    setSelected(true)
+    if(onClick){
+      onClick(item, !isSelected)
     }
-
+    if(editMode) {
+      setIsActiveItem(!isActiveItem);
+    }
+  }
+  const handleEditClick = (e) => {
+    e.preventDefault()
+    if(onEditClick){
+      onEditClick(item)
+    }
+    setIsActiveItem(false);
+  }
+  const handleDeleteClick = (e) => {
+    e.preventDefault()
+    if(onDeleteClick){
+      onDeleteClick(item)
+    }
+    setIsActiveItem(false);
+  }
   return (
       <div className={styles.root}>
-        {props.green ?
-        <a className={cx(styles.item, { [styles.green]: selected})} onClick={(e) => handleActiveOptionClick(e)}>
-          {selected ? <a className={styles.delete} onClick={(e) => onClickItem(e)}><img src="img/icons/delete.svg" alt=''/>
-            <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
-              <div className={styles.option}><a>Редактировать</a></div>
-              <div className={styles.option}><a>Удалить</a></div>
-            </nav>
-          </a>
-          :
-          null
-          }
-          <span>{props.label}</span></a>
-          :
-          <a className={cx(styles.item, { [styles.choosed]: selected})} onClick={(e) => handleActiveOptionClick(e)}>
-          {selected ? <a className={styles.delete} onClick={(e) => onClickItem(e)}><img src="img/icons/delete.svg" alt=''/>
-            <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
-              <div className={styles.option}><a>Редактировать</a></div>
-              <div className={styles.option}><a>Удалить</a></div>
-            </nav>
-          </a>
-          :
-          null
-          }
-          <span>{props.label}</span></a>
-        }
+        <a className={cx(styles.item, { [styles.choosed]: isSelected})} onClick={handleClick}>
+          {isSelected && <a className={styles.delete} onClick={handleClick}><img src="img/icons/delete.svg" alt=''/></a>}
+          <span>{item.name}</span>
+          <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
+            <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
+            <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
+          </nav>
+        </a>
       </div>
   )
 }

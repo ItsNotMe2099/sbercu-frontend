@@ -51,13 +51,13 @@
 .closeBtn{
   width: 14px;
   height: 14px;
-  background: url('../../../public/img/icons/close.svg');
+  background: url('/img/icons/close.svg');
 }
 
 .removeBtn{
   width: 14px;
   height: 18px;
-  background: url('../../../public/img/icons/remove.svg');
+  background: url('/img/icons/remove.svg');
 }
 
 .btn{
@@ -95,5 +95,6 @@
 .brdrRadius{
   &__circle{
     border-radius: 50px;
+
   }
 }

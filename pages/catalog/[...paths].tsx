@@ -1,5 +1,7 @@
 import { fetchCatalogList, fetchCatalogParents, setCurrentCatalogId } from "components/catalog/actions";
+import { createFolderOpen } from "components/Modal/actions";
 import BreadCrumbs from "components/ui/Breadcrumbs";
+import Button from "components/ui/Button";
 import { useEffect } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
@@ -12,7 +14,7 @@ import { useRouter } from 'next/router'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function Project(props){
+const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
   const items = useSelector((state: IRootState) => state.catalog.list)
@@ -32,14 +34,17 @@ export default function Project(props){
 
   return (
     <body className={styles.white}>
-    <Header projectPage/>
+    <Header>
+      <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
+      <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
+    </Header>
     <div className={styles.root}>
       <div className={styles.head}>
       <div className={styles.title}>{parents[parents.length - 1]?.name}</div>
         <div className={styles.image}><a><img src="img/icons/dots.svg" alt=''/></a></div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...parents]}/>
-      {items.length !== 0 ? <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div> : <div className={styles.duration}>0 материалов</div>}
+      {items.length > 0 &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
       {items.length !== 0 ?
       <div className={styles.files}>
         {items.map(item => (<File
@@ -66,3 +71,5 @@ export default function Project(props){
   )
 }
 
+
+export default withAuthSync(Catalog)

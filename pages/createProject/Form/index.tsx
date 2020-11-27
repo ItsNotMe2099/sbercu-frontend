@@ -1,3 +1,4 @@
+import TagInput from "components/ui/Inputs/TagInput";
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
 import InputPassword from 'components/ui/Inputs/InputPassword'
@@ -77,46 +78,10 @@ let ProjectForm = props => {
               <div className={styles.tags}>
                 <Field
                 name="tagsIds"
-                component={TagCategory}
-                categoryText="Подразделение"
+                component={TagInput}
                 green
                 />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Раздел"
-                green
-                />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Тема"
-                green
-                />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Форма обучения"
-                green
-                />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Обязательность"
-                green
-                />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Компетенции"
-                green
-                />
-                <Field
-                name="tagsIds"
-                component={TagCategory}
-                categoryText="Уровни менеджмента"
-                green
-                />
+
               </div>
             </div>
             <div>

@@ -22,9 +22,6 @@
 }
 
 .textareaError{
-  @include inputError
+  border-color: #FF1066;
 }
 
-.error{
-  @include error
-}

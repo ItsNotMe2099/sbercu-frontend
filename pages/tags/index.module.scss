@@ -31,6 +31,13 @@
   }
 }
 
+.tagBtn{
+  margin: auto 27px auto auto;
+  @media screen and (max-width: $sm-max) {
+    margin: auto 5px auto 0;
+  }
+}
+
 .container{
   width: 70%;
 }

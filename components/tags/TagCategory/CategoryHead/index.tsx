@@ -4,14 +4,16 @@ import cx from 'classnames'
 import { useDetectOutsideClick } from 'components/dashboard/TagSelect/useDetectOutsideClick'
 
 interface Props{
-  dots?: boolean
+  dots?: boolean,
+  onEditClick?: (item) => void
+  onDeleteClick?: (item) => void
 }
 
-export default function CategoryHead(props: Props){
+export default function CategoryHead({onDeleteClick, onEditClick, ...props}: Props){
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
-  const onClick = (e) => { 
+  const onClick = (e) => {
     e.preventDefault()
     setIsActive(!isActive);
   }

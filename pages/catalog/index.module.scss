@@ -164,3 +164,40 @@
 .images{
   display: flex;
 }
+
+
+.create{
+  margin: auto 27px auto auto;
+  @media screen and (max-width: $sm-max) {
+    margin: auto 5px auto 0;
+  }
+  a{
+    display: flex;
+  }
+  img{
+    margin-right: 10px;
+  }
+  span{
+    font-size: 12px;
+    color: #828282;
+    margin: auto;
+    @media screen and (max-width: $sm-max) {
+      display: none;
+    }
+  }
+}
+.download{
+  @media screen and (max-width: $sm-max) {
+    margin-right: 20px;
+    span{
+      display: none;
+    }
+    button{
+      padding: 8px 16px;
+      svg{
+        margin: auto;
+        height: 16px;
+      }
+    }
+  }
+}

@@ -1,42 +1,89 @@
+import { TagSelectItem } from "components/dashboard/TagSelect/TagItem";
+import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
 import Button from 'components/ui/Button'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { ITag, ITagCategory } from "types";
 import CategoryHead from './CategoryHead'
 import styles from './index.module.scss'
 import TagItem from './TagItem'
+import cx from 'classnames'
 
-interface Props{
-  categoryText?: string
-  dots?: boolean
-  green?: boolean
+interface Props {
+    item: ITagCategory
+    onEditClick?: (item) => void
+    onDeleteClick?: (item) => void
+    onTagClick?: (item, selected) => void
+    onTagEditClick?: (item) => void
+    onTagDeleteClick?: (item) => void
+    selectedTags: ITag[]
+    editMode?: boolean
+    green?: boolean,
+    hideHeader?: boolean
 }
 
-export default function TagCategory(props: Props){
-  const options = [{label: 'Системное мышление и решение проблем', value: 1}, {label: 'Клиентоцентричность', value: 2}, {label: 'Развитие команд и сотрудничество', value: 3}, {label: 'Продукты и рынки', value: 4}, {label: 'Клиентоцентричность', value: 5}, {label: 'Клиентоцентричность', value: 6}, {label: 'Клиентоцентричность', value: 7}, {label: 'Клиентоцентричность', value: 8}]
-  const [show, setShowAll] = useState(false)
-  const onClick = () => {
-    setShowAll(show => !show)
-  }
+export default function TagCategory({ item, editMode, onTagClick, onTagEditClick, onTagDeleteClick, onEditClick, onDeleteClick, selectedTags, ...props }: Props) {
 
-  return (
-    <div className={styles.root}>
-      <div className={styles.head}>
-        <div className={styles.categoryText}>{props.categoryText}</div>
-        {props.dots ?
-        <CategoryHead dots/>
-        :
-        <CategoryHead/>}
-      </div>
-      <div className={styles.clearfix}>
-        {(show ? options : options.slice(0,3)).map(item => 
-          <TagItem
-          green={props.green}
-          label={item.label}
-          />
-          )}
-        <div className={styles.btnContainer}>
-        <Button onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen size="6px" type="button">{show ? <>&larr;</> : <>&rarr;</>}</Button>
+    const [show, setShowAll] = useState(false)
+    const dropdownRef = useRef(null);
+    const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+
+    const onClickDots = (e) => {
+        e.preventDefault()
+        setIsActive(!isActive);
+    }
+    const onClick = () => {
+        setShowAll(show => !show)
+    }
+    const handleEditClick = (e) => {
+        console.log("handleEditClick")
+        e.preventDefault()
+        if(onEditClick){
+            onEditClick(item)
+        }
+        setIsActive(false);
+    }
+    const handleDeleteClick = (e) => {
+        e.preventDefault()
+        if(onDeleteClick){
+            onDeleteClick(item)
+        }
+
+        setIsActive(false);
+
+    }
+
+
+    return (
+        <div className={styles.root}>
+            <div className={styles.head}>
+                {!props.hideHeader && <div className={styles.categoryText}>{item.name}</div>}
+
+                {editMode && <div className={styles.edit}>
+                  <a className={styles.dots} onClick={onClickDots}><img src="/img/icons/dots.svg" alt=''/>
+                    <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
+                      <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
+                      <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
+                    </nav>
+                  </a>
+                </div>}
+            </div>
+            <div className={styles.clearfix}>
+                {(show ? item.tags : item.tags.slice(0, 3)).map(item =>
+                    <TagItem
+                        green={props.green}
+                        onClick={onTagClick}
+                        onEditClick={onTagEditClick}
+                        onDeleteClick={onTagDeleteClick}
+                        editMode={editMode}
+                        isSelected={!!selectedTags.find(i => i.id === item.id)}
+                        item={item}
+                    />
+                )}
+                {item.tags.length > 3 && <div className={styles.btnContainer}>
+                  <Button onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen size="6px"
+                          type="button">{show ? <>&larr;</> : <>&rarr;</>}</Button>
+                </div>}
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }

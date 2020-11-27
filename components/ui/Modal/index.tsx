@@ -9,7 +9,6 @@ interface Props {
   title?: string,
   children?: any,
   closeBtn?: boolean
-  cancel: string
 }
 
 export default function Modal(props: Props) {

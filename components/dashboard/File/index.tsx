@@ -1,16 +1,23 @@
+import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
 import Link from 'next/link'
+import { useRef } from "react";
 import { ICatalogEntry } from "types";
 import styles from './index.module.scss'
+import cx from 'classnames'
 
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: any,
   size?: any,
   basePath?: string,
-  length?: any
+  length?: any,
+  onEditClick?: (item) => void
+  onDeleteClick?: (item) => void
 }
 
-export default function File({item, basePath, ...props}: Props){
+export default function File({item, basePath, onDeleteClick, onEditClick, ...props}: Props){
+  const dropdownRefItem = useRef(null)
+  const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
 
   const getIconByType = (type) => {
     switch(type) {
@@ -24,6 +31,25 @@ export default function File({item, basePath, ...props}: Props){
         return '/img/icons/folder.svg'
     }
 
+  }
+  const handleClick = (e) => {
+    e.preventDefault()
+      setIsActiveItem(!isActiveItem);
+
+  }
+  const handleEditClick = (e) => {
+    e.preventDefault()
+    if(onEditClick){
+      onEditClick(item)
+    }
+    setIsActiveItem(false);
+  }
+  const handleDeleteClick = (e) => {
+    e.preventDefault()
+    if(onDeleteClick){
+      onDeleteClick(item)
+    }
+    setIsActiveItem(false);
   }
   return (
       <div className={styles.root}>
@@ -49,7 +75,13 @@ export default function File({item, basePath, ...props}: Props){
         </div>
       </a>
       </Link>
-      <div className={styles.dots}><a><img src="/img/icons/dots.svg" alt=''/></a></div>
+      <div className={styles.dots}><a onClick={handleClick}><img src="/img/icons/dots.svg" alt=''/></a>
+
+        <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
+          <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
+          <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
+        </nav>
+      </div>
 
     </div>
   )

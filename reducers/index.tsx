@@ -1,4 +1,6 @@
 import CatalogReducer from "components/catalog/reducer";
+import TagReducer from "components/tags/Tag/reducer";
+import UserReducer from "components/users/reducer";
 import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import loginSubmitReducer from 'components/auth/login/reducer'
@@ -20,5 +22,7 @@ export default combineReducers({
   ModalReducer: ModalReducer,
   CreateFolderReducer: CreateFolderReducer,
   tagCategory: CreateTagCategoryReducer,
-  catalog: CatalogReducer
+  catalog: CatalogReducer,
+  tag: TagReducer,
+  users: UserReducer
 })

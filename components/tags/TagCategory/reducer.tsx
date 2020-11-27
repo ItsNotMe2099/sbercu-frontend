@@ -21,7 +21,7 @@ const initialState: TagCategoryState = {
   currentLoading: false,
 }
 
-export default function ProfileReducer(state = {...initialState}, action) {
+export default function TagCategoryReducer(state = {...initialState}, action) {
   switch(action.type) {
     case ActionTypes.RESET_TAG_CATEGORY_FORM:
       state.formError = ''

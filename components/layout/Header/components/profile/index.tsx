@@ -22,6 +22,7 @@ export default function Profile(props){
         <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
             <div className={styles.option}><Link href="/">Личный кабинет</Link></div>
+            <div className={styles.option}><Link href="/createProject">Создать проект</Link></div>
             <div className={styles.option}><Link href="/tags">Тэги</Link></div>
             <div className={styles.option}><Link href="/users">Пользователи</Link></div>
           <div className={styles.option}><a onClick={handleLogout}>Выход</a></div>

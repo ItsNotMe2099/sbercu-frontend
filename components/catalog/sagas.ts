@@ -5,13 +5,6 @@ import {
     updateCatalogRequest
 } from "components/catalog/actions";
 import {  modalClose } from "components/Modal/actions";
-import {
-  createTagCategory,
-  createTagCategoryRequest, deleteTagCategory, deleteTagCategoryRequest,
-  fetchTagCategoryList,
-  updateTagCategory,
-  updateTagCategoryRequest
-} from "components/tags/TagCategory/actions";
 import ApiActionTypes from "constants/api";
 import { takeLatest, put, take, select } from 'redux-saga/effects'
 import { IRootState } from "types";

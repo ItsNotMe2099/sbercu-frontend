@@ -1,3 +1,4 @@
+import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import styles from './index.module.scss'
 
 
@@ -16,19 +17,15 @@ export default function Input(props: Props) {
   const { input, label, type } = props
   return (
     <div className={styles.root}>
-      <div className={styles.tip}>{props.tip}</div>
+      <div className={styles.label}>{props.label}</div>
       <input
-        className={styles.input}
+        className={`${styles.input} ${(error && touched) && styles.error}`}
         type={type}
         disabled={props.disabled}
-        placeholder={label}
+        placeholder={props.placeholder}
         {...input}
       />
-      {error &&
-        touched && (
-        <div className={styles.error}>
-          {error}
-        </div>)}
+        <ErrorInput {...props}/>
     </div>
   )
 }

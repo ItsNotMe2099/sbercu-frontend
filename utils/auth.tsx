@@ -3,21 +3,23 @@ import { getDisplayName } from "next/dist/next-server/lib/utils";
 import { Component } from "react";
 import cookie from "js-cookie";
 import Router from "next/router";
+import request from "utils/request";
 export const auth = ctx => {
     const { token } = nextCookie(ctx);
-    if (ctx.req && !token) {
-        ctx.res.writeHead(302, { Location: "/auth/login" });
-        ctx.res.end();
-        return;
-    }
-
-    if (!token) {
-        Router.push("/auth/login");
-    }
-
     return token;
 };
 
+const getUser = async (token) => {
+    try {
+        const res = await request({ url: '/api/auth/current', token, method: 'GET' })
+        if(res.err){
+            return;
+        }
+        return res.data;
+    }catch (e) {
+        console.error("ErrorCurrentUser", e);
+    }
+}
 export const logout = () => {
     cookie.remove("token");
     // To trigger the event listener we save some random data into the `logout` key
@@ -31,6 +33,14 @@ export const withAuthSync = (WrappedComponent) =>
 
         static async getInitialProps(ctx) {
             const token = auth(ctx);
+            const user = token ? await getUser(token) : null
+
+            console.log("User", user)
+            if (ctx.req && (!token || !user)) {
+                ctx.res.writeHead(302, { Location: "/auth/login" });
+                ctx.res.end();
+                return;
+            }
             const componentProps =
                 WrappedComponent.getInitialProps &&
                 (await WrappedComponent.getInitialProps(ctx));
