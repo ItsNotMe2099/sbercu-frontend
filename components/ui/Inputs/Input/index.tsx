@@ -10,6 +10,7 @@ interface Props {
   type,
   disabled?: boolean
   tip?: string
+  isLabel?: boolean
 }
 
 export default function Input(props: Props) {
@@ -17,7 +18,11 @@ export default function Input(props: Props) {
   const { input, label, type } = props
   return (
     <div className={styles.root}>
+      {props.isLabel ?
       <div className={styles.label}>{props.label}</div>
+      :
+      null
+      }
       <input
         className={`${styles.input} ${(error && touched) && styles.error}`}
         type={type}

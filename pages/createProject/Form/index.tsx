@@ -25,19 +25,19 @@ let ProjectForm = props => {
                 <Field
                 name="name"
                 component={Input}
-                label="Название проекта"
+                placeholder="Название проекта"
                 validate={required}
                 />
                 <Field
                 name="projectManager"
                 component={Input}
-                label="ФИО менеджера проекта"
+                placeholder="ФИО менеджера проекта"
                 validate={required}
                 />
                 <Field
                 name="projectManagerMail"
                 component={Input}
-                label="е-почта менеджера"
+                placeholder="е-почта менеджера"
                 validate={required}
                 />
                 <div className={styles.textArea}>
@@ -99,7 +99,7 @@ let ProjectForm = props => {
             </div>
             </div>
             <div className={styles.btnContainer}>
-              <Button green size="12px 25px">Создать</Button>
+              <Button green size="10px 26px">Создать</Button>
               <Button transparent textLightGrey>Отмена</Button>
             </div>
           </form>
