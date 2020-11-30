@@ -24,7 +24,7 @@ export const TagSelectCategoryItem = ({item, onTagClick, selectedTags}: Props) =
 
   return (
     <div className={styles.root}>
-      <a href="#" onClick={handleClick} className={cx(styles.dropDownTrigger, { [styles.isSelected]: selectedTags.length > 0 })}>{item.name}</a>
+      <a href="#" onClick={handleClick} className={cx(styles.dropDownTrigger, { [styles.isSelected]: selectedTags.length > 0 }, {[styles.isActive]: isActive})}>{item.name}</a>
        <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
          {item.tags.map(item => <TagSelectItem  item={item} isSelected={!!selectedTags.find(i => i.id === item.id)} onClick={onTagClick}/>)}
        </nav>

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { ICatalogEntry } from "types";
 import styles from './index.module.scss'
 import cx from 'classnames'
+import Dots from "components/svg/Dots";
 
 interface Props{
   item: ICatalogEntry,
@@ -75,13 +76,13 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
         </div>
       </a>
       </Link>
-      <div className={styles.dots}><a onClick={handleClick}><img src="/img/icons/dots.svg" alt=''/></a>
+      <a className={styles.dots} onClick={handleClick}><Dots/>
 
         <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
           <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
           <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
         </nav>
-      </div>
+        </a>
 
     </div>
   )

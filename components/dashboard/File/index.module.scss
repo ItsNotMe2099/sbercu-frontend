@@ -7,7 +7,6 @@
   display: flex;
   padding-top: 13px;
   padding-bottom: 8px;
-  padding-right: 10px;
   padding-left: 10px;
   @media screen and (max-width: $sm-max) {
     padding-right: 22px;
@@ -70,6 +69,27 @@
 
 .dots{
   position: relative;
+  cursor: pointer;
+  width: 36px;
+  display: flex;
+    svg{
+      fill: #828282;
+      margin: auto;
+    }
+  &:hover{
+    border: 1px solid #2F80ED;
+    border-radius: 5px;
+      svg{
+        fill: #2F80ED;
+      }
+  }
+  &:active{
+    border: 2px solid #2F80ED;
+    border-radius: 5px;
+      svg{
+        fill: #2F80ED;
+    }
+  }
   @media screen and (max-width: $sm-max) {
     display: none;
   }

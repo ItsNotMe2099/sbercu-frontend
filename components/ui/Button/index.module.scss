@@ -103,12 +103,15 @@
   }
   &__green{
     border: 1px solid #27AE60;
+    &:hover{
+      border: 1px solid #000;
+      color: #000000;
+    }
   }
 }
 
 .brdrRadius{
   &__circle{
     border-radius: 50px;
-
   }
 }
