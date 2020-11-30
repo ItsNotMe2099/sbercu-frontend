@@ -1,0 +1,41 @@
+.root{
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+
+  svg{
+    margin: auto;
+  }
+  span{
+    margin: auto;
+    font-size: 12px;
+  }
+}
+
+.transparent{
+  background-color: transparent;
+  color: #BDBDBD;
+}
+
+.text{
+  &__green{
+    color: #27AE60;
+  }
+}
+
+.brdr{
+  &__green{
+    border: 1px solid #27AE60;
+    &:hover{
+      border: 1px solid #000;
+      color: #000000;
+    }
+  }
+}
+
+.brdrRadius{
+  &__circle{
+    border-radius: 50px;
+  }
+}

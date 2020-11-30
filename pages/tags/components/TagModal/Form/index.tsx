@@ -33,7 +33,6 @@ let TagForm = props => {
                 {label: '333', value: '3'},
                 {label: '444', value: '4'}
                 ]}
-            v
         />
         <Field
             name="visibleOnlyOwns"
@@ -42,7 +41,7 @@ let TagForm = props => {
         />
       <div className={styles.btnContainer}>
         {<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
-            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
+            <Button transparent onClick={() => dispatch(modalClose())} type="button" underline>Отменить</Button>
       </div>
     </form>
   )

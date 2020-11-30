@@ -7,6 +7,7 @@ import CategoryHead from './CategoryHead'
 import styles from './index.module.scss'
 import TagItem from './TagItem'
 import cx from 'classnames'
+import TagArrow from "components/ui/TagArrow";
 
 interface Props {
     item: ITagCategory
@@ -80,8 +81,8 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
                     />
                 )}
                 {item.tags.length > 3 && <div className={styles.btnContainer}>
-                  <Button onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen size="6px"
-                          type="button">{show ? <>&larr;</> : <>&rarr;</>}</Button>
+                  <TagArrow onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen size="6px"
+                          type="button">{show ? <>&larr;</> : <>&rarr;</>}</TagArrow>
                 </div>}
             </div>
         </div>
