@@ -54,20 +54,22 @@ export default function Button(props: Props) {
       style={{padding: props.size}}
     >
     {props.visiblePlus && (
-      <div style={{width: '20px', height: '20px', marginRight: '11px'}} className={`
+      <div  className={`
       ${props.btnLightGrey && styles.btn__lightGrey}
       ${props.btnDarkGrey && styles.btn__darkGrey}
       ${props.btnWhite && styles.btn__white}
       ${props.btnGreen && styles.btn__green}
+             ${styles.plus}
       `}><PlusSvg /></div>
     )}
     {props.search && (
       <Search />
     )}
     {props.folder && (
-      <div style={{marginRight: '11px'}}className={`
+      <div className={`
       ${props.btnDarkGrey && styles.btn__darkGrey}
       ${props.btnGreen && styles.btn__green}
+          ${styles.folder}
       `}><Folder /></div>
     )}
     {props.createGroup && (

@@ -1,3 +1,4 @@
+@import "scss/index";
 .root{
   border-radius: 5px;
   border: 0;
@@ -119,5 +120,26 @@
   }
   &__green{
     border: 1px solid #27AE60;
+  }
+}
+
+.folder{
+  margin-right: 11px;
+}
+
+.plus{
+  margin-right: 11px;
+  width: 20px;
+  height: 20px;
+}
+@media screen and (max-width: $sm-max) {
+  .folder{
+    margin-right: 0px;
+    padding-top: 2px
+  }
+  .plus{
+    margin-right: 0px;
+    vertical-align: middle;
+    padding-top: 2px
   }
 }

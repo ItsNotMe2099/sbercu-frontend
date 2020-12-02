@@ -3,7 +3,8 @@
 .dropDown {
   background: #ffffff;
   position: absolute;
-  top: 60px;
+  top: 100%;
+  margin-top: 0px;
   opacity: 0;
   visibility: hidden;
   //transform: translateY(-20px);
@@ -30,6 +31,7 @@
   @media screen and (min-width: $container-lg) {
     flex: 1;
     }
+  position: relative;
   display: flex;
   justify-content: flex-end;
 }
