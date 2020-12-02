@@ -1,4 +1,6 @@
 import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
 import { useEffect } from "react";
 import { IRootState } from "types";
@@ -35,7 +37,7 @@ export default function Dashboard(props){
 
 
   return (
-    <>
+    <Layout>
     <Header/>
     <div className={styles.root}>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
@@ -78,7 +80,8 @@ export default function Dashboard(props){
         </a>
       </div>
     </div>
-    </>
+      <Footer/>
+    </Layout>
   )
 }
 

@@ -1,3 +1,5 @@
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { confirmOpen, modalClose, tagCategoryModalOpen, tagModalOpen } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import { deleteTagCategory, fetchTagCategoryList } from "components/tags/TagCategory/actions";
@@ -64,7 +66,7 @@ const Tags = (props) => {
   }
 
   return (
-    <>
+    <Layout>
     <Header tagsPage>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagClick}>Создать новый тег</Button></div>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagCategoryClick}>Создать новую коллекцию</Button></div>
@@ -80,7 +82,8 @@ const Tags = (props) => {
               onRequestClose={() => dispatch(modalClose())} tag={currentEditTag}/>
     <TagCategoryModal isOpen={key === 'tagCategory'}
               onRequestClose={() => dispatch(modalClose())} tagCategory={currentEditTagCategory}/>
-    </>
+    <Footer/>
+    </Layout>
   )
 }
 

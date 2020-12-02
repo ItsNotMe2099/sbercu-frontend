@@ -1,4 +1,6 @@
 import { createCatalog } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { confirmOpen } from "components/Modal/actions";
 import ProjectForm from "pages/project/Form";
 import { withAuthSync } from "utils/auth";
@@ -20,14 +22,15 @@ const CreateProject = (props) => {
     }));
   }
   return (
-    <>
+    <Layout>
     <Header/>
     <div className={styles.root}>
       <div className={styles.title}>Создание нового проекта</div>
       <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
       <ProjectForm onSubmit={handleSubmit}/>
     </div>
-    </>
+      <Footer/>
+    </Layout>
   )
 }
 

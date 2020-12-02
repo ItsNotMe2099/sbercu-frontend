@@ -3,6 +3,8 @@ import {
   fetchCatalogList,
   setCurrentCatalogId
 } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { confirmOpen, createFolderOpen, modalClose } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import BreadCrumbs from "components/ui/Breadcrumbs";
@@ -75,7 +77,7 @@ const Catalog = (props) => {
     }));
   }
   return (
-    <div>
+    <Layout>
     <Header>
       <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
       <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
@@ -113,10 +115,12 @@ const Catalog = (props) => {
       </a> : null
       }
     </div>
+
+      <Footer/>
     <CreateFolder isOpen={key === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
 
-    </div>
+    </Layout>
   )
 }
 

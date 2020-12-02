@@ -1,4 +1,6 @@
 import { createCatalog, fetchCatalogItem, updateCatalog } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { confirmOpen } from "components/Modal/actions";
 import { useRouter } from "next/router";
 import ProjectForm from "pages/project/Form";
@@ -22,7 +24,7 @@ const EditProject = (props) => {
         dispatch(updateCatalog(parseInt(router.query.id as string, 10), data))
     }
     return (
-        <>
+        <Layout>
         <Header/>
         <div className={styles.root}>
             <div className={styles.title}>Редактирование проекта</div>
@@ -32,7 +34,8 @@ const EditProject = (props) => {
                 tagsIds: currentCatalogItem.tags.map(item => item.id)
             }}/>}
         </div>
-        </>
+            <Footer/>
+        </Layout>
     )
 }
 

@@ -1,3 +1,5 @@
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { confirmOpen, modalClose, tagModalOpen, userModalOpen } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import { fetchTagCategoryListByName } from "components/tags/TagCategory/actions";
@@ -60,7 +62,7 @@ export default function Users(props){
 
 
   return (
-    <>
+    <Layout>
     <Header>
       <div className={styles.tagBtn}><Button transparent invite textGreen btnGreen type="button" onClick={handleNewUserClick}>Пригласить</Button></div>
     </Header>
@@ -86,7 +88,8 @@ export default function Users(props){
     </div>
     <UserModal isOpen={key === 'userForm'}
                       onRequestClose={() => dispatch(modalClose())} user={currentEditUser}/>
-    </>
+    <Footer/>
+    </Layout>
   )
 }
 
