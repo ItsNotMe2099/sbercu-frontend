@@ -17,7 +17,7 @@ let AuthForm = props => {
             <Field
               name="login"
               component={Input}
-              label="Логин"
+              placeholder="Логин"
               validate={[required, email]}
             />
             </div>

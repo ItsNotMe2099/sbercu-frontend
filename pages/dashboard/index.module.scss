@@ -1,11 +1,13 @@
 @import "scss/index";
 
+
 .root{
   position: relative;
   @media screen and (min-width: $container-lg) {
     width: $container-lg;
+    margin:0 auto;
   }
-  margin: auto;
+
 }
 
 .category{
@@ -39,7 +41,6 @@
   }
   @media screen and (max-width: $sm-max) {
     display: grid;
-    grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     padding: 0 22px;

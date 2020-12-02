@@ -41,7 +41,7 @@ let TagForm = props => {
         />
       <div className={styles.btnContainer}>
         {<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
-            <Button transparent onClick={() => dispatch(modalClose())} type="button" underline>Отменить</Button>
+            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
   )

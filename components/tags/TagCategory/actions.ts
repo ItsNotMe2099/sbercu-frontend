@@ -17,7 +17,7 @@ export const updateTagCategory = ( id: number, data: ITagCategory) => action(Act
 export const updateTagCategoryRequest = (id: number, data: ITagCategory) => action(ActionTypes.UPDATE_TAG_CATEGORY_REQUEST, {
   api: {
     url: `/api/tag-category/${id}`,
-    method: 'PUT',
+    method: 'PATCH',
     data: data,
   }
 })

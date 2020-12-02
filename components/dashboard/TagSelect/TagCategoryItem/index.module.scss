@@ -40,7 +40,10 @@ position: relative;
   margin-right: 20px;
   flex-shrink: 0;
   &:hover{
-    border-bottom: 2px solid #27AE60;
+    color: #27AE60;
+  }
+  &:active{
+    color: #219653;
   }
   @media screen and (max-width: $sm-max) {
     margin-bottom: 15px;
@@ -68,9 +71,8 @@ position: relative;
   font-size: 14px;
   color: #000000;
   padding-bottom: 6px;
-  border-bottom: 2px solid #27AE60;
 }
 
 .isActive{
-  border-bottom: 2px solid #27AE60;
+  color: #27AE60;
 }

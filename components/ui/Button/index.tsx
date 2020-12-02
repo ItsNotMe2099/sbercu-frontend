@@ -29,7 +29,6 @@ interface Props {
   brdrGreen?: boolean
   createGroup?: boolean
   invite?: boolean
-  underline?: boolean
   onClick?: (e: React.MouseEvent) => void
 }
 
@@ -51,25 +50,26 @@ export default function Button(props: Props) {
         ${props.closeBtn && styles.closeBtn}
         ${props.brdrDarkGrey && styles.brdr__darkGrey}
         ${props.brdrGreen && styles.brdr__green}
-        ${props.underline && styles.underline}
       `}
       style={{padding: props.size}}
     >
     {props.visiblePlus && (
-      <div style={{width: '20px', height: '20px', marginRight: '11px'}} className={`
+      <div  className={`
       ${props.btnLightGrey && styles.btn__lightGrey}
       ${props.btnDarkGrey && styles.btn__darkGrey}
       ${props.btnWhite && styles.btn__white}
       ${props.btnGreen && styles.btn__green}
+             ${styles.plus}
       `}><PlusSvg /></div>
     )}
     {props.search && (
       <Search />
     )}
     {props.folder && (
-      <div style={{marginRight: '11px'}}className={`
+      <div className={`
       ${props.btnDarkGrey && styles.btn__darkGrey}
       ${props.btnGreen && styles.btn__green}
+          ${styles.folder}
       `}><Folder /></div>
     )}
     {props.createGroup && (

@@ -18,11 +18,7 @@ export default function Input(props: Props) {
   const { input, label, type } = props
   return (
     <div className={styles.root}>
-      {props.isLabel ?
-      <div className={styles.label}>{props.label}</div>
-      :
-      null
-      }
+      {props.label && <div className={styles.label}>{props.label}</div>}
       <input
         className={`${styles.input} ${(error && touched) && styles.error}`}
         type={type}

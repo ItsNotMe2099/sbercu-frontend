@@ -17,7 +17,7 @@ export const updateTag = ( id: number, data: ITag) => action(ActionTypes.UPDATE_
 export const updateTagRequest = (id: number, data: ITag) => action(ActionTypes.UPDATE_TAG_REQUEST, {
   api: {
     url: `/api/tag/${id}`,
-    method: 'PUT',
+    method: 'PATCH',
     data: data,
   }
 })

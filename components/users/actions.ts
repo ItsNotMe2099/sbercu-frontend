@@ -25,7 +25,7 @@ export const updateUserRequest = (id: number, data: IUser) => action(ActionTypes
 
 export const fetchUserList = ( data: any = {}) => action(ActionTypes.FETCH_USER_LIST, {
   api: {
-    url: `/api/user?${queryString.stringify({ page: data.page || 1, per_page: data.limit || 10})}`,
+    url: `/api/user?${queryString.stringify({ page: data.page || 1, limit: data.limit || 10})}`,
     method: 'GET',
   }
 })

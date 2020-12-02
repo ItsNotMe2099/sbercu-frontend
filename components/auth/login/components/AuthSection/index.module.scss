@@ -1,13 +1,13 @@
 @import "scss/index";
 
 .container{
-  height: 422px;
+
   background: #FFFFFF;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  padding: 24px 29px 0 28px;
+  padding: 24px 29px;
   @media (min-width: $md-min){
-    transform: translateY(40%);
+    transform: translateY(50%);
     width: 422px;
     margin: auto;
   }

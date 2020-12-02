@@ -1,25 +1,21 @@
 @import "scss/index";
 
-.root{
-  width: 70%;
-}
-
 .dropDown {
   background: #ffffff;
   position: absolute;
-  top: 30px;
+  top: 100%;
+  margin-top: 0px;
   opacity: 0;
   visibility: hidden;
   //transform: translateY(-20px);
   //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 10px 0 0 0;
+  padding: 0px 0 0 0;
   z-index: 5;
   min-width: 178px;
   display: flex;
   flex-direction: column;
-  left: -160px;
 }
 
 .dropDownActive{
@@ -31,19 +27,36 @@
   border-radius: 5px;
 }
 
+.root{
+  @media screen and (min-width: $container-lg) {
+    flex: 1;
+    }
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 .option{
-  padding: 0 10px 10px 10px;
   a{
-    font-weight: bold;
     font-size: 12px;
+    display: block;
+    vertical-align: middle;
     color: #000000;
+    padding: 6px 10px;
+
     text-decoration: none;
+    &:first-of-type{
+      padding-top: 10px;
+    }
+    &:last-of-type{
+      padding-bottom: 10px;
+    }
+    &:hover{
+      background: #F2F2F2;
+    }
   }
   &:hover{
     background-color: #F2F2F2;
   }
-}
-
-.dots{
-  position: relative;
 }

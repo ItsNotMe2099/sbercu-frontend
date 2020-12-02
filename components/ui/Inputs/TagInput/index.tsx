@@ -23,9 +23,23 @@ const TagInput = (props: Props) => {
   const [selectedTags, setSelectedTags] = useState([])
 
   useEffect(() => {
-    setSelectedTags((input.value ? input.value : []).map(item => items.find(i => i.id === item.id)))
+    console.log("inputValue", input.value, items)
+    console.log("Set", (input.value ? input.value : []).map(item => items.find(i => i.tags.find(tag => tag.id === item))))
+    if(items.length > 0) {
+      setSelectedTags((input.value ? input.value : []).map(item => {
+        for(const tagCategory of items){
+          const tag =  tagCategory.tags.find(tag => tag.id === item);
+          if(tag){
+            return tag;
+          }
+        }
+    }));
+    }
   }, [items])
   useEffect(() => {
+    if(items.length === 0) {
+      return;
+    }
     input.onChange(selectedTags.map( item => item.id))
   }, [selectedTags])
   useEffect(() => {

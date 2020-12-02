@@ -1,4 +1,5 @@
 import TagInput from "components/ui/Inputs/TagInput";
+import { useRouter } from "next/router";
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
 import InputPassword from 'components/ui/Inputs/InputPassword'
@@ -14,7 +15,11 @@ import { RadioList } from 'components/ui/Inputs/RadioList'
 import classNames from 'classnames';
 
 let ProjectForm = props => {
-  const { handleSubmit } = props
+    const router = useRouter()
+  const { handleSubmit, initialValues } = props
+    const handleCancel = () => {
+        router.back();
+    }
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.form}>
@@ -25,19 +30,19 @@ let ProjectForm = props => {
                 <Field
                 name="name"
                 component={Input}
-                placeholder="Название проекта"
+                label="Название проекта"
                 validate={required}
                 />
                 <Field
                 name="projectManager"
                 component={Input}
-                placeholder="ФИО менеджера проекта"
+                label="ФИО менеджера проекта"
                 validate={required}
                 />
                 <Field
                 name="projectManagerMail"
                 component={Input}
-                placeholder="е-почта менеджера"
+                label="е-почта менеджера"
                 validate={required}
                 />
                 <div className={styles.textArea}>
@@ -99,8 +104,8 @@ let ProjectForm = props => {
             </div>
             </div>
             <div className={styles.btnContainer}>
-              <Button green size="10px 26px">Создать</Button>
-              <Button transparent textLightGrey>Отмена</Button>
+              <Button green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
+              <Button transparent textLightGrey type={'button'} onClick={handleCancel}>Отмена</Button>
             </div>
           </form>
   )

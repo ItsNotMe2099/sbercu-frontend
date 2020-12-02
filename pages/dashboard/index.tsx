@@ -1,4 +1,6 @@
 import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
 import { useEffect } from "react";
 import { IRootState } from "types";
@@ -26,16 +28,16 @@ export default function Dashboard(props){
     dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
   }
   const items = [
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '12.09.2019', type: 'video'},
-    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '12.09.2019', type: 'video'}
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'}
   ]
 
 
   return (
-    <body className={styles.white}>
+    <Layout>
     <Header/>
     <div className={styles.root}>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
@@ -51,11 +53,11 @@ export default function Dashboard(props){
           />
           ))}
       </div>
-      <div className={styles.more}>
+      {projects.length > 5 && <div className={styles.more}>
         <a>
           <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
         </a>
-      </div>
+      </div>}
       <div className={styles.titleContainer}>
         <div className={styles.title}>Файлы</div>
         <Quantity
@@ -78,7 +80,8 @@ export default function Dashboard(props){
         </a>
       </div>
     </div>
-    </body>
+      <Footer/>
+    </Layout>
   )
 }
 

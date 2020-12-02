@@ -1,11 +1,12 @@
 import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
+import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import { useRef } from "react";
 import { ICatalogEntry } from "types";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Dots from "components/svg/Dots";
-
+import {format} from 'date-fns'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: any,
@@ -17,8 +18,6 @@ interface Props{
 }
 
 export default function File({item, basePath, onDeleteClick, onEditClick, ...props}: Props){
-  const dropdownRefItem = useRef(null)
-  const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
 
   const getIconByType = (type) => {
     switch(type) {
@@ -33,24 +32,16 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
     }
 
   }
-  const handleClick = (e) => {
-    e.preventDefault()
-      setIsActiveItem(!isActiveItem);
 
-  }
-  const handleEditClick = (e) => {
-    e.preventDefault()
+  const handleEditClick = () => {
     if(onEditClick){
       onEditClick(item)
     }
-    setIsActiveItem(false);
   }
-  const handleDeleteClick = (e) => {
-    e.preventDefault()
+  const handleDeleteClick = () => {
     if(onDeleteClick){
       onDeleteClick(item)
     }
-    setIsActiveItem(false);
   }
   return (
       <div className={styles.root}>
@@ -61,9 +52,9 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
           {item.name}
         </div>
         <div className={styles.bottom}>
-          <div className={styles.text}>{item.createdAt}</div>
-          <div className={styles.separator}></div>
-          <div className={styles.text}>{item.projectManager}</div>
+          <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
+          {item.projectManager &&  <div className={styles.separator}></div>}
+          {item.projectManager &&  <div className={styles.text}>{item.projectManager}</div>}
           {props.additionalInfo ?
           <div className={styles.additional}>
             <div className={styles.separator}></div>
@@ -76,14 +67,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
         </div>
       </a>
       </Link>
-      <a className={styles.dots} onClick={handleClick}><Dots/>
-
-        <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
-          <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
-          <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
-        </nav>
-        </a>
-
-    </div>
+      <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>
+      </div>
   )
 }

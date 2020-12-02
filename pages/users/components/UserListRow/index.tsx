@@ -1,5 +1,6 @@
 import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
 import TagItem from "components/tags/TagCategory/TagItem";
+import ButtonDots from "components/ui/ButtonDots";
 import { useRef } from "react";
 import { IUser } from "types";
 import styles from './index.module.scss'
@@ -11,26 +12,16 @@ interface Props {
 }
 
 export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
-    const dropdownRefItem = useRef(null)
-    const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
-    const handleClick = (e) => {
-        e.preventDefault()
-        setIsActiveItem(!isActiveItem);
 
-    }
-    const handleEditClick = (e) => {
-        e.preventDefault()
+    const handleEditClick = () => {
         if(onEditClick){
             onEditClick(user)
         }
-        setIsActiveItem(false);
     }
-    const handleDeleteClick = (e) => {
-        e.preventDefault()
+    const handleDeleteClick = () => {
         if(onDeleteClick){
             onDeleteClick(user)
         }
-        setIsActiveItem(false);
     }
   return (
     <div className={styles.root}>
@@ -41,12 +32,8 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
         <div className={`${styles.cell} ${styles.tags}`}>
             {user?.departmentTags.slice(0, 1).map(tag => <TagItem item={tag} editMode={false}/>)}
         </div>
-        <div className={`${styles.cell}`}>
-            <a onClick={handleClick}><img src="/img/icons/dots.svg" alt=''/></a>
-            <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
-                <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
-                <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
-            </nav>
+        <div className={`${styles.cell} ${styles.editCell}`}>
+            <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>
         </div>
     </div>
   )

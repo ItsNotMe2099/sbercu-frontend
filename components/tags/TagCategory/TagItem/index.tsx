@@ -44,7 +44,7 @@ export default function TagItem({item, editMode, onClick, onDeleteClick, onEditC
   return (
       <div className={styles.root}>
         <a className={cx(styles.item, { [styles.choosed]: isSelected})} onClick={handleClick}>
-          {isSelected && <a className={styles.delete} onClick={handleClick}><img src="img/icons/delete.svg" alt=''/></a>}
+          {isSelected && <a className={styles.delete} onClick={handleClick}><img src="/img/icons/delete.svg" alt=''/></a>}
           <span>{item.name}</span>
           <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
             <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>

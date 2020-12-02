@@ -1,6 +1,6 @@
 import {
     createCatalog,
-    createCatalogRequest, deleteCatalog, deleteCatalogRequest,
+    createCatalogRequest, deleteCatalog, deleteCatalogRequest, fetchCatalogItem,
     fetchCatalogList, updateCatalog,
     updateCatalogRequest
 } from "components/catalog/actions";
@@ -10,6 +10,8 @@ import { takeLatest, put, take, select } from 'redux-saga/effects'
 import { IRootState } from "types";
 import { ActionType } from 'typesafe-actions'
 import ActionTypes from './const'
+
+import Router from "next/router";
 function* catalogSaga() {
 
   yield takeLatest(ActionTypes.CREATE_CATALOG,
@@ -29,9 +31,17 @@ function* catalogSaga() {
       const result = yield take([ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_CATALOG_REQUEST + ApiActionTypes.FAIL])
       if(result.type === ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("UPDATE TAG_CATEGORY SUCCESS")
-        yield put(modalClose());
-          const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-          yield put(fetchCatalogList(currentCatalogId));
+          if( action.payload.data.entryType === 'project'){
+              Router.push(`catalog/${result.payload.id}`)
+          }else {
+              yield put(modalClose());
+              const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
+              if(action.payload.id === currentCatalogId){
+                  yield put(fetchCatalogItem(currentCatalogId));
+              }else {
+                  yield put(fetchCatalogList(currentCatalogId));
+              }
+          }
       }
     })
   yield takeLatest(ActionTypes.DELETE_CATALOG,
