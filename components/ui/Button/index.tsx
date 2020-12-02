@@ -4,6 +4,7 @@ import Search from 'components/svg/Search'
 import Folder from 'components/svg/Folder'
 import CreateGroup from 'components/svg/CreateGroup'
 import Invite from 'components/svg/Invite'
+import Arrow from 'components/svg/Arrow'
 
 interface Props {
   type?: "submit" | "button"
