@@ -29,7 +29,6 @@ interface Props {
   brdrGreen?: boolean
   createGroup?: boolean
   invite?: boolean
-  underline?: boolean
   onClick?: (e: React.MouseEvent) => void
 }
 
@@ -51,7 +50,6 @@ export default function Button(props: Props) {
         ${props.closeBtn && styles.closeBtn}
         ${props.brdrDarkGrey && styles.brdr__darkGrey}
         ${props.brdrGreen && styles.brdr__green}
-        ${props.underline && styles.underline}
       `}
       style={{padding: props.size}}
     >

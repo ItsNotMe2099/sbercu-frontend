@@ -59,7 +59,7 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
                     />
                 )}
                 {item.tags.length > 3 && <div className={styles.btnContainer}>
-                  <TagArrow onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen size="6px"
+                  <TagArrow onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen
                           type="button">{show ? <>&larr;</> : <>&rarr;</>}</TagArrow>
                 </div>}
             </div>

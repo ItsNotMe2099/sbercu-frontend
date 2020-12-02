@@ -26,11 +26,11 @@ export default function InputPassword(props: Props) {
       />
       {isShown ?
       <a href="#" onClick={() => setIsShown(false)}>
-        <img className={styles.icon} src='img/field/shown.svg' alt="" />
+        <img className={styles.icon} src='/img/field/shown.svg' alt="" />
       </a>
       :
       <a href="#" onClick={() => setIsShown(true)}>
-        <img className={styles.icon} src='img/field/notShown.svg' alt="" />
+        <img className={styles.icon} src='/img/field/notShown.svg' alt="" />
       </a>}
       <ErrorInput {...props}/>
     </div>

@@ -8,8 +8,8 @@
     margin: auto;
   }
   span{
-    margin: auto;
     font-size: 12px;
+    vertical-align: middle;
   }
 }
 
@@ -36,6 +36,13 @@
 
 .brdrRadius{
   &__circle{
-    border-radius: 50px;
+    border-radius: 27px;
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    span{
+      margin-top: 2px;
+    }
   }
 }
