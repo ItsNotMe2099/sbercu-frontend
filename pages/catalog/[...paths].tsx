@@ -75,7 +75,7 @@ const Catalog = (props) => {
     }));
   }
   return (
-    <body className={styles.white}>
+    <div>
     <Header>
       <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
       <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
@@ -116,7 +116,7 @@ const Catalog = (props) => {
     <CreateFolder isOpen={key === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
 
-    </body>
+    </div>
   )
 }
 

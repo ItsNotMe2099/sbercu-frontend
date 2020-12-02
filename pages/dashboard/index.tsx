@@ -35,7 +35,7 @@ export default function Dashboard(props){
 
 
   return (
-    <body className={styles.white}>
+    <>
     <Header/>
     <div className={styles.root}>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
@@ -78,7 +78,7 @@ export default function Dashboard(props){
         </a>
       </div>
     </div>
-    </body>
+    </>
   )
 }
 

@@ -20,14 +20,14 @@ const CreateProject = (props) => {
     }));
   }
   return (
-    <body className={styles.white}>
+    <>
     <Header/>
     <div className={styles.root}>
       <div className={styles.title}>Создание нового проекта</div>
       <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
       <ProjectForm onSubmit={handleSubmit}/>
     </div>
-    </body>
+    </>
   )
 }
 

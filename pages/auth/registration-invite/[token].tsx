@@ -1,6 +1,7 @@
 import { getUserByInvite, regSubmit } from "components/auth/registration-invite/actions";
 import RegistrationFirstStepForm from "components/auth/registration-invite/RegistrationFirstStepForm";
 import RegistrationSecondStepForm from "components/auth/registration-invite/RegistrationSecondStepForm";
+import useBodyClass from "components/hooks/useBodyClass";
 import { useRouter } from "next/router";
 import { IRootState } from "types";
 
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function AuthControl(props: Props) {
+    useBodyClass('grey');
     const dispatch = useDispatch()
     const [firstStepIsComplete, setFirstStepIsComplete] = useState(false)
     const router = useRouter()

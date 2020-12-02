@@ -64,7 +64,7 @@ const Tags = (props) => {
   }
 
   return (
-    <body className={styles.white}>
+    <>
     <Header tagsPage>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagClick}>Создать новый тег</Button></div>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagCategoryClick}>Создать новую коллекцию</Button></div>
@@ -80,7 +80,7 @@ const Tags = (props) => {
               onRequestClose={() => dispatch(modalClose())} tag={currentEditTag}/>
     <TagCategoryModal isOpen={key === 'tagCategory'}
               onRequestClose={() => dispatch(modalClose())} tagCategory={currentEditTagCategory}/>
-    </body>
+    </>
   )
 }
 

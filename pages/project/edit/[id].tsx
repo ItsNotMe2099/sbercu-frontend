@@ -22,7 +22,7 @@ const EditProject = (props) => {
         dispatch(updateCatalog(parseInt(router.query.id as string, 10), data))
     }
     return (
-        <body className={styles.white}>
+        <>
         <Header/>
         <div className={styles.root}>
             <div className={styles.title}>Редактирование проекта</div>
@@ -32,7 +32,7 @@ const EditProject = (props) => {
                 tagsIds: currentCatalogItem.tags.map(item => item.id)
             }}/>}
         </div>
-        </body>
+        </>
     )
 }
 
