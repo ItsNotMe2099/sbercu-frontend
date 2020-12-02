@@ -52,7 +52,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
           {item.name}
         </div>
         <div className={styles.bottom}>
-          <div className={styles.text}>{format(new Date(item.createdAt), 'dd.MM.yyy')}</div>
+          <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
           {item.projectManager &&  <div className={styles.separator}></div>}
           {item.projectManager &&  <div className={styles.text}>{item.projectManager}</div>}
           {props.additionalInfo ?
