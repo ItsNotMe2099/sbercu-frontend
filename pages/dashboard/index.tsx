@@ -26,11 +26,11 @@ export default function Dashboard(props){
     dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
   }
   const items = [
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2019-02-10 00:00:00', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2019-02-10 00:00:00', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2019-02-10 00:00:00', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2019-02-10 00:00:00', type: 'video'},
-    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2019-02-10 00:00:00', type: 'video'}
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'}
   ]
 
 
