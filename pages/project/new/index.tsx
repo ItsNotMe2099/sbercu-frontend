@@ -1,6 +1,6 @@
 import { createCatalog } from "components/catalog/actions";
 import { confirmOpen } from "components/Modal/actions";
-import ProjectForm from "pages/createProject/Form";
+import ProjectForm from "pages/project/Form";
 import { withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";

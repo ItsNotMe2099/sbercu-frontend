@@ -51,11 +51,11 @@ export default function Dashboard(props){
           />
           ))}
       </div>
-      <div className={styles.more}>
+      {projects.length > 5 && <div className={styles.more}>
         <a>
           <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
         </a>
-      </div>
+      </div>}
       <div className={styles.titleContainer}>
         <div className={styles.title}>Файлы</div>
         <Quantity

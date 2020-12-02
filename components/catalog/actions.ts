@@ -19,7 +19,7 @@ export const updateCatalog = ( id: number, data: ICatalogEntry) => action(Action
 export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(ActionTypes.UPDATE_CATALOG_REQUEST, {
   api: {
     url: `/api/catalog/${id}`,
-    method: 'PUT',
+    method: 'PATCH',
     data: data,
   }
 })
@@ -36,11 +36,9 @@ export const fetchCatalogList = (id, data: any = {}) => action(ActionTypes.FETCH
     method: 'GET',
   }
 })
-
-
-export const fetchCatalogParents = (id) => action(ActionTypes.FETCH_CATALOG_PARENTS, {
+export const fetchCatalogItem = (id) => action(ActionTypes.FETCH_CATALOG_ITEM, {
   api: {
-    url: `/api/catalog/parents/${id}`,
+    url: `/api/catalog/show/${id}`,
     method: 'GET',
   }
 })

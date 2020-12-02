@@ -1,9 +1,9 @@
 import { TagSelectItem } from "components/dashboard/TagSelect/TagItem";
 import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
 import Button from 'components/ui/Button'
+import ButtonDots from "components/ui/ButtonDots";
 import { useRef, useState } from 'react'
 import { ITag, ITagCategory } from "types";
-import CategoryHead from './CategoryHead'
 import styles from './index.module.scss'
 import TagItem from './TagItem'
 import cx from 'classnames'
@@ -23,34 +23,20 @@ interface Props {
 }
 
 export default function TagCategory({ item, editMode, onTagClick, onTagEditClick, onTagDeleteClick, onEditClick, onDeleteClick, selectedTags, ...props }: Props) {
-
     const [show, setShowAll] = useState(false)
-    const dropdownRef = useRef(null);
-    const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
-    const onClickDots = (e) => {
-        e.preventDefault()
-        setIsActive(!isActive);
-    }
     const onClick = () => {
         setShowAll(show => !show)
     }
-    const handleEditClick = (e) => {
-        console.log("handleEditClick")
-        e.preventDefault()
+    const handleEditClick = () => {
         if(onEditClick){
             onEditClick(item)
         }
-        setIsActive(false);
     }
-    const handleDeleteClick = (e) => {
-        e.preventDefault()
+    const handleDeleteClick = () => {
         if(onDeleteClick){
             onDeleteClick(item)
         }
-
-        setIsActive(false);
-
     }
 
 
@@ -58,15 +44,7 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
         <div className={styles.root}>
             <div className={styles.head}>
                 {!props.hideHeader && <div className={styles.categoryText}>{item.name}</div>}
-
-                {editMode && <div className={styles.edit}>
-                  <a className={styles.dots} onClick={onClickDots}><img src="/img/icons/dots.svg" alt=''/>
-                    <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
-                      <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
-                      <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
-                    </nav>
-                  </a>
-                </div>}
+                {editMode && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
             </div>
             <div className={styles.clearfix}>
                 {(show ? item.tags : item.tags.slice(0, 3)).map(item =>

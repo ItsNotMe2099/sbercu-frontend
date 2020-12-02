@@ -7,7 +7,7 @@ import { useDispatch} from 'react-redux'
 import { modalClose } from 'components/Modal/actions'
 
 let CreateFolderForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit, initialValues } = props
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
 
@@ -24,7 +24,7 @@ let CreateFolderForm = props => {
         {/*value === '' ?
           <Button notActive textWhite size="9px 16px" type="button">Создать</Button>
           :*/
-            <Button green size="9px 16px">Создать</Button>}
+            <Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
             <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>

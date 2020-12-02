@@ -17,7 +17,7 @@ export default function TagModal(props: Props){
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
     if(props.tag){
-      dispatch(updateTag(props.tag.id, {name: data.name, tagCategoryId: data.tagCategoryId}));
+      dispatch(updateTag(props.tag.id, data));
     }else{
       dispatch(createTag({name: data.name, tagCategoryId: data.tagCategoryId}));
     }

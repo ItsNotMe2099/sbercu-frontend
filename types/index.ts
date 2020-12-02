@@ -5,7 +5,6 @@ import {State as regReducerState} from 'components/auth/registration-invite/redu
 import { CatalogState } from "components/catalog/reducer";
 import {CategoryTagState} from 'components/dashboard/TagSelect/reducer'
 import {ModalState} from 'components/Modal/reducer'
-import {CreateFolderState} from 'components/layout/Header/components/CreateFolder/reducer'
 import { TagState } from "components/tags/Tag/reducer";
 import { TagCategoryState } from "components/tags/TagCategory/reducer";
 import { UserState } from "components/users/reducer";
@@ -17,7 +16,6 @@ export interface IRootState {
   regReducer: regReducerState
   CategoryTagReducer: CategoryTagState
   ModalReducer: ModalState
-  CreateFolderReducer: CreateFolderState
   tagCategory: TagCategoryState
   catalog: CatalogState
   tag: TagState
@@ -42,9 +40,9 @@ export interface IResponse {
   err: any
 }
 export interface ICatalogEntry {
-  id: number
-  name: string
-  entryType: 'project' | 'folder' | 'file' | 'video' | 'file'
+  id?: number
+  name?: string
+  entryType?: 'project' | 'folder' | 'file' | 'video' | 'file'
   parentId?: number
   projectManager?: string
   projectManagerMail?: string
@@ -57,6 +55,8 @@ export interface ICatalogEntry {
   tags?: ITag[],
   createdAt?: string
   link?: string,
+  tagsIds?: number[]
+  parents?: ICatalogEntry[]
 }
 export interface ITag {
   id?: number,

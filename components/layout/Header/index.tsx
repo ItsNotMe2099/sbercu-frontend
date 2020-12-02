@@ -5,9 +5,8 @@ import Profile from "./components/profile";
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { IRootState } from "types";
-import CreateFolder from "./components/CreateFolder";
 import { createFolderOpen, modalClose, tagCategoryModalOpen, tagModalOpen } from "components/Modal/actions";
-
+import Link from 'next/link'
 interface Props{
   projectPage?: boolean
   tagsPage?: boolean
@@ -22,15 +21,13 @@ export default function Header(props: Props){
   return (
     <div className={styles.root}>
         <div className={styles.container}>
-          <div className={styles.media}>media.</div>
+            <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
           <InputSearch/>
             {props.children}
           <Profile/>
           </div>
         </div>
-        <CreateFolder isOpen={key === 'createFolder'}
-        onRequestClose={() => dispatch(modalClose())}/>
         <ModalConfirm isOpen={key === 'confirm'}  onRequestClose={() => dispatch(modalClose())}/>
     </div>
   )

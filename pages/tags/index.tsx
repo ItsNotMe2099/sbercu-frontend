@@ -1,5 +1,3 @@
-import { createCatalog } from "components/catalog/actions";
-import CreateFolder from "components/layout/Header/components/CreateFolder";
 import { confirmOpen, modalClose, tagCategoryModalOpen, tagModalOpen } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import { deleteTagCategory, fetchTagCategoryList } from "components/tags/TagCategory/actions";
@@ -10,7 +8,6 @@ import { useEffect, useState } from "react";
 import { IRootState, ITag, ITagCategory } from "types";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
-import File from "components/dashboard/File";
 import Header from "components/layout/Header";
 import Link from "next/link";
 import TagCategory from "components/tags/TagCategory";

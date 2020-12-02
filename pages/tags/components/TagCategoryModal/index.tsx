@@ -16,7 +16,7 @@ export default function TagCategoryModal(props: Props){
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
     if(props.tagCategory){
-      dispatch(updateTagCategory(props.tagCategory.id, {name: data.name as string, tags:[]}));
+      dispatch(updateTagCategory(props.tagCategory.id, data));
     }else{
       dispatch(createTagCategory({...data, tags:[]}));
 

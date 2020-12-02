@@ -79,8 +79,8 @@ export default function UserReducer(state = {...initialState}, action) {
       state.listLoading = true;
       break
     case ActionTypes.FETCH_USER_LIST + ApiActionTypes.SUCCESS:
-      state.list = action.payload
-  //    state.listTotal = action.payload.total
+      state.list = action.payload.data
+      state.listTotal = action.payload.total
       state.listLoading = false;
       break
     case ActionTypes.FETCH_USER_LIST + ApiActionTypes.FAIL:

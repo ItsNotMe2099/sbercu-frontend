@@ -7,7 +7,6 @@ export interface CatalogState {
   listTotal?: number,
   basePath?: string,
   currentCatalogId?: number,
-  parents: ICatalogEntry[],
   projects: ICatalogEntry[],
   projectsTotal?: number,
   currentCatalogItem?: ICatalogEntry,
@@ -22,7 +21,6 @@ export interface CatalogState {
 const initialState: CatalogState = {
   list: [],
   projects: [],
-  parents: [],
   formIsSuccess: false,
   formError: '',
   formLoading: false,
@@ -111,21 +109,20 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.listLoading = false;
       break
 
-    case ActionTypes.FETCH_CATALOG_PARENTS:
-      state.parentsLoading = true;
+    case ActionTypes.FETCH_CATALOG_ITEM:
+      state.currentLoading = true;
       break
-    case ActionTypes.FETCH_CATALOG_PARENTS + ApiActionTypes.SUCCESS:
+    case ActionTypes.FETCH_CATALOG_ITEM + ApiActionTypes.SUCCESS:
       let path ='/catalog'
-      state.parents = action.payload.map(item => {
-        const link = `${path}/${item.id}`
-        return {...item, link}
-      })
-
-        state.basePath = `/catalog/${action.payload.map(i => i.id).join('/')}`
-      state.parentsLoading = false;
+      state.currentCatalogItem = {...action.payload,  parents: action.payload.parents?.map(item => {
+            const link = `${path}/${item.id}`
+            return {...item, link};
+          })}
+      state.basePath = `/catalog/${action.payload.parents?.map(i => i.id).join('/')}`
+      state.currentLoading = false;
       break
-    case ActionTypes.FETCH_CATALOG_PARENTS + ApiActionTypes.FAIL:
-      state.parentsLoading = false;
+    case ActionTypes.FETCH_CATALOG_ITEM + ApiActionTypes.FAIL:
+      state.currentLoading = false;
       break
 
     case ActionTypes.FETCH_CATALOG:

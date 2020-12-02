@@ -9,7 +9,6 @@ import NewPasswordReducer from 'components/auth/password-reset/reducer';
 import registrationReducer from 'components/auth/registration-invite/reducer';
 import CategoryTagReducer from 'components/dashboard/TagSelect/reducer';
 import ModalReducer from 'components/Modal/reducer';
-import CreateFolderReducer from 'components/layout/Header/components/CreateFolder/reducer';
 import CreateTagCategoryReducer from 'components/tags/TagCategory/reducer';
 
 export default combineReducers({
@@ -20,7 +19,6 @@ export default combineReducers({
   regReducer: registrationReducer,
   CategoryTagReducer: CategoryTagReducer,
   ModalReducer: ModalReducer,
-  CreateFolderReducer: CreateFolderReducer,
   tagCategory: CreateTagCategoryReducer,
   catalog: CatalogReducer,
   tag: TagReducer,
