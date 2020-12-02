@@ -3,6 +3,7 @@ import 'normalize.css'
 import { Provider } from 'react-redux';
 import {store} from 'store'
 import 'scss/app.scss'
+import 'video-react/dist/video-react.css';
 
 export default function App({ Component, pageProps }) {
   return (
