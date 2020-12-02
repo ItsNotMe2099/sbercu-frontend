@@ -6,19 +6,22 @@ import CreateGroup from 'components/svg/CreateGroup'
 import Invite from 'components/svg/Invite'
 
 import Link from 'next/link'
+
 interface Props {
- items: any[]
+    items: any[]
 }
 
-export default function BreadCrumbs({items}: Props) {
-  return (
-      <div className={styles.root}>
-          {items.map((item, index) => <div className={styles.item}>{index > 0 &&  <div className={styles.separator}>←</div>}<Link href={item.link}><a className={styles.link}>{item.name}</a></Link></div>)}
-      </div>
+export default function BreadCrumbs({ items }: Props) {
+    return (
+        <div className={styles.root}>
+            {items.map((item, index) => <div
+                className={`${styles.item} ${(index === items.length - 2 && items.length > 2) && styles.itemPrevious}`}>{index > 0 &&
+            <div className={styles.separator}>←</div>}{(index === items.length - 2 && items.length > 2) &&
+            <Link href={item.link}><a className={styles.previousLink}>...</a></Link>}<Link href={item.link}><a
+                className={styles.link}>{item.name}</a></Link></div>)}
+        </div>
 
-  )
+    )
 }
 
-BreadCrumbs.defaultProps = {
-
-}
+BreadCrumbs.defaultProps = {}
