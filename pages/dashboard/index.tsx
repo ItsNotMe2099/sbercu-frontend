@@ -12,6 +12,8 @@ import Quantity from "./components";
 import File from "components/dashboard/File";
 import Header from "components/layout/Header";
 import { useDispatch, useSelector } from 'react-redux'
+import DashboardLoader from "components/ContentLoaders/dashboardLoader";
+import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 
 export default function Dashboard(props){
@@ -39,6 +41,12 @@ export default function Dashboard(props){
   return (
     <Layout>
     <Header/>
+    {projects.length === 0 ?
+    <>
+    <DashboardLoader/>
+    <ProjectLoader/>
+    </>
+    :
     <div className={styles.root}>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
       <div className={styles.titleContainer}>
@@ -80,6 +88,7 @@ export default function Dashboard(props){
         </a>
       </div>
     </div>
+}
       <Footer/>
     </Layout>
   )

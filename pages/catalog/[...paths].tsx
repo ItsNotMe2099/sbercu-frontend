@@ -23,6 +23,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router'
 
 import { useDispatch, useSelector } from 'react-redux'
+import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -112,7 +113,7 @@ const Catalog = (props) => {
           <img className={styles.human} src="/img/icons/human.svg" alt=''/>
           <img className={styles.plant} src="/img/icons/plant.svg" alt=''/>
         </div>
-      </a> : null
+      </a> : items.length === 0 ? <ProjectLoader/> : null
       }
     </div>
 
