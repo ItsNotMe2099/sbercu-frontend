@@ -1,0 +1,49 @@
+.root{
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 420px;
+  border-radius: 5px;
+}
+.deleteButton{
+  cursor: pointer;
+  padding-right: 8px;
+  &:hover{
+    img{
+      fill: #FD5742;
+    }
+  }
+}
+.title{
+  flex: 1;
+}
+.image{
+  position: relative;
+  width: 192px;
+  height: 192px;
+  img{
+    width: 192px;
+    height: 192px;
+    border-radius: 5px;
+  }
+}
+.loader{
+  position: absolute;
+  z-index: 3;
+  bottom: 20%;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  background: #fff;
+  border-radius: 4px;
+}
+.loaderFill{
+  background: #FD5742;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.btn{
+  float: right;
+  margin-top: 24px;
+}

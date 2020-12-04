@@ -13,6 +13,7 @@ import TextArea from 'components/ui/Inputs/TextArea'
 import TagCategory from 'components/tags/TagCategory'
 import { RadioList } from 'components/ui/Inputs/RadioList'
 import classNames from 'classnames';
+import FileInput from "components/ui/Inputs/S3FileUpload";
 
 let ProjectForm = props => {
     const router = useRouter()
@@ -99,6 +100,11 @@ let ProjectForm = props => {
                 component={RadioList}
                 label="Приватность"
                 options={[{value: "all", label: "Видим для всех"}, {value: "guest", label: "Доступен для гостей"}]}
+                />
+                <div className={styles.head}>Обложка</div>
+                <Field
+                name="projectCover"
+                component={FileInput}
                 />
               </div>
             </div>

@@ -55,7 +55,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   <ContentLoader
     speed={1}
@@ -72,7 +72,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   <ContentLoader
     speed={1}
@@ -89,7 +89,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   <ContentLoader
     speed={1}
@@ -106,7 +106,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   <ContentLoader
     speed={1}
@@ -123,7 +123,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   <ContentLoader
     speed={1}
@@ -140,7 +140,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="15" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="15" rx="0" ry="0" width="150" height="14"/>
-    <rect x="1200" y="10" rx="0" ry="0" width="30" height="30"/>
+    <rect x="1200" y="10" rx="5" ry="5" width="30" height="30"/>
   </ContentLoader>
   </div>
     </>

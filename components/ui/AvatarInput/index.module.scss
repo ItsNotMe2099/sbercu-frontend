@@ -1,0 +1,53 @@
+.root{
+  margin-bottom: 20px;
+  display: flex;
+  position: relative;
+}
+.backdrop{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+  background: rgba(0,0,0, 0.7);
+  border-radius: 10px;
+}
+.hasBackDrop{
+  border: none;
+}
+.preview{
+  width: 120px;
+  height: 150px;
+  border: 1px solid #909090;
+  border-radius: 10px;
+  position: relative;
+}
+.info{
+  height: 150px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 34px;
+  font-size: 16px;
+}
+.infoActions{
+  display: flex;
+  align-items: center;
+}
+.infoActionItem{
+  color: #5AA7FB;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  &:first-of-type{
+    margin-right: 30px;
+  }
+  &:hover{
+    text-decoration: none;
+  }
+  img{
+    margin-left: 12px;
+  }
+}
