@@ -46,4 +46,9 @@
 .btn{
   float: right;
   margin-top: 24px;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
