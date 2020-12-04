@@ -18,6 +18,7 @@ import Link from "next/link";
 import TagCategory from "components/tags/TagCategory";
 import InputSearch from "components/ui/Inputs/InputSearch";
 import { useSelector, useDispatch } from 'react-redux'
+import UsersLoader from "components/ContentLoaders/usersLoader";
 
 
 export default function Users(props){
@@ -67,6 +68,10 @@ export default function Users(props){
       <div className={styles.tagBtn}><Button transparent invite textGreen btnGreen type="button" onClick={handleNewUserClick}>Пригласить</Button></div>
     </Header>
     <div className={styles.root}>
+      {users.length === 0 ?
+      <UsersLoader/>
+      :
+      <>
       <div className={styles.title}>Пользователи</div>
       <div className={styles.container}>
         {tagCategory.slice(0, 1).map(item => <TagCategory hideHeader={true}  green item={item} onTagClick={handleTagClick} selectedTags={selectedTags}/>)}
@@ -85,6 +90,8 @@ export default function Users(props){
         {users.filter(user => (selectedTags.length === 0 || !!selectedTags.find(tag => tag.id === user.departmentTags[0]?.id)) ).filter(user => !filter || (user.firstName.indexOf(filter) > -1 || user.lastName.indexOf(filter) > -1 || user.email.indexOf(filter) > -1) ).map(user => <UserListRow user={user} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser}/>)}
 
     </div>
+    </>
+    }
     </div>
     <UserModal isOpen={key === 'userForm'}
                       onRequestClose={() => dispatch(modalClose())} user={currentEditUser}/>
