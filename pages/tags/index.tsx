@@ -14,6 +14,7 @@ import Header from "components/layout/Header";
 import Link from "next/link";
 import TagCategory from "components/tags/TagCategory";
 import { useSelector, useDispatch } from 'react-redux'
+import TagsLoader from "components/ContentLoaders/tagsLoader";
 
 const Tags = (props) => {
   const dispatch = useDispatch()
@@ -72,11 +73,16 @@ const Tags = (props) => {
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagCategoryClick}>Создать новую коллекцию</Button></div>
     </Header>
     <div className={styles.root}>
+      {items.length === 0 ?
+      <TagsLoader/>
+      :
+      <>
       <div className={styles.title}>Теги</div>
       <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
       <div className={styles.container}>
         {items.map(item => <TagCategory  onEditClick={handleEdit} onDeleteClick={handleDelete} onTagEditClick={handleEditTag} onTagDeleteClick={handleDeleteTag} editMode={true} item={item} selectedTags={[]}/>)}
       </div>
+      </>}
     </div>
     <TagModal isOpen={key === 'tag'}
               onRequestClose={() => dispatch(modalClose())} tag={currentEditTag}/>
