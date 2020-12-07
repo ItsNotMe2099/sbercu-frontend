@@ -42,9 +42,6 @@ const AvatarInputPreview: FunctionComponent<Props> = props => {
            <img className={styles.image}
               src={getImageSrc(file)}
             />
-            {loading && <div className={styles.loader}>
-              <div className={styles.loaderFill} style={{width: `${loading ? progress: 100}%`}}></div>
-            </div>}
 
 
        </div>

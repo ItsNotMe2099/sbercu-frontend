@@ -1,7 +1,6 @@
-import AvatarAddFileBtn from "components/ui/AvatarInput/components/AvatarAddFileBtn";
+import AddFileButton from "components/ui/AvatarInput/components/AddFileButton";
 import AvatarInputPreview from "components/ui/AvatarInput/components/AvatarInputPreview";
 import ErrorInput from "components/ui/Inputs/Input/components/ErrorInput";
-import AddFileButton from "components/ui/Inputs/S3FileUpload/components/AddFileBtn";
 import React, {
     FunctionComponent,
     Children,
@@ -16,6 +15,7 @@ import S3Upload from 'react-s3-uploader/s3upload'
 import styles from './index.module.scss'
 
 import Cookies from 'js-cookie'
+import Button from "../Button";
 
 
 export interface AvatarInputProps {
@@ -228,13 +228,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             className={styles.dropZone}
             {...getRootProps()}
           >
-            <AvatarAddFileBtn isLoading={!!(files.length > 0 && files[0].rawFile)} hasImage={files.length > 0 && !files[0].rawFile}/>
-            <input
-              {...getInputProps()}
-            />
-
-          </div>
-          {(Array.isArray(files) ? files : [files]).map((file, index) => (
+            {(Array.isArray(files) ? files : [files]).map((file, index) => (
             <AvatarInputPreview
               key={index}
               file={file}
@@ -244,17 +238,17 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             >
             </AvatarInputPreview>
           ))}
-          {files.length > 0 && <div className={styles.backdrop}/>}
-        </div>
-        <div className={styles.info}>
-          <div>Upload your photo</div>
+            {files.length === 0 ? <AddFileButton uploadBtn/> : 
+            <div className={styles.btns}>
+            <Button onClick={handleChangePhoto} transparent textGreen brdrGreen size="9px 20px" type="button">Заменить</Button>
+          </div>}
+            <input
+              {...getInputProps()}
+            />
 
-          <div> Format allowed PNG and JPEG</div>
-
-          <div> Minimal size: 180×180 px.</div>
-          <div className={styles.infoActions}>
-            <div className={styles.infoActionItem} onClick={handleChangePhoto}>Change photo <img src={'/img/icons/link-arrow-left.svg'} /></div>
-            {files.length > 0 &&  <div className={styles.infoActionItem} onClick={handleDeletePhoto}>Delete photo <img src={'/img/icons/link-cross.svg'} /></div>}
+          </div>
+          <div className={styles.deleteBtn}>
+          {files.length > 0 ? <Button onClick={handleDeletePhoto} transparent textDarkGrey brdrDarkGrey size="9px 20px" type="button">Удалить</Button> : null}
           </div>
         </div>
 

@@ -14,6 +14,7 @@ import TagCategory from 'components/tags/TagCategory'
 import { RadioList } from 'components/ui/Inputs/RadioList'
 import classNames from 'classnames';
 import FileInput from "components/ui/Inputs/S3FileUpload";
+import AvatarInput from "components/ui/AvatarInput";
 
 let ProjectForm = props => {
     const router = useRouter()
@@ -104,7 +105,7 @@ let ProjectForm = props => {
                 <div className={styles.head}>Обложка</div>
                 <Field
                 name="projectCover"
-                component={FileInput}
+                component={AvatarInput}
                 />
               </div>
             </div>
