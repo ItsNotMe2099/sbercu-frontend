@@ -11,11 +11,13 @@ import React, {
 import PropTypes from 'prop-types'
 import { shallowEqual } from 'recompose'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
-import S3Upload from 'react-s3-uploader/s3upload'
+//import S3Upload from 'react-s3-uploader/s3upload'
 import styles from './index.module.scss'
 
 import Cookies from 'js-cookie'
 import Button from "../Button";
+import S3Upload from './S3Upload.js'
+
 
 
 export interface AvatarInputProps {
@@ -130,7 +132,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
       }
 
       const onDrop = (newFiles, rejectedFiles, event) => {
-        console.log('OnDrop', files)
+        console.log('OnDrop', newFiles)
         const updatedFiles = multiple ? [...files, ...newFiles] : [...newFiles]
 
         if (multiple) {
@@ -140,12 +142,11 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
         }
         const token = Cookies.get('token')
 
-        console.log('OnDrop', files)
         const options = {
           files: newFiles,
           signingUrlMethod: 'GET',
           accept: '*/*',
-          uploadRequestHeaders: { 'x-amz-acl': 'public-read' },
+          uploadRequestHeaders: { 'x-amz-acl': 'public-read',  'Authorization': `Bearer ${token}`},
           signingUrlHeaders: {'Authorization': `Bearer ${token}`},
           signingUrlWithCredentials: false,
           signingUrlQueryParams: { uploadType: 'avatar' },
@@ -153,8 +154,8 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           onFinishS3Put: onFinishFileUpload,
           onProgress: onFileProgress,
           onError: onFileUploadError,
-          signingUrl: `https://masters-pages.dev.glob-com.ru/api/s3/sign`,
-          s3path: 'masters-pages/files',
+          signingUrl: `https://dev.sbercu.firelabs.ru/api/media/sign`,
+          s3path: '',
           ...uploadOptions,
         }
 
