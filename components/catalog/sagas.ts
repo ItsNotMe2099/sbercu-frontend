@@ -32,7 +32,7 @@ function* catalogSaga() {
       if(result.type === ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("UPDATE TAG_CATEGORY SUCCESS")
           if( action.payload.data.entryType === 'project'){
-              Router.push(`catalog/${result.payload.id}`)
+              Router.push(`/catalog/${result.payload.id}`)
           }else {
               yield put(modalClose());
               const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)

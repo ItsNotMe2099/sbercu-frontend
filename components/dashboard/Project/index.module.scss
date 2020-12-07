@@ -27,6 +27,18 @@
   padding-bottom: 100%;
 }
 
+.cover{
+  border-radius: 5px;
+  width: 193px;
+  height: 193px;
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    border-radius: 5px;
+    }
+}
+
 .title{
   @media screen and (min-width: $container-lg) {
     font-size: 14px;
