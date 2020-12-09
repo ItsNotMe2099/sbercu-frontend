@@ -1,6 +1,20 @@
 @import "scss/index";
 .root{
   display: table-row;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid #E0E0E0;
+      border-bottom: 1px solid #E0E0E0;
+      padding-top: 16px;
+      padding-bottom: 10px;
+    }
+  }
 }
 .cell{
   display: table-cell;
@@ -13,6 +27,15 @@
 .editCell{
   padding: 0px;
   width: 38px;
+  @media screen and (max-width: $sm-max) {
+    width: auto;
+    div{
+      button{
+        width: auto;
+        height: auto;
+      }
+    }
+  }
 }
 .status{
   font-size: 10px;
@@ -29,4 +52,25 @@
       margin-bottom: 0px;
     }
   }
+}
+
+.row{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.name{
+  font-weight: 500;
+  font-size: 12px;
+  margin: auto 0;
+}
+
+.greyText{
+  font-size: 12px;
+  color: #bdbdbd;
+}
+
+.text{
+  font-size: 12px;
 }

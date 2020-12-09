@@ -23,8 +23,9 @@ export default function Header(props: Props){
         <div className={styles.container}>
             <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
+            <div className={styles.mobile}>{props.children}</div>
           <InputSearch/>
-            {props.children}
+          <div className={styles.notMobile}>{props.children}</div>
           <Profile/>
           </div>
         </div>

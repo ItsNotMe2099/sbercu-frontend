@@ -16,18 +16,37 @@
 .title{
   font-weight: bold;
   font-size: 24px;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 20px;
+  }
 }
 
 .container{
   width: 70%;
+  @media screen and (max-width: $sm-max) {
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 16px;
+  }
 }
 
 .inputContainer{
   width: 35%;
+  @media screen and (max-width: $sm-max) {
+    width: 100%;
+    padding: 0 20px;
+  }
   form{
+    @media screen and (max-width: $sm-max) {
+      margin: 0;
+    }
     div{
+      @media screen and (max-width: $sm-max) {
+        margin: 0;
+      }
       input{
         width: 100%;
+        display: inline-block;
       }
     }
   }
@@ -37,11 +56,19 @@
   display: table;
   margin-top: 33px;
   width: 100%;
+  @media screen and (max-width: $sm-max) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+  }
 }
 
 .tr{
   display: table-row;
   border: 1px solid #E0E0E0;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
 }
 
 .td{
@@ -53,6 +80,9 @@
 .tagBtn{
   margin: auto 27px auto auto;
   @media screen and (max-width: $sm-max) {
-    margin: auto 5px auto 0;
+    margin: auto 0;
+    span{
+      display: none;
+    }
   }
 }
