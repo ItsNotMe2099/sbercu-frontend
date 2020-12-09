@@ -1,6 +1,11 @@
+@import "scss/index";
+
 .form{
   display: flex;
   margin-top: 21px;
+  @media screen and (max-width: $sm-max) {
+    flex-direction: column-reverse;
+  }
 }
 
 .border{
@@ -16,11 +21,41 @@
 
 .btnContainer{
   display: flex;
+  @media screen and (max-width: $sm-max) {
+    margin-top: 60px;
+    padding: 0 20px;
+  }
 }
 
 .section{
   margin-right: 23px;
   width: 40%;
+  @media screen and (max-width: $sm-max) {
+    width: 100%;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+  &__tags{
+    margin-right: 23px;
+    width: 40%;
+    @media screen and (max-width: $sm-max) {
+      display: none;
+    }
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: block;
+      padding: 0 20px;
+    }
+  }
+  &__cover{
+    @media screen and (max-width: $sm-max) {
+      padding-left: 20px;
+      padding-right: 100px;
+    }
+  }
 }
 
 .content{

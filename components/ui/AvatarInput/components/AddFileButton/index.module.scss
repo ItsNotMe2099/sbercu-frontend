@@ -3,9 +3,6 @@
 .root{
   display: flex;
   align-items: center;
-  @media screen and (max-width: $sm-max){
-    display: none;
-  }
 }
 .desc{
   color: #6D718C;

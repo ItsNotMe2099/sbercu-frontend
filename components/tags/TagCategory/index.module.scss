@@ -10,7 +10,22 @@
     content: '';
     display: block;
     clear: both;
-}
+  }
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      margin: 17px 0px 12px 0px;
+      display: block;
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+    }
+  }
 }
 
 .categoryText{

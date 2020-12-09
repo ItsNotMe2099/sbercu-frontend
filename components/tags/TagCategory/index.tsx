@@ -63,6 +63,23 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
                           type="button">{show ? <>&larr;</> : <>&rarr;</>}</TagArrow>
                 </div>}
             </div>
+            <div className={styles.clearfix__mobile}>
+                {(show ? item.tags : item.tags.slice(0, 1)).map(item =>
+                    <TagItem
+                        green={props.green}
+                        onClick={onTagClick}
+                        onEditClick={onTagEditClick}
+                        onDeleteClick={onTagDeleteClick}
+                        editMode={editMode}
+                        isSelected={!!selectedTags.find(i => i.id === item.id)}
+                        item={item}
+                    />
+                )}
+                {item.tags.length > 1 && <div className={styles.btnContainer}>
+                  <TagArrow onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen
+                          type="button">{show ? <>&larr;</> : <>&rarr;</>}</TagArrow>
+                </div>}
+            </div>
         </div>
     )
 }

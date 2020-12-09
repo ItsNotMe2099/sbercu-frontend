@@ -25,6 +25,17 @@ let ProjectForm = props => {
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.form}>
+            <div className={styles.section__mobile}>
+              <div className={styles.title}>Тегирование</div>
+              <div className={styles.border}></div>
+              <div className={styles.tags}>
+                <Field
+                name="tagsIds"
+                component={TagInput}
+                green
+                />
+              </div>
+            </div>
             <div className={styles.section}>
               <div className={styles.title}>Описание</div>
               <div className={styles.border}></div>
@@ -79,7 +90,7 @@ let ProjectForm = props => {
                 </div>
               </div>
             </div>
-            <div className={styles.section}>
+            <div className={styles.section__tags}>
               <div className={styles.title}>Тегирование</div>
               <div className={styles.border}></div>
               <div className={styles.tags}>
@@ -91,7 +102,7 @@ let ProjectForm = props => {
 
               </div>
             </div>
-            <div>
+            <div className={styles.section__cover}>
               <div className={styles.title}>Отображение</div>
               <div className={styles.border}></div>
               <div className={styles.content}>
