@@ -8,6 +8,7 @@ import VideoComponent from 'components/video/videoComponent';
 import Tag from './component/tag';
 import ButtonSelect from 'components/ui/ButtonSelect';
 import Button from 'components/ui/Button';
+import Info from './component/info';
 
 interface Props{
 
@@ -82,6 +83,7 @@ export default function Video(props: Props){
     :
     null
     }
+    <Info author="Vasya" date="09.11.2019" language="Русский, Английский"/>
     </div>
     </body>
   )

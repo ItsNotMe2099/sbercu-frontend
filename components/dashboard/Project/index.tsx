@@ -31,7 +31,9 @@ export default function Project({item}: Props){
       <a className={styles.container}>
       <div className={styles.root}>
   <div className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`} style={{backgroundColor: getColorByType(item.entryType)}}>
-    {item.projectCover !== "link to cover" && item.projectCover !== null ? <img src={`https://dev.sbercu.firelabs.ru/api/media/files/${item.projectCover}`} alt=''/> : null}
+    {item.projectCover !== "link to cover" && item.projectCover !== null ? 
+    <img src={`https://dev.sbercu.firelabs.ru/api/media/files/${item.projectCover}`} alt=''/> 
+    : null}
   </div>
       <div className={styles.title}>{item.name}</div>
     </div>

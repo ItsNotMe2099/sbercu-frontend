@@ -11,8 +11,13 @@
 
 .top{
   display: flex;
+  justify-content: space-between;
 }
 
 .children{
   margin-top: 20px;
+}
+
+.btnContainer{
+  margin: auto 0;
 }

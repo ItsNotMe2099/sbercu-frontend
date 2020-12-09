@@ -39,7 +39,7 @@ export default function Modal(props: Props) {
         <div className={styles.top}>
           <div className={styles.title}>{props.title}</div>
           {props.closeBtn ?
-            <Button closeBtn onClick={props.onRequestClose}></Button>
+            <div className={styles.btnContainer}><Button closeBtn onClick={props.onRequestClose}></Button></div>
           :
           null}
         </div>

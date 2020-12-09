@@ -37,6 +37,9 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.CHANGE_CONFIRM_DATA:
       state.confirmData = action.payload
       break
+    case ActionTypes.UPLOAD_FILES:
+      state.modalKey = 'uploadFiles'
+      break
   }
 
   return state

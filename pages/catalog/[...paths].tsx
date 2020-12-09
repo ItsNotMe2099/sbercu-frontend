@@ -5,7 +5,7 @@ import {
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, createFolderOpen, modalClose } from "components/Modal/actions";
+import { confirmOpen, createFolderOpen, modalClose, uploadFilesModalOpen } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import BreadCrumbs from "components/ui/Breadcrumbs";
 import Button from "components/ui/Button";
@@ -24,6 +24,7 @@ import { useRouter } from 'next/router'
 
 import { useDispatch, useSelector } from 'react-redux'
 import ProjectLoader from "components/ContentLoaders/projectLoader";
+import UploadFilesModal from "./components/UploadFilesModal";
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -102,7 +103,7 @@ const Catalog = (props) => {
         />))}
       </div>
       : !listLoading ?
-      <a className={styles.noFiles}>
+      <a className={styles.noFiles} onClick={() => dispatch(uploadFilesModalOpen())}>
         <div className={styles.text}>
           <div className={styles.firstText}>В эту папку пока никто ничего не загрузил. Подождем...</div>
           <div className={styles.secondText}>В папках можно хранить любое фото, видео, аудио или текстовые материалы</div>
@@ -120,6 +121,7 @@ const Catalog = (props) => {
       <Footer/>
     <CreateFolder isOpen={key === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
+    <UploadFilesModal isOpen={key === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
 
     </Layout>
   )
