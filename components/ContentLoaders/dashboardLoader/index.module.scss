@@ -17,4 +17,25 @@
 
 .container{
   display: flex;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  svg{
+    height: 350px;
+  }
+  &__mobile{
+    svg{
+      height: 176px;
+      &:nth-child(-n+2){
+        height: 250px;
+      }
+    }
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+      padding: 0 22px;
+    }
+  }
 }

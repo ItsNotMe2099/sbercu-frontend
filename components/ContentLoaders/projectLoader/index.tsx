@@ -14,9 +14,8 @@ export default function ProjectLoader(props: Props){
     <div className={styles.root}>
     <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={130}
-    viewBox="0 0 1250 130"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
     {...props}
@@ -34,9 +33,8 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
     {...props}
@@ -51,11 +49,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -68,11 +66,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -85,11 +83,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -102,11 +100,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -119,11 +117,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -136,11 +134,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -153,11 +151,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
@@ -170,11 +168,11 @@ export default function ProjectLoader(props: Props){
   </ContentLoader>
   <ContentLoader
     speed={1}
-    width={1250}
+    style={{ width: '100%'}}
     height={60}
-    viewBox="0 0 1250 60"
     backgroundColor="#E0E0E0"
     foregroundColor="#e8e8e3"
+    
     {...props}
   >
     <rect x="10" y="0" width="39" height="6"/>
