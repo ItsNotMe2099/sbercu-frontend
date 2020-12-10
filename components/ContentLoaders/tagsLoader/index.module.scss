@@ -2,6 +2,16 @@
 
 .root{
   position: relative;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      padding: 0 20px;
+      display: block;
+    }
+  }
   @media screen and (min-width: $container-lg) {
     width: $container-lg;
     margin:0 auto;
