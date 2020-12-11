@@ -1,6 +1,9 @@
 @import "scss/index";
 .root{
 position: relative;
+@media screen and (max-width: $sm-max) {
+  flex-shrink: 0;
+}
 }
 .dropDown {
   background: #ffffff;

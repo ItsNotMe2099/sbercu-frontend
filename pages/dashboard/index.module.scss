@@ -40,16 +40,22 @@
     display: flex;
   }
   @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
+
+.hide{
+  transform: rotate(180deg);
+}
+
+.projectMobile{
+  display: none;
+  @media screen and (max-width: $sm-max) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     padding: 0 22px;
     margin-top: 16px;
-    a{
-      &:nth-child(n + 5){
-        display: none;
-      }
-    }
   }
 }
 

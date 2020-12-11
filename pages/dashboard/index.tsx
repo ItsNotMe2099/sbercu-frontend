@@ -2,7 +2,7 @@ import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actio
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
@@ -20,6 +20,7 @@ export default function Dashboard(props){
   const dispatch = useDispatch();
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const projects = useSelector((state: IRootState) => state.catalog.projects)
+  const [show, setShowAll] = useState(false)
 
   useEffect(() => {
     dispatch(fetchTagCategoryList());
@@ -61,9 +62,15 @@ export default function Dashboard(props){
           />
           ))}
       </div>
+      <div className={styles.projectMobile}>
+          {(show ? projects : projects.slice(0, 4)).map(item => (<Project
+          item={item}
+          />
+          ))}
+      </div>
       {projects.length > 5 && <div className={styles.more}>
-        <a>
-          <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
+        <a onClick={() => show ? setShowAll(false) : setShowAll(true)}>
+          <img className={show ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{show ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>
       </div>}
       <div className={styles.titleContainer}>
