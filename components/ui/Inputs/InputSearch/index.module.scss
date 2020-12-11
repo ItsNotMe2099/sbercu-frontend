@@ -26,10 +26,21 @@
   }
 }
 
+.cross{
+  button{
+    svg{
+      width: 16px;
+      height: 24px;
+      fill: #828282;
+    }
+  }
+}
+
 .form{
   margin-right: 27px;
   @media screen and (max-width: $sm-max) {
-    margin-right: 11px;
+    position: absolute;
+    right: 5%;
   }
 }
 

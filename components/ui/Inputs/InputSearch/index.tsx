@@ -24,7 +24,10 @@ export default function InputSearch(props: Props) {
               }}
               placeholder={props.placeholder}
           />
-          <Button search type="button" onClick={() => isOpen ? null : setIsOpen(true)}></Button>
+          {isOpen ?
+          <div className={styles.cross}><Button cross type="button" onClick={() => setIsOpen(false)}></Button></div>
+          :
+          <Button search type="button" onClick={() => setIsOpen(true)}></Button>}
       </div>
     </form>
   )
