@@ -1,4 +1,5 @@
 import Button from 'components/ui/Button'
+import { useState } from 'react'
 import styles from './index.module.scss'
 
 
@@ -8,10 +9,11 @@ interface Props {
 }
 
 export default function InputSearch(props: Props) {
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <form className={styles.form} action='/search'>
-      <div className={styles.inputContainer}>
+      <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
           <input
               name="query"
               type='text'
@@ -22,7 +24,7 @@ export default function InputSearch(props: Props) {
               }}
               placeholder={props.placeholder}
           />
-          <Button search type="button"></Button>
+          <Button search type="button" onClick={() => isOpen ? null : setIsOpen(true)}></Button>
       </div>
     </form>
   )
