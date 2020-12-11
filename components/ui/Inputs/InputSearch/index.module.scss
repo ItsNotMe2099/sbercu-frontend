@@ -26,6 +26,20 @@
   }
 }
 
+.btn{
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
+
+.mobileBtns{
+  display: none;
+  @media screen and (max-width: $sm-max) {
+    display: block;
+  }
+}
+
+
 .cross{
   button{
     svg{
