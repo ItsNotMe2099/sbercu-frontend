@@ -1,9 +1,9 @@
 @import "scss/index";
 
 .root{
+  margin-right: 24px;
   @media screen and (min-width: $container-lg) {
     margin-top: 16px;
-    margin-right: 24px;
   }
 }
 

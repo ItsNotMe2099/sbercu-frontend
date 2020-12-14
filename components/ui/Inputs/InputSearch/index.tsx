@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 interface Props {
   placeholder?: string,
     onChange?: (value) => void
+    onClick?: () => void
 }
 
 export default function InputSearch(props: Props) {
@@ -24,8 +25,8 @@ export default function InputSearch(props: Props) {
               }}
               placeholder={props.placeholder}
           />
-          <div className={styles.btn}><Button search type="button"></Button></div>
-          <div className={styles.mobileBtns}>
+          <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>
+          <div onClick={props.onClick} className={styles.mobileBtns}>
           {isOpen ?
           <div className={styles.cross}><Button cross type="button" onClick={() => setIsOpen(false)}></Button></div>
           :

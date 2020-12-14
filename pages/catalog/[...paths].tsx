@@ -80,7 +80,7 @@ const Catalog = (props) => {
   }
   return (
     <Layout>
-    <Header>
+    <Header catalogPage>
       <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
       <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
     </Header>

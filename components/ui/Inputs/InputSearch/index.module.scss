@@ -43,7 +43,7 @@
 .cross{
   button{
     svg{
-      width: 16px;
+      width: 12px;
       height: 24px;
       fill: #828282;
     }
@@ -52,10 +52,6 @@
 
 .form{
   margin-right: 27px;
-  @media screen and (max-width: $sm-max) {
-    position: absolute;
-    right: 5%;
-  }
 }
 
 .inputContainer__mobile{
@@ -72,7 +68,7 @@
     }
   }
   button{
-    padding: 4px 0 4px 4px;
+    padding: 4px 0 4px 10px;
     position: absolute;
     top: 0;
     background: transparent;

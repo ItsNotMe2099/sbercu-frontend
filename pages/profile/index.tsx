@@ -73,13 +73,13 @@ export default function Profile(props){
         </div>
         <div className={styles.tags}>
           <div>
-            <div className={styles.title}>Доступно управление тегами</div>
+            <div className={styles.title__tag}>Доступно управление тегами</div>
             <div className={styles.tag}>Школа финансов</div>
           </div>
         </div>
       </div>
       <div className={styles.titleContainer}>
-        <div className={styles.title}>Файлы загруженные мной</div>
+        <div className={styles.title__tag && styles.title__file}>Файлы загруженные мной</div>
         <Quantity
         quantity='2000'
         />

@@ -16,12 +16,33 @@
 
 .top{
   display: flex;
+  flex-direction: column;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .title{
   font-weight: bold;
   font-size: 16px;
   margin-right: 20px;
+  &__tag{
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  &__file{
+    margin-right: 20px;
+    @media screen and (max-width: $sm-max) {
+      font-size: 18px;
+      color: #333333;
+      font-weight: bold;
+      width: 60%;
+    }
+  }
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .files{
@@ -35,6 +56,9 @@
   margin-bottom: 12px;
   border-top: 1px solid #e0e0e0;
   padding-top: 14px;
+  @media screen and (max-width: $sm-max) {
+    border: 0;
+  }
   a{
     @media screen and (max-width: $sm-max) {
       padding: 0 22px;
@@ -55,6 +79,15 @@
   margin-top: 30px;
   @media screen and (max-width: $sm-max) {
     padding: 0 22px;
+    flex-direction: column;
+  }
+  div{
+    &:last-child{
+      @media screen and (max-width: $sm-max) {
+        margin-top: 6px;
+        font-size: 10px;
+      }
+    }
   }
 }
 
@@ -81,9 +114,8 @@
 }
 
 .tags{
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  margin-top: 30px;
 }
 
 .name{

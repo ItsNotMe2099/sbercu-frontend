@@ -25,8 +25,7 @@
     padding: 0 22px;
     width: 100%;
     flex-direction: column;
-    text-align: center;
-    align-items: center;
+    align-items: start;
   }
 }
 .copyright{
@@ -35,6 +34,13 @@
   font-size: 12px;
   line-height: 14px;
   flex: 1;
+  @media screen and (max-width: $sm-max) {
+    display: flex;
+    flex-direction: column;
+    a{
+      margin-top: 20px;
+    }
+  }
 }
 
 @media screen and (max-width: $sm-max) {
