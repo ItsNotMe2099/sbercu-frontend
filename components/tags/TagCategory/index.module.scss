@@ -19,6 +19,7 @@
     @media screen and (max-width: $sm-max) {
       margin: 17px 0px 12px 0px;
       display: block;
+      overflow: hidden;
       &:after {
         content: '';
         display: block;
@@ -38,6 +39,15 @@
   display: flex;
   align-items: center;
   margin-top: 0px;
+  div{
+    &:last-child{
+      nav{
+        @media screen and (max-width: $sm-max) {
+          left: 0;
+        }
+      }
+    }
+  }
 }
 
 .btnContainer{

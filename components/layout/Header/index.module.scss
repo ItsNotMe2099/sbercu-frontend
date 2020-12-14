@@ -46,16 +46,12 @@
   justify-content: flex-end;
   flex: 1;
   position: relative;
-  @media screen and (max-width: $sm-max) {
-    justify-content: left;;
-  }
 }
 
 .mobile{
   display: none;
   @media screen and (max-width: $sm-max) {
     display: flex;
-    flex: 1;
   }
 }
 

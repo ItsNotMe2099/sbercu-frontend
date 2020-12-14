@@ -52,6 +52,9 @@
 
 .form{
   margin-right: 27px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 15px;
+  }
 }
 
 .inputContainer__mobile{
