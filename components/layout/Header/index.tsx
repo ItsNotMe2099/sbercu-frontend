@@ -10,7 +10,6 @@ import Link from 'next/link'
 import { useState } from "react";
 interface Props{
   children?: any,
-  catalogPage: boolean
 }
 
 export default function Header(props: Props){
