@@ -38,7 +38,7 @@
 .projects{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: $sm-mid) {
     display: none;
   }
   @media screen and (max-width: $sm-max) {
@@ -52,7 +52,7 @@
 
 .projectMobile{
   display: none;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: $sm-mid) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;

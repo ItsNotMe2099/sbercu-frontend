@@ -6,7 +6,7 @@
 
 .container{
   text-decoration: none;
-  @media screen and (min-width: 1113px) {
+  @media screen and (min-width: $sm-mid) {
     display: flex;
   }
 }

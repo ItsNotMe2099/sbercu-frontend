@@ -2,7 +2,7 @@
 
 .inputContainer{
   position: relative;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-right: 32px;
   }
   input{
@@ -14,7 +14,7 @@
       font-size: 12px;
       color: #828282;
     }
-    @media screen and (max-width: $sm-max) {
+    @media screen and (max-width: $sm-mid) {
       display: none;
     }
   }
@@ -27,14 +27,14 @@
 }
 
 .btn{
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: none;
   }
 }
 
 .mobileBtns{
   display: none;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: block;
   }
 }
@@ -52,14 +52,14 @@
 
 .form{
   margin-right: 27px;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-right: 15px;
   }
 }
 
 .open{
   margin-right: 27px;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-right: 15px;
     width: 100%;
   }

@@ -32,15 +32,6 @@
   }
 }
 
-.profile{
-  @media screen and (min-width: $container-lg) {
-  flex: 1;
-  }
-
-  display: flex;
-  justify-content: flex-end;
-}
-
 .notMedia{
   display: flex;
   justify-content: flex-end;
@@ -50,14 +41,14 @@
 
 .mobile{
   display: none;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: flex;
   }
 }
 
 .notMobile{
   display: flex;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: none;
   }
 }
