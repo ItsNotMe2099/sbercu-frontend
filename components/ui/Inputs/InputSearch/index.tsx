@@ -13,7 +13,7 @@ export default function InputSearch(props: Props) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <form className={styles.form} action='/search'>
+    <form className={isOpen ? styles.open : styles.form} action='/search'>
       <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
           <input
               name="query"

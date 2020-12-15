@@ -14,9 +14,11 @@ export default function Profile(props){
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
     {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'}
   ]
   const [isShow, setIsShow] = useState(false)
+  const [showFiles, setShowAllFiles] = useState(false)
   return (
     <Layout>
     <Header>
@@ -85,7 +87,7 @@ export default function Profile(props){
         />
       </div>
       <div className={styles.files}>
-        {items.map(item => (<File
+        {(showFiles ? items : items.slice(0, 5)).map(item => (<File
         item={{
           id: 1,
           name: item.title,
@@ -95,8 +97,8 @@ export default function Profile(props){
         />))}
       </div>
       <div className={styles.moreFiles}>
-        <a>
-          <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
+        <a onClick={() => showFiles ? setShowAllFiles(false) : setShowAllFiles(true)}>
+          <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>
       </div>
     </div>

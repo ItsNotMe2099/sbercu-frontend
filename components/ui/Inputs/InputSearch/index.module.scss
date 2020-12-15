@@ -57,6 +57,14 @@
   }
 }
 
+.open{
+  margin-right: 27px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 15px;
+    width: 100%;
+  }
+}
+
 .inputContainer__mobile{
   position: relative;
   input{

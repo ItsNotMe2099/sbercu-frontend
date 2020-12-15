@@ -51,6 +51,10 @@
   margin-top: 21px;
 }
 
+.hide{
+  transform: rotate(180deg);
+}
+
 .moreFiles{
   display: flex;
   margin-bottom: 12px;
