@@ -63,22 +63,17 @@
 
 .select{
   margin-right: 20px;
+  width: 124px;
   @media screen and (max-width: $sm-max) {
-    width: 50%;
     margin-top: 10px;
   }
   &__down{
     margin-right: 20px;
-    @media screen and (max-width: $sm-max) {
-      width: 45%;
-    }
+    width: 109px;
   }
 }
 
 .regularBtn{
-  @media screen and (max-width: $sm-max) {
-    width: 60%;
-  }
 }
 
 .loading{
@@ -121,4 +116,9 @@
 .videoWrapper{
   display: flex;
   flex-direction: column;
+  div{
+    &:active{
+      outline: none;
+    }
+  }
 }
