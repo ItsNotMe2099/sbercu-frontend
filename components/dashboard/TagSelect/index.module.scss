@@ -115,3 +115,11 @@
 .delete{
   margin-right: 8px;
 }
+
+.transparent{
+  width: 22px;
+  position: fixed;
+  height: 16px;
+  right: 0;
+  background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.51) 100%);
+}

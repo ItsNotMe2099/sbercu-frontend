@@ -6,7 +6,9 @@
 
 .container{
   text-decoration: none;
-  display: flex;
+  @media screen and (min-width: 1113px) {
+    display: flex;
+  }
 }
 
 .square{
