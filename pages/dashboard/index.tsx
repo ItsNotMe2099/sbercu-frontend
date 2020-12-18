@@ -2,7 +2,7 @@ import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actio
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
@@ -20,6 +20,8 @@ export default function Dashboard(props){
   const dispatch = useDispatch();
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const projects = useSelector((state: IRootState) => state.catalog.projects)
+  const [show, setShowAll] = useState(false)
+  const [showFiles, setShowAllFiles] = useState(false)
 
   useEffect(() => {
     dispatch(fetchTagCategoryList());
@@ -34,7 +36,8 @@ export default function Dashboard(props){
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
     {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'}
+    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
+    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
   ]
 
 
@@ -56,14 +59,20 @@ export default function Dashboard(props){
         />
       </div>
       <div className={styles.projects}>
-        {projects.map(item => (<Project
+      {(show ? projects : projects.slice(0, 5)).map(item => (<Project
+          item={item}
+          />
+          ))}
+      </div>
+      <div className={styles.projectMobile}>
+          {(show ? projects : projects.slice(0, 4)).map(item => (<Project
           item={item}
           />
           ))}
       </div>
       {projects.length > 5 && <div className={styles.more}>
-        <a>
-          <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
+        <a onClick={() => show ? setShowAll(false) : setShowAll(true)}>
+          <img className={show ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{show ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>
       </div>}
       <div className={styles.titleContainer}>
@@ -73,7 +82,7 @@ export default function Dashboard(props){
         />
       </div>
       <div className={styles.files}>
-        {items.map(item => (<File
+        {(showFiles ? items : items.slice(0, 5)).map(item => (<File
         item={{
           id: 1,
           name: item.title,
@@ -83,8 +92,8 @@ export default function Dashboard(props){
         />))}
       </div>
       <div className={styles.moreFiles}>
-        <a>
-          <img src="img/icons/arrowDown.svg" alt=''/><span>Показать еще</span>
+        <a onClick={() => showFiles ? setShowAllFiles(false) : setShowAllFiles(true)}>
+          <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>
       </div>
     </div>

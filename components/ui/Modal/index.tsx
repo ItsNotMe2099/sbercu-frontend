@@ -17,8 +17,10 @@ export default function Modal(props: Props) {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       display: 'flex',
       zIndex: '4',
+      position: 'fixed',
+      inset: '0'
     },
-    content : {
+    /*content : {
       width: '441px',
       borderRadius: '5px',
       padding: '0',
@@ -27,13 +29,14 @@ export default function Modal(props: Props) {
       position: 'static',
       inset: '0',
       overflow: 'hidden',
-    },
+    },*/
   }
   return (
     <ReactModal
     style={customStyles}
     isOpen={props.isOpen}
     onRequestClose={props.onRequestClose}
+    className={styles.content}
     >
       <div className={styles.root}>
         <div className={styles.top}>

@@ -1,6 +1,9 @@
 @import "scss/index";
 .root{
 position: relative;
+@media screen and (max-width: $sm-max) {
+  flex-shrink: 0;
+}
 }
 .dropDown {
   background: #ffffff;
@@ -17,10 +20,18 @@ position: relative;
   overflow-Y: scroll;
   width: 458px;
   max-height: 145px;
-  @media screen and (max-width: $sm-max) {
-    margin-right: 22px;
+  @media screen and (min-width: 1024px) {
     max-width: 320px;
+  }
+  @media screen and (max-width: 1023px) {
     padding: 15px 20px;
+    position: fixed;
+    top: auto;
+    width: auto;
+    left: 0;
+    right: 0;
+    margin-right: 22px;
+    margin-left: 22px;
   }
 }
 .dropDownActive{

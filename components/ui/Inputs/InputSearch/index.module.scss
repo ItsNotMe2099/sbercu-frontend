@@ -2,7 +2,7 @@
 
 .inputContainer{
   position: relative;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-right: 32px;
   }
   input{
@@ -14,7 +14,7 @@
       font-size: 12px;
       color: #828282;
     }
-    @media screen and (max-width: $sm-max) {
+    @media screen and (max-width: $sm-mid) {
       display: none;
     }
   }
@@ -26,9 +26,62 @@
   }
 }
 
+.btn{
+  @media screen and (max-width: $sm-mid) {
+    display: none;
+  }
+}
+
+.mobileBtns{
+  display: none;
+  @media screen and (max-width: $sm-mid) {
+    display: block;
+  }
+}
+
+
+.cross{
+  button{
+    svg{
+      width: 12px;
+      height: 24px;
+      fill: #828282;
+    }
+  }
+}
+
 .form{
   margin-right: 27px;
-  @media screen and (max-width: $sm-max) {
-    margin-right: 11px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 15px;
+  }
+}
+
+.open{
+  margin-right: 27px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 15px;
+    width: 100%;
+  }
+}
+
+.inputContainer__mobile{
+  position: relative;
+  input{
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    height: 32px;
+    padding-left: 38px;
+    width: 100%;
+    &::placeholder{
+      font-size: 12px;
+      color: #828282;
+    }
+  }
+  button{
+    padding: 4px 0 4px 10px;
+    position: absolute;
+    top: 0;
+    background: transparent;
   }
 }

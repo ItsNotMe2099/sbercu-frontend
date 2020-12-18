@@ -182,13 +182,13 @@
     font-size: 12px;
     color: #828282;
     margin: auto;
-    @media screen and (max-width: $sm-max) {
+    @media screen and (max-width: $sm-mid) {
       display: none;
     }
   }
 }
 .download{
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-right: 20px;
     span{
       display: none;

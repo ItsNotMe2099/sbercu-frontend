@@ -28,7 +28,7 @@
 }
 
 .root{
-  @media screen and (min-width: $container-lg) {
+  @media screen and (min-width: $sm-mid) {
     flex: 1;
     }
   position: relative;

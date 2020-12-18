@@ -32,35 +32,23 @@
   }
 }
 
-.profile{
-  @media screen and (min-width: $container-lg) {
-  flex: 1;
-  }
-
-  display: flex;
-  justify-content: flex-end;
-}
-
 .notMedia{
   display: flex;
   justify-content: flex-end;
   flex: 1;
-  @media screen and (max-width: $sm-max) {
-    justify-content: left;;
-  }
+  position: relative;
 }
 
 .mobile{
   display: none;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: flex;
-    flex: 1;
   }
 }
 
 .notMobile{
   display: flex;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     display: none;
   }
 }

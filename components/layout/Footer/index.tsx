@@ -15,10 +15,10 @@ export default function Footer(props: Props){
         <div className={styles.container}>
 
             <div className={styles.copyright}>
-        © {(new Date()).getFullYear()} АНО ДПО «Корпоративный университет Сбербанка» <br/>
+        <div>© {(new Date()).getFullYear()} АНО ДПО «Корпоративный университет Сбербанка» </div>
             <a href={''} target={'blank'}>Политика конфиденциальности</a>
             </div>
-            <Button green  size='12px 25px' >Служба поддержки</Button>
+            <Button green  size='9px 16px' >Служба поддержки</Button>
         </div>
     </div>
     </div>

@@ -85,7 +85,7 @@ const Catalog = (props) => {
     <Layout>
     <Header>
       <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
-      <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>
+      <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>
     </Header>
     <div className={styles.root}>
       <div className={styles.head}>

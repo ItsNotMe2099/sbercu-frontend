@@ -24,7 +24,7 @@ export default function CreateFolder(props){
   }
 
   return (
-    <Modal {...props} title={props.catalog ? 'Редактирование папки' : 'Создание новой папки'} cancel="Отменить">
+    <Modal {...props} title={props.catalog ? 'Редактирование папки' : <div><span className={styles.create}>Создание</span> новой папки</div>} cancel="Отменить">
         <CreateFolderForm onSubmit={handleSubmit} initialValues={{...props.catalog}}/>
     </Modal>
   )

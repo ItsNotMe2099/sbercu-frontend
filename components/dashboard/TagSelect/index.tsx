@@ -36,6 +36,7 @@ export const TagSelect = (props: Props) => {
     <>
     <div className={styles.root}>
         {props.items.map(item => <TagSelectCategoryItem item={item} selectedTags={selectedTags.filter(i => i.tagCategoryId === item.id)} onTagClick={handleTagClick}/>)}
+      <div className={styles.transparent}></div>
     </div>
     { selectedTags.length > 0 &&
       <div className={styles.filtered}>

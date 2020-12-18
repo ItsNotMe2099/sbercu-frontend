@@ -5,6 +5,7 @@ import Folder from 'components/svg/Folder'
 import CreateGroup from 'components/svg/CreateGroup'
 import Invite from 'components/svg/Invite'
 import Arrow from 'components/svg/Arrow'
+import Cross from 'components/svg/Cross'
 
 interface Props {
   type?: "submit" | "button"
@@ -12,6 +13,7 @@ interface Props {
   visiblePlus?: boolean
   folder?: boolean
   search?: boolean
+  cross?: boolean
   green?: boolean
   white?: boolean
   transparent?: boolean
@@ -65,6 +67,9 @@ export default function Button(props: Props) {
     )}
     {props.search && (
       <Search />
+    )}
+    {props.cross && (
+      <Cross/>
     )}
     {props.folder && (
       <div className={`

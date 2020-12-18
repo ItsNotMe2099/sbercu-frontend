@@ -1,20 +1,19 @@
 @import "scss/index";
 
 .root{
-  @media screen and (min-width: $container-lg) {
-    margin-top: 16px;
-    margin-right: 24px;
-  }
+  margin-top: 16px;
 }
 
 .container{
   text-decoration: none;
+  @media screen and (min-width: $sm-mid) {
+    display: flex;
+  }
 }
 
 .square{
-  @media screen and (min-width: $container-lg) {
     width: 193px;
-  }
+    margin: auto;
   @media screen and (max-width: $sm-max) {
     width: 128px;
   }
@@ -31,6 +30,7 @@
   border-radius: 5px;
   width: 193px;
   height: 193px;
+  margin: auto;
   @media screen and (max-width: $sm-max) {
     width: 128px;
     height: 128px;

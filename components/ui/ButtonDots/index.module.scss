@@ -53,8 +53,8 @@
   display: flex;
   flex-direction: column;
   right: 0px;
-  @media screen and (max-width: $sm-max) {
-    right: -200%;
+  @media screen and (max-width: $sm-min) {
+    min-width: 138px;
   }
 }
 

@@ -97,17 +97,31 @@
   .choosed{
     margin: 0 16px 16px 0;
   }
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
 }
 
 .root{
   display: flex;
+  @media screen and (max-width: $sm-mid) {
+    overflow-X: scroll;
+    overflow-Y: hidden;
+  }
   @media screen and (max-width: $sm-max) {
-    overflow: scroll;
-    padding: 0 22px;
+    padding: 0 0 0 22px;
   }
 
 }
 
 .delete{
   margin-right: 8px;
+}
+
+.transparent{
+  width: 22px;
+  position: fixed;
+  height: 16px;
+  right: 0;
+  background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.51) 100%);
 }

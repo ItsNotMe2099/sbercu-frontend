@@ -36,20 +36,28 @@
 }
 
 .projects{
-  @media screen and (min-width: $container-lg) {
-    display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  @media screen and (max-width: $sm-mid) {
+    display: none;
   }
   @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+  }
+}
+
+.hide{
+  transform: rotate(180deg);
+}
+
+.projectMobile{
+  display: none;
+  @media screen and (max-width: $sm-mid) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     padding: 0 22px;
     margin-top: 16px;
-    a{
-      &:nth-child(n + 5){
-        display: none;
-      }
-    }
   }
 }
 

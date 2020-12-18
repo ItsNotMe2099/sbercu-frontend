@@ -6,4 +6,9 @@
   div{
     margin-top: 20px;
   }
+  @media screen and (max-width: $sm-max) {
+    div{
+      margin-top: 14px;
+    }
+  }
 }
