@@ -1,4 +1,5 @@
 import { useDetectOutsideClick } from "components/hooks/useDetectOutsideClick";
+import PlusSvg from "components/svg/PlusSvg";
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import Input from "components/ui/Inputs/Input";
 
@@ -42,7 +43,7 @@ const SpeakersInputList = (props: Props) => {
 
       <div className={styles.root}>
         {items.map((val, index) => <Input meta={props.meta} input={{value: val, onChange: (val) => handleChangeInput(val,index)}} label={label} type={'text'}/>)}
-        <div className={styles.addButton} onClick={handleAdd}>Добавить спикера</div>
+        <div className={styles.addButton} onClick={handleAdd} style={{...(items.length > 0 ? {marginTop: '18px'}: {})}}><PlusSvg/>Добавить спикера</div>
         <ErrorInput {...props}/>
     </div>
 

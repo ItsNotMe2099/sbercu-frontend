@@ -25,9 +25,11 @@ const transformFile = file => {
     rawFile: file,
     preview: preview,
   }
+  console.log("transformedFile", transformedFile)
   return transformedFile
 }
 const formatValue = (value): FileEntity[]  => {
+  console.log("FormatValue", value)
   return value ? (Array.isArray(value) ? value.map((file) => { return {path: file?.path as string || file as string}}) : [{path: value?.path as string || value as string}]) : []
 }
 
@@ -83,7 +85,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     signingUrlWithCredentials: false,
     signingUrlQueryParams: { uploadType: 'avatar' },
     autoUpload: true,
-    signingUrl: `https://dev.sbercu.firelabs.ru/api/media/sign`,
+    signingUrl: `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/sign`,
     s3path: 'masters-pages/files',
     ...uploadOptions,
   }
@@ -92,7 +94,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
-        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, mediaId: item.mediaId, ...item.data}}))
+        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, mediaId: item.mediaId, key: item.key, ...(item as any).data}}))
 
     }else{
       onChange(filtered[0]?.path || null)
@@ -112,11 +114,12 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     }))
   }
   const onChangeFileData = (file: FileEntity, data) => {
-    console.log("onChangeFileData", data)
+    console.log("onChangeFileData", file.path, data)
     setFiles(oldFiles => oldFiles.map(item => {
+      console.log("Map Exists",  (file.path && item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name) )
       return {
         ...item,
-        ...( ((file.path || item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name)) ? {data} : {})
+        ...( ( (file.path && item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name)) ? {data} : {})
       }
     }))
   }
@@ -145,7 +148,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.previewList}>
+      {files.length > 0 && <div className={styles.previewList}>
         {files.map((file, index) => (
           <FileWrapper
             key={file.key}
@@ -156,19 +159,36 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
             onRemove={onRemove}
          />
         ))}
-      </div>
-      <div
+      </div>}
+      {files.length === 0 && <div
         data-testid="dropzone"
         className={styles.dropZone}
         {...getRootProps()}
       >
-        {files.length === 0 ? <AddFileButton uploadBtn/> : <AddFileButton/>}
+      <div className={styles.emptyFiles}>
+            <img src="/img/icons/attach_file.svg" alt=''/>
+            <span>Перенесите сюда файл или нажмите<br/> для выбора файла на компьютере</span>
+        </div>
         <input
           {...getInputProps()}
         />
 
-      </div>
+      </div>}
       <ErrorInput {...props}/>
+      {files.length > 0 && <div className={styles.footer}>
+        {props.buttonSubmit}
+          <div
+              data-testid="dropzone"
+              className={styles.uploadDropZone}
+              {...getRootProps()}
+          >
+          <img src="/img/icons/upload_file.svg" alt=''/>
+          <span>Вы можете добавить<br/>сюда еще один файл</span>
+            <input
+                {...getInputProps()}
+            />
+          </div>
+      </div>}
     </div>
   )
 }

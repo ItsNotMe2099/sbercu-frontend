@@ -23,7 +23,7 @@ let FileDataForm = props => {
         <Field
             name="presenters"
             component={SpeakersInputList}
-            label="Спикеры"
+            label="Спикер"
         />
 
     </form>

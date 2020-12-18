@@ -5,6 +5,9 @@ import ActionTypes from "./const";
 export interface CatalogState {
   list: ICatalogEntry[],
   listTotal?: number,
+  myUploadedFilesList: ICatalogEntry[],
+  myUploadedFilesListLoading: boolean,
+  myUploadedFilesListTotal?: number,
   basePath?: string,
   currentCatalogId?: number,
   projects: ICatalogEntry[],
@@ -21,6 +24,8 @@ export interface CatalogState {
 const initialState: CatalogState = {
   list: [],
   projects: [],
+  myUploadedFilesList: [],
+  myUploadedFilesListLoading: false,
   formIsSuccess: false,
   formError: '',
   formLoading: false,
@@ -31,6 +36,20 @@ const initialState: CatalogState = {
 
 export default function CatalogReducer(state = {...initialState}, action) {
   switch(action.type) {
+    case ActionTypes.FETCH_MY_UPLOADED_FILES:
+      state.myUploadedFilesListLoading = true;
+      break;
+    case ActionTypes.FETCH_MY_UPLOADED_FILES + ApiActionTypes.SUCCESS:
+      state.myUploadedFilesList = action.payload
+      state.myUploadedFilesListLoading = false;
+      //state.myUploadedFilesListTotal = action.payload.total
+      break;
+    case ActionTypes.FETCH_MY_UPLOADED_FILES + ApiActionTypes.FAIL:
+      state.myUploadedFilesListLoading = false;
+      break;
+    case ActionTypes.RESET_CATALOG_ITEM:
+      state.currentCatalogItem = null;
+      break;
     case ActionTypes.SET_CURRENT_CATALOG_ID:
       state.currentCatalogId = action.payload.id
       break

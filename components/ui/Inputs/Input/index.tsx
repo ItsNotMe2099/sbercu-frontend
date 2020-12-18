@@ -11,7 +11,7 @@ interface Props {
   type,
   disabled?: boolean
   tip?: string
-  isLabel?: boolean
+  isLabel?: boolean,
 }
 
 export default function Input(props: Props) {

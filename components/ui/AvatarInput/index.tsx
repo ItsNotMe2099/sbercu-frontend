@@ -153,7 +153,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           onFinishS3Put: onFinishFileUpload,
           onProgress: onFileProgress,
           onError: onFileUploadError,
-          signingUrl: `https://dev.sbercu.firelabs.ru/api/media/sign`,
+          signingUrl: `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/sign`,
           s3path: '',
           ...uploadOptions,
         }

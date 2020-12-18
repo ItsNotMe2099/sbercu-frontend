@@ -12,7 +12,6 @@ export default function Info(props: Props){
           <div className={styles.root}>
             <div>Автор: {props.author}</div>
             <div>{props.date}</div>
-            <div>Язык: {props.language}</div>
           </div>
   )
 }

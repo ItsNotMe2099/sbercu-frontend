@@ -1,5 +1,6 @@
 enum ActionTypes {
   CREATE_FOLDER = 'Modal/CREATE_FOLDER',
+  EDIT_FILE = 'Modal/EDIT_FILE',
   TAG = 'Modal/MODAL_TAG',
   TAG_CATEGORY = 'Modal/TAG_CATEGORY',
   USER_MODAL = 'Modal/USER',

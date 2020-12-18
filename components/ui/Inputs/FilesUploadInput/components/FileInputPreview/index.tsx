@@ -1,3 +1,4 @@
+import Basket from "components/svg/Basket";
 import FileDataForm from "components/ui/Inputs/FilesUploadInput/components/FileDataForm";
 import React, { useEffect, ReactNode, FunctionComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -51,7 +52,9 @@ const FileInputPreview: FunctionComponent<Props> = props => {
             <div className={styles.root}>
 
                 <div className={styles.status}>
-                    <img src={'/img/icons/mark.svg'}/>
+                    <div className={styles.statusIcon}>
+                        <img src={'/img/icons/mark.svg'}/>
+                    </div>
                 </div>
                 <div className={styles.main}>
                     <div className={styles.topBar}>
@@ -59,10 +62,10 @@ const FileInputPreview: FunctionComponent<Props> = props => {
                             {file?.rawFile?.name}
                         </div>
                         <div className={styles.deleteButton} onClick={onRemove}>
-                            <img src={'/img/icons/delete_file.svg'}/>
+                            <Basket/>
                         </div>
                     </div>
-                    <FileDataForm onChange={handleChangeForm}/>
+                    <FileDataForm  form={`${file.key}-form`} onChange={handleChangeForm}/>
                 </div>
             </div>
         </>

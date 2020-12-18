@@ -2,18 +2,12 @@ import TagInput from "components/ui/Inputs/TagInput";
 import { useRouter } from "next/router";
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
-import InputPassword from 'components/ui/Inputs/InputPassword'
 import styles from './index.module.scss'
-import Link from 'next/link'
 import Input from 'components/ui/Inputs/Input'
 import {email, required} from 'utils/validations'
-import { useSelector } from 'react-redux'
-import { IRootState } from 'types'
 import TextArea from 'components/ui/Inputs/TextArea'
-import TagCategory from 'components/tags/TagCategory'
 import { RadioList } from 'components/ui/Inputs/RadioList'
-import classNames from 'classnames';
-import FileInput from "components/ui/Inputs/S3FileUpload";
+
 import AvatarInput from "components/ui/AvatarInput";
 
 let ProjectForm = props => {

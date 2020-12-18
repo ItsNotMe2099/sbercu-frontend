@@ -1,8 +1,10 @@
-import { fetchCatalogList, fetchCatalogProjects } from "components/catalog/actions";
+import { fetchCatalogList, fetchCatalogProjects, fetchMyUploadedFiles } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
+import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import { useEffect, useState } from "react";
+import FileEditModal from "pages/catalog/components/FileEditModal";
+import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
@@ -18,14 +20,19 @@ import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 export default function Dashboard(props){
   const dispatch = useDispatch();
+  const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
+
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const projects = useSelector((state: IRootState) => state.catalog.projects)
+  const myUploadedFiles = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
   const [show, setShowAll] = useState(false)
   const [showFiles, setShowAllFiles] = useState(false)
+  const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
 
   useEffect(() => {
     dispatch(fetchTagCategoryList());
     dispatch(fetchCatalogProjects({entryType: 'project'}))
+    dispatch(fetchMyUploadedFiles({}));
   }, [])
 
   const handleTagChangeTags = (tags) => {
@@ -40,7 +47,20 @@ export default function Dashboard(props){
     {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
   ]
 
+  const handleEditClick = useCallback((item) => {
+      setCurrentEditCatalog(item);
+      dispatch(editFileOpen());
 
+  }, [])
+  const handleDeleteClick = (item) => {
+    dispatch(confirmOpen({
+      title: 'Вы уверены, что хотите удалить файл?',
+      description: item.name,
+      confirmText: 'Удалить',
+      onConfirm: () => {
+      }
+    }));
+  }
   return (
     <Layout>
     <Header/>
@@ -78,26 +98,28 @@ export default function Dashboard(props){
       <div className={styles.titleContainer}>
         <div className={styles.title}>Файлы</div>
         <Quantity
-        quantity='2000'
+        quantity={myUploadedFiles.length}
         />
       </div>
       <div className={styles.files}>
-        {(showFiles ? items : items.slice(0, 5)).map(item => (<File
-        item={{
-          id: 1,
-          name: item.title,
-          entryType: 'video',
-          createdAt: item.date
-        }}
+
+
+        {(showFiles ? myUploadedFiles : myUploadedFiles.slice(0, 5)).map(item => (<File
+            onEditClick={handleEditClick}
+            onDeleteClick={handleDeleteClick}
+            basePath={''}
+            item={item}
         />))}
       </div>
-      <div className={styles.moreFiles}>
+      {myUploadedFiles.length > 5 && <div className={styles.moreFiles}>
         <a onClick={() => showFiles ? setShowAllFiles(false) : setShowAllFiles(true)}>
           <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>
-      </div>
+      </div>}
     </div>
 }
+      <FileEditModal isOpen={key === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
+
       <Footer/>
     </Layout>
   )

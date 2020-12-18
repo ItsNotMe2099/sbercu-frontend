@@ -14,18 +14,12 @@ let UploadFilesForm = props => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <Field
-        name="name"
+        name="files"
         component={FilesUploadInput}
         label="Файлы"
+        buttonSubmit={<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
         multiple={true}
       />
-      <div className={styles.btnContainer}>
-        {/*value === '' ?
-          <Button notActive textWhite size="9px 16px" type="button">Создать</Button>
-          :*/
-            <Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
-            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
-      </div>
     </form>
   )
 }

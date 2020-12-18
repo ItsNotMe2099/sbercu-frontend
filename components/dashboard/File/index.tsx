@@ -3,6 +3,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import { useRef } from "react";
 import { ICatalogEntry } from "types";
+import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Dots from "components/svg/Dots";
@@ -43,10 +44,20 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
       onDeleteClick(item)
     }
   }
+  const getFileLink = () => {
+    if(item.entryType === 'file' && item.media.type === 'video' ){
+      return `/video/${item.id}`;
+    }
+    if(item.entryType === 'file'){
+      return getMediaPath(item.media.fileName);
+    }
+    return `${basePath}/${item.id}`;
+
+  }
   return (
       <div className={styles.root}>
-      <div className={styles.image}><img src={getIconByType(item.entryType)} alt=''/></div>
-      <Link href={`${basePath}/${item.id}`}>
+      <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
+      <Link href={getFileLink()}>
       <a className={styles.inner}>
         <div className={styles.title}>
           {item.name}

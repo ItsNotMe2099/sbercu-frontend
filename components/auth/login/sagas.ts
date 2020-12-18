@@ -26,7 +26,7 @@ function* onSubmit(action) {
 
   async function submitToServer(data) {
 
-      let response = await fetch('https://dev.sbercu.firelabs.ru/api/auth/login', {
+      let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

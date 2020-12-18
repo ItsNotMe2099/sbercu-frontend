@@ -116,6 +116,7 @@
 .videoWrapper{
   display: flex;
   flex-direction: column;
+  flex: 1;
   div{
     &:active{
       outline: none;

@@ -39,10 +39,15 @@ export interface IResponse {
   data: any
   err: any
 }
+export interface IMedia {
+  id: number,
+  fileName: string,
+  type: 'video' | 'document' | 'audio'
+}
 export interface ICatalogEntry {
   id?: number
   name?: string
-  entryType?: 'project' | 'folder' | 'file' | 'video' | 'file'
+  entryType?: 'project' | 'folder' | 'file'
   parentId?: number
   projectManager?: string
   projectManagerMail?: string
@@ -53,9 +58,12 @@ export interface ICatalogEntry {
   projectContent?: string
   userId?: number
   tags?: ITag[],
+  media?: IMedia,
   createdAt?: string
   link?: string,
   tagsIds?: number[]
+  mediaId?: number
+  presenters?: string | string[],
   parents?: ICatalogEntry[]
 }
 export interface ITag {

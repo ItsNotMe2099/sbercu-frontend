@@ -24,6 +24,9 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.CREATE_FOLDER:
       state.modalKey = 'createFolder'
       break
+    case ActionTypes.EDIT_FILE:
+      state.modalKey = 'editFile'
+      break
     case ActionTypes.USER_MODAL:
       state.modalKey = 'userForm'
       break

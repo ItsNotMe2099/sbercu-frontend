@@ -1,10 +1,17 @@
 .root{
   position: relative;
   display: flex;
+  padding: 12.5px 0px;
 
 }
-.status{
-
+.statusIcon{
+  border-radius: 50%;
+  border: 2px solid #27AE60;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .main{
   flex: 1;
@@ -22,8 +29,10 @@
   cursor: pointer;
   padding-right: 8px;
   &:hover{
-    img{
-      fill: #FD5742;
+    svg{
+      path {
+        fill: #FD5742;
+      }
     }
   }
 }

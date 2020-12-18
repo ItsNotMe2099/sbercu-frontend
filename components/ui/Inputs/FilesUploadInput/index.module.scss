@@ -2,8 +2,38 @@
   margin-bottom: 20px;
 }
 .previewList{
-
+background: rgba(242, 242, 242, 0.5);
+  margin: 0px -30px;
+  padding: 12.5px 28px
 }
 .dropZone{
 
+}
+.emptyFiles{
+  display: flex;
+  justify-content: center;
+
+  cursor: pointer;
+  span{
+    font-size: 12px;
+    color: #27AE60;
+    margin-left: 12px;
+  }
+}
+.footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 27px;
+}
+.uploadDropZone{
+  display: flex;
+  justify-content: center;
+  margin-left: 37px;
+  cursor: pointer;
+  span{
+    font-size: 12px;
+    color: #27AE60;
+    margin-left: 12px;
+  }
 }

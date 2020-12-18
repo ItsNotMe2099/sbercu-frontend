@@ -45,7 +45,7 @@ export const withAuthSync = (WrappedComponent) =>
                 WrappedComponent.getInitialProps &&
                 (await WrappedComponent.getInitialProps(ctx));
 
-            return { ...componentProps, token };
+            return { ...componentProps, token, user };
         }
 
         // New: We bind our methods

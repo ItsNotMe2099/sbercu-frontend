@@ -3,7 +3,7 @@ import { action } from 'typesafe-actions'
 
 export const fetchTag = () => action(ActionTypes.FETCH_TAG, {
   api: {
-    url: `https://dev.sbercu.firelabs.ru/tag-category`,
+    url: `/tag-category`,
     method: 'GET',
   }
 })

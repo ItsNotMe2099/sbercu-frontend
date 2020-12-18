@@ -5,12 +5,19 @@ import {
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, createFolderOpen, modalClose, uploadFilesModalOpen } from "components/Modal/actions";
+import {
+  confirmOpen,
+  createFolderOpen,
+  editFileOpen,
+  modalClose,
+  uploadFilesModalOpen
+} from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
 import BreadCrumbs from "components/ui/Breadcrumbs";
 import Button from "components/ui/Button";
 import ButtonDots from "components/ui/ButtonDots";
 import CreateFolder from "pages/catalog/components/CreateFolder";
+import FileEditModal from "pages/catalog/components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
@@ -49,6 +56,7 @@ const Catalog = (props) => {
 
   const handleRootEditClick = useCallback(() => {
 
+    console.log("EditClick", currentCatalogItem)
     if(currentCatalogItem?.entryType === 'project'){
       router.push(`/project/edit/${currentCatalogItem.id}`)
     }else{
@@ -66,8 +74,13 @@ const Catalog = (props) => {
     }));
   }
   const handleEditClick = useCallback((item) => {
-    setCurrentEditCatalog(item);
-    dispatch(createFolderOpen());
+    if(item.entryType === 'file') {
+      setCurrentEditCatalog(item);
+      dispatch(editFileOpen());
+    }else {
+      setCurrentEditCatalog(item);
+      dispatch(createFolderOpen());
+    }
   }, [currentCatalogItem])
   const handleDeleteClick = (item) => {
     dispatch(confirmOpen({
@@ -124,7 +137,8 @@ const Catalog = (props) => {
       <Footer/>
     <CreateFolder isOpen={key === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
-    <UploadFilesModal isOpen={key === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
+      <UploadFilesModal isOpen={key === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
+      <FileEditModal isOpen={key === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
 
     </Layout>
   )

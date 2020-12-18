@@ -1,3 +1,10 @@
+import { fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
+import Footer from "components/layout/Footer";
+import Layout from "components/layout/Layout";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { IRootState } from "types";
+import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import BreadCrumbs from 'components/ui/Breadcrumbs';
@@ -6,7 +13,9 @@ import ButtonSelect from 'components/ui/ButtonSelect';
 import Button from 'components/ui/Button';
 import Info from './component/info';
 import Player from 'components/video/Player';
+import { useDispatch, useSelector } from 'react-redux'
 
+import {format} from 'date-fns'
 interface Props{
 
 }
@@ -14,29 +23,40 @@ interface Props{
 
 
 export default function Video(props: Props){
-  const settings = ['Поделиться', 'Редактировать', 'Запретить скачивание', 'Не показывать в каталоге', 'Переместить', 'Удалить']
+  const settings = ['Поделиться', 'Редактировать', 'Удалить']
   const download = ['480p (780МБ)', '720p (1260МБ)', '1080p (1860МБ)', '4K (2360МБ)']
-  const isVideo = true
+  const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
+  const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
+  const dispatch = useDispatch();
 
+    const  router = useRouter()
+    console.log("Query", router.query, video)
+    useEffect(() => {
+            console.log("reset")
+        dispatch(resetCatalogItem());
+        if(!router.query.id){
+            return;
+        }
+        dispatch(fetchCatalogItem(router.query.id));
+    }, [])
   return (
-    <body className={styles.white}>
+    <Layout>
     <Header/>
-    <div className={styles.root}>
-      <div className={styles.title}>Системное мышление. Введение</div>
-      <BreadCrumbs items={[{name: 'Главная', link: '/'}, ]}/>
-      <div className={styles.content}>
+    {(!currentLoading  && video) &&  <div className={styles.root}>
+      <div className={styles.title}>{video.name}</div>
+      <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(video?.parents ? video?.parents : [])]}/>
+        <div className={styles.content}>
         <div className={styles.videoWrapper}>
-        {isVideo ?
         <>
-        <Player/>
+        <Player url={getMediaPath(video.media?.fileName)}/>
         <div className={styles.btns}>
           <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="112px" options={download}>Скачать</ButtonSelect></div>
           <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey>Копировать ВШ ID</Button></div>
           <div className={styles.select}><ButtonSelect options={settings} size="9px 20px">Настройки</ButtonSelect></div>
         </div>
         </>
-        :
-        <div className={styles.loading}>
+
+            {/*<div className={styles.loading}>
           <div className={styles.wait}>
             <div className={styles.inner}>
               <div className={styles.top}>
@@ -47,72 +67,74 @@ export default function Video(props: Props){
             </div>
           </div>
         </div>
-        }
-        <Info author="Vasya" date="09.11.2019" language="Русский, Английский"/>
+        */}
+        <Info author={video.presenters} date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''} language="Русский, Английский"/>
         </div>
         <div className={styles.tags}>
           <Tag
-          category="Подразделение" 
+          category="Подразделение"
           tag="Академия лидерства и дизайн-мышления"
-          />  
+          />
           <Tag
-          category="Раздел" 
+          category="Раздел"
           tag="Мягкие навыки"
           />
           <Tag
-          category="Тема" 
+          category="Тема"
           tag="Прочее"
           />
           <Tag
-          category="Форма обучения" 
+          category="Форма обучения"
           tag="Электронная"
           />
           <Tag
-          category="Обязательность" 
+          category="Обязательность"
           tag="По выбору"
           />
           <Tag
-          category="Компетенции" 
+          category="Компетенции"
           tag="Клиентоцентричность"
           />
           <Tag
-          category="Уровни менеджмента" 
+          category="Уровни менеджмента"
           tag="Специалисты"
-          />     
+          />
         </div>
     </div>
     <div className={styles.tags__mobile}>
           <Tag
-          category="Подразделение" 
+          category="Подразделение"
           tag="Академия лидерства и дизайн-мышления"
-          />  
+          />
           <Tag
-          category="Раздел" 
+          category="Раздел"
           tag="Мягкие навыки"
           />
           <Tag
-          category="Тема" 
+          category="Тема"
           tag="Прочее"
           />
           <Tag
-          category="Форма обучения" 
+          category="Форма обучения"
           tag="Электронная"
           />
           <Tag
-          category="Обязательность" 
+          category="Обязательность"
           tag="По выбору"
           />
           <Tag
-          category="Компетенции" 
+          category="Компетенции"
           tag="Клиентоцентричность"
           />
           <Tag
-          category="Уровни менеджмента" 
+          category="Уровни менеджмента"
           tag="Специалисты"
-          />     
+          />
         </div>
-    </div>
-    </body>
+    </div>}
+    <Footer/>
+
+    </Layout>
   )
 }
 

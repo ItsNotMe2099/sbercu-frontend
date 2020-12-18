@@ -23,6 +23,13 @@ export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(
     data: data,
   }
 })
+
+export const fetchMyUploadedFiles = (data: any = {}) => action(ActionTypes.FETCH_MY_UPLOADED_FILES, {
+  api: {
+    url: `/api/catalog?${queryString.stringify({s: JSON.stringify({entryType: 'file'})})}`,
+    method: 'GET',
+  }
+})
 export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH_CATALOG_PROJECT_LIST, {
   api: {
     url: `/api/catalog/projects?${queryString.stringify(data)}`,
@@ -50,3 +57,26 @@ export const deleteCatalogRequest = (id: number) => action(ActionTypes.DELETE_CA
     method: 'DELETE'
   }
 })
+
+
+export const createFiles = (files: ICatalogEntry[]) => action(ActionTypes.CREATE_FILES, {files})
+export const createFile = ( data: ICatalogEntry) => action(ActionTypes.CREATE_FILE, {data})
+export const createFileRequest = (data: any) => action(ActionTypes.CREATE_FILE_REQUEST, {
+  api: {
+    url: `/api/catalog`,
+    method: 'POST',
+    data: {...data},
+  }
+})
+
+export const updateFile = ( id: number, data: ICatalogEntry) => action(ActionTypes.UPDATE_FILE, {id, data})
+export const updateFileRequest = (id: number, data: ICatalogEntry) => action(ActionTypes.UPDATE_FILE_REQUEST, {
+  api: {
+    url: `/api/catalog/${id}`,
+    method: 'PATCH',
+    data: data,
+  }
+})
+
+
+export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)
