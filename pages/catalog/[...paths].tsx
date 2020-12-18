@@ -78,11 +78,14 @@ const Catalog = (props) => {
       }
     }));
   }
+  const handleUploadFiles = () => {
+    dispatch(uploadFilesModalOpen())
+  }
   return (
     <Layout>
     <Header>
       <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
-      <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button"><span>Загрузить файл</span></Button></div>
+      <div className={styles.download}><Button size='8px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>
     </Header>
     <div className={styles.root}>
       <div className={styles.head}>
@@ -103,7 +106,7 @@ const Catalog = (props) => {
         />))}
       </div>
       : !listLoading ?
-      <a className={styles.noFiles} onClick={() => dispatch(uploadFilesModalOpen())}>
+      <a className={styles.noFiles} onClick={handleUploadFiles}>
         <div className={styles.text}>
           <div className={styles.firstText}>В эту папку пока никто ничего не загрузил. Подождем...</div>
           <div className={styles.secondText}>В папках можно хранить любое фото, видео, аудио или текстовые материалы</div>

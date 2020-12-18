@@ -11,7 +11,6 @@ import React, {
 import PropTypes from 'prop-types'
 import { shallowEqual } from 'recompose'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
-//import S3Upload from 'react-s3-uploader/s3upload'
 import styles from './index.module.scss'
 
 import Cookies from 'js-cookie'
@@ -239,7 +238,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             >
             </AvatarInputPreview>
           ))}
-            {files.length === 0 ? <AddFileButton uploadBtn/> : 
+            {files.length === 0 ? <AddFileButton uploadBtn/> :
             <div className={styles.btns}>
             <Button onClick={handleChangePhoto} transparent textGreen brdrGreen size="9px 20px" type="button">Заменить</Button>
           </div>}

@@ -8,12 +8,8 @@ interface Props {
 
 const AddFileButton = (props: Props) => (
   <div className={styles.root}>
-  {props.uploadBtn ?
+  {props.uploadBtn &&
   <Button transparent textGreen brdrGreen size="9px 20px" type="button">Загрузить обложку</Button>
-  :
-  <div className={styles.btn}>
-    <Button transparent textGreen brdrGreen size="9px 20px" type="button">Заменить</Button>
-  </div>
   }
   </div>
 )

@@ -1,7 +1,6 @@
 import ErrorInput from "components/ui/Inputs/Input/components/ErrorInput";
-import AddFileButton from "components/ui/Inputs/S3FileUpload/components/AddFileBtn";
-import FileInputPreview from "components/ui/Inputs/S3FileUpload/components/FileInputPreview";
-import FileWrapper, { FileEntity } from "components/ui/Inputs/S3FileUpload/components/FileWrapper";
+import AddFileButton from "components/ui/Inputs/FilesUploadInput/components/AddFileBtn";
+import FileWrapper, { FileEntity } from "components/ui/Inputs/FilesUploadInput/components/FileWrapper";
 import React, {
   FunctionComponent,
   Children,
@@ -13,9 +12,8 @@ import PropTypes from 'prop-types'
 import { shallowEqual } from 'recompose'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
 import styles from './index.module.scss'
-
 import Cookies from 'js-cookie'
-
+import nextId from "react-id-generator";
 
 const transformFile = file => {
   if (!(file instanceof File)) {
@@ -23,6 +21,7 @@ const transformFile = file => {
   }
   const preview = URL.createObjectURL(file)
   const transformedFile = {
+    key:  nextId('file'),
     rawFile: file,
     preview: preview,
   }
@@ -48,7 +47,7 @@ export interface FileInputOptions extends DropzoneOptions {
   onRemove?: Function
 }
 
-const FileInput = (props: any & FileInputProps & FileInputOptions) => {
+const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   const {
     accept,
     children,
@@ -79,12 +78,12 @@ const FileInput = (props: any & FileInputProps & FileInputOptions) => {
   const FileWrapperUploadOptions = {
     signingUrlMethod: 'GET',
     accept: '*/*',
-    uploadRequestHeaders: { 'x-amz-acl': 'public-read' },
+    uploadRequestHeaders: { 'x-amz-acl': 'public-read',  'Authorization': `Bearer ${token}`},
     signingUrlHeaders: { 'Authorization': `Bearer ${token}` },
     signingUrlWithCredentials: false,
     signingUrlQueryParams: { uploadType: 'avatar' },
     autoUpload: true,
-    signingUrl: `https://masters-pages.dev.glob-com.ru/api/s3/sign`,
+    signingUrl: `https://dev.sbercu.firelabs.ru/api/media/sign`,
     s3path: 'masters-pages/files',
     ...uploadOptions,
   }
@@ -93,22 +92,33 @@ const FileInput = (props: any & FileInputProps & FileInputOptions) => {
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
-      if (filtered.length !== value.length) {
-        onChange(filtered.map(item => item.path))
-      }
+        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, mediaId: item.mediaId, ...item.data}}))
+
     }else{
       onChange(filtered[0]?.path || null)
     }
   }, [files])
+  const generateKey = () => {
+    return nextId("file-");
+  }
   const onUpload = (file: FileEntity) => {
     console.log("onUploadFiles", files)
 
-      setFiles(oldFiles => oldFiles.map(item => {
-        return {
-          ...item,
-          ...(item.rawFile?.name === file.rawFile.name ? {path: file.path} : {})
-        }
-      }))
+    setFiles(oldFiles => oldFiles.map(item => {
+      return {
+        ...item,
+        ...(item.rawFile?.name === file.rawFile.name ? {path: file.path, mediaId: file.mediaId} : {})
+      }
+    }))
+  }
+  const onChangeFileData = (file: FileEntity, data) => {
+    console.log("onChangeFileData", data)
+    setFiles(oldFiles => oldFiles.map(item => {
+      return {
+        ...item,
+        ...( ((file.path || item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name)) ? {data} : {})
+      }
+    }))
   }
   const onDrop = useCallback((newFiles, rejectedFiles, event) => {
     const updatedFiles = multiple ? [...files, ...newFiles] : [...newFiles]
@@ -138,9 +148,11 @@ const FileInput = (props: any & FileInputProps & FileInputOptions) => {
       <div className={styles.previewList}>
         {files.map((file, index) => (
           <FileWrapper
+            key={file.key}
             uploadOptions={FileWrapperUploadOptions}
             file={file}
             onUpload={onUpload}
+            onChangeFileData={onChangeFileData}
             onRemove={onRemove}
          />
         ))}
@@ -161,7 +173,7 @@ const FileInput = (props: any & FileInputProps & FileInputOptions) => {
   )
 }
 
-FileInput.propTypes = {
+FilesUploadInput.propTypes = {
   accept: PropTypes.string,
   children: PropTypes.element,
   classes: PropTypes.object,
@@ -180,4 +192,4 @@ FileInput.propTypes = {
   placeholder: PropTypes.node,
 }
 
-export default FileInput
+export default FilesUploadInput

@@ -1,9 +1,22 @@
 .root{
   position: relative;
   display: flex;
+
+}
+.status{
+
+}
+.main{
+  flex: 1;
+  margin-left: 16px;
+}
+.topBar{
+  display: flex;
   align-items: center;
-  max-width: 420px;
-  border-radius: 5px;
+  .name{
+    flex: 1;
+    font-size: 14px;
+  }
 }
 .deleteButton{
   cursor: pointer;

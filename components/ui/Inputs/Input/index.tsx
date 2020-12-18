@@ -1,10 +1,11 @@
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
+import { useEffect } from "react";
 import styles from './index.module.scss'
 
 
 interface Props {
   placeholder?: string
-  meta: any
+  meta?: any
   input
   label
   type,
@@ -16,6 +17,9 @@ interface Props {
 export default function Input(props: Props) {
   const { error, touched } = props.meta
   const { input, label, type } = props
+  useEffect(() => {
+    console.log("destroy");
+  }, [])
   return (
     <div className={styles.root}>
       {props.label && <div className={styles.label}>{props.label}</div>}

@@ -1,46 +1,40 @@
-import ErrorInput from "components/ui/Inputs/Input/components/ErrorInput";
-import AddFileButton from "components/ui/Inputs/S3FileUpload/components/AddFileBtn";
-import FileInputPreview from "components/ui/Inputs/S3FileUpload/components/FileInputPreview";
-import React, {
-  FunctionComponent,
-  Children,
-  cloneElement,
-  isValidElement,
-  ReactElement, useState, useCallback, useEffect,
+
+import FileInputPreview from "components/ui/Inputs/FilesUploadInput/components/FileInputPreview";
+import React, { useState, useCallback, useEffect,
 } from 'react'
-import PropTypes from 'prop-types'
-import { shallowEqual } from 'recompose'
-import { useDropzone, DropzoneOptions } from 'react-dropzone'
-import S3Upload from 'react-s3-uploader/s3upload'
-import styles from './index.module.scss'
 
-import Cookies from 'js-cookie'
-
+import S3Upload from 'components/ui/AvatarInput/S3Upload.js'
 export interface FileEntity {
+  key?: string
   rawFile?: File,
   preview?: string,
-  path: string
+  path: string,
+  mediaId?: number
 }
 
 interface Props {
+  key: string,
   file: FileEntity,
   onUpload: (FileEntity) => void,
   onRemove: (FileEntity) => void,
+  onChangeFileData: (FileEntity, data) => void
   uploadOptions: any,
 }
 
 const FileWrapper = (props: Props) => {
   const {
     uploadOptions,
+    onChangeFileData,
     onUpload,
     onRemove,
     file,
+      key,
   } = props
 
   const [isLoaded, setIsLoaded] = useState(!file.rawFile);
   const [progress, setProgress] = useState(0);
   const onFinishFileUpload = useCallback((result) => {
-    onUpload({ ...file, path: result.fileKey })
+    onUpload({ ...file, path: result.fileKey, mediaId: result.mediaId })
     setIsLoaded(true);
   }, [props.onUpload])
   const onFileUploadError = (error) => {
@@ -72,6 +66,7 @@ const FileWrapper = (props: Props) => {
       loading={!isLoaded}
       progress={progress}
       onRemove={() => onRemove(file)}
+      onChangeFileData={onChangeFileData}
     >
     </FileInputPreview>
   )
