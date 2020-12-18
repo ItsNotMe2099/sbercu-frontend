@@ -73,7 +73,10 @@ function* catalogSaga() {
             for(const file of action.payload.files){
                 console.log("Create File", file)
                 yield put(createFileRequest({...file, entryType: 'file', parentId: currentCatalogId, presenters: (file.presenters as string[]).join(',')}));
+                const result = yield take([ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.FAIL])
+
             }
+
             yield put(fetchCatalogList(currentCatalogId));
             yield put(modalClose());
         })
