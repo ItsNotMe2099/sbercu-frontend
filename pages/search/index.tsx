@@ -35,6 +35,7 @@ export default function Search(props){
   const [show, setShowAll] = useState(false)
   const [showFiles, setShowAllFiles] = useState(false)
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
+  const [noResults, setNoResults] = useState(true);
 
   const {query}  = router.query;
   console.log("query", query);
@@ -45,6 +46,12 @@ export default function Search(props){
     dispatch(fetchTagCategoryList());
     dispatch(fetchCatalogSearch(query, {}));
   }, [query])
+
+  useEffect(() => {
+    if(projects.length > 0 || files.length > 0){
+      setNoResults(false);
+    }
+  }, [projects, files])
 
   const handleTagChangeTags = (tags) => {
     console.log("handleTagChangeTags");
@@ -71,6 +78,18 @@ export default function Search(props){
     <Header searchValue={query as string}/>
 
     <div className={styles.root}>
+      {!loading && noResults ?
+          <a className={styles.noFiles} >
+            <div className={styles.text}>
+              <div className={styles.firstText}>По вашему запросу ничего не найдено.</div>
+              <div className={styles.secondText}>Попробуйте написать название материала по-другому или сократить запрос</div>
+            </div>
+            <div className={styles.images}>
+              <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
+            </div>
+          </a>
+          :
+          <>
       <div className={styles.titleSearch}>{projectsTotal + filesTotal} {pluralize(projectsTotal + filesTotal, 'результат', 'результата', 'результатов') } поиска «{query}»</div>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
       {loading  ?
@@ -124,6 +143,7 @@ export default function Search(props){
         </a>
       </div>}
       </div>}
+      </>}
     </div>
 
       <FileEditModal isOpen={key === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>

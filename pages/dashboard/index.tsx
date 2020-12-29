@@ -22,6 +22,7 @@ export default function Dashboard(props){
   const dispatch = useDispatch();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
 
+
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const listLoading = useSelector((state: IRootState) => state.catalog.listLoading)
   const myUploadedFilesLoading = useSelector((state: IRootState) => state.catalog.myUploadedFilesListLoading)
@@ -75,8 +76,18 @@ export default function Dashboard(props){
             <DashboardLoader/>
             <ProjectLoader/>
           </>
-          : <div>
-      <div className={styles.titleContainer}>
+          :
+          <div>
+            <a className={styles.noFiles} >
+              <div className={styles.text}>
+                <div className={styles.firstText}>По вашему запросу ничего не найдено.</div>
+                <div className={styles.secondText}>Попробуйте написать название материала по-другому или сократить запрос</div>
+                </div>
+              <div className={styles.images}>
+                <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
+              </div>
+            </a>
+            <div className={styles.titleContainer}>
         <div className={styles.title}>Проекты</div>
         <Quantity
         quantity={projects.length}
