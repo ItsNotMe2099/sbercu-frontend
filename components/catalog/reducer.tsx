@@ -40,7 +40,7 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.myUploadedFilesListLoading = true;
       break;
     case ActionTypes.FETCH_MY_UPLOADED_FILES + ApiActionTypes.SUCCESS:
-      state.myUploadedFilesList = action.payload
+      state.myUploadedFilesList = action.payload.data
       state.myUploadedFilesListLoading = false;
       //state.myUploadedFilesListTotal = action.payload.total
       break;
@@ -108,8 +108,8 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.listLoading = true;
       break
     case ActionTypes.FETCH_CATALOG_PROJECT_LIST + ApiActionTypes.SUCCESS:
-      state.projects = action.payload
-      state.projectsTotal =  state.projects.length
+      state.projects = action.payload.data
+      state.projectsTotal =  action.payload.total
       state.listLoading = false;
       break
     case ActionTypes.FETCH_CATALOG_PROJECT_LIST + ApiActionTypes.FAIL:
