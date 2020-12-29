@@ -2,11 +2,14 @@ import { fetchCatalogList, fetchCatalogProjects, fetchMyUploadedFiles } from "co
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
+import { fetchCatalogSearch } from "components/search/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import { useRouter } from "next/router";
 import FileEditModal from "pages/catalog/components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
+import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
@@ -18,37 +21,36 @@ import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 
-export default function Dashboard(props){
+export default function Search(props){
   const dispatch = useDispatch();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
-
+  const router = useRouter()
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
-  const listLoading = useSelector((state: IRootState) => state.catalog.listLoading)
-  const myUploadedFilesLoading = useSelector((state: IRootState) => state.catalog.myUploadedFilesListLoading)
+  const projects = useSelector((state: IRootState) => state.search.projects)
+  const loading = useSelector((state: IRootState) => state.search.listLoading)
+  const files = useSelector((state: IRootState) => state.search.files)
+  const projectsTotal = useSelector((state: IRootState) => state.search.projectsTotal)
+  const filesTotal = useSelector((state: IRootState) => state.search.filesTotal)
 
-  const projects = useSelector((state: IRootState) => state.catalog.projects)
-  const myUploadedFiles = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
   const [show, setShowAll] = useState(false)
   const [showFiles, setShowAllFiles] = useState(false)
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
 
+  const {query}  = router.query;
+  console.log("query", query);
   useEffect(() => {
+    if(!query){
+      return;
+    }
     dispatch(fetchTagCategoryList());
-    dispatch(fetchCatalogProjects({entryType: 'project'}))
-    dispatch(fetchMyUploadedFiles({}));
-  }, [])
+    dispatch(fetchCatalogSearch(query, {}));
+  }, [query])
 
   const handleTagChangeTags = (tags) => {
-    dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
+    console.log("handleTagChangeTags");
+    dispatch(fetchCatalogSearch(query, {...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}));
+ //   dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
   }
-  const items = [
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'vasya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-    {title: 'file1', author: 'tanya', length: '100', size: '500', date: '2020-12-02T08:36:16.819', type: 'video'},
-  ]
 
   const handleEditClick = useCallback((item) => {
       setCurrentEditCatalog(item);
@@ -66,11 +68,12 @@ export default function Dashboard(props){
   }
   return (
     <Layout>
-    <Header/>
+    <Header searchValue={query as string}/>
 
     <div className={styles.root}>
+      <div className={styles.titleSearch}>{projectsTotal + filesTotal} {pluralize(projectsTotal + filesTotal, 'результат', 'результата', 'результатов') } поиска «{query}»</div>
       <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
-      {listLoading ?
+      {loading  ?
           <>
             <DashboardLoader/>
             <ProjectLoader/>
@@ -102,20 +105,20 @@ export default function Dashboard(props){
       <div className={styles.titleContainer}>
         <div className={styles.title}>Файлы</div>
         <Quantity
-        quantity={myUploadedFiles.length}
+        quantity={files.length}
         />
       </div>
       <div className={styles.files}>
 
 
-        {(showFiles ? myUploadedFiles : myUploadedFiles.slice(0, 5)).map(item => (<File
+        {(showFiles ? files : files.slice(0, 5)).map(item => (<File
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={''}
             item={item}
         />))}
       </div>
-      {myUploadedFiles.length > 5 && <div className={styles.moreFiles}>
+      {files.length > 5 && <div className={styles.moreFiles}>
         <a onClick={() => showFiles ? setShowAllFiles(false) : setShowAllFiles(true)}>
           <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg" alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
         </a>

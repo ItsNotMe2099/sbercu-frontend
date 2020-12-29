@@ -29,9 +29,13 @@ function* catalogSaga() {
       const result = yield take([ActionTypes.CREATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_CATALOG_REQUEST + ApiActionTypes.FAIL])
       if(result.type === ActionTypes.CREATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("CREATE TAG_CATEGORY SUCCESS")
-        yield put(modalClose());
-        const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-        yield put(fetchCatalogList(currentCatalogId));
+          if( action.payload.data.entryType === 'project'){
+              Router.push(`/catalog/${result.payload.id}`)
+          }else {
+              yield put(modalClose());
+              const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
+              yield put(fetchCatalogList(currentCatalogId));
+          }
       }
     })
   yield takeLatest(ActionTypes.UPDATE_CATALOG,
@@ -72,11 +76,9 @@ function* catalogSaga() {
 
             for(const file of action.payload.files){
                 console.log("Create File", file)
-                yield put(createFileRequest({...file, entryType: 'file', parentId: currentCatalogId, presenters: (file.presenters as string[]).join(',')}));
+                yield put(createFileRequest({...file, entryType: 'file', parentId: currentCatalogId, presenters: file.presenters}));
                 const result = yield take([ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.FAIL])
-
             }
-
             yield put(fetchCatalogList(currentCatalogId));
             yield put(modalClose());
         })

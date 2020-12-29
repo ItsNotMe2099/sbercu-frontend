@@ -1,4 +1,5 @@
 import CatalogReducer from "components/catalog/reducer";
+import CatalogSearchReducer from "components/search/reducer";
 import TagReducer from "components/tags/Tag/reducer";
 import UserReducer from "components/users/reducer";
 import {combineReducers} from 'redux';
@@ -22,5 +23,6 @@ export default combineReducers({
   tagCategory: CreateTagCategoryReducer,
   catalog: CatalogReducer,
   tag: TagReducer,
-  users: UserReducer
+  users: UserReducer,
+  search: CatalogSearchReducer,
 })

@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { useState } from "react";
 interface Props{
   children?: any,
+    searchValue?: string,
 }
 
 export default function Header(props: Props){
@@ -22,7 +23,7 @@ export default function Header(props: Props){
         <div className={styles.container}>
             <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
-          <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)}/>
+          <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>
           {!isActive ?
           <div className={styles.mobile}>{props.children}</div>
           :null}

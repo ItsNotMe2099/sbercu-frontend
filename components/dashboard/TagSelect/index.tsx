@@ -15,10 +15,12 @@ interface Props {
 export const TagSelect = (props: Props) => {
   const dispatch = useDispatch();
   const [selectedTags, setSelectedTags] = useState([])
+  const [isInit, setIsInit] = useState(false)
   useEffect(() => {
-      if(props.onChangeSelectedTags){
+      if(props.onChangeSelectedTags && isInit){
         props.onChangeSelectedTags(selectedTags);
       }
+      setIsInit(true);
   }, [selectedTags])
   const handleTagClick = (selectedItem, selected) => {
     console.log("HandleTagClick", selectedItem, selected)

@@ -1,5 +1,6 @@
 import Button from 'components/ui/Button'
-import { useState } from 'react'
+import { useRouter } from "next/router";
+import { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 
 
@@ -7,22 +8,34 @@ interface Props {
   placeholder?: string,
     onChange?: (value) => void
     onClick?: () => void
+    searchValue?: string
 }
 
 export default function InputSearch(props: Props) {
   const [isOpen, setIsOpen] = useState(false)
-
+    const [value, setValue] = useState('');
+    const router = useRouter();
+    useEffect(() => {
+        if(props.searchValue && !value) {
+            setValue(props.searchValue);
+        }
+    }, [props.searchValue])
+    const handleSubmit = () => {
+        if(value) {
+            router.push(`/search?query=${value}`);
+        }
+    }
+    const handleSearch = (e) => {
+        setValue(e.currentTarget.value);
+    }
   return (
-    <form className={isOpen ? styles.open : styles.form} action='/search'>
+    <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
       <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
           <input
               name="query"
               type='text'
-              onChange={(e) => {
-                  if(props.onChange){
-                      props.onChange(e.currentTarget.value)
-                  }
-              }}
+              value={value}
+              onChange={handleSearch}
               placeholder={props.placeholder}
           />
           <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>

@@ -1,4 +1,5 @@
 import catalogSaga from "components/catalog/sagas";
+import catalogSearchSaga from "components/search/sagas";
 import tagSaga from "components/tags/Tag/sagas";
 import tagCategorySaga from "components/tags/TagCategory/sagas";
 import userSaga from "components/users/sagas";
@@ -19,7 +20,7 @@ export const rootSaga = function* root() {
         tagCategorySaga(),
         catalogSaga(),
         tagSaga(),
-        userSaga()
-
+        userSaga(),
+        catalogSearchSaga(),
     ])
 };

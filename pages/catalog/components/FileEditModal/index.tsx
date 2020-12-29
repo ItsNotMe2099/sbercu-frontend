@@ -18,13 +18,13 @@ export default function FileEditModal(props: Props){
   const dispatch = useDispatch()
   const currentCatalogId = useSelector((state: IRootState) => state.catalog.currentCatalogId)
   const handleSubmit = (data) => {
-    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: data.presenters.join(',')}));
+    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: data.presenters}));
     console.log('success')
   }
 
   return (
     <Modal {...props} title="Редактирование файла">
-        <FileEditForm onSubmit={handleSubmit} initialValues={{...props.catalog, presenters: (props.catalog?.presenters as string)?.split(',')}}/>
+        <FileEditForm onSubmit={handleSubmit} initialValues={{...props.catalog}}/>
     </Modal>
   )
 }

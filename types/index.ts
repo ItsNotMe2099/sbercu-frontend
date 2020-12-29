@@ -5,6 +5,7 @@ import {State as regReducerState} from 'components/auth/registration-invite/redu
 import { CatalogState } from "components/catalog/reducer";
 import {CategoryTagState} from 'components/dashboard/TagSelect/reducer'
 import {ModalState} from 'components/Modal/reducer'
+import { CatalogSearchList } from "components/search/reducer";
 import { TagState } from "components/tags/Tag/reducer";
 import { TagCategoryState } from "components/tags/TagCategory/reducer";
 import { UserState } from "components/users/reducer";
@@ -20,6 +21,7 @@ export interface IRootState {
   catalog: CatalogState
   tag: TagState
   users: UserState
+  search: CatalogSearchList,
 }
 
 export interface BaseAction {
@@ -63,7 +65,7 @@ export interface ICatalogEntry {
   link?: string,
   tagsIds?: number[]
   mediaId?: number
-  presenters?: string | string[],
+  presenters?: string[],
   parents?: ICatalogEntry[]
 }
 export interface ITag {
