@@ -56,7 +56,12 @@ export default function InputSearch(props: Props) {
             {filtered.map((suggestion) => 
               <li key={suggestion} onClick={handleClick}>{suggestion}</li>
             )}
-          </ul> : <div>No suggestions</div>: null}
+          </ul> : 
+          <div className={styles.noSuggestion}>
+            <img src="/img/icons/lamp.svg" alt=""/>
+            <div className={styles.notFound}>По вашему запросу ничего не найдено</div>
+            <div className={styles.try}>Попробуйте написать название материала<br/> по-другому или сократить запрос</div>
+          </div> : null}
           <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>
           <div onClick={props.onClick} className={styles.mobileBtns}>
           {isOpen ?
