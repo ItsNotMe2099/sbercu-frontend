@@ -10,3 +10,10 @@ export const fetchCatalogSearch = (query, options) => action(ActionTypes.FETCH_C
     method: 'GET',
   }
 })
+
+export const fetchAutoCompleteCatalogSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_SEARCH_LIST, {
+  api: {
+    url: `/api/catalog/search?query=${query}&${queryString.stringify(options)}`,
+    method: 'GET',
+  }
+})

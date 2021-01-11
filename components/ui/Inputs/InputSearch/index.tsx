@@ -2,6 +2,10 @@ import Button from 'components/ui/Button'
 import { useRouter } from "next/router";
 import { useEffect, useState } from 'react'
 import styles from './index.module.scss'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAutoCompleteCatalogSearch } from "components/search/actions";
+import { IRootState } from "types";
+
 
 
 interface Props {
@@ -9,15 +13,18 @@ interface Props {
     onChange?: (value) => void
     onClick?: () => void
     searchValue?: string
-    suggestions?: any[]
 }
 
 export default function InputSearch(props: Props) {
   const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState("");
-    const [filtered, setFiltered] = useState([])
+    const [filteredProjects, setFilteredProjects] = useState([])
+    const [filteredFiles, setFilteredFiles] = useState([])
     const [showSuggestions, setIsShow] = useState(false)
     const router = useRouter();
+    const dispatch = useDispatch()
+    const projects = useSelector((state: IRootState) => state.catalog.projects)
+    const files = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
     useEffect(() => {
         if(props.searchValue && !value) {
             setValue(props.searchValue);
@@ -29,16 +36,19 @@ export default function InputSearch(props: Props) {
         }
     }
     const handleSearch = (e) => {
-        const suggestions = props.suggestions
+        //dispatch(fetchAutoCompleteCatalogSearch(value, {}))
         const userInput = e.currentTarget.value
-        const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
+        const filteredProjects = projects.filter(project => project.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
+        const filteredFiles = files.filter(file => file.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
         setValue(e.currentTarget.value);
-        setFiltered(filteredSuggestions)
+        setFilteredProjects(filteredProjects)
+        setFilteredFiles(filteredFiles)
         setIsShow(true)
     }
     const handleClick = (e) => {
       setValue(e.currentTarget.innerText);
-      setFiltered([])
+      setFilteredProjects([])
+      setFilteredFiles([])
       setIsShow(false)
     }
   return (
@@ -51,17 +61,19 @@ export default function InputSearch(props: Props) {
               onChange={handleSearch}
               placeholder={props.placeholder}
           />
-          {showSuggestions && value ? filtered.length ? 
-          <ul>
-            {filtered.map((suggestion) => 
-              <li key={suggestion} onClick={handleClick}>{suggestion}</li>
+          {showSuggestions && value ? 
+          <div className={styles.suggestion}>
+          {filteredProjects.length && 
+          <div>
+            {filteredProjects.map((project) => 
+              <div key={project} onClick={handleClick}>{project.name}</div>
             )}
-          </ul> : 
+          </div>}</div> : 
           <div className={styles.noSuggestion}>
             <img src="/img/icons/lamp.svg" alt=""/>
             <div className={styles.notFound}>По вашему запросу ничего не найдено</div>
             <div className={styles.try}>Попробуйте написать название материала<br/> по-другому или сократить запрос</div>
-          </div> : null}
+          </div>}
           <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>
           <div onClick={props.onClick} className={styles.mobileBtns}>
           {isOpen ?
