@@ -9,11 +9,14 @@ interface Props {
     onChange?: (value) => void
     onClick?: () => void
     searchValue?: string
+    suggestions?: any[]
 }
 
 export default function InputSearch(props: Props) {
   const [isOpen, setIsOpen] = useState(false)
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
+    const [filtered, setFiltered] = useState([])
+    const [showSuggestions, setIsShow] = useState(false)
     const router = useRouter();
     useEffect(() => {
         if(props.searchValue && !value) {
@@ -26,7 +29,17 @@ export default function InputSearch(props: Props) {
         }
     }
     const handleSearch = (e) => {
+        const suggestions = props.suggestions
+        const userInput = e.currentTarget.value
+        const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
         setValue(e.currentTarget.value);
+        setFiltered(filteredSuggestions)
+        setIsShow(true)
+    }
+    const handleClick = (e) => {
+      setValue(e.currentTarget.innerText);
+      setFiltered([])
+      setIsShow(false)
     }
   return (
     <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
@@ -38,6 +51,12 @@ export default function InputSearch(props: Props) {
               onChange={handleSearch}
               placeholder={props.placeholder}
           />
+          {showSuggestions && value ? filtered.length ? 
+          <ul>
+            {filtered.map((suggestion) => 
+              <li key={suggestion} onClick={handleClick}>{suggestion}</li>
+            )}
+          </ul> : <div>No suggestions</div>: null}
           <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>
           <div onClick={props.onClick} className={styles.mobileBtns}>
           {isOpen ?

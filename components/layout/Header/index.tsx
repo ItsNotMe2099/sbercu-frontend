@@ -23,7 +23,7 @@ export default function Header(props: Props){
         <div className={styles.container}>
             <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
-          <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>
+          <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue} suggestions={["Alligator", "Bask", "Citrus"]}/>
           {!isActive ?
           <div className={styles.mobile}>{props.children}</div>
           :null}
