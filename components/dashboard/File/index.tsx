@@ -16,6 +16,7 @@ interface Props{
   length?: any,
   onEditClick?: (item) => void
   onDeleteClick?: (item) => void
+  onClick?: (e: React.MouseEvent) => void
 }
 
 export default function File({item, basePath, onDeleteClick, onEditClick, ...props}: Props){

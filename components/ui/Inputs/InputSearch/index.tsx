@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAutoCompleteCatalogSearch } from "components/search/actions";
 import { IRootState } from "types";
+import File from 'components/dashboard/File';
 
 
 
@@ -63,13 +64,23 @@ export default function InputSearch(props: Props) {
           />
           {showSuggestions && value &&
           <>
-          {filteredProjects.length ?
+          {filteredProjects.length || filteredFiles.length ?
           <div className={styles.suggestion}>
-          <div>
+          <div className={styles.projects}>
+            <div className={styles.title}>Проекты</div>
             {filteredProjects.map((project) => 
-              <div key={project} onClick={handleClick}>{project.name}</div>
+              <div className={styles.project} key={project} onClick={handleClick}>{project.name}</div>
             )}
-          </div></div> : 
+          </div>
+          <div className={styles.files}>
+            <div className={styles.title}>Файлы</div>
+            <div className={styles.wrapper}>{filteredFiles.map(file => (<File
+            item={file}
+            onClick={handleClick}
+            />))}</div>
+          </div>
+          </div> 
+          : 
           <div className={styles.noSuggestion}>
             <img src="/img/icons/lamp.svg" alt=""/>
             <div className={styles.notFound}>По вашему запросу ничего не найдено</div>
