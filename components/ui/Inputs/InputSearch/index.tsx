@@ -61,19 +61,20 @@ export default function InputSearch(props: Props) {
               onChange={handleSearch}
               placeholder={props.placeholder}
           />
-          {showSuggestions && value ? 
+          {showSuggestions && value &&
+          <>
+          {filteredProjects.length ?
           <div className={styles.suggestion}>
-          {filteredProjects.length && 
           <div>
             {filteredProjects.map((project) => 
               <div key={project} onClick={handleClick}>{project.name}</div>
             )}
-          </div>}</div> : 
+          </div></div> : 
           <div className={styles.noSuggestion}>
             <img src="/img/icons/lamp.svg" alt=""/>
             <div className={styles.notFound}>По вашему запросу ничего не найдено</div>
             <div className={styles.try}>Попробуйте написать название материала<br/> по-другому или сократить запрос</div>
-          </div>}
+          </div>}</>}
           <div onClick={props.onClick} className={styles.btn}><Button search type="button"></Button></div>
           <div onClick={props.onClick} className={styles.mobileBtns}>
           {isOpen ?
