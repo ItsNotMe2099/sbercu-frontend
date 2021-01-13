@@ -19,6 +19,8 @@ stages:
 
 build_dev_image:
   stage: build-docker
+  tags:
+    - docker
   script:
     - export APP_IMAGE=$IMAGE_TAG_DEV_APP
     - export NGINX_IMAGE=$IMAGE_TAG_DEV_NGINX
@@ -33,6 +35,8 @@ build_dev_image:
 
 build_prod_image:
   stage: build-docker
+  tags:
+    - docker
   script:
     - export APP_IMAGE=$IMAGE_TAG_APP
     - export NGINX_IMAGE=$IMAGE_TAG_NGINX
@@ -47,6 +51,8 @@ build_prod_image:
 
 deploy_dev:
   stage: deploy
+  tags:
+    - docker
   script:
       - apk update
       - apk add openssh
@@ -60,6 +66,8 @@ deploy_dev:
 
 deploy_prod:
   stage: deploy
+  tags:
+    - docker
   script:
       - apk update
       - apk add openssh
