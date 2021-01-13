@@ -7,6 +7,7 @@ import { fetchAutoCompleteCatalogSearch } from "components/search/actions";
 import { IRootState } from "types";
 import File from 'components/dashboard/File';
 import Link from 'next/link';
+import SearchSuggestionLoader from 'components/ContentLoaders/searchSuggestionLoader';
 
 
 
@@ -22,11 +23,11 @@ export default function InputSearch(props: Props) {
     const [value, setValue] = useState("");
     const [filteredProjects, setFilteredProjects] = useState([])
     const [filteredFiles, setFilteredFiles] = useState([])
-    const [showSuggestions, setIsShow] = useState(false)
     const router = useRouter();
     const dispatch = useDispatch()
-    const projects = useSelector((state: IRootState) => state.catalog.projects)
-    const files = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
+    const projects = useSelector((state: IRootState) => state.search.autoCompleteProjects)
+    const files = useSelector((state: IRootState) => state.search.autoCompleteFiles)
+    const loading = useSelector((state: IRootState) => state.search.autoCompleteListLoading)
     useEffect(() => {
         if(props.searchValue && !value) {
             setValue(props.searchValue);
@@ -38,20 +39,18 @@ export default function InputSearch(props: Props) {
         }
     }
     const handleSearch = (e) => {
-        //dispatch(fetchAutoCompleteCatalogSearch(value, {}))
         const userInput = e.currentTarget.value
+        dispatch(fetchAutoCompleteCatalogSearch(userInput, {}))
         const filteredProjects = projects.filter(project => project.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
         const filteredFiles = files.filter(file => file.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1)
         setValue(e.currentTarget.value);
         setFilteredProjects(filteredProjects)
         setFilteredFiles(filteredFiles)
-        setIsShow(true)
     }
     const handleClick = (e) => {
       setValue(e.currentTarget.innerText);
       setFilteredProjects([])
       setFilteredFiles([])
-      setIsShow(false)
     }
   return (
     <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
@@ -63,7 +62,8 @@ export default function InputSearch(props: Props) {
               onChange={handleSearch}
               placeholder={props.placeholder}
           />
-          {showSuggestions && value &&
+          {loading && value && <div className={styles.loaderWrapper}><SearchSuggestionLoader/></div>}
+          {value && !loading &&
           <>
           {filteredProjects.length || filteredFiles.length ?
           <div className={styles.suggestion}>
