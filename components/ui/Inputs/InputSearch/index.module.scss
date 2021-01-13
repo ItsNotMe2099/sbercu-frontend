@@ -126,7 +126,7 @@
   top: 43px;
   width: 302px;
   z-index: 1;
-  padding: 15px 13px 22px 13px;
+  padding: 15px 13px 0 13px;
 }
 
 .title{
@@ -177,4 +177,32 @@
 
 .files{
   margin-top: 11px;
+}
+
+.show{
+  padding: 9px 16px;
+  background: #27AE60;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+.transparent{
+  padding-top: 36px;
+  padding-bottom: 22px;
+  background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.51) 100%);
+  display: flex;
+}
+
+.innerWrapper{
+  position: relative;
+  padding-bottom: 90px;
+}
+
+.btnWrapper{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }

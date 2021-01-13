@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchAutoCompleteCatalogSearch } from "components/search/actions";
 import { IRootState } from "types";
 import File from 'components/dashboard/File';
+import Link from 'next/link';
 
 
 
@@ -66,9 +67,10 @@ export default function InputSearch(props: Props) {
           <>
           {filteredProjects.length || filteredFiles.length ?
           <div className={styles.suggestion}>
+            <div className={styles.innerWrapper}>
           <div className={styles.projects}>
             <div className={styles.title}>Проекты</div>
-            {filteredProjects.map((project) => 
+            {filteredProjects.map(project => 
               <div className={styles.project} key={project} onClick={handleClick}>{project.name}</div>
             )}
           </div>
@@ -78,6 +80,12 @@ export default function InputSearch(props: Props) {
             item={file}
             onClick={handleClick}
             />))}</div>
+          </div>
+          <div className={styles.btnWrapper}>
+          <div className={styles.transparent}>
+          <a onClick={handleSubmit} className={styles.show}>Показать все результаты</a>
+          </div>
+          </div>
           </div>
           </div> 
           : 
