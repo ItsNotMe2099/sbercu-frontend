@@ -41,10 +41,23 @@ export interface IResponse {
   data: any
   err: any
 }
+
+export interface IVideoElement {
+  size: number
+  quality: '1080p' | '720p' | '360p'
+  duration: number
+  filePath: string
+}
 export interface IMedia {
-  id: number,
-  fileName: string,
-  type: 'video' | 'document' | 'audio'
+  id: number
+  fileName: string
+  filePath: string
+  originalName: string
+  contentType: string
+  type: 'video' | 'document' | 'audio',
+  size: number
+  videoConverted: boolean
+  videoElements: IVideoElement[]
 }
 export interface ICatalogEntry {
   id?: number
