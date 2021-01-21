@@ -327,7 +327,7 @@ export default function VideoJs(props: Props) {
             }
         }
     }, [])
-    return (<video ref={videoRef} width='100%' data-setup='{}'
+    return (<video onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
                    height='100%'>
 
         </video>
