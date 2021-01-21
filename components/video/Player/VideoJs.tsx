@@ -63,7 +63,7 @@ export default function VideoJs(props: Props) {
     };
 
     const getSecondsLoaded = () => {
-        return (playerRef?.current as any).buffered()
+        return (playerRef?.current as any).bufferedPercent()
     };
     const handlePause = (e) => {
         if (!isPlayingRef.current) {
@@ -120,9 +120,11 @@ export default function VideoJs(props: Props) {
         if (seekOnPlay.current) {
             return;
         }
-        const playedSeconds = getCurrentTime() || 0
-        const loadedSeconds = getSecondsLoaded()
         const duration = getDuration()
+        const playedSeconds = getCurrentTime() || 0
+        const loadedSeconds = getSecondsLoaded() * duration
+        console.log("Buffered Present", loadedSeconds);
+
         if (duration) {
             const progress = {
                 playedSeconds,

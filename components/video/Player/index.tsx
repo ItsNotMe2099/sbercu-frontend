@@ -94,6 +94,7 @@ export default function Player(props) {
 
 
     const   handleProgress = state => {
+        console.log("handleProgress", state)
         setPlayed(state.played);
         setLoaded(state.loaded);
     }
