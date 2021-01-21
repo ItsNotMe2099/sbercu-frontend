@@ -11,6 +11,9 @@
   height: 36px;
   background: none;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   svg{
     vertical-align: middle;
     fill: #828282;

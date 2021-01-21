@@ -39,7 +39,6 @@ export default function ButtonDots(props: Props) {
     return (
         <div className={styles.root}>
             <div
-                type={'button'}
                 onClick={handleClick}
                 className={cx(styles.button, {[styles.buttonActive]: isActiveItem})}>
                 <Dots/>
