@@ -115,7 +115,7 @@ const Catalog = (props) => {
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={basePath}
-            canEdit={currentCatalogItem.canEdit}
+            canEdit={currentCatalogItem?.canEdit}
           item={item}
         />))}
       </div>

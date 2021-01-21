@@ -54,6 +54,9 @@ export default function Video(props: Props){
         const categories = []
         console.log("video?.tags", video?.tags)
         for (const tag of video?.tags) {
+            if(!tag.tagCategory){
+                continue;
+            }
             if (!categoriesMap[tag.tagCategoryId]) {
                 categoriesMap[tag.tagCategoryId] = { category: tag.tagCategory, tags: [tag] }
                 categories.push(categoriesMap[tag.tagCategoryId]);

@@ -10,7 +10,7 @@ export default function Info(props: Props){
 
   return (
           <div className={styles.root}>
-              {props.authors.length > 0 && <div>{props.authors.length === 1 ? 'Спикер' : 'Спикеры'} : {props.authors.join(', ')}</div>}
+              {props.authors?.length > 0 && <div>{props.authors.length === 1 ? 'Спикер' : 'Спикеры'} : {props.authors.join(', ')}</div>}
             <div>{props.date}</div>
           </div>
   )

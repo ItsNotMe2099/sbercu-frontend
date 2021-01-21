@@ -3,7 +3,7 @@ import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import FileEditModal from "pages/catalog/components/FileEditModal";
+import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";

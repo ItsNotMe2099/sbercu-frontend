@@ -17,7 +17,7 @@ interface Props {
 export default function FileEditModal(props: Props){
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
-    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: data.presenters, mediaId: props.catalog.mediaId}));
+    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: data.presenters}));
     console.log('success')
   }
 

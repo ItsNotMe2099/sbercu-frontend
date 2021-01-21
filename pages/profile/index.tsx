@@ -4,7 +4,7 @@ import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, editFileOpen, modalClose } from "components/Modal/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import FileEditModal from "pages/catalog/components/FileEditModal";
+import FileEditModal from "components/FileEditModal";
 import { IRootState } from "types";
 import { withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
