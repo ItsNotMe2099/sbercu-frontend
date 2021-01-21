@@ -50,9 +50,9 @@ export default function VideoJs(props: Props) {
     const volumeRef = useRef()
     const isReadyRef = useRef(false)
     const isPlayingRef = useRef(false)
-    const seekOnPlay = useRef();
-    const prevPlayed = useRef();
-    const prevLoaded = useRef();
+    const seekOnPlay = useRef(0);
+    const prevPlayed = useRef(0);
+    const prevLoaded = useRef(0);
     const playbackRateRef = useRef();
     const getDuration = () => {
         return (playerRef?.current as any).duration()

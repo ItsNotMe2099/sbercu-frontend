@@ -5,7 +5,7 @@ import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "compone
 import { fetchCatalogSearch } from "components/search/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
 import { useRouter } from "next/router";
-import FileEditModal from "pages/catalog/components/FileEditModal";
+import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import { logout, withAuthSync } from "utils/auth";
@@ -133,6 +133,7 @@ export default function Search(props){
         {(showFiles ? files : files.slice(0, 5)).map(item => (<File
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
+            canEdit={false}
             basePath={''}
             item={item}
         />))}

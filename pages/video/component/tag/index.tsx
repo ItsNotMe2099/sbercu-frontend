@@ -23,7 +23,7 @@ export default function Tag(props: Props){
   return (
           <div className={styles.tag}>
             <div className={styles.tagCategory}>{props.category}</div>
-              {props.tags.map(tag => <div className={styles.item}>
+              {props.tags?.map(tag => <div className={styles.item}>
               {tag}
             </div>)}
           </div>
