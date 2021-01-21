@@ -115,6 +115,7 @@ const Profile = (props) => {
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={''}
+            canEdit={true}
             item={item}
         />))}
       </div>

@@ -114,6 +114,7 @@ export default function Dashboard(props){
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={''}
+            canEdit={true}
             item={item}
         />))}
       </div>

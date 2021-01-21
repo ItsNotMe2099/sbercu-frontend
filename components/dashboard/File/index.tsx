@@ -14,12 +14,13 @@ interface Props{
   size?: any,
   basePath?: string,
   length?: any,
+  canEdit: boolean
   onEditClick?: (item) => void
   onDeleteClick?: (item) => void
   onClick?: (e: React.MouseEvent) => void
 }
 
-export default function File({item, basePath, onDeleteClick, onEditClick, ...props}: Props){
+export default function File({item, basePath, onDeleteClick, onEditClick, canEdit, ...props}: Props){
 
   const getIconByType = (type) => {
     switch(type) {
@@ -79,7 +80,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, ...pro
         </div>
       </a>
       </Link>
-      <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>
+        {canEdit && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
       </div>
   )
 }

@@ -104,7 +104,13 @@ function* catalogSaga() {
                 }else {
                     yield put(modalClose());
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-                    yield put(fetchCatalogList(currentCatalogId));
+                    const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
+                    console.log("currentCatalogId", currentCatalogId, action.payload.id)
+                    if(currentCatalogItem?.id === action.payload.id){
+                        yield put(fetchCatalogItem(action.payload.id, {...(action.payload.data.entryType === 'file' ? {showTags: true} : {})}))
+                    }else {
+                        yield put(fetchCatalogList(currentCatalogId));
+                    }
                 }
             }
         })

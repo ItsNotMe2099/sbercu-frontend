@@ -1,68 +1,110 @@
 @import "scss/index";
 
-.root{
-    background: black;
-    position: relative;
-    padding-bottom: 30px;
+.root {
+  background: black;
+  position: relative;
+  padding-bottom: 30px;
 
-}
-.player{
-    video{
-        border-radius: 10px;
+    :global .vjs-tech {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 }
-.controls{
-    position: absolute;
-    bottom: 0px;
-    left: 10px;
-    right: 10px;
+
+
+.player {
+  video {
+    border-radius: 10px;
+  }
+}
+
+.controls {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  right: 10px;
 
 }
-.controlsBar{
+
+.controlsBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  width: 100%;
+
+  .controlsLeft {
+    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: white;
-    font-size: 12px;
-    width: 100%;
-    .controlsLeft{
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .playButton{
-        margin-right: 8px;
-        cursor: pointer;
-        &:hover{
-            svg{
-                path {
-                    fill: #27AE60;
-                }
-            }
+  }
+
+  .playButton {
+    margin-right: 8px;
+    cursor: pointer;
+
+    &:hover {
+      svg {
+        path {
+          fill: #27AE60;
         }
-        svg{
-            box-sizing: border-box;
-            width: 24px;
-            height: 24px;
+      }
+    }
 
-        }
-        margin-left: -6px;
-    }
-    .progressText{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .progressSeparator{
-        padding: 0px 5px;
-    }
-    .qualitySelect{
+    svg {
+      box-sizing: border-box;
+      width: 24px;
+      height: 24px;
 
     }
+
+    margin-left: -6px;
+  }
+
+  .progressText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .progressSeparator {
+    padding: 0px 5px;
+  }
+
+  .qualitySelect {
+
+  }
+.playbackRateSelect{
+  margin-right: 15px;
 }
-.progress{
-    position: relative;
-    height: 25px;
+  .pictureInPicture {
+    margin-right: 8px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .fullscreen {
+    margin-top: 4px;
+    margin-right: 15px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.progress {
+  position: relative;
+  height: 25px;
 
 }
+

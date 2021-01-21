@@ -73,6 +73,7 @@ export interface ICatalogEntry {
   projectContent?: string
   userId?: number
   tags?: ITag[],
+  canEdit?: boolean
   media?: IMedia,
   createdAt?: string
   link?: string,

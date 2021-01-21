@@ -43,9 +43,9 @@ export const fetchCatalogList = (id, data: any = {}) => action(ActionTypes.FETCH
     method: 'GET',
   }
 })
-export const fetchCatalogItem = (id) => action(ActionTypes.FETCH_CATALOG_ITEM, {
+export const fetchCatalogItem = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM, {
   api: {
-    url: `/api/catalog/show/${id}`,
+    url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',
   }
 })

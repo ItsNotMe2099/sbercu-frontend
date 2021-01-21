@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 interface Props{
   category: string
-  tag: string
+  tags: string[]
 }
 
 export default function Tag(props: Props){
@@ -23,9 +23,9 @@ export default function Tag(props: Props){
   return (
           <div className={styles.tag}>
             <div className={styles.tagCategory}>{props.category}</div>
-            <a className={cx(styles.item, { [styles.selected]: isSelected })} onClick={handleClick}>
-              <span>{props.tag}</span>
-            </a>
+              {props.tags.map(tag => <div className={styles.item}>
+              {tag}
+            </div>)}
           </div>
   )
 }

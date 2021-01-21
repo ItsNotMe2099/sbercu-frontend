@@ -17,7 +17,7 @@ import BreadCrumbs from "components/ui/Breadcrumbs";
 import Button from "components/ui/Button";
 import ButtonDots from "components/ui/ButtonDots";
 import CreateFolder from "pages/catalog/components/CreateFolder";
-import FileEditModal from "pages/catalog/components/FileEditModal";
+import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
@@ -36,7 +36,7 @@ import UploadFilesModal from "./components/UploadFilesModal";
 const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
-  const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
+  const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
   const items = useSelector((state: IRootState) => state.catalog.list)
   const listLoading = useSelector((state: IRootState) => state.catalog.listLoading)
@@ -97,14 +97,14 @@ const Catalog = (props) => {
   return (
     <Layout>
     <Header>
-      <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>
-      <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>
+      {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>}
+      {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
     </Header>
     <div className={styles.root}>
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
         <div className={styles.image}>
-          {currentCatalogItem && <ButtonDots onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
+          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
@@ -115,6 +115,7 @@ const Catalog = (props) => {
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={basePath}
+            canEdit={currentCatalogItem.canEdit}
           item={item}
         />))}
       </div>
@@ -135,10 +136,10 @@ const Catalog = (props) => {
     </div>
 
       <Footer/>
-    <CreateFolder isOpen={key === 'createFolder'}
+      <CreateFolder isOpen={modalKey === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
-      <UploadFilesModal isOpen={key === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
-      <FileEditModal isOpen={key === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
+      <UploadFilesModal isOpen={modalKey === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
+      <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
 
     </Layout>
   )

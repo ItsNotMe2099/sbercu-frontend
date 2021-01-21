@@ -3,18 +3,21 @@ import Play from "components/svg/Play";
 import Duration from "components/video/Player/Duration";
 import QualitySelect from "components/video/Player/QualitySelect";
 import SeekSlider from "components/video/Player/SeekSlider";
+import VolumeControl from "components/video/Player/VolumeControl";
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
 import styles from './index.module.scss'
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
+const VideoJs = dynamic(() => import('components/video/Player/VideoJs'), {
+    ssr: false
+})
 interface Props {
     source: any,
     sources: any[]
 }
 export default function Player(props) {
-
-    console.log("Sources", props.sources, props.source);
     const [source, setSource] = useState(null);
     const [pip, setPip] = useState(false);
     const [playing, setPlaying] = useState(false);
@@ -28,11 +31,12 @@ export default function Player(props) {
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
-
+    const player = useRef();
+    const root = useRef();
     useEffect(() => {
         setSource(props.source)
     }, [])
-    const player = useRef();
+
     const handlePlayPause = () => {
         setPlaying((playing) => !playing );
     }
@@ -42,23 +46,10 @@ export default function Player(props) {
         setPlaying(false);
     }
 
-    const handleToggleControls = () => {
-        const url = this.state.url
-        setControls((controls) => !controls);
-        setUrl(null);
-        //load(url);
-    }
 
-    const  handleToggleLight = () => {
-        setLight((light) => !light);
-    }
 
-    const  handleToggleLoop = () => {
-        setLoop((loop) => !loop);
-    }
-
-    const   handleVolumeChange = e => {
-        setVolume(parseFloat(e.target.value) );
+    const   handleVolumeChange = value => {
+        setVolume(value);
     }
 
     const  handleToggleMuted = () => {
@@ -66,7 +57,7 @@ export default function Player(props) {
     }
 
     const  handleSetPlaybackRate = e => {
-        setPlaybackRate(parseFloat(e.target.value));
+        setPlaybackRate(e.value);
     }
 
     const  handleTogglePIP = () => {
@@ -89,7 +80,7 @@ export default function Player(props) {
     }
 
     const  handlePause = () => {
-        console.log('onPause')
+        console.log('handlePause')
         setPlaying(false);
     }
 
@@ -98,7 +89,7 @@ export default function Player(props) {
     const  handleSeekChange = value => {
         console.log("SeekChange", value, loaded);
             setPlayed(value/duration);
-        (player?.current as any).seekTo(value);
+        (player?.current as any).currentTime(value);
     }
 
 
@@ -116,7 +107,9 @@ export default function Player(props) {
     }
 
     const  handleClickFullscreen = () => {
-        (screenfull as any).request(findDOMNode(this.player))
+        if(player?.current) {
+            (screenfull as any).request(findDOMNode(root?.current))
+        }
     }
 
     const  renderLoadButton = (url, label) => {
@@ -134,19 +127,15 @@ export default function Player(props) {
     }
     const handleSourceChange = (item) => {
         console.log("setSource", item.value)
-        setPlaying(false);
+
         setLoaded(0);
         setPip(false);
         setSource(item.value);
-        setTimeout(() => {
-            if(played > 0) {
-                (player?.current as any).seekTo(played);
-                setPlaying(true);
-            }
-        }, 200)
+
     }
-  return (<div className={styles.root}>
-          <ReactPlayer
+
+  return (<div className={styles.root} ref={root}>
+      {/*<ReactPlayer
               ref={player}
               className={styles.player}
               width='100%'
@@ -172,6 +161,21 @@ export default function Player(props) {
               onError={e => console.log('onError', e)}
               onProgress={handleProgress}
               onDuration={handleDuration}
+          />*/}
+          <VideoJs
+              playing={playing}
+              onCreateRef={(ref) => player.current = ref}
+              source={source}
+              playbackRate={playbackRate}
+              volume={volume/100}
+              onDuration={handleDuration}
+          onProgress={handleProgress}
+              onPlay={handlePlay}
+              onEnded={handleEnded}
+              onPause={handlePause}
+              onError={e => console.log('onError', e)}
+          onReady={handleReady}
+              onBuffer={() => console.log('onBuffer')}
           />
           <div className={styles.controls}>
               <div className={styles.controlsBar}>
@@ -180,8 +184,21 @@ export default function Player(props) {
                   <div className={styles.progressText}><Duration seconds={duration * played}/><div className={styles.progressSeparator}>/</div><Duration seconds={duration}/></div>
 
                </div>
+                  {/*<div className={styles.pictureInPicture} onClick={handleTogglePIP}><img src={'/img/icons/picture_in_picture.svg'}/></div>*/}
+                  <VolumeControl value={volume} onChange={handleVolumeChange}/>
+                  <div className={styles.fullscreen} onClick={handleClickFullscreen}><img src={'/img/icons/video_fullscreen.svg'}/></div>
+                  <div className={styles.playbackRateSelect}>
+                  <QualitySelect options={[
+                      {value: 1.0, label: '1x'},
+                      {value: 1.5, label: '1.5x'},
+                      {value: 2, label: '2x'},
+                      {value: 4, label: '4x'},
+                  ]} value={playbackRate} onChange={handleSetPlaybackRate}/>
+                  </div>
                   <div className={styles.qualitySelect}>
-                  <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
+
+
+                      <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
                   </div>
               </div>
               <div className={styles.progress}>
