@@ -21,9 +21,8 @@ export default function ButtonSelect(props: Props) {
     }
   return (
     <>
-    <a
+    <div
       onClick={onClick}
-      type={"button"}
       className={cx(styles.root, { [styles.isActive]: isActive})}
       style={{padding: props.size}}
 
@@ -35,7 +34,7 @@ export default function ButtonSelect(props: Props) {
         <a className={styles.option} onClick={() => props.onChange(item)}>{item.label}</a>
         )}
     </nav>
-    </a>
+    </div>
 
 </>
   )

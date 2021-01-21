@@ -38,13 +38,13 @@ export default function ButtonDots(props: Props) {
     }
     return (
         <div className={styles.root}>
-            <button
+            <div
                 type={'button'}
                 onClick={handleClick}
                 className={cx(styles.button, {[styles.buttonActive]: isActiveItem})}>
                 <Dots/>
 
-            </button>
+            </div>
             {!props.children &&  <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
               <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
               <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
