@@ -70,13 +70,14 @@ export default function InputSearch(props: Props) {
             <div className={styles.innerWrapper}>
           <div className={styles.projects}>
             <div className={styles.title}>Проекты</div>
-            {filteredProjects.map(project => 
+            {filteredProjects.map(project =>
               <div className={styles.project} key={project} onClick={handleClick}>{project.name}</div>
             )}
           </div>
           <div className={styles.files}>
             <div className={styles.title}>Файлы</div>
             <div className={styles.wrapper}>{filteredFiles.map(file => (<File
+                canEdit={false}
             item={file}
             onClick={handleClick}
             />))}</div>
@@ -87,8 +88,8 @@ export default function InputSearch(props: Props) {
           </div>
           </div>
           </div>
-          </div> 
-          : 
+          </div>
+          :
           <div className={styles.noSuggestion}>
             <img src="/img/icons/lamp.svg" alt=""/>
             <div className={styles.notFound}>По вашему запросу ничего не найдено</div>
