@@ -62,6 +62,7 @@ const FileInputPreview: FunctionComponent<Props> = props => {
                             {file?.rawFile?.name}
                         </div>
                         <div className={styles.deleteButton} onClick={onRemove}>
+
                             <Basket/>
                         </div>
                     </div>

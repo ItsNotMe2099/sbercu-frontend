@@ -11,6 +11,7 @@ import { useState } from "react";
 interface Props{
   children?: any,
     searchValue?: string,
+    showSearch?: boolean
 }
 
 export default function Header(props: Props){
@@ -23,7 +24,7 @@ export default function Header(props: Props){
         <div className={styles.container}>
             <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
-          <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>
+              {props.showSearch && <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>}
           {!isActive ?
           <div className={styles.mobile}>{props.children}</div>
           :null}
@@ -34,4 +35,7 @@ export default function Header(props: Props){
         <ModalConfirm isOpen={key === 'confirm'}  onRequestClose={() => dispatch(modalClose())}/>
     </div>
   )
+}
+Header.defaultProps = {
+    showSearch: true
 }

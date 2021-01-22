@@ -1,5 +1,5 @@
 
-import { ICatalogEntry } from "types";
+import { ICatalogEntry, IVideoTrimRange } from "types";
 import ActionTypes from './const'
 import { action } from 'typesafe-actions'
 const queryString = require('query-string')
@@ -75,6 +75,15 @@ export const updateFileRequest = (id: number, data: ICatalogEntry) => action(Act
     url: `/api/catalog/${id}`,
     method: 'PATCH',
     data: data,
+  }
+})
+
+export const cutVideo = ( id: number, intervals: IVideoTrimRange[]) => action(ActionTypes.CUT_VIDEO, {id, intervals})
+export const cutVideoRequest = (id: number, intervals: any[]) => action(ActionTypes.CUT_VIDEO_REQUEST, {
+  api: {
+    url: `/api/media/cut`,
+    method: 'POST',
+    data: {mediaId: id, intervals},
   }
 })
 

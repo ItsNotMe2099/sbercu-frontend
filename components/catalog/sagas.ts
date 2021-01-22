@@ -3,7 +3,7 @@ import {
     createCatalogRequest,
     createFile,
     createFileRequest,
-    createFiles,
+    createFiles, cutVideo, cutVideoRequest,
     deleteCatalog,
     deleteCatalogRequest,
     fetchCatalogItem,
@@ -112,6 +112,16 @@ function* catalogSaga() {
                         yield put(fetchCatalogList(currentCatalogId));
                     }
                 }
+            }
+        })
+
+    yield takeLatest(ActionTypes.CUT_VIDEO,
+        function* (action: ActionType<typeof cutVideo>) {
+            yield put(cutVideoRequest(action.payload.id, action.payload.intervals.map((item) => ({start: item.start, end: item.end}))));
+            const result = yield take([ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.FAIL])
+            if(result.type === ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.SUCCESS){
+                const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
+                Router.push(`/video/${currentCatalogItem.id}`)
             }
         })
 

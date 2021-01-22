@@ -30,6 +30,9 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.USER_MODAL:
       state.modalKey = 'userForm'
       break
+    case ActionTypes.VIDEO_EDITOR_CONFIRM:
+      state.modalKey = 'videoEditorConfirm'
+      break;
     case ActionTypes.MODAL_CLOSE:
       state.modalKey = ''
       break

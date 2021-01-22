@@ -21,7 +21,7 @@ import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 
-export default function Search(props){
+const Search = (props) => {
   const dispatch = useDispatch();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const router = useRouter()
@@ -68,6 +68,7 @@ export default function Search(props){
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить файл?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
       }
@@ -153,4 +154,6 @@ export default function Search(props){
     </Layout>
   )
 }
+
+export default withAuthSync(Search)
 

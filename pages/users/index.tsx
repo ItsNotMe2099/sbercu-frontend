@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
 
 
-export default function Users(props){
+const Users = (props) => {
   const dispatch = useDispatch()
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const users = useSelector((state: IRootState) => state.users.list)
@@ -50,6 +50,7 @@ export default function Users(props){
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить пользователя?',
       description: `${item.lastName} ${item.firstName}`,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
         dispatch(deleteUser(item.id));
@@ -100,3 +101,4 @@ export default function Users(props){
   )
 }
 
+export default withAuthSync(Users)

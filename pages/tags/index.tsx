@@ -35,6 +35,7 @@ const Tags = (props) => {
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить тег?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
         dispatch(deleteTag(item.id));
@@ -51,6 +52,7 @@ const Tags = (props) => {
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить коллекцию?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
         dispatch(deleteTagCategory(item.id));

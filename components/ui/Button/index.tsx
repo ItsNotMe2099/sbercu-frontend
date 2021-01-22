@@ -8,6 +8,7 @@ import Arrow from 'components/svg/Arrow'
 import Cross from 'components/svg/Cross'
 
 interface Props {
+  className?: string
   type?: "submit" | "button"
   children?: React.ReactNode
   visiblePlus?: boolean
@@ -15,6 +16,7 @@ interface Props {
   search?: boolean
   cross?: boolean
   green?: boolean
+  red?: boolean
   white?: boolean
   transparent?: boolean
   notActive?: boolean
@@ -43,6 +45,7 @@ export default function Button(props: Props) {
       className={`
         ${styles.root}
         ${props.green && styles.green}
+        ${props.red && styles.red}
         ${props.white && styles.white}
         ${props.notActive && styles.notActive}
         ${props.transparent && styles.transparent}
@@ -53,6 +56,7 @@ export default function Button(props: Props) {
         ${props.closeBtn && styles.closeBtn}
         ${props.brdrDarkGrey && styles.brdr__darkGrey}
         ${props.brdrGreen && styles.brdr__green}
+        ${props.className}
       `}
       style={{padding: props.size}}
     >

@@ -30,7 +30,7 @@ export default function ModalConfirm(props: Props) {
     >
       {data.description && <div className={styles.description}>{data.description}</div>}
       <div className={styles.buttons}>
-        <Button green size="12px 25px" onClick={data.onConfirm}>{data.confirmText || 'Да'}</Button>
+        <Button red={data.confirmColor === 'red'} green={data.confirmColor === 'green' || !data.confirmColor} size="12px 25px" onClick={data.onConfirm}>{data.confirmText || 'Да'}</Button>
         <Button transparent textLightGrey onClick={handleCancel}>{data.cancelText || 'Отмена'}</Button>
       </div>
 

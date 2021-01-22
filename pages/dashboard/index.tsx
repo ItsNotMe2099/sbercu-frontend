@@ -18,7 +18,7 @@ import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 
 
-export default function Dashboard(props){
+const Dashboard = (props) => {
   const dispatch = useDispatch();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
 
@@ -60,6 +60,7 @@ export default function Dashboard(props){
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить файл?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
       }
@@ -133,3 +134,4 @@ export default function Dashboard(props){
   )
 }
 
+export default withAuthSync(Dashboard)

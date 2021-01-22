@@ -23,6 +23,9 @@ enum ActionTypes {
 
   FETCH_MY_UPLOADED_FILES = 'Catalog/FETCH_MY_UPLOADED_FILES',
 
+  CUT_VIDEO = 'Catalog/CUT_VIDEO',
+  CUT_VIDEO_REQUEST = 'Catalog/CUT_VIDEO_REQEST'
+
 }
 
 export default ActionTypes

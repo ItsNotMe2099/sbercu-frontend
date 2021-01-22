@@ -172,14 +172,12 @@ export default class SeekSlider extends React.Component<VideoSeekSliderProps, Vi
         if (this.mobileSeeking || this.seeking) {
             const position: number = this.state.seekHoverPosition * 100 / this.state.trackWidth;
             //  const position: number = 100 * 100 / this.state.trackWidth;
-            console.log("Position", position, this.state.seekHoverPosition )
             return {
                 transform: `scaleX(${position / 100})`,
             };
         } else {
 
             const position: number = time === 0 ? 0 : time * 100 / this.props.fullTime;
-            console.log("Position",time, position, this.state.seekHoverPosition, this.props.fullTime,time  )
             return {
                 transform: `scaleX(${position / 100})`,
             };

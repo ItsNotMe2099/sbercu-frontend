@@ -38,6 +38,7 @@ const Profile = (props) => {
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить файл?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
       }

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import {store} from 'store'
 import 'scss/app.scss'
 import 'videojs-vr/dist/videojs-vr.css'
-
+import 'components/video/Editor/EditorTrimmer/Range/index.scss'
 export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>

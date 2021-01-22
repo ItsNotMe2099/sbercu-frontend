@@ -106,6 +106,7 @@ export interface CreateProjectData{
 }
 export interface ConfirmDataModal {
   cancelText?: string,
+  confirmColor?: string,
   confirmText?: string,
   description?: string,
   title?: string
@@ -123,4 +124,10 @@ export interface IUser {
   resetPasswordToken?: string
   departmentTags?: ITag[]
   departmentTagIds?: number[]
+}
+export interface IVideoTrimRange {
+  id: string,
+  start: number
+  end: number,
+  color: string
 }

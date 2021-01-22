@@ -20,6 +20,8 @@
   color: #27AE60;
   margin-right: 34px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
   &:hover{
     text-decoration: underline #27AE60;
   }
@@ -37,6 +39,7 @@
   justify-content: flex-end;
   flex: 1;
   position: relative;
+  align-items: center;
 }
 
 .mobile{

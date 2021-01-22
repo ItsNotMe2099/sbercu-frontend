@@ -4,8 +4,10 @@ import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, editFileOpen, modalClose } from "components/Modal/actions";
 import { useRouter } from "next/router";
+import VideoConverting from "pages/video/[id]/component/VideoConverting";
 import { useEffect } from "react";
 import { IRootState } from "types";
+import { withAuthSync } from "utils/auth";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -24,13 +26,12 @@ interface Props{
 
 
 
-export default function Video(props: Props){
-  const settings = [{value: 'share', label: 'Поделиться'}, {value:'edit', label: 'Редактировать'}, {value:'delete', label: 'Удалить'}]
+const Video = (props: Props) => {
+  const settings = [{value: 'share', label: 'Поделиться'}, {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'delete', label: 'Удалить'}]
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const dispatch = useDispatch();
-
     const  router = useRouter()
     console.log("Query", router.query, video)
     useEffect(() => {
@@ -74,10 +75,14 @@ export default function Video(props: Props){
             case 'edit':
                 dispatch(editFileOpen());
                 break;
+            case 'videoEdit':
+                router.push(`/video/${video?.id}/editor`)
+                break;
             case 'delete':
                 dispatch(confirmOpen({
                     title: 'Вы уверены, что хотите удалить файл?',
                     description: item.name,
+                    confirmColor: 'red',
                     confirmText: 'Удалить',
                     onConfirm: () => {
                     }
@@ -96,17 +101,7 @@ export default function Video(props: Props){
         <div className={styles.videoWrapper}>
             {!video.media || !video.media.videoConverted  ?
                 <>
-                <div className={styles.loading}>
-          <div className={styles.wait}>
-            <div className={styles.inner}>
-              <div className={styles.waitImage}>
-                <img className={styles.clock} src='/img/videos/clock.svg' alt=''/>
-                <img src='/img/videos/human.svg' alt=''/>
-              </div>
-              <div className={styles.bottom}>Видео конвертируется,<br/> пожалуйста подождите</div>
-            </div>
-          </div>
-        </div>
+                    <VideoConverting/>
                     <div className={styles.btns}>
                     <div className={styles.select} ><ButtonSelect onChange={handleSettingsClick} options={[{value: 'edit', label: 'Редактировать'}]} size="9px 20px">Настройки</ButtonSelect></div>
                 </div>
@@ -132,13 +127,14 @@ export default function Video(props: Props){
         </div>
     </div>
     <div className={styles.tags__mobile}>
-
+        {getTagCategories().map(category => <Tag
+            category={category.category.name}
+            tags={category.tags.map(tag => tag.name)}
+        />)}
         </div>
     </div>}
-    <Footer/>
-        <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
-
     </Layout>
   )
 }
 
+export default withAuthSync(Video)

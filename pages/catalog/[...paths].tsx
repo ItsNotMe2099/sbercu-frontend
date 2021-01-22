@@ -68,6 +68,7 @@ const Catalog = (props) => {
     dispatch(confirmOpen({
       title: `Вы уверены, что хотите удалить ${currentCatalogItem?.entryType === 'project' ? 'Проект' : 'Папку'}?`,
       description: currentCatalogItem.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
       }
@@ -86,6 +87,7 @@ const Catalog = (props) => {
     dispatch(confirmOpen({
       title: 'Вы уверены, что хотите удалить папку?',
       description: item.name,
+      confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
       }

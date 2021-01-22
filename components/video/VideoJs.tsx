@@ -281,7 +281,7 @@ export default function VideoJs(props: Props) {
 
             playerRef.current = videojs(video, {
                 controls: false,
-                aspectRatio: '16:9', // 比例
+             //   aspectRatio: '16:9', // 比例
                 fluid: true,
                 children: [],
             }, () => {
