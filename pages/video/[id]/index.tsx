@@ -75,7 +75,7 @@ const Video = (props: Props) => {
             case 'edit':
                 dispatch(editFileOpen());
                 break;
-            case 'videoEdit':
+            case 'videoEditor':
                 router.push(`/video/${video?.id}/editor`)
                 break;
             case 'delete':
