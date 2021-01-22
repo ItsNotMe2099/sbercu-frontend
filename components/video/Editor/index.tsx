@@ -22,7 +22,7 @@ const VideoJs = dynamic(() => import('components/video/VideoJs'), {
 interface Props {
     source: any,
     sources: any[],
-    onCancel: () => void
+    onCancel: (cutItems, duration) => void
     onSubmit:(cutItems, duration) => void
 }
 
@@ -279,7 +279,7 @@ export default function VideoEditor(props: Props) {
                     {/*<div className={styles.pictureInPicture} onClick={handleTogglePIP}><img src={'/img/icons/picture_in_picture.svg'}/></div>*/}
                     <div className={styles.submitActions}>
                         {cutItems.length > 0 && <Button className={styles.saveButton} green size="5px 15px" onClick={() => props.onSubmit(cutItems, duration)}>{'Сохранить'}</Button>}
-                    <Button  transparent textWhite size="5px 15px" onClick={props.onCancel}>{'Отмена'}</Button>
+                    <Button  transparent textWhite size="5px 15px" onClick={() => props.onCancel(cutItems, duration)}>{'Отмена'}</Button>
                     </div>
                     <VolumeControl value={volume} onChange={handleVolumeChange}/>
                     <div className={styles.fullscreen} onClick={handleClickFullscreen}><img

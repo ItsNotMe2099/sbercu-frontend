@@ -45,7 +45,8 @@ const Editor = (props: Props) => {
         const quality = video.media?.videoElements?.find(el => el.quality === '1080p').quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
         return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
     }
-    const handleCancel = () => {
+    const handleCancel = (cutItems, duration) => {
+
         if(cutItems.length > 0) {
             dispatch(confirmOpen({
                 title: 'Вы уверены, что хотите отменить все изменения?',
