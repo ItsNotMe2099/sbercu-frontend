@@ -92,7 +92,7 @@ const Editor = (props: Props) => {
                     else
                         console.log('text does not get truncated');
                 }}>
-                Редактирование  «{video.name} {video.name} {video.name} {video.name}»
+                Редактирование  «{video.name}»
               </TextEllipsis></div>}
         </Header>
         {!video?.media || !video.media.videoConverted && <VideoConverting/>}
