@@ -1,6 +1,6 @@
 
 import { serialize } from 'object-to-formdata'
-
+const axios = require('axios');
 S3Upload.prototype.server = '';
 S3Upload.prototype.signingUrl = '/sign-s3';
 S3Upload.prototype.signingUrlMethod = 'GET';
@@ -109,22 +109,24 @@ S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
 
 S3Upload.prototype.uploadToS3 = function(file, signResult) {
   console.log("Upload file", file)
-
-  fetch(`${process.env.REACT_APP_API_URL || ''}${signResult.signedUrl}`, { // Your POST endpoint
-    method: 'PUT',
+  var formData = new FormData();
+  formData.append("file", file)
+  axios.put(`${process.env.REACT_APP_API_URL || ''}${signResult.signedUrl}`, formData, {
     headers: {
+      'Content-Type': 'multipart/form-data',
       ...this.uploadRequestHeaders
-
     },
-    body: serialize({file}, {
-      indices: true,
-    }) // This is your file object
+    onUploadProgress: (progressEvent) => {
+      const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+      console.log("percentCompleted",percentCompleted)
+      this.onProgress(percentCompleted);
+    }
   }).then(
     response => {
+      console.log("Response", response);
       this.onProgress(100, 'Upload completed', file);
-      response.json().then((data) => {
-        this.onFinishS3Put(data, file)
-      })
+      console.log("Response", response);
+      this.onFinishS3Put(response.data, file)
 
     } // if the response is a JSON object
   ).then(

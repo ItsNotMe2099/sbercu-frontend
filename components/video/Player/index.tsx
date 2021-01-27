@@ -27,7 +27,7 @@ export default function Player(props) {
     const [playing, setPlaying] = useState(false);
     const [controls, setControls] = useState(false);
     const [light, setLight] = useState(false);
-    const [volume, setVolume] = useState(0.8);
+    const [volume, setVolume] = useState(0.5);
     const [muted, setMuted] = useState(false);
     const [played, setPlayed] = useState(0);
     const [loaded, setLoaded] = useState(0);

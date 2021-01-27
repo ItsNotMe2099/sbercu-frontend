@@ -51,7 +51,9 @@ const Editor = (props: Props) => {
             dispatch(confirmOpen({
                 title: 'Вы уверены, что хотите отменить все изменения?',
                 description: '',
-                confirmText: 'Отмена',
+                confirmColor: 'red',
+                cancelText: 'Нет',
+                confirmText: 'Да',
                 onConfirm: () => {
                     dispatch(modalClose());
                     router.replace(`/video/${router.query.id}`);

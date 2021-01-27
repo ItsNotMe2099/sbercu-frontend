@@ -1,10 +1,11 @@
 import Basket from "components/svg/Basket";
 import FileDataForm from "components/ui/Inputs/FilesUploadInput/components/FileDataForm";
+import {Circle} from "rc-progress";
 import React, { useEffect, ReactNode, FunctionComponent } from 'react'
 import PropTypes from 'prop-types'
 import styles from './index.module.scss'
 import Button from 'components/ui/Button'
-
+import Loader from 'react-loader-spinner'
 interface Props {
     className?: string
     progress?: number,
@@ -52,9 +53,9 @@ const FileInputPreview: FunctionComponent<Props> = props => {
             <div className={styles.root}>
 
                 <div className={styles.status}>
-                    <div className={styles.statusIcon}>
-                        <img src={'/img/icons/mark.svg'}/>
-                    </div>
+                    {loading ?   <div className={styles.loader}><div className={styles.progressCircle}><Circle percent={progress} strokeWidth={4} strokeColor="#27AE60" /> </div> <div className={styles.loaderProgress}>{props.progress}%</div></div>
+                        :           <div className={styles.statusIcon}><img src={'/img/icons/mark.svg'}/></div>}
+
                 </div>
                 <div className={styles.main}>
                     <div className={styles.topBar}>
