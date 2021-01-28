@@ -133,7 +133,7 @@ export default function CatalogReducer(state = {...initialState}, action) {
       break
     case ActionTypes.FETCH_CATALOG_ITEM + ApiActionTypes.SUCCESS:
       let path ='/catalog'
-      state.currentCatalogItem = {...action.payload,  parents: action.payload.parents?.map(item => {
+      state.currentCatalogItem = {...action.payload,  parents: action.payload.parents?.splice(action.payload.parents.length - 2, action.payload.parents.length - 1).map(item => {
             const link = `${path}/${item.id}`
             return {...item, link};
           })}
