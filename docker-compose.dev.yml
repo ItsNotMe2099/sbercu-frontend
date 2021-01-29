@@ -17,7 +17,7 @@ services:
         restart: ${DK_RESTART}
         networks:
           - app
-    nginx-firelabs:
+    nginx:
         build:
           context: .
           dockerfile: docker/nginx/Dockerfile
