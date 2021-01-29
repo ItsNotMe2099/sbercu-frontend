@@ -17,3 +17,5 @@ export const fetchAutoCompleteCatalogSearch = (query, options) => action(ActionT
     method: 'GET',
   }
 })
+
+export const resetAutoCompleteCatalogSearch = () => action(ActionTypes.RESET_AUTOCOMPLETE_SEARCH, {})

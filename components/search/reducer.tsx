@@ -33,6 +33,11 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
     case ActionTypes.FETCH_CATALOG_SEARCH_LIST:
       state.listLoading = true;
       break;
+    case ActionTypes.RESET_AUTOCOMPLETE_SEARCH:
+      state.listLoading = false;
+      state.autoCompleteProjects = [];
+      state.autoCompleteFiles = [];
+      break;
     case ActionTypes.FETCH_CATALOG_SEARCH_LIST + ApiActionTypes.SUCCESS:
       state.projects = action.payload.data.filter(item => item.entryType === 'project').map(item => ({...item, id: item.projectId}));
       state.projectsTotal = state.projects.length

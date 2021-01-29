@@ -1,4 +1,4 @@
-import { fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
+import { deleteCatalog, fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
 import FileEditModal from "components/FileEditModal";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
@@ -85,6 +85,7 @@ const Video = (props: Props) => {
                     confirmColor: 'red',
                     confirmText: 'Удалить',
                     onConfirm: () => {
+                        dispatch(deleteCatalog(video?.id));
                     }
                 }));
                 break;

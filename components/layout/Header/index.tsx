@@ -1,5 +1,6 @@
 import ModalConfirm from "components/Modal/ModalConfirm";
 import Button from "components/ui/Button";
+import InputCatalogSearch from "components/ui/Inputs/InputCatalogSearch";
 import InputSearch from "components/ui/Inputs/InputSearch";
 import Profile from "./components/profile";
 import styles from './index.module.scss'
@@ -24,7 +25,7 @@ export default function Header(props: Props){
         <div className={styles.container}>
             <Link href={'/'}><a className={styles.media}>media.</a></Link>
           <div className={styles.notMedia}>
-              {props.showSearch && <InputSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>}
+              {props.showSearch && <InputCatalogSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)} searchValue={props.searchValue}/>}
           {!isActive ?
           <div className={styles.mobile}>{props.children}</div>
           :null}

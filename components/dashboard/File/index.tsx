@@ -17,7 +17,6 @@ interface Props{
   canEdit: boolean
   onEditClick?: (item) => void
   onDeleteClick?: (item) => void
-  onClick?: (e: React.MouseEvent) => void
 }
 
 export default function File({item, basePath, onDeleteClick, onEditClick, canEdit, ...props}: Props){

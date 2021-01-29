@@ -26,6 +26,7 @@ export default function Input(props: Props) {
       <input
         className={`${styles.input} ${(error && touched) && styles.error}`}
         type={type}
+        autoComplete={'off'}
         disabled={props.disabled}
         placeholder={props.placeholder}
         {...input}

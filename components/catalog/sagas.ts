@@ -15,6 +15,7 @@ import {
 } from "components/catalog/actions";
 import {  modalClose } from "components/Modal/actions";
 import ApiActionTypes from "constants/api";
+import { router } from "next/client";
 import { takeLatest, put, take, select } from 'redux-saga/effects'
 import { IRootState } from "types";
 import { ActionType } from 'typesafe-actions'
@@ -65,8 +66,15 @@ function* catalogSaga() {
       if(result.type === ActionTypes.DELETE_CATALOG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("DELETE TAG_CATEGORY SUCCESS")
         yield put(modalClose());
-          const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-          yield put(fetchCatalogList(currentCatalogId));
+
+          const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
+          if(currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'file'){
+              Router.push(`/catalog/${currentCatalogItem.parentId}`);
+              return;
+          }else {
+              const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
+              yield put(fetchCatalogList(currentCatalogId));
+          }
       }
     })
 
