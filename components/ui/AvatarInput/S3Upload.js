@@ -119,7 +119,9 @@ S3Upload.prototype.uploadToS3 = function(file, signResult) {
     onUploadProgress: (progressEvent) => {
       const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
       console.log("percentCompleted",percentCompleted)
-      this.onProgress(percentCompleted);
+      if(percentCompleted !== 100) {
+        this.onProgress(percentCompleted);
+      }
     }
   }).then(
     response => {
