@@ -19,6 +19,7 @@ export interface CatalogState {
   currentLoading: boolean
   formLoading: boolean,
   parentsLoading: boolean,
+  page: number
 }
 
 const initialState: CatalogState = {
@@ -32,6 +33,8 @@ const initialState: CatalogState = {
   listLoading: false,
   currentLoading: false,
   parentsLoading: false,
+  page: 1,
+  listTotal: 0
 }
 
 export default function CatalogReducer(state = {...initialState}, action) {
@@ -57,6 +60,10 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.formError = ''
       state.formIsSuccess = false;
       state.formLoading = false;
+      break
+
+    case ActionTypes.SET_CATALOG_PAGE:
+      state.page = action.payload.page
       break
 
     case ActionTypes.CREATE_CATALOG_REQUEST:
@@ -120,12 +127,20 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.listLoading = true;
       break
     case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.SUCCESS:
-      state.list = action.payload.data
+      state.list = [...state.list, ...action.payload.data]
       state.listTotal = action.payload.total
       state.listLoading = false;
       break
     case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.FAIL:
       state.listLoading = false;
+      break
+
+    case ActionTypes.RESET_CATALOG_LIST:
+      state.listLoading = false;
+      state.list = []
+      state.listTotal = 0
+      state.page = 1
+      console.log("RESET")
       break
 
     case ActionTypes.FETCH_CATALOG_ITEM:

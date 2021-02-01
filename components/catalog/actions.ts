@@ -37,9 +37,9 @@ export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH
   }
 })
 
-export const fetchCatalogList = (id, data: any = {}) => action(ActionTypes.FETCH_CATALOG_LIST, {
+export const fetchCatalogList = (id, page?, per_page?) => action(ActionTypes.FETCH_CATALOG_LIST, {
   api: {
-    url: `/api/catalog/list/${id}?${queryString.stringify({ page: data.page || 1, per_page: data.limit || 10})}`,
+    url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}`,
     method: 'GET',
   }
 })
@@ -89,3 +89,7 @@ export const cutVideoRequest = (id: number, intervals: any[]) => action(ActionTy
 
 
 export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)
+
+export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_PAGE, page)
+
+export const resetCatalogList = () => action(ActionTypes.RESET_CATALOG_LIST)

@@ -1,6 +1,8 @@
 import {
   fetchCatalogItem,
   fetchCatalogList,
+  resetCatalogList,
+  setCatalogPage,
   setCurrentCatalogId
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
@@ -32,6 +34,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 import UploadFilesModal from "./components/UploadFilesModal";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -44,12 +47,25 @@ const Catalog = (props) => {
   const totalItems = useSelector((state: IRootState) => state.catalog.listTotal)
   const basePath = useSelector((state: IRootState) => state.catalog.basePath)
   const currentCatalogItem = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
+  //const page = useSelector((state: IRootState) => state.catalog.page)
   const paths = router.query.paths as string[] || []
+  const [page, setPage] = useState(2)
+
+  const handleScrollNext = () => {
+    const id = paths[paths.length - 1]
+    setPage(page + 1)
+    console.log("PAGE", page)
+    dispatch(fetchCatalogList(id, page, 15))
+  }
 
   useEffect(() => {
     const id = paths[paths.length - 1]
     console.log("PathId", id)
-    dispatch(fetchCatalogList(id))
+    console.log("LIST", items)
+    if(items.length !== 0) {
+      dispatch(resetCatalogList())
+    }
+    dispatch(fetchCatalogList(id, 1, 15))
     dispatch(fetchCatalogItem(id))
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
   }, [router.query.paths])
@@ -112,15 +128,23 @@ const Catalog = (props) => {
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
       {(items.length > 0  && !listLoading) &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
       {items.length !== 0 && !listLoading ?
+      <InfiniteScroll
+      dataLength={items.length}
+      next={handleScrollNext}
+      hasMore={totalItems > items.length}
+      loader={<div>LOADING...</div>}
+      className={styles.scroll}
+      >
       <div className={styles.files}>
         {items.map(item => (<File
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             basePath={basePath}
             canEdit={currentCatalogItem?.canEdit}
-          item={item}
+            item={item}
         />))}
       </div>
+      </InfiniteScroll>
       : !listLoading ?
       <a className={styles.noFiles} onClick={handleUploadFiles}>
         <div className={styles.text}>
