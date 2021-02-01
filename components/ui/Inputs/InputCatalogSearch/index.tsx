@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAutoCompleteCatalogSearch, resetAutoCompleteCatalogSearch, resetSearch } from "components/search/actions";
+import { fetchAutoCompleteCatalogSearch, resetAutoCompleteCatalogSearch } from "components/search/actions";
 import { IRootState } from "types";
 import File from 'components/dashboard/File';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ export default function InputCatalogSearch(props: Props) {
     const handleSearch = (e) => {
         const value = e.currentTarget.value
         setValue(value);
-        if(value.length === 0){
+        if(value.length < 3){
             setIsActiveItem(false);
             dispatch(resetAutoCompleteCatalogSearch());
             return;
