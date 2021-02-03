@@ -71,10 +71,13 @@ function* catalogSaga() {
           if(currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'file'){
               Router.push(`/catalog/${currentCatalogItem.parentId}`);
               return;
-          }else {
-              const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-              yield put(fetchCatalogList(currentCatalogId));
-          }
+          }else  if(currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'project') {
+              Router.replace(`/`);
+          }else{
+                  const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
+                  yield put(fetchCatalogList(currentCatalogId));
+              }
+
       }
     })
 

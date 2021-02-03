@@ -1,4 +1,5 @@
 import {
+  deleteCatalog,
   fetchCatalogItem,
   fetchCatalogList,
   resetCatalogList,
@@ -87,6 +88,7 @@ const Catalog = (props) => {
       confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
+        dispatch(deleteCatalog(currentCatalogItem?.id));
       }
     }));
   }
@@ -106,6 +108,7 @@ const Catalog = (props) => {
       confirmColor: 'red',
       confirmText: 'Удалить',
       onConfirm: () => {
+        dispatch(deleteCatalog(item?.id));
       }
     }));
   }
