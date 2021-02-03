@@ -26,7 +26,6 @@ services:
     restart: ${DK_RESTART}
     networks:
       - app
-      - nginx-proxy
     depends_on:
       - app
     environment:
