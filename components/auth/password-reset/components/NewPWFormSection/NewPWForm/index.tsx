@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 import {required, passwordsMatch, minL} from 'utils/validations'
 import PasswordRecoveryHeader from 'components/PasswordRecovery/PWRecoveryHeader'
 import { useSelector } from 'react-redux'
+import FormError from 'components/ui/Form/FormError';
 let NewPWForm = props => {
 
   const { handleSubmit } = props
@@ -34,7 +35,7 @@ let NewPWForm = props => {
               validate={[required, passwordsMatch, minL]}
             />
             </div>
-            {formError ? <div className={styles.error}>{formError}</div> : null}
+            <div className={styles.error}><FormError error={formError}/></div>
               <div className={styles.send}>
               <Button size='12px 25px' green>Сохранить</Button>
               </div>
