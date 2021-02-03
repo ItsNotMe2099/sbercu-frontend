@@ -9,8 +9,14 @@
   tasks:
     - set_fact:
         compose_file: "docker-compose.dev.yml"
+        base_path: "/var/www/{{ image_name }}"
+        release_path: "{{ base_path }}/releases"
+        work_path: "{{ release_path }}/{{ CI_COMMIT_SHA }}"
       when: branch == "dev"
     - set_fact:
+        base_path: "/home/sber-ci/{{ image_name }}"
+        release_path: "{{ base_path }}/releases"
+        work_path: "{{ release_path }}/{{ CI_COMMIT_SHA }}"
         compose_file: "docker-compose.prod.yml"
       when: branch == "master"
     - name: Creates directory
