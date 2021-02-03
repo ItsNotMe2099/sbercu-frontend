@@ -20,6 +20,7 @@ export interface CatalogState {
   formLoading: boolean,
   parentsLoading: boolean,
   page: number
+  pageCount: number
 }
 
 const initialState: CatalogState = {
@@ -34,7 +35,8 @@ const initialState: CatalogState = {
   currentLoading: false,
   parentsLoading: false,
   page: 1,
-  listTotal: 0
+  listTotal: 0,
+  pageCount: 1
 }
 
 export default function CatalogReducer(state = {...initialState}, action) {
@@ -129,6 +131,7 @@ export default function CatalogReducer(state = {...initialState}, action) {
     case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.SUCCESS:
       state.list = [...state.list, ...action.payload.data]
       state.listTotal = action.payload.total
+      state.pageCount = action.payload.pageCount
       state.listLoading = false;
       break
     case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.FAIL:
@@ -141,6 +144,7 @@ export default function CatalogReducer(state = {...initialState}, action) {
       state.listTotal = 0
       state.page = 1
       console.log("RESET")
+      state.pageCount = 1
       break
 
     case ActionTypes.FETCH_CATALOG_ITEM:
