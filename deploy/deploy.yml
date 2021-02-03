@@ -2,9 +2,6 @@
   vars_files:
   vars:
     image_name: sbercu-frontend
-    base_path: "/var/www/{{ image_name }}"
-    release_path: "{{ base_path }}/releases"
-    work_path: "{{ release_path }}/{{ CI_COMMIT_SHA }}"
   no_log: false
   tasks:
     - set_fact:
