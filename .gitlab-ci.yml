@@ -43,7 +43,7 @@ build_prod_image:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker-compose -f docker-compose.prod.yml build app
     - docker-compose -f docker-compose.prod.yml push app
-    - docker-compose -f docker-compose.prod.yml build --pull nginx
+    - docker-compose -f docker-compose.prod.yml build
     - docker-compose -f docker-compose.prod.yml push nginx
 #  when: manual
   only:
