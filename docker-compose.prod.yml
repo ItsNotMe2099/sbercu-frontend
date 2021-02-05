@@ -31,4 +31,4 @@ services:
     depends_on:
       - app
     environment:
-      API_HOST: http://sber-cu-api-nginx
+      API_HOST: http://192.168.199.114
