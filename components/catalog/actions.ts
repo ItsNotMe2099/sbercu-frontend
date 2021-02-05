@@ -90,6 +90,6 @@ export const cutVideoRequest = (id: number, intervals: any[]) => action(ActionTy
 
 export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)
 
-export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_PAGE, page)
+export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_PAGE, {page})
 
 export const resetCatalogList = (shallow: boolean = false) => action(ActionTypes.RESET_CATALOG_LIST, {shallow})
