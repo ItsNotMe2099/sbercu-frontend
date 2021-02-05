@@ -16,7 +16,7 @@ export default function AuthSection(props: Props) {
       <div className={styles.container}>
           <div className={styles.head_green}>media.</div>
           <div className={styles.enter}>Войдите, чтобы продолжить</div>
-          <div className={styles.head}><a href={'https://develop-api.sbsdev.ru/v2/oauth/authorize?client_id=27&redirect_uri=https%3A%2F%2Fdev.sbercu.firelabs.ru%2Fapi%2Fauth%2Fsberscoll%2Fcallback&response_type=code'}>ВШ ID</a> или <span>Почта</span></div>
+          <div className={styles.head}><a href={process.env.NEXT_SBER_AUTH_URL}>ВШ ID</a> или <span>Почта</span></div>
           <AuthForm onSubmit={submit}/>
       </div>
     )
