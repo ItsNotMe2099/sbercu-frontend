@@ -132,6 +132,7 @@ const Catalog = (props) => {
       <InfiniteScroll
       dataLength={items.length}
       next={handleScrollNext}
+      loader={<div></div>}
       hasMore={totalItems !== items.length}
       className={styles.scroll}
       >
