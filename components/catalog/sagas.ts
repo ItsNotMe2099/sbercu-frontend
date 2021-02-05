@@ -33,10 +33,10 @@ function* catalogSaga() {
           if( action.payload.data.entryType === 'project'){
               Router.push(`/catalog/${result.payload.id}`)
           }else {
-              yield put(modalClose());
               const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
               yield put(fetchCatalogList(currentCatalogId));
           }
+          yield put(modalClose());
       }
     })
   yield takeLatest(ActionTypes.UPDATE_CATALOG,
