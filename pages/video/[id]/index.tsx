@@ -134,6 +134,8 @@ const Video = (props: Props) => {
         />)}
         </div>
     </div>}
+        <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
+
     </Layout>
   )
 }
