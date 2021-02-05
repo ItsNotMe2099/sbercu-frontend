@@ -24,15 +24,15 @@ export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(
   }
 })
 
-export const fetchMyUploadedFiles = (data: any = {}) => action(ActionTypes.FETCH_MY_UPLOADED_FILES, {
+export const fetchMyUploadedFiles = (userId: number, data: any = {}) => action(ActionTypes.FETCH_MY_UPLOADED_FILES, {
   api: {
-    url: `/api/catalog?${queryString.stringify({s: JSON.stringify({entryType: 'file'})})}`,
+    url: `/api/catalog?${queryString.stringify({s: JSON.stringify({entryType: 'file', userId}), ...data})}`,
     method: 'GET',
   }
 })
 export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH_CATALOG_PROJECT_LIST, {
   api: {
-    url: `/api/catalog/projects?${queryString.stringify(data)}&limit=5000`,
+    url: `/api/catalog/projects?${queryString.stringify(data)}`,
     method: 'GET',
   }
 })

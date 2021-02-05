@@ -7,57 +7,93 @@ export interface CatalogSearchList {
   filesTotal?: number,
   projects: ICatalogEntry[],
   projectsTotal?: number,
-  listLoading: boolean,
+  listProjectsLoading: boolean,
+  listFilesLoading: boolean,
   autoCompleteFiles: ICatalogEntry[],
   autoCompleteFilesTotal: number,
   autoCompleteProjects: ICatalogEntry[],
   autoCompleteProjectsTotal: number,
-  autoCompleteListLoading: boolean
+  autocompleteProjectsLoading: boolean,
+  autocompleteFilesLoading: boolean,
 }
 
 const initialState: CatalogSearchList = {
   files: [],
   projects: [],
-  listLoading: false,
+  listProjectsLoading: false,
+  listFilesLoading: false,
   projectsTotal: 0,
   filesTotal: 0,
   autoCompleteFiles: [],
   autoCompleteProjects: [],
-  autoCompleteListLoading: false,
+  autocompleteProjectsLoading: false,
+  autocompleteFilesLoading: false,
   autoCompleteProjectsTotal: 0,
   autoCompleteFilesTotal: 0,
 }
 
 export default function CatalogSearchReducer(state = {...initialState}, action) {
   switch(action.type) {
-    case ActionTypes.FETCH_CATALOG_SEARCH_LIST:
-      state.listLoading = true;
+    case ActionTypes.FETCH_CATALOG_PROJECTS_SEARCH_LIST:
+      state.listProjectsLoading = true;
       break;
+    case ActionTypes.FETCH_CATALOG_PROJECTS_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.projects = [...state.projects, ...action.payload.data.map(item => ({...item, id: item.projectId}))];
+      state.projectsTotal = action.payload.total
+      state.listProjectsLoading = false;
+      break;
+    case ActionTypes.FETCH_CATALOG_PROJECTS_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.listProjectsLoading = false;
+      break;
+
+    case ActionTypes.FETCH_CATALOG_FILES_SEARCH_LIST:
+      state.listFilesLoading = true;
+      break;
+    case ActionTypes.FETCH_CATALOG_FILES_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.files = [...state.files, ...action.payload.data];
+      state.filesTotal = action.payload.total
+      state.listFilesLoading = false;
+      break;
+    case ActionTypes.FETCH_CATALOG_FILES_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.listFilesLoading = false;
+      break;
+
+    case ActionTypes.RESET_SEARCH:
+      state.listFilesLoading = false;
+      state.listProjectsLoading = false;
+      state.files = [];
+      state.projects = [];
+      state.filesTotal = 0;
+      state.projectsTotal = 0;
+      break;
+
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST:
+      state.autocompleteProjectsLoading = true
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.autoCompleteProjects =  action.payload.data.map(item => ({...item, id: item.projectId}));
+      state.autocompleteProjectsLoading = false;
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.autocompleteProjectsLoading = false
+      break;
+
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FILES_SEARCH_LIST:
+      state.autocompleteFilesLoading = true
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FILES_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.autoCompleteFiles = action.payload.data;
+      state.autocompleteFilesLoading = false;
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FILES_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.autocompleteFilesLoading = false
+      break;
+
     case ActionTypes.RESET_AUTOCOMPLETE_SEARCH:
-      state.listLoading = false;
+      state.autocompleteFilesLoading = false;
+      state.autocompleteProjectsLoading = false;
       state.autoCompleteProjects = [];
       state.autoCompleteFiles = [];
-      break;
-    case ActionTypes.FETCH_CATALOG_SEARCH_LIST + ApiActionTypes.SUCCESS:
-      state.projects = action.payload.data.filter(item => item.entryType === 'project').map(item => ({...item, id: item.projectId}));
-      state.projectsTotal = state.projects.length
-      state.files = action.payload.data.filter(item => item.entryType === 'file');
-      state.filesTotal = state.files.length
-      state.listLoading = false;
-      break;
-    case ActionTypes.FETCH_CATALOG_SEARCH_LIST + ApiActionTypes.FAIL:
-      state.listLoading = false;
-      break;
-    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_SEARCH_LIST:
-      state.autoCompleteListLoading = true
-      break;
-    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_SEARCH_LIST + ApiActionTypes.SUCCESS:
-      state.autoCompleteProjects = action.payload.data.filter(item => item.entryType === 'project').map(item => ({...item, id: item.projectId}));
-      state.autoCompleteFiles = action.payload.data.filter(item => item.entryType === 'file');
-      state.autoCompleteListLoading = false;
-      break;
-    case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_SEARCH_LIST + ApiActionTypes.FAIL:
-      state.autoCompleteListLoading = false
       break;
   }
 

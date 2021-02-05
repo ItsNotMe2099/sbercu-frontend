@@ -16,7 +16,7 @@
   line-height: 28px;
   color: #000000;
   margin-bottom: 33px;
-  @media screen and (max-width: $sm-mid) {
+  @media screen and (max-width: $sm-max) {
 
     padding: 0 22px;
     margin-bottom: 16px;
@@ -47,25 +47,16 @@
   font-size: 18px;
   color: #333333;
   margin-right: 10px;
+
 }
 
 .projects{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  @media screen and (max-width: $sm-mid) {
-    display: none;
-  }
+
   @media screen and (max-width: $sm-max) {
     padding: 0 22px;
   }
-}
-
-.hide{
-  transform: rotate(180deg);
-}
-
-.projectMobile{
-  display: none;
   @media screen and (max-width: $sm-mid) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -74,6 +65,12 @@
     margin-top: 16px;
   }
 }
+
+.hide{
+  transform: rotate(180deg);
+}
+
+
 
 .more{
   margin-top: 10px;

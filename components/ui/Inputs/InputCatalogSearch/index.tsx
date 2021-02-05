@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAutoCompleteCatalogSearch, resetAutoCompleteCatalogSearch } from "components/search/actions";
+import {
+    fetchAutoCompleteCatalogFilesSearch, fetchAutoCompleteCatalogProjectsSearch,
+    resetAutoCompleteCatalogSearch
+} from "components/search/actions";
 import { IRootState } from "types";
 import File from 'components/dashboard/File';
 import Link from 'next/link';
@@ -30,7 +33,10 @@ export default function InputCatalogSearch(props: Props) {
     const dispatch = useDispatch()
     const projects = useSelector((state: IRootState) => state.search.autoCompleteProjects)
     const files = useSelector((state: IRootState) => state.search.autoCompleteFiles)
-    const loading = useSelector((state: IRootState) => state.search.autoCompleteListLoading)
+    const filesLoading = useSelector((state: IRootState) => state.search.autocompleteFilesLoading)
+    const projectsLoading = useSelector((state: IRootState) => state.search.autocompleteProjectsLoading)
+    const loading = filesLoading || projectsLoading;
+
     useEffect(() => {
         if(props.searchValue && !value) {
             setValue(props.searchValue);
@@ -52,7 +58,8 @@ export default function InputCatalogSearch(props: Props) {
         }else{
             setIsActiveItem(true);
         }
-        dispatch(fetchAutoCompleteCatalogSearch(value, {}))
+        dispatch(fetchAutoCompleteCatalogFilesSearch(value, {}))
+        dispatch(fetchAutoCompleteCatalogProjectsSearch(value, {}))
 
     }
     const handleProjectClick = (item) => {

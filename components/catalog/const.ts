@@ -30,6 +30,7 @@ enum ActionTypes {
   CUT_VIDEO = 'Catalog/CUT_VIDEO',
   CUT_VIDEO_REQUEST = 'Catalog/CUT_VIDEO_REQEST'
 
+
 }
 
 export default ActionTypes

@@ -2,10 +2,10 @@ import { withAuthSync } from "utils/auth";
 import Dashboard from "./dashboard";
 import styles from './index.module.scss'
 
-const Home = () => {
+const Home = (props) => {
   return (
     <>
-      <Dashboard/>
+      <Dashboard {...props}/>
     </>
   )
 
