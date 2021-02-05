@@ -31,7 +31,7 @@ const Profile = (props) => {
   const [showFiles, setShowAllFiles] = useState(false)
   const [pageFiles, setPageFiles] = useState(1);
 
-  const limitFiles = 6;
+  const limitFiles = 30;
   useEffect(() => {
     dispatch(resetCatalogList());
     dispatch(fetchMyUploadedFiles(user.id,{limit: limitFiles}));

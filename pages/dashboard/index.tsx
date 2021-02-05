@@ -51,8 +51,8 @@ const Dashboard = (props) => {
   const [pageProjects, setPageProjects] = useState(1);
   const [tags, setTags] = useState([]);
 
-  const limitFiles = 6;
-  const limitProjects = 6;
+  const limitFiles = 30;
+  const limitProjects = 30;
 
   useEffect(() => {
     dispatch(resetCatalogList());
