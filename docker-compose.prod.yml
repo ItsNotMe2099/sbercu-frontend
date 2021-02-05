@@ -22,8 +22,10 @@ services:
       args:
         - APP_IMAGE=${APP_IMAGE}
     image: ${NGINX_IMAGE}
-    container_name: sbercu-front-nginx-firelabs
+    container_name: sbercu-front-nginx
     restart: ${DK_RESTART}
+    ports:
+      - 80:80
     networks:
       - app
     depends_on:
