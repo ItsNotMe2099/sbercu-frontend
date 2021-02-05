@@ -48,16 +48,15 @@ const Catalog = (props) => {
   const totalItems = useSelector((state: IRootState) => state.catalog.listTotal)
   const basePath = useSelector((state: IRootState) => state.catalog.basePath)
   const currentCatalogItem = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
-  const pageCount = useSelector((state: IRootState) => state.catalog.pageCount)
-  //const page = useSelector((state: IRootState) => state.catalog.page)
+  const page = useSelector((state: IRootState) => state.catalog.page)
   const paths = router.query.paths as string[] || []
-  const [page, setPage] = useState(1)
 
   const handleScrollNext = () => {
     const id = paths[paths.length - 1]
-    setPage(pageCount)
+    const newPage = page + 1;
+    dispatch(setCatalogPage(newPage))
     console.log("PAGE", page)
-    dispatch(fetchCatalogList(id, pageCount, 15))
+    dispatch(fetchCatalogList(id, newPage, 15))
   }
 
   useEffect(() => {
@@ -65,8 +64,7 @@ const Catalog = (props) => {
     console.log("PathId", id)
     console.log("LIST", items)
     dispatch(resetCatalogList())
-    setPage(1)
-    dispatch(fetchCatalogList(id, page, 15))
+    dispatch(fetchCatalogList(id, 1, 15))
     dispatch(fetchCatalogItem(id))
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
   }, [router.query.paths])
@@ -129,13 +127,12 @@ const Catalog = (props) => {
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
-      {(items.length > 0  && !listLoading) &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
-      {items.length !== 0 && !listLoading ?
+      {items.length > 0  &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
+      {items.length > 0 ?
       <InfiniteScroll
       dataLength={items.length}
       next={handleScrollNext}
-      hasMore={totalItems > items.length}
-      loader={<div>LOADING...</div>}
+      hasMore={totalItems !== items.length}
       className={styles.scroll}
       >
       <div className={styles.files}>
@@ -160,7 +157,7 @@ const Catalog = (props) => {
           <img className={styles.human} src="/img/icons/human.svg" alt=''/>
           <img className={styles.plant} src="/img/icons/plant.svg" alt=''/>
         </div>
-      </a> : items.length === 0 ? <ProjectLoader/> : null
+      </a> : items.length === 0 && listLoading ? <ProjectLoader/> : null
       }
     </div>
 

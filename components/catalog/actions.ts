@@ -92,4 +92,4 @@ export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)
 
 export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_PAGE, page)
 
-export const resetCatalogList = () => action(ActionTypes.RESET_CATALOG_LIST)
+export const resetCatalogList = (shallow: boolean = false) => action(ActionTypes.RESET_CATALOG_LIST, {shallow})
