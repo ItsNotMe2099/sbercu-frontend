@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: docker/app/Dockerfile
       args:
-        - ENV_FILE=.env.dev
+        - ENV_FILE=.env.prod
     image: ${APP_IMAGE}
     container_name: sbercu-front-app
     restart: ${DK_RESTART}
