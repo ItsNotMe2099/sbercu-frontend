@@ -13,6 +13,9 @@ services:
     image: ${APP_IMAGE}
     container_name: sbercu-front-app
     restart: ${DK_RESTART}
+    extra_hosts:
+      - "media.sberbank-school.ru:192.168.199.112"
+      - "newhu7apr.media.sberbank-school.ru:192.168.199.112"
     networks:
       - app
   nginx:
