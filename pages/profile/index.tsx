@@ -124,12 +124,12 @@ const Profile = (props) => {
         </a>
         </>}
         </div>
-        <div className={styles.tags}>
+        {user.departmentTags.length > 0 && <div className={styles.tags}>
           <div>
             <div className={styles.title__tag}>Доступно управление тегами</div>
             {user.departmentTags.map(tag => <div className={styles.tag}>{tag.name}</div>)}
           </div>
-        </div>
+        </div>}
       </div>
 
       {filesTotal > 0 && <>
