@@ -40,6 +40,7 @@ export default function InputCatalogSearch(props: Props) {
         if(value) {
             router.push(`/search?query=${value}`);
         }
+        setIsActiveItem(false);
     }
     const handleSearch = (e) => {
         const value = e.currentTarget.value
@@ -57,6 +58,11 @@ export default function InputCatalogSearch(props: Props) {
     const handleProjectClick = (item) => {
         router.push(`/catalog/${item.id}`);
     }
+    const handleInputClick = (item) => {
+        if(value.length >= 3) {
+            setIsActiveItem(true);
+        }
+    }
 
   return (
     <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
@@ -66,6 +72,7 @@ export default function InputCatalogSearch(props: Props) {
               type='text'
               value={value}
               autoComplete={'off'}
+              onClick={handleInputClick}
               onChange={handleSearch}
               placeholder={props.placeholder}
           />

@@ -38,7 +38,7 @@ const Users = (props) => {
     }
   }
   useEffect(() => {
-    dispatch(fetchUserList());
+    dispatch(fetchUserList({limit: 5000}));
     dispatch(fetchTagCategoryListByName('Подразделения'));
   }, [])
 
@@ -88,7 +88,7 @@ const Users = (props) => {
           <div className={styles.td}>Почта</div>
           <div className={styles.td}>Подразделение</div>
         </div>
-        {users.filter(user => (selectedTags.length === 0 || !!selectedTags.find(tag => tag.id === user.departmentTags[0]?.id)) ).filter(user => !filter || (user.firstName.indexOf(filter) > -1 || user.lastName.indexOf(filter) > -1 || user.email.indexOf(filter) > -1) ).map(user => <UserListRow user={user} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser}/>)}
+        {users.filter(user => (selectedTags.length === 0 || !!selectedTags.find(tag => tag.id === user.departmentTags[0]?.id)) ).filter(user => !filter || (user.firstName.indexOf(filter) > -1 || user.lastName.indexOf(filter) > -1 || user.email.indexOf(filter) > -1 || (user.virtualSchoolId && user.virtualSchoolId.toString()  === filter)) ).map(user => <UserListRow user={user} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser}/>)}
 
     </div>
     </>

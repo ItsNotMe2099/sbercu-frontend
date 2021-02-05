@@ -101,7 +101,7 @@ const Catalog = (props) => {
   }, [currentCatalogItem])
   const handleDeleteClick = (item) => {
     dispatch(confirmOpen({
-      title: `Вы уверены, что хотите удалить ${item.entryType === 'file' ? 'файл' : 'каталог'} ?`,
+      title: `Вы уверены, что хотите удалить ${item.entryType === 'file' ? 'файл' : 'каталог'}?`,
       description: item.name,
       confirmColor: 'red',
       confirmText: 'Удалить',
