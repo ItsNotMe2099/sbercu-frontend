@@ -32,7 +32,7 @@ export const fetchMyUploadedFiles = (data: any = {}) => action(ActionTypes.FETCH
 })
 export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH_CATALOG_PROJECT_LIST, {
   api: {
-    url: `/api/catalog/projects?${queryString.stringify(data)}`,
+    url: `/api/catalog/projects?${queryString.stringify(data)}&limit=5000`,
     method: 'GET',
   }
 })
