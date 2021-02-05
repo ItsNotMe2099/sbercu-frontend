@@ -15,12 +15,16 @@ export default function loginSubmitReducer(state = {...initialState}, action) {
 
   switch(action.type) {
 
+    case ActionTypes.LOGIN_SUBMIT:
+      state.formIsSuccess = false
+
     case ActionTypes.LOGIN_SUCCESS:
       state.formIsSuccess = true
       break
 
     case ActionTypes.LOGIN_ERROR:
-      state.formError = action.payload
+      state.formError = action.payload.error
+      console.log("ERROR", state.formError)
       break
 
     case ActionTypes.LOGIN_RESET:

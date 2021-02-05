@@ -7,6 +7,7 @@ import {email, required} from 'utils/validations'
 import PasswordRecoveryHeader from 'components/PasswordRecovery/PWRecoveryHeader'
 import { useSelector } from 'react-redux'
 import { IRootState } from 'types'
+import FormError from 'components/ui/Form/FormError'
 
 let EmailForm = props => {
   const { handleSubmit } = props
@@ -27,7 +28,7 @@ let EmailForm = props => {
               label="Почта"
               validate={[email, required]}
             />
-            {formError ? <div className={styles.error}>{formError}</div> : null}
+            <div className={styles.error}><FormError error={formError}/></div>
               <div className={styles.send}>
               <Button size='12px 15px' green>Отправить</Button>
               </div>

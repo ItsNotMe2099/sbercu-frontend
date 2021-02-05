@@ -1,38 +1,28 @@
 import ActionTypes from "./const";
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { ERROR, SEND, SENDED } from 'const'
+import { ActionType } from "typesafe-actions";
+import { passwordRecoverySubmit, passwordRecoverySuccess, passwordRecoveryError } from "./actions";
+import { IRequestData, IResponse } from "types";
+import requestGen from "utils/requestGen";
 
-export function* watchOnEmailSubmit() {
-    yield takeEvery(
-        ActionTypes.PASSWORD_RECOVERY_SUBMIT,
-        onSubmit
-    );
+function* watchOnEmailSubmit() {
+    yield takeLatest(ActionTypes.PASSWORD_RECOVERY_SUBMIT,
+        function* (action: ActionType<typeof passwordRecoverySubmit>) {
+          const res: IResponse = yield requestGen({
+            url: `/api/auth/forgot`,
+            method: 'POST',
+            data: action.payload,
+          } as IRequestData)
+          console.log("Res phone", res)
+          if(!res.err){
+            yield put(passwordRecoverySuccess())
+            yield put({type: ActionTypes.PASSWORD_RECOVERY_SUCCESS})
+          }else{
+            yield put(passwordRecoveryError(res.err?.message))
+          }
+    
+        })
 }
 
-function* onSubmit(action) {
-    try {
-        const result = yield call(submitToServer, action.payload)
-        yield put({ type: ActionTypes.PASSWORD_RECOVERY_SUCCESS, payload: result })
-    } catch (e) {
-
-        yield put({ type: ActionTypes.PASSWORD_RECOVERY_ERROR, payload: e.message })
-
-    }
-}
-
-async function submitToServer(data) {
-    let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/auth/forgot`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    if (response.status >= 200 && response.status <= 299) {
-        let responseJson = await response.json()
-        return responseJson
-    } else {
-        let responseJson = await response.json()
-        throw new Error(responseJson.errors);
-    }
-}
+export default watchOnEmailSubmit

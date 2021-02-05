@@ -7,6 +7,7 @@ import Input from 'components/ui/Inputs/Input'
 import {email, required} from 'utils/validations'
 import { useSelector } from 'react-redux'
 import { IRootState } from 'types'
+import FormError from 'components/ui/Form/FormError'
 
 let AuthForm = props => {
   const formError = useSelector((state: IRootState) => state.loginSubmit.formError)
@@ -29,7 +30,7 @@ let AuthForm = props => {
               validate={required}
             />
             </div>
-              {formError ? <div className={styles.error}>{formError}</div> : null}
+              <FormError error={formError}/>
 
               <div className={styles.container}>
               <Button size='12px 15px' green>Войти</Button>

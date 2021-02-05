@@ -24,7 +24,7 @@ export default function PWRecoverEmailReducer(state = {...initialState}, action)
 
     case ActionTypes.PASSWORD_RECOVERY_ERROR:
       console.log("FORM ERROR",  action.payload)
-      state.formError = action.payload
+      state.formError = action.payload.error
       break
 
     case ActionTypes.PASSWORD_RECOVERY_RESET:
