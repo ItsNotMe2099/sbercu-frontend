@@ -56,7 +56,7 @@ const Catalog = (props) => {
     const newPage = page + 1;
     dispatch(setCatalogPage(newPage))
     console.log("PAGE", page)
-    dispatch(fetchCatalogList(id, newPage, 15))
+    dispatch(fetchCatalogList(id, newPage, 30))
   }
 
   useEffect(() => {
@@ -64,9 +64,8 @@ const Catalog = (props) => {
     console.log("PathId", id)
     console.log("LIST", items)
     dispatch(resetCatalogList())
-    dispatch(fetchCatalogList(id, 1, 15))
+    dispatch(fetchCatalogList(id, 1, 30))
     dispatch(fetchCatalogItem(id))
-    dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
     }
