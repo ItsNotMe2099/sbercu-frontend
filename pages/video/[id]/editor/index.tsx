@@ -97,7 +97,7 @@ const Editor = (props: Props) => {
                 Редактирование  «{video.name}»
               </TextEllipsis></div>}
         </Header>
-        {!video?.media || !video.media.videoConverted && <VideoConverting/>}
+        {!video?.media || !video.media.videoConverted || video.media.videoCutting && <VideoConverting isCutting={video.media.videoCutting}/>}
         {video?.media?.videoConverted && <div className={styles.root}>
             <VideoEditor
                 onCancel={handleCancel}
