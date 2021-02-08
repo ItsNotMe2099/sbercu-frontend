@@ -52,7 +52,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
     if(item.entryType === 'file'){
       return getMediaPath(item.media?.fileName) || '';
     }
-    return `${basePath}${basePath.substr(basePath.length - 1) === '/' ? '' : '' }${item.id}`;
+    return `${basePath}${basePath && basePath.substr(basePath.length - 1) === '/' ? '' : '' }${item.id}`;
 
   }
   return (
