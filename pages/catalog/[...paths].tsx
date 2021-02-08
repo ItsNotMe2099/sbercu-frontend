@@ -66,6 +66,7 @@ const Catalog = (props) => {
     dispatch(resetCatalogList())
     dispatch(fetchCatalogList(id, 1, 30))
     dispatch(fetchCatalogItem(id))
+    dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
     }
