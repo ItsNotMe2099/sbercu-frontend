@@ -134,7 +134,7 @@ const Dashboard = (props) => {
             <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
           </div>
         </div>}
-        {!loading && (filesTotal > 0 && projectsTotal > 0) && <>
+        {!loading && (projectsTotal > 0) && <>
           <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
         </>}
         {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
