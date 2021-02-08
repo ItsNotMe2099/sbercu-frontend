@@ -26,7 +26,7 @@ const CreateProject = (props) => {
     <Header/>
     <div className={styles.root}>
       <div className={styles.title}>Создание нового проекта</div>
-      <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
+      <div className={styles.main}><Link href="/">Главная</Link></div>
       <ProjectForm onSubmit={handleSubmit}/>
     </div>
       <Footer/>
