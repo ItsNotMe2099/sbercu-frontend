@@ -50,6 +50,7 @@ const Dashboard = (props) => {
   const [pageFiles, setPageFiles] = useState(1);
   const [pageProjects, setPageProjects] = useState(1);
   const [tags, setTags] = useState([]);
+  const [isInit, setIsInit] = useState(false)
 
   const limitFiles = 30;
   const limitProjects = 30;
@@ -63,6 +64,12 @@ const Dashboard = (props) => {
       dispatch(resetCatalogList());
     }
   }, [])
+
+  useEffect(() => {
+    if(projectsTotal > 0){
+      setIsInit(true);
+    }
+  }, [projectsTotal])
 
   const handleTagChangeTags = (tags) => {
     setTags(tags);
@@ -137,9 +144,7 @@ const Dashboard = (props) => {
             <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
           </div>
         </div>}
-        {!loading && (projectsTotal > 0) && <>
-          <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
-        </>}
+        {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
         {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
         {projectsTotal > 0 && <>
           <div className={styles.titleContainer}>

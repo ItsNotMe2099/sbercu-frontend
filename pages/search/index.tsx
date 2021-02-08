@@ -42,6 +42,7 @@ const Search = (props) => {
     const [pageFiles, setPageFiles] = useState(1);
     const [pageProjects, setPageProjects] = useState(1);
     const [tags, setTags] = useState([]);
+    const [isInit, setIsInit] = useState(false)
 
     const limitFiles = 30;
     const limitProjects = 30;
@@ -56,7 +57,11 @@ const Search = (props) => {
         dispatch(fetchCatalogProjectsSearch(query, {limit: limitProjects}));
         dispatch(fetchCatalogFilesSearch(query, { limit: limitFiles }));
     }, [query])
-
+    useEffect(() => {
+        if(projectsTotal > 0){
+            setIsInit(true);
+        }
+    }, [projectsTotal])
 
     const handleTagChangeTags = (tags) => {
         console.log("handleTagChangeTags");
@@ -120,7 +125,7 @@ const Search = (props) => {
         <Layout>
             <Header searchValue={query as string}/>
             <div className={styles.root}>
-                {!loading && filesTotal === 0 && projectsTotal === 0 &&
+                {!loading && filesTotal === 0 && projectsTotal === 0 && tags.length === 0 &&
                 <div className={styles.noFiles}>
                   <div className={styles.text}>
                     <div className={styles.firstText}>По вашему запросу ничего не найдено.</div>
@@ -132,13 +137,13 @@ const Search = (props) => {
                     <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
                   </div>
                 </div>}
-                {!loading && (filesTotal > 0 || projectsTotal > 0) && <>
+                { (filesTotal > 0 || projectsTotal > 0) &&
                   <div
                     className={styles.titleSearch}>{projectsTotal + filesTotal} {pluralize(projectsTotal + filesTotal, 'результат', 'результата', 'результатов')} поиска
                     «{query}»
-                  </div>
-                  <TagSelect items={tagCategories} onChangeSelectedTags={handleTagChangeTags}/>
-                </>}
+                  </div>}
+                {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
+
                 {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
                 {projectsTotal > 0 && <>
                   <div className={styles.titleContainer}>

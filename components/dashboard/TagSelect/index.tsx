@@ -9,12 +9,13 @@ import { fetchTag } from "./actions";
 
 interface Props {
   items: ITagCategory[],
-  onChangeSelectedTags?: (tags: ITag[]) => void
+  onChangeSelectedTags?: (tags: ITag[]) => void,
+  selectedTags: ITag[]
 }
 
 export const TagSelect = (props: Props) => {
   const dispatch = useDispatch();
-  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState(props.selectedTags)
   const [isInit, setIsInit] = useState(false)
   useEffect(() => {
       if(props.onChangeSelectedTags && isInit){
