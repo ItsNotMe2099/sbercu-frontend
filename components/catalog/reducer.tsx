@@ -162,7 +162,7 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             let path = '/catalog'
             state.currentCatalogItem = {
                 ...action.payload,
-                parents: action.payload.parents?.splice(action.payload.parents.length - 2, action.payload.parents.length - 1).map(item => {
+                parents: action.payload.parents?.splice(action.payload.parents.length - 2, 1).map(item => {
                     const link = `${path}/${item.id}`
                     return { ...item, link };
                 })
