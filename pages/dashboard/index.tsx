@@ -59,6 +59,9 @@ const Dashboard = (props) => {
     dispatch(fetchTagCategoryList());
     dispatch(fetchCatalogProjects({entryType: 'project', limit: limitProjects}))
     dispatch(fetchMyUploadedFiles(user.id, {limit: limitFiles}));
+    return () => {
+      dispatch(resetCatalogList());
+    }
   }, [])
 
   const handleTagChangeTags = (tags) => {
@@ -179,6 +182,7 @@ const Dashboard = (props) => {
                 dataLength={files.length}
                 next={handleScrollNextFiles}
                 loader={<div></div>}
+                style={{overflow: "inherit"}}
                 hasMore={showFiles && filesTotal !== files.length}
                 className={styles.scroll}
             >

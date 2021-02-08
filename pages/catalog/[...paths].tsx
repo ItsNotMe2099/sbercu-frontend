@@ -67,6 +67,9 @@ const Catalog = (props) => {
     dispatch(fetchCatalogList(id, 1, 15))
     dispatch(fetchCatalogItem(id))
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
+    return () => {
+      dispatch(resetCatalogList());
+    }
   }, [router.query.paths])
 
   const handleRootEditClick = useCallback(() => {
@@ -133,6 +136,7 @@ const Catalog = (props) => {
       dataLength={items.length}
       next={handleScrollNext}
       loader={<div></div>}
+      style={{overflow: "inherit"}}
       hasMore={totalItems !== items.length}
       className={styles.scroll}
       >

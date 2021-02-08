@@ -181,6 +181,7 @@ const Search = (props) => {
                       dataLength={files.length}
                       next={handleScrollNextFiles}
                       loader={<div></div>}
+                      style={{overflow: "inherit"}}
                       hasMore={showFiles && filesTotal !== files.length}
                       className={styles.scroll}
                     >

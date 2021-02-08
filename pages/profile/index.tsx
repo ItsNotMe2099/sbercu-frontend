@@ -35,6 +35,9 @@ const Profile = (props) => {
   useEffect(() => {
     dispatch(resetCatalogList());
     dispatch(fetchMyUploadedFiles(user.id,{limit: limitFiles}));
+    return () => {
+      dispatch(resetCatalogList());
+    }
   }, [])
 
   const handleEditClick = useCallback((item) => {
@@ -144,6 +147,7 @@ const Profile = (props) => {
               dataLength={files.length}
               next={handleScrollNextFiles}
               loader={<div></div>}
+              style={{overflow: "inherit"}}
               hasMore={showFiles && filesTotal !== files.length}
               className={styles.scroll}
           >

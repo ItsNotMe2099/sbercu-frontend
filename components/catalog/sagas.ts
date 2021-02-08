@@ -7,7 +7,7 @@ import {
     deleteCatalog,
     deleteCatalogRequest,
     fetchCatalogItem,
-    fetchCatalogList, resetCatalogList,
+    fetchCatalogList, fetchMyUploadedFiles, resetCatalogList,
     updateCatalog,
     updateCatalogRequest,
     updateFile,
@@ -56,6 +56,10 @@ function* catalogSaga() {
                         yield put(fetchCatalogItem(currentCatalogId));
                     } else {
                         yield put(resetCatalogList(true));
+                        const myUploadedFilesListTotal = yield select((state: IRootState) => state.catalog.myUploadedFilesListTotal)
+                        if(myUploadedFilesListTotal > 0){
+                        //    yield put(fetchMyUploadedFiles(currentCatalogId, {limit: 30}));
+                        }
                         yield put(fetchCatalogList(currentCatalogId, 1, 15));
                     }
                 }
