@@ -65,8 +65,8 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
         </div>
         <div className={styles.bottom}>
           <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
-          {item.projectManager &&  <div className={styles.separator}></div>}
-          {item.projectManager &&  <div className={styles.text}>{item.projectManager}</div>}
+          {item.presenters?.length > 0 &&  <div className={styles.separator}></div>}
+          {item.presenters?.length > 0 &&  <div className={styles.text}>{item.presenters.join(', ')}</div>}
           {props.additionalInfo ?
           <div className={styles.additional}>
             <div className={styles.separator}></div>
