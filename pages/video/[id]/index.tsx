@@ -100,9 +100,9 @@ const Video = (props: Props) => {
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(video?.parents ? video?.parents : [])]}/>
         <div className={styles.content}>
         <div className={styles.videoWrapper}>
-            {!video.media || !video.media.videoConverted  ?
+            {!video.media || !video.media.videoConverted || video.media.videoCutting  ?
                 <>
-                    <VideoConverting/>
+                    <VideoConverting isCutting={video.media.videoCutting}/>
                     <div className={styles.btns}>
                     <div className={styles.select} ><ButtonSelect onChange={handleSettingsClick} options={[{value: 'edit', label: 'Редактировать'}]} size="9px 20px">Настройки</ButtonSelect></div>
                 </div>

@@ -57,6 +57,7 @@ export interface IMedia {
   type: 'video' | 'document' | 'audio',
   size: number
   videoConverted: boolean
+  videoCutting: boolean
   videoElements: IVideoElement[]
 }
 export interface ICatalogEntry {

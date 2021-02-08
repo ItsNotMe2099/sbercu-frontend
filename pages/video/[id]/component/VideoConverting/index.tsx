@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 
 interface Props{
-
+    isCutting: boolean
 }
 
 
@@ -14,7 +14,7 @@ export default function VideoConverting(props: Props){
                       <img className={styles.clock} src='/img/videos/clock.svg' alt=''/>
                       <img src='/img/videos/human.svg' alt=''/>
                   </div>
-                  <div className={styles.bottom}>Видео конвертируется,<br/> пожалуйста подождите</div>
+                  <div className={styles.bottom}>Видео {props.isCutting ? 'обрезается' : 'конвертируется'},<br/> пожалуйста подождите</div>
               </div>
       </div>
   )
