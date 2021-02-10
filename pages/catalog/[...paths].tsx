@@ -102,6 +102,11 @@ const Catalog = (props) => {
       dispatch(createFolderOpen());
     }
   }, [currentCatalogItem])
+  const handleCreateFolderClick = (item) => {
+      setCurrentEditCatalog(null);
+      dispatch(createFolderOpen());
+
+  }
   const handleDeleteClick = (item) => {
     dispatch(confirmOpen({
       title: `Вы уверены, что хотите удалить ${item.entryType === 'file' ? 'файл' : 'каталог'}?`,
@@ -119,7 +124,7 @@ const Catalog = (props) => {
   return (
     <Layout>
     <Header>
-      {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={() => dispatch(createFolderOpen())}>Создать папку</Button></div>}
+      {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={handleCreateFolderClick}>Создать папку</Button></div>}
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
     </Header>
     <div className={styles.root}>
