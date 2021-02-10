@@ -53,7 +53,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
       return getMediaPath(item.media?.fileName) || '';
     }
     console.log("Item link", item, item.id, basePath);
-    return `${basePath}${basePath && basePath.substr(basePath.length - 1) === '/' ? '' : '/' }${item.id}`;
+    return `/catalog/${item.id}`;
 
   }
   return (
