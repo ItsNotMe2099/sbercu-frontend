@@ -67,7 +67,7 @@ S3Upload.prototype._getErrorRequestContext = function (xhr) {
 }
 
 S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
-  var fileName = this.scrubFilename(file.name);
+  var fileName = file.name;
   var queryString = '?objectName=' + fileName + '&contentType=' + encodeURIComponent(file.type);
   if (this.s3path) {
     queryString += '&path=' + encodeURIComponent(this.s3path);
