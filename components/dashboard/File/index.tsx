@@ -1,4 +1,6 @@
+import { catalogCopy, catalogPaste, createCatalog } from "components/catalog/actions";
 import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectOutsideClick";
+import { confirmOpen } from "components/Modal/actions";
 import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import { useRef } from "react";
@@ -7,6 +9,8 @@ import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Dots from "components/svg/Dots";
+
+import { useDispatch } from 'react-redux'
 import {format} from 'date-fns'
 interface Props{
   item: ICatalogEntry,
@@ -20,7 +24,7 @@ interface Props{
 }
 
 export default function File({item, basePath, onDeleteClick, onEditClick, canEdit, ...props}: Props){
-
+  const dispatch = useDispatch();
   const getIconByType = (type) => {
     switch(type) {
       case 'video':
@@ -35,6 +39,28 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
 
   }
 
+
+  const handleCopyClick = () => {
+    dispatch(catalogCopy(item));
+  }
+
+  const handlePasteClick = () => {
+    try{
+      const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
+      dispatch(confirmOpen({
+        title: `Вы уверены, что хотите переместить ${copyItem.entryType === 'file' ? 'файл' : 'папку'} ?`,
+        description: `${copyItem.entryType === 'file' ? 'Файл' : 'Папка'} «${copyItem.name}» будет ${copyItem.entryType === 'file' ? 'перемещен' : 'перемещена'} в ${item.entryType === 'project' ? 'проект' : 'папку'} «${item.name}»`,
+        confirmText: 'Переместить',
+        onConfirm: () => {
+          dispatch(catalogPaste(item.id));
+        }
+      }));
+    }catch (e) {
+
+    }
+
+
+  }
   const handleEditClick = () => {
     if(onEditClick){
       onEditClick(item)
@@ -80,7 +106,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
         </div>
       </a>
       </Link>
-        {canEdit && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
+        {canEdit && <ButtonDots showPaste={item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
       </div>
   )
 }

@@ -1,4 +1,5 @@
 import {
+    catalogCopy, catalogPaste,
     createCatalog,
     createCatalogRequest,
     createFile,
@@ -57,8 +58,8 @@ function* catalogSaga() {
                     } else {
                         yield put(resetCatalogList(true));
                         const myUploadedFilesListTotal = yield select((state: IRootState) => state.catalog.myUploadedFilesListTotal)
-                        if(myUploadedFilesListTotal > 0){
-                        //    yield put(fetchMyUploadedFiles(currentCatalogId, {limit: 30}));
+                        if (myUploadedFilesListTotal > 0) {
+                            //    yield put(fetchMyUploadedFiles(currentCatalogId, {limit: 30}));
                         }
                         yield put(fetchCatalogList(currentCatalogId, 1, 15));
                     }
@@ -152,7 +153,32 @@ function* catalogSaga() {
                 Router.push(`/video/${currentCatalogItem.id}`)
             }
         })
+    yield takeLatest(ActionTypes.CATALOG_COPY,
+        function* (action: ActionType<typeof catalogCopy>) {
+            localStorage.setItem('copyCatalog', JSON.stringify(action.payload));
+        })
 
+    yield takeLatest(ActionTypes.CATALOG_PASTE,
+        function* (action: ActionType<typeof catalogPaste>) {
+            try {
+                const item = JSON.parse(localStorage.getItem('copyCatalog'));
+                yield put(updateCatalogRequest(item.id, {parentId: action.payload.toCatalogId}));
+                const result = yield take([ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_CATALOG_REQUEST + ApiActionTypes.FAIL])
+                if (result.type === ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS) {
+                    yield put(modalClose());
+                    const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
+                    if (action.payload.toCatalogId === currentCatalogId || item.parentId === currentCatalogId ) {
+                        yield put(fetchCatalogItem(currentCatalogId));
+                        yield put(resetCatalogList(true));
+                        yield put(fetchCatalogList(currentCatalogId, 1, 15));
+                    }
+                    localStorage.removeItem('copyCatalog');
+                }
+            } catch (e) {
+
+            }
+
+        })
 }
 
 export default catalogSaga

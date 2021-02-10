@@ -1,4 +1,5 @@
 import {
+  catalogCopy, catalogPaste,
   deleteCatalog,
   fetchCatalogItem,
   fetchCatalogList,
@@ -102,6 +103,27 @@ const Catalog = (props) => {
       dispatch(createFolderOpen());
     }
   }, [currentCatalogItem])
+  const handleCopyClick = () => {
+    dispatch(catalogCopy(currentCatalogItem));
+  }
+
+  const handlePasteClick = () => {
+    try{
+      const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
+      dispatch(confirmOpen({
+        title: `Вы уверены, что хотите переместить ${copyItem.entryType === 'file' ? 'файл' : 'папку'} ?`,
+        description: `${copyItem.entryType === 'file' ? 'Файл' : 'Папка'} «${copyItem.name}» будет ${copyItem.entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`,
+        confirmText: 'Переместить',
+        onConfirm: () => {
+          dispatch(catalogPaste(currentCatalogItem.id));
+        }
+      }));
+    }catch (e) {
+
+    }
+
+  }
+
   const handleCreateFolderClick = (item) => {
       setCurrentEditCatalog(null);
       dispatch(createFolderOpen());
@@ -131,7 +153,7 @@ const Catalog = (props) => {
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
         <div className={styles.image}>
-          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
+          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>

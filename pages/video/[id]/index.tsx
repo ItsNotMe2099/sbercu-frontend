@@ -1,4 +1,4 @@
-import { deleteCatalog, fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
+import { catalogCopy, deleteCatalog, fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
 import FileEditModal from "components/FileEditModal";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
@@ -27,7 +27,7 @@ interface Props{
 
 
 const Video = (props: Props) => {
-  const settings = [{value: 'share', label: 'Поделиться'}, {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'delete', label: 'Удалить'}]
+  const settings = [{value: 'share', label: 'Поделиться'}, {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -74,6 +74,9 @@ const Video = (props: Props) => {
                 break;
             case 'edit':
                 dispatch(editFileOpen());
+                break;
+            case 'copy':
+                dispatch(catalogCopy(video));
                 break;
             case 'videoEditor':
                 router.push(`/video/${video?.id}/editor`)

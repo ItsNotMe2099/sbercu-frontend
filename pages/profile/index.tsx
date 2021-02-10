@@ -129,7 +129,7 @@ const Profile = (props) => {
         </div>
         {user.departmentTags.length > 0 && <div className={styles.tags}>
           <div>
-            <div className={styles.title__tag}>Доступно управление тегами</div>
+            <div className={styles.title__tag}>Подразделение</div>
             {user.departmentTags.map(tag => <div className={styles.tag}>{tag.name}</div>)}
           </div>
         </div>}

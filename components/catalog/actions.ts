@@ -93,3 +93,5 @@ export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)
 export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_PAGE, {page})
 
 export const resetCatalogList = (shallow: boolean = false) => action(ActionTypes.RESET_CATALOG_LIST, {shallow})
+export const catalogCopy = (item: ICatalogEntry) => action(ActionTypes.CATALOG_COPY, item)
+export const catalogPaste = (toCatalogId: number) => action(ActionTypes.CATALOG_PASTE, {toCatalogId})

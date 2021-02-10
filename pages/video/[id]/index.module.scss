@@ -52,11 +52,11 @@
   margin-top: 23px;
   button{
     margin-right: 20px;
-    @media screen and (max-width: $sm-max) {
+    @media screen and (max-width: $sm-mid) {
       margin-top: 10px;
     }
   }
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     flex-direction: column;
     margin-top: 14px;
   }
@@ -65,7 +65,7 @@
 .select{
   margin-right: 20px;
   width: 124px;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $sm-mid) {
     margin-top: 10px;
   }
   &__down{
