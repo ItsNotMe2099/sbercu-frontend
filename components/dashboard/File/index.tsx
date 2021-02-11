@@ -83,6 +83,13 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
     return `/catalog/${item.id}`;
 
   }
+  const getMediaSize = () => {
+    if(item.entryType === 'file' && item.media?.type === 'video' && item.media.videoElements?.length > 0){
+        return item.media.videoElements.find(i => i.quality === '1080p')?.size || item.media.size;
+    }else if(item.entryType === 'file'){
+      return item.media.size;
+    }
+  }
   return (
       <div className={styles.root}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
@@ -98,7 +105,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
           {props.additionalInfo && item.entryType === 'file' && item.media ?
           <div className={styles.additional}>
             <div className={styles.separator}></div>
-            {item.media.size && <div className={styles.text}>{formatSize(item.media.size)}</div>}
+            {item.media.size && <div className={styles.text}>{formatSize(getMediaSize())}</div>}
             {/*<div className={styles.separator}></div>
             <div className={styles.text}>{props.length}</div>*/}
           </div>
