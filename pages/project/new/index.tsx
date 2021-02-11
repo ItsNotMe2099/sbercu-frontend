@@ -34,8 +34,7 @@ const CreateProject = (props) => {
                 toRemove = [tagDepartment, tagAll];
                 break;
         }
-
-        data.tagsIds = [80, 1, 3]
+        
         if (tag) {
 
             data.tagsIds = data.tagsIds.filter(tagId => !toRemove.map(tag => tag ? tag.id : -1).includes(tagId))
