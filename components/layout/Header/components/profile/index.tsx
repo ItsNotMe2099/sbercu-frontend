@@ -23,7 +23,7 @@ export default function Profile(props){
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
             <div className={styles.option}><Link href="/profile">Личный кабинет</Link></div>
             <div className={styles.option}><Link href="/project/new">Создать проект</Link></div>
-            <div className={styles.option}><Link href="/tags">Тэги</Link></div>
+            <div className={styles.option}><Link href="/tags">Теги</Link></div>
             <div className={styles.option}><Link href="/users">Пользователи</Link></div>
           <div className={styles.option}><a onClick={handleLogout}>Выход</a></div>
         </nav>

@@ -4,6 +4,7 @@ import Layout from "components/layout/Layout";
 import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
 import { fetchCatalogFilesSearch, fetchCatalogProjectsSearch, resetCatalogSearch } from "components/search/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import NoFiles from "components/ui/NoFiles";
 import { useRouter } from "next/router";
 import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
@@ -126,17 +127,7 @@ const Search = (props) => {
             <Header searchValue={query as string}/>
             <div className={styles.root}>
                 {!loading && filesTotal === 0 && projectsTotal === 0 && tags.length === 0 &&
-                <div className={styles.noFiles}>
-                  <div className={styles.text}>
-                    <div className={styles.firstText}>По вашему запросу ничего не найдено.</div>
-                    <div className={styles.secondText}>Попробуйте написать название материала по-другому или
-                      сократить запрос
-                    </div>
-                  </div>
-                  <div className={styles.images}>
-                    <img className={styles.lamp} src="/img/icons/lamp.svg" alt=''/>
-                  </div>
-                </div>}
+                <NoFiles/>}
                 { (filesTotal > 0 || projectsTotal > 0) &&
                   <div
                     className={styles.titleSearch}>{projectsTotal + filesTotal} {pluralize(projectsTotal + filesTotal, 'результат', 'результата', 'результатов')} поиска

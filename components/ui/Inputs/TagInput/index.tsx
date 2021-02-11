@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 interface Props {
   input?: any,
   meta?: any,
-
+  isIncludedCategory?: (category) => void
 }
 
 const TagInput = (props: Props) => {
@@ -23,8 +23,6 @@ const TagInput = (props: Props) => {
   const [selectedTags, setSelectedTags] = useState([])
 
   useEffect(() => {
-    console.log("inputValue", input.value, items)
-    console.log("Set", (input.value ? input.value : []).map(item => items.find(i => i.tags.find(tag => tag.id === item))))
     if(items.length > 0) {
       setSelectedTags((input.value ? input.value : []).map(item => {
         for(const tagCategory of items){
@@ -57,7 +55,7 @@ const TagInput = (props: Props) => {
 
   return (
       <div className={styles.root}>
-        {items.map(item => <TagCategory onTagClick={handleTagClick} selectedTags={selectedTags.filter(i => i.tagCategoryId === item.id)} editMode={false} item={item} />)}
+        {items.filter(category => !props.isIncludedCategory || props.isIncludedCategory(category)).map(item => <TagCategory onTagClick={handleTagClick} selectedTags={selectedTags.filter(i => i.tagCategoryId === item.id)} editMode={false} item={item} />)}
 
       </div>
 

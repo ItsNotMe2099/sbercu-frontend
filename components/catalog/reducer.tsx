@@ -142,18 +142,21 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.RESET_CATALOG_LIST:
             state.listLoading = false;
             state.page = 1
+
             console.log("RESET")
             if (!action.payload?.shallow) {
                 state.list = []
                 state.listTotal = 0
-                state.myUploadedFilesList = [];
-                state.myUploadedFilesListTotal = 0;
-                state.myUploadedFilesListLoading = false;
                 state.projects = [];
                 state.projectsTotal = 0;
             }
 
             break
+        case ActionTypes.RESET_MY_UPLOADED_FILES:
+            state.myUploadedFilesList = [];
+            state.myUploadedFilesListTotal = 0;
+            state.myUploadedFilesListLoading = false;
+            break;
 
         case ActionTypes.FETCH_CATALOG_ITEM:
             state.currentLoading = true;

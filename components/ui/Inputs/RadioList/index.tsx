@@ -23,6 +23,7 @@ export const RadioList = (props) => {
       input.onChange(value)
   }
 
+  console.log("input.value", input.value)
   return (
     <div className={styles.root} style={{
       display: (props.grid) ? 'grid' : 'block',

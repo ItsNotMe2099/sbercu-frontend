@@ -23,6 +23,9 @@ body{
   &.grey{
     background-color: #f2f2f2
   }
+  &.modal-open{
+    overflow-y: hidden;
+  }
 }
 #__next{
   position:relative;
@@ -58,4 +61,11 @@ a{
 }
 .infinite-scroll-component {
   overflow: inherit;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }

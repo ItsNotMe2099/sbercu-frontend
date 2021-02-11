@@ -34,11 +34,6 @@ let TagForm = props => {
                 {label: '444', value: '4'}
                 ]}
         />
-        <Field
-            name="visibleOnlyOwns"
-            component={Checkbox}
-            label="Видит только свои проекты"
-        />
       <div className={styles.btnContainer}>
         {<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
             <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>

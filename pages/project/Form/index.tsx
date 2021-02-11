@@ -2,12 +2,13 @@ import TagInput from "components/ui/Inputs/TagInput";
 import { useRouter } from "next/router";
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
+import { IRootState } from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
 import {email, required} from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import { RadioList } from 'components/ui/Inputs/RadioList'
-
+import { useSelector, useDispatch } from 'react-redux'
 import AvatarInput from "components/ui/AvatarInput";
 
 let ProjectForm = props => {
@@ -16,6 +17,8 @@ let ProjectForm = props => {
     const handleCancel = () => {
         router.back();
     }
+
+    console.log("initialValues", initialValues)
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.form}>
@@ -91,6 +94,7 @@ let ProjectForm = props => {
                 <Field
                 name="tagsIds"
                 component={TagInput}
+                isIncludedCategory={(category) => category.name !== 'Видимость'}
                 green
                 />
 
@@ -102,10 +106,10 @@ let ProjectForm = props => {
               <div className={styles.content}>
                 <div className={styles.head}>Приватность</div>
                 <Field
-                name=' visibility'
+                name='visibility'
                 component={RadioList}
                 label="Приватность"
-                options={[{value: "all", label: "Видим для всех"}, {value: "guest", label: "Доступен для гостей"}]}
+                options={[{value: "all", label: "Видим для всех"},{value: "department", label: "Доступен для подразделений"}, {value: "guest", label: "Доступен для гостей"}]}
                 />
                 <div className={styles.head}>Обложка</div>
                 <Field
@@ -124,8 +128,10 @@ let ProjectForm = props => {
 }
 
 
+
 ProjectForm = reduxForm ({
   form: 'projectForm',
 }) (ProjectForm)
+
 
 export default ProjectForm
