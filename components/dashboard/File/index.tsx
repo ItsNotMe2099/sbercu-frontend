@@ -87,7 +87,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
       <div className={styles.root}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
       <Link href={getFileLink()}>
-      <a className={styles.inner}>
+      <a className={styles.inner} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.title}>
           {item.name}
         </div>
