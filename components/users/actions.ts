@@ -25,11 +25,17 @@ export const updateUserRequest = (id: number, data: IUser) => action(ActionTypes
 
 export const fetchUserList = ( data: any = {}) => action(ActionTypes.FETCH_USER_LIST, {
   api: {
-    url: `/api/user?${queryString.stringify({ page: data.page || 1, limit: data.limit || 10})}`,
+    url: `/api/user?${queryString.stringify({...data, page: data.page || 1, limit: data.limit || 10})}`,
     method: 'GET',
   }
 })
 
+export const fetchOneUserRequest = (id: number) => action(ActionTypes.FETCH_ONE_USER, {
+  api: {
+    url: `/api/user/${id}`,
+    method: 'GET'
+  }
+})
 
 export const deleteUser = (id: number) => action(ActionTypes.DELETE_USER, {id})
 export const deleteUserRequest = (id: number) => action(ActionTypes.DELETE_USER_REQUEST, {
@@ -38,3 +44,6 @@ export const deleteUserRequest = (id: number) => action(ActionTypes.DELETE_USER_
     method: 'DELETE'
   }
 })
+
+export const setUserListPage = ( page: number) => action(ActionTypes.SET_USER_PAGE, page)
+export const resetUserList = () => action(ActionTypes.RESET_USER_LIST)

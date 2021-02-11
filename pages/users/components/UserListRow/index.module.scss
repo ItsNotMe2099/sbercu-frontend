@@ -22,6 +22,22 @@
   border-top: 1px solid #E0E0E0;
   position: relative;
   vertical-align: middle;
+  position: relative;
+}
+.role{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  color: #bdbdbd;
+}
+.registeredAt{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  right: 0px;
+  color: #bdbdbd;
 }
 .editCell{
   padding: 0px;

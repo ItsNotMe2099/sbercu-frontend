@@ -1,7 +1,7 @@
 import {
     createUser,
-    createUserRequest, deleteUser, deleteUserRequest,
-    fetchUserList, updateUser,
+    createUserRequest, deleteUser, deleteUserRequest, fetchOneUserRequest,
+    fetchUserList, resetUserList, updateUser,
     updateUserRequest
 } from "components/users/actions";
 import {  modalClose } from "components/Modal/actions";
@@ -19,6 +19,7 @@ function* userSaga() {
       if(result.type === ActionTypes.CREATE_USER_REQUEST + ApiActionTypes.SUCCESS){
         console.log("CREATE USER SUCCESS")
         yield put(modalClose());
+        yield put(resetUserList());
         yield put(fetchUserList());
       }
     })
@@ -29,7 +30,7 @@ function* userSaga() {
       if(result.type === ActionTypes.UPDATE_USER_REQUEST + ApiActionTypes.SUCCESS){
         console.log("UPDATE USER SUCCESS")
         yield put(modalClose());
-        yield put(fetchUserList());
+        yield put(fetchOneUserRequest(action.payload.id));
       }
     })
   yield takeLatest(ActionTypes.DELETE_USER,
@@ -39,6 +40,7 @@ function* userSaga() {
       if(result.type === ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.SUCCESS){
         console.log("DELETE USER SUCCESS")
         yield put(modalClose());
+          yield put(resetUserList());
           yield put(fetchUserList());
       }
     })

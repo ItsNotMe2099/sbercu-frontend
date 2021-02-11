@@ -1,5 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
 import Input from 'components/ui/Inputs/Input'
+import { required } from "utils/validations";
 import styles from './index.module.scss'
 import Button from 'components/ui/Button'
 import { useState } from 'react'
@@ -19,6 +20,7 @@ let CreateFolderForm = props => {
         label="Название папки"
         value={value}
         onChange={() => setValue(value)}
+        validate={required}
       />
       <div className={styles.btnContainer}>
         {/*value === '' ?

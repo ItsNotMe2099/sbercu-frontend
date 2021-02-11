@@ -18,3 +18,9 @@ export const formatSeconds = (seconds) => {
 export const pad = (string) => {
     return ('0' + string).slice(-2)
 }
+
+const sufixes = ['Байт', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ', 'EB', 'ZB', 'YB'];
+export const formatSize = (bytes) => {
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return !bytes && '0 байт' || (bytes / Math.pow(1024, i)).toFixed(2) + " " + sufixes[i];
+};

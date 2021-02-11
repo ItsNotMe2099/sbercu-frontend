@@ -196,7 +196,7 @@ const Catalog = (props) => {
       <Footer/>
       <CreateFolder isOpen={modalKey === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
-      <UploadFilesModal isOpen={modalKey === 'uploadFiles'} onRequestClose={() => dispatch(modalClose())}/>
+      <UploadFilesModal isOpen={modalKey === 'uploadFiles'} />
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
 
     </Layout>

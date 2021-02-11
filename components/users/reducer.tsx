@@ -4,6 +4,7 @@ import ActionTypes from "./const";
 
 export interface UserState {
   list: IUser[],
+  page: number,
   listTotal?: number,
   currentUserItem?: IUser,
   formIsSuccess: boolean
@@ -14,6 +15,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
+  page: 1,
   list: [],
   formIsSuccess: false,
   formError: '',
@@ -30,6 +32,9 @@ export default function UserReducer(state = {...initialState}, action) {
       state.formLoading = false;
       break
 
+    case ActionTypes.SET_USER_PAGE:
+      state.page = action.payload
+      break;
     case ActionTypes.CREATE_USER_REQUEST:
       state.formError = ''
       state.formIsSuccess = false;
@@ -60,6 +65,10 @@ export default function UserReducer(state = {...initialState}, action) {
       state.formIsSuccess = false;
       state.formLoading = false;
       break
+    case ActionTypes.FETCH_ONE_USER + ApiActionTypes.SUCCESS:
+      console.log(" action.payload",  action.payload);
+      state.list = state.list.map(user => user.id === action.payload.id ? action.payload : user);
+      break
     case ActionTypes.DELETE_USER_REQUEST:
       state.formError = ''
       state.formIsSuccess = false;
@@ -79,7 +88,7 @@ export default function UserReducer(state = {...initialState}, action) {
       state.listLoading = true;
       break
     case ActionTypes.FETCH_USER_LIST + ApiActionTypes.SUCCESS:
-      state.list = action.payload.data
+      state.list = [...state.list , ...action.payload.data]
       state.listTotal = action.payload.total
       state.listLoading = false;
       break
@@ -96,6 +105,11 @@ export default function UserReducer(state = {...initialState}, action) {
     case ActionTypes.FETCH_USER + ApiActionTypes.FAIL:
       state.currentLoading = false;
       break
+    case ActionTypes.RESET_USER_LIST:
+      state.page = 1;
+      state.list = [];
+      state.listTotal = 0;
+      break;
   }
 
   return state

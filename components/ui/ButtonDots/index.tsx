@@ -43,8 +43,6 @@ export default function ButtonDots(props: Props) {
             if (offset - dropdownRefItem.current?.offsetWidth < 20) {
                 dropdownRefItem.current.style.right = `-${dropdownRefItem.current?.offsetWidth - params.width}px`
             }
-            console.log("dotsRef.current?.offsetLeft", offset - dropdownRefItem.current?.offsetWidth)
-            console.log("dropdownRefItem.current?.offsetWidth", dropdownRefItem.current?.offsetWidth)
         }
             setIsActiveItem(!isActiveItem);
         if(props.onClick){
@@ -79,7 +77,7 @@ export default function ButtonDots(props: Props) {
             {!props.children &&  <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
               <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>
               <div className={styles.option}><a onClick={handleCopyClick}>Копировать</a></div>
-              {(localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
+              {(typeof  localStorage !== 'undefined' && localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
                 <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>
             </nav>}
         </div>

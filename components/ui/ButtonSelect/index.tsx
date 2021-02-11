@@ -27,11 +27,11 @@ export default function ButtonSelect(props: Props) {
       style={{padding: props.size}}
 
     >
-    <span>{props.children}</span>
+    <div className={styles.title}>{props.children}</div>
     <Arrow/>
     <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })} style={{minWidth: props.minWidth}}>
       {props.options.map(item =>
-        <a className={styles.option} onClick={() => props.onChange(item)}>{item.label}</a>
+          <a className={styles.option} onClick={() => props.onChange(item)}><span>{item.label}</span> <span className={styles.tip}>{item.tip}</span></a>
         )}
     </nav>
     </div>

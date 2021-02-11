@@ -32,6 +32,7 @@ export default function Player(props) {
     const [played, setPlayed] = useState(0);
     const [loaded, setLoaded] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [fullScreen, setFullscreen] = useState(false);
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
@@ -109,9 +110,14 @@ export default function Player(props) {
         setDuration(duration);
     }
 
-    const handleClickFullscreen = () => {
+    const handleClickFullscreen = (event) => {
         if (player?.current) {
-            (screenfull as any).request(findDOMNode(root?.current))
+            if (fullScreen) {
+                (screenfull as any).exit();
+            }else {
+                (screenfull as any).request(findDOMNode(root?.current))
+            }
+            setFullscreen(f => !f);
         }
     }
 
@@ -180,7 +186,13 @@ export default function Player(props) {
                 onReady={handleReady}
                 onBuffer={() => console.log('onBuffer')}
             />
+            <div className={styles.shadow}></div>
             <div className={styles.controls}>
+                <div className={styles.progress}>
+                    <SeekSlider fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
+                                currentTime={duration * played} onChange={handleSeekChange}
+                                onChangeCurTime={handleChangeCurrentTime}/>
+                </div>
                 <div className={styles.controlsBar}>
                     <div className={styles.controlsLeft}>
                         <div className={styles.playButton} onClick={handlePlayPause}>{playing ? <Pause/> :
@@ -192,8 +204,7 @@ export default function Player(props) {
                     </div>
                     {/*<div className={styles.pictureInPicture} onClick={handleTogglePIP}><img src={'/img/icons/picture_in_picture.svg'}/></div>*/}
                     <VolumeControl value={volume} onChange={handleVolumeChange}/>
-                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
-                        src={'/img/icons/video_fullscreen.svg'}/></div>
+
                     <div className={styles.playbackRateSelect}>
                         <QualitySelect options={[
                             { value: 1.0, label: '1x' },
@@ -207,11 +218,8 @@ export default function Player(props) {
 
                         <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
                     </div>
-                </div>
-                <div className={styles.progress}>
-                    <SeekSlider fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
-                                currentTime={duration * played} onChange={handleSeekChange}
-                                onChangeCurTime={handleChangeCurrentTime}/>
+                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
+                        src={'/img/icons/video_fullscreen.svg'}/></div>
                 </div>
             </div>
         </div>

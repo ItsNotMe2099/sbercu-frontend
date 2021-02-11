@@ -49,7 +49,7 @@ let UserForm = props => {
             component={SelectInput}
             label="Роль"
             validate={required}
-            options={[{label: 'Администратор', value: 'admin'}, {label: 'Пользователь', value: 'user'}, {label: 'Гость', value: 'guest'}]}
+            options={[{label: 'Администратор', value: 'admin'}, {label: 'Менеджер', value: 'manager'}, {label: 'Пользователь', value: 'user'}, {label: 'Пользователь (Только свое подразделение)', value: 'limited_user'}, {label: 'Гость', value: 'guest'}]}
 
         />
         <Field

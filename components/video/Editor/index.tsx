@@ -39,6 +39,8 @@ export default function VideoEditor(props: Props) {
     const [duration, setDuration] = useState(0);
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
+
+    const [fullScreen, setFullscreen] = useState(false);
     const [seeking, setSeeking] = useState(false);
     const player = useRef();
     const root = useRef();
@@ -124,7 +126,12 @@ export default function VideoEditor(props: Props) {
 
     const handleClickFullscreen = () => {
         if (player?.current) {
-            (screenfull as any).request(findDOMNode(root?.current))
+            if (fullScreen) {
+                (screenfull as any).exit();
+            }else {
+                (screenfull as any).request(findDOMNode(root?.current))
+            }
+            setFullscreen(f => !f);
         }
     }
 
@@ -253,6 +260,7 @@ export default function VideoEditor(props: Props) {
                 onReady={handleReady}
                 onBuffer={() => console.log('onBuffer')}
             />
+            <div className={styles.shadow}></div>
             <div className={styles.controls}>
 
                     <EditorTooltip  rootRef={tooltipRef} cutItems={cutItems}  seconds={currentSecond} onAdd={handleAddCutRegion} onMouseMove={handleMouseMove}  onMouseLeave={handleMouseLeave}  onMouseEnter={handleMouseEnter} onDelete={handleDelete}/>
@@ -282,8 +290,7 @@ export default function VideoEditor(props: Props) {
                     <Button  transparent textWhite size="5px 15px" onClick={() => props.onCancel(cutItems, duration)}>{'Отмена'}</Button>
                     </div>
                     <VolumeControl value={volume} onChange={handleVolumeChange}/>
-                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
-                        src={'/img/icons/video_fullscreen.svg'}/></div>
+
                     <div className={styles.playbackRateSelect}>
                         <QualitySelect options={[
                             { value: 1.0, label: '1x' },
@@ -297,6 +304,8 @@ export default function VideoEditor(props: Props) {
 
                         <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
                     </div>
+                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
+                        src={'/img/icons/video_fullscreen.svg'}/></div>
                 </div>
             </div>
         </div>

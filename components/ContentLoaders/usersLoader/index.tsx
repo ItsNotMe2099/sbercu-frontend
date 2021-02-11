@@ -2,14 +2,15 @@ import ContentLoader from 'react-content-loader'
 import styles from './index.module.scss'
 
 interface Props{
+  showFilters: boolean
 }
 
-export default function UsersLoader(props: Props){
+export default function UsersLoader({showFilters, ...props}: Props){
 
   return (
     <>
     <div className={styles.root}>
-    <ContentLoader
+      {showFilters && <ContentLoader
     speed={1}
     style={{ width: '100%'}}
     height={190}
@@ -23,8 +24,8 @@ export default function UsersLoader(props: Props){
     <rect x="272" y="70" rx="20" ry="20" width="120" height="27" />
     <circle cx="424" cy="82" r="14" width="27" height="27"/>
     <rect x="0" y="130" rx="5" ry="5" width="430" height="32"/>
-  </ContentLoader>
-  <ContentLoader
+  </ContentLoader>}
+   {showFilters && <ContentLoader
     speed={1}
     style={{ width: '100%'}}
     height={25}
@@ -37,7 +38,7 @@ export default function UsersLoader(props: Props){
     <rect x="500" y="0" rx="0" ry="0" width="150" height="14" />
     <rect x="750" y="0" rx="0" ry="0" width="150" height="14" />
     <rect x="1000" y="0" rx="0" ry="0" width="150" height="14"/>
-  </ContentLoader>
+  </ContentLoader>}
   <ContentLoader
     speed={1}
     style={{ width: '100%'}}

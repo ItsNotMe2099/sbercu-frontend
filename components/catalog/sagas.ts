@@ -37,7 +37,7 @@ function* catalogSaga() {
                 } else {
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
                     yield put(resetCatalogList(true));
-                    yield put(fetchCatalogList(currentCatalogId, 1, 15));
+                    yield put(fetchCatalogList(currentCatalogId, 1, 30));
                 }
                 yield put(modalClose());
             }
@@ -170,7 +170,8 @@ function* catalogSaga() {
                     if (action.payload.toCatalogId === currentCatalogId || item.parentId === currentCatalogId ) {
                         yield put(fetchCatalogItem(currentCatalogId));
                         yield put(resetCatalogList(true));
-                        yield put(fetchCatalogList(currentCatalogId, 1, 15));
+                        yield put(resetCatalogList(true));
+                        yield put(fetchCatalogList(currentCatalogId, 1, 30));
                     }
                     localStorage.removeItem('copyCatalog');
                 }

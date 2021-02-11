@@ -67,7 +67,7 @@ const FileInputPreview: FunctionComponent<Props> = props => {
                             <Basket/>
                         </div>
                     </div>
-                    <FileDataForm  form={`${file.key}-form`} onChange={handleChangeForm}/>
+                    <FileDataForm  form={`${file.key}-form`} initialValues={{name: file?.rawFile?.name}} onChange={handleChangeForm}/>
                 </div>
             </div>
         </>

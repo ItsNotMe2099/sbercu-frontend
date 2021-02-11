@@ -5,6 +5,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import { useRef } from "react";
 import { ICatalogEntry } from "types";
+import { formatSize } from "utils/formatters";
 import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
@@ -14,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import {format} from 'date-fns'
 interface Props{
   item: ICatalogEntry,
-  additionalInfo?: any,
+  additionalInfo?: boolean,
   size?: any,
   basePath?: string,
   length?: any,
@@ -28,7 +29,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
   const getIconByType = (type) => {
     switch(type) {
       case 'video':
-        return '/img/icons/camera.svg'
+        return !item.media.videoConverted || item.media.videoCutting ? '/img/icons/video_disabled.svg' : '/img/icons/camera.svg'
       case 'audio':
         return '/img/icons/audio.svg'
       case 'document':
@@ -94,19 +95,24 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
           <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
           {item.presenters?.length > 0 &&  <div className={styles.separator}></div>}
           {item.presenters?.length > 0 &&  <div className={styles.text}>{item.presenters.join(', ')}</div>}
-          {props.additionalInfo ?
+          {props.additionalInfo && item.entryType === 'file' && item.media ?
           <div className={styles.additional}>
             <div className={styles.separator}></div>
-            <div className={styles.text}>{props.size}</div>
-            <div className={styles.separator}></div>
-            <div className={styles.text}>{props.length}</div>
+            {item.media.size && <div className={styles.text}>{formatSize(item.media.size)}</div>}
+            {/*<div className={styles.separator}></div>
+            <div className={styles.text}>{props.length}</div>*/}
           </div>
           :
           null}
         </div>
       </a>
       </Link>
+        {props.additionalInfo && item.entryType === 'file' && item.media &&  item.media.type === 'video' && (!item.media.videoConverted || item.media.videoCutting) && <div className={styles.encoding}>Видео {item.media.videoCutting ? 'обрезается' : 'обрабатывается'}</div>}
         {canEdit && <ButtonDots showPaste={item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
       </div>
   )
+}
+
+File.defaultProps = {
+  additionalInfo: true
 }

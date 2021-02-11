@@ -100,6 +100,7 @@ export default function InputCatalogSearch(props: Props) {
             <div className={styles.title}>Файлы</div>
             <div className={styles.wrapper}>{files.map(file => (<File
                 canEdit={false}
+                additionalInfo={false}
             item={file}
             />))}</div>
           </div>

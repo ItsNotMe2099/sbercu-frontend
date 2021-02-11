@@ -8,6 +8,7 @@ import VideoConverting from "pages/video/[id]/component/VideoConverting";
 import { useEffect } from "react";
 import { IRootState } from "types";
 import { withAuthSync } from "utils/auth";
+import { formatSize } from "utils/formatters";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -116,7 +117,7 @@ const Video = (props: Props) => {
             sources={video.media?.videoElements?.map(el => ({label: el.quality, value: getMediaPathWithQuality(video.media.fileName, el.quality)}))}
             source={getDefaultSource()}/>
         <div className={styles.btns}>
-          <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="112px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: el.quality, value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
+          <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
           <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey>Копировать ВШ ID</Button></div>
           <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>
         </div>
