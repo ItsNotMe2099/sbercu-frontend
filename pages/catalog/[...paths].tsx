@@ -178,11 +178,11 @@ const Catalog = (props) => {
       </div>
       </InfiniteScroll>
       : !listLoading ?
-      <a className={styles.noFiles} onClick={handleUploadFiles}>
+      <a className={styles.noFiles} onClick={currentCatalogItem?.canEdit ? handleUploadFiles : null}>
         <div className={styles.text}>
           <div className={styles.firstText}>В эту папку пока никто ничего не загрузил. Подождем...</div>
           <div className={styles.secondText}>В папках можно хранить любое фото, видео, аудио или текстовые материалы</div>
-          <div className={styles.iconText}><img src="/img/icons/files.svg" alt=''/><span>Перенесите сюда файл или нажмите для выбора файла на компьютере</span></div>
+          {currentCatalogItem?.canEdit && <div className={styles.iconText}><img src="/img/icons/files.svg" alt=''/><span>Перенесите сюда файл или нажмите для выбора файла на компьютере</span></div>}
         </div>
         <div className={styles.images}>
           <img className={styles.clock} src="/img/icons/clock.svg" alt=''/>
