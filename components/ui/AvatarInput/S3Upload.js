@@ -111,7 +111,7 @@ S3Upload.prototype.uploadToS3 = function(file, signResult) {
   console.log("Upload file", file)
   var formData = new FormData();
   formData.append("file", file)
-  axios.put(`${process.env.REACT_APP_API_URL || ''}${signResult.signedUrl}`, formData, {
+  axios.put(`${signResult.signedUrl}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
       ...this.uploadRequestHeaders

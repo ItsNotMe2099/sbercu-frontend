@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import 'videojs-vr/dist/videojs-vr.min.js'
 
 interface Props {
+    poster: string,
     source: string,
     playInline?: boolean
     playing: boolean
@@ -327,7 +328,7 @@ export default function VideoJs(props: Props) {
             }
         }
     }, [])
-    return (<video onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
+    return (<video poster={props.poster} onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
                    height='100%'>
 
         </video>

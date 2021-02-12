@@ -100,6 +100,7 @@ const Editor = (props: Props) => {
         {!video?.media || !video.media?.videoConverted || video.media?.videoCutting && <VideoConverting isCutting={video.media?.videoCutting}/>}
         {video?.media?.videoConverted && <div className={styles.root}>
             <VideoEditor
+                poster={video.poster}
                 onCancel={handleCancel}
                 onSubmit={handleSubmit}
                 sources={video.media?.videoElements?.map(el => ({label: el.quality, value: getMediaPathWithQuality(video.media.fileName, el.quality)}))}

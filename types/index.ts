@@ -72,6 +72,7 @@ export interface ICatalogEntry {
   projectAudience?: string
   projectTarget?: string
   projectContent?: string
+  poster?: string
   userId?: number
   tags?: ITag[],
   canEdit?: boolean

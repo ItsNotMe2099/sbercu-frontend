@@ -1,10 +1,12 @@
 
+import { FileUpload } from "components/FileUpload";
 import FileInputPreview from "components/ui/Inputs/FilesUploadInput/components/FileInputPreview";
 import React, { useState, useCallback, useEffect,
 } from 'react'
 
 import S3Upload from 'components/ui/AvatarInput/S3Upload.js'
 export interface FileEntity {
+  catalogId?: number
   key?: string
   rawFile?: File,
   preview?: string,
@@ -19,6 +21,7 @@ interface Props {
   onRemove: (FileEntity) => void,
   onChangeFileData: (FileEntity, data) => void
   uploadOptions: any,
+  currentCatalogId: number
 }
 
 const FileWrapper = (props: Props) => {
@@ -27,6 +30,7 @@ const FileWrapper = (props: Props) => {
     onChangeFileData,
     onUpload,
     onRemove,
+    currentCatalogId,
     file,
       key,
   } = props
@@ -34,7 +38,7 @@ const FileWrapper = (props: Props) => {
   const [isLoaded, setIsLoaded] = useState(!file.rawFile);
   const [progress, setProgress] = useState(0);
   const onFinishFileUpload = useCallback((result) => {
-    onUpload({ ...file, path: result.fileKey, mediaId: result.mediaId })
+    onUpload({ ...file, catalogId: result.catalogId, path: result.fileKey, mediaId: result.mediaId })
     setIsLoaded(true);
   }, [props.onUpload])
   const onFileUploadError = (error) => {
@@ -47,16 +51,17 @@ const FileWrapper = (props: Props) => {
   }
   useEffect(() => {
     if (file.rawFile &&  !(file.rawFile as any)._uploading) {
-      console.log("Upload");
+      console.log("Upload", currentCatalogId);
       (file.rawFile as any)._uploading = true;
       const options = {
         ...uploadOptions,
-        files: [file.rawFile],
-        onFinishS3Put: onFinishFileUpload,
+        file: file.rawFile,
+        onFinish: onFinishFileUpload,
         onProgress: onProgress,
         onError: onFileUploadError,
+        catalogId: currentCatalogId
       }
-        new S3Upload(options)
+        new FileUpload(options)
 
     }
   },[])

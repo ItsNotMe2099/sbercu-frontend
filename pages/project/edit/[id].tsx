@@ -62,6 +62,7 @@ const EditProject = (props) => {
                 return 'guest';
             }
         }
+        return 'all'
     }
     console.log("getVisibility()", getVisibility())
     return (

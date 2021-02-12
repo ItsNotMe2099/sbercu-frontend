@@ -113,21 +113,10 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
 
       const files = value ? (Array.isArray(value) ? value.map((file) => file?.path || file) : [value]) : []
 
-      const [fileProgress, setFileProgress] = useState({})
+      const [fileProgress, setFileProgress] = useState(0)
       const onFileProgress = (percentage, status, rawFile) => {
-        console.log('onFile progress', percentage)
-        const currentProgress = {}
-        currentProgress[rawFile.path] = percentage
-        setFileProgress({ ...fileProgress, ...currentProgress })
+        setFileProgress(percentage)
 
-        return
-        /*  if (percentage === 0) {
-              setLoading(true)
-          }
-          if (percentage === 100) {
-              setLoading(false)
-          }
-          setPercentage(percentage);*/
       }
 
       const onDrop = (newFiles, rejectedFiles, event) => {
@@ -208,7 +197,6 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
     )
 
 
-
       const { getRootProps, getInputProps } = useDropzone({
         ...options,
         accept,
@@ -218,7 +206,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
         onDrop,
       })
 
-      console.log('Files', files)
+      console.log('fileProgress', fileProgress)
       return (
       <div className={`${styles.root} ${!!(files.length > 0) && styles.hasBackDrop}`}>
 
@@ -233,7 +221,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
               key={index}
               file={file}
               loading={!!file.rawFile}
-              progress={file && file.rawFile ? fileProgress[file.rawFile.path] || 0 : 0}
+              progress={fileProgress}
               onRemove={onRemove(file)}
             >
             </AvatarInputPreview>

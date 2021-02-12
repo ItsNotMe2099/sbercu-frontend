@@ -1,8 +1,16 @@
 import { catalogCopy, deleteCatalog, fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
 import FileEditModal from "components/FileEditModal";
+import FilePosterModal from "components/FilePosterModal";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, editFileOpen, modalClose } from "components/Modal/actions";
+import {
+    confirmOpen,
+    editFileOpen,
+    filePosterUploadModalOpen,
+    modalClose,
+    videoCodeModalOpen
+} from "components/Modal/actions";
+import VideoCodeModal from "components/VideoCodeModal";
 import { useRouter } from "next/router";
 import VideoConverting from "pages/video/[id]/component/VideoConverting";
 import { useEffect } from "react";
@@ -28,7 +36,7 @@ interface Props{
 
 
 const Video = (props: Props) => {
-  const settings = [ {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
+  const settings = [ {value:'edit', label: 'Редактировать'},{value:'poster', label: 'Загрузить постер'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -73,6 +81,9 @@ const Video = (props: Props) => {
         switch (item.value) {
             case 'share':
                 break;
+            case 'poster':
+                dispatch(filePosterUploadModalOpen())
+                break;
             case 'edit':
                 dispatch(editFileOpen());
                 break;
@@ -114,11 +125,12 @@ const Video = (props: Props) => {
         :
           <>
         <Player
+            poster={video.poster}
             sources={video.media?.videoElements?.map(el => ({label: el.quality, value: getMediaPathWithQuality(video.media.fileName, el.quality)}))}
             source={getDefaultSource()}/>
         <div className={styles.btns}>
           <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
-          <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey>Копировать ВШ ID</Button></div>
+          <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoCodeModalOpen())}>Копировать ВШ ID</Button></div>
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
         </>}
@@ -139,6 +151,8 @@ const Video = (props: Props) => {
         </div>
     </div>}
         <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
+        {video && <VideoCodeModal isOpen={modalKey === 'videoCode'} video={video} onRequestClose={() => dispatch(modalClose())}/>}
+        {video && <FilePosterModal isOpen={modalKey === 'filePoster'} file={video} onRequestClose={() => dispatch(modalClose())}/>}
 
     </Layout>
   )

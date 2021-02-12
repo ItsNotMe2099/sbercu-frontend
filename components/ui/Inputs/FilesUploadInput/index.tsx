@@ -42,6 +42,7 @@ export interface FileInputProps {
   minSize?: number
   multiple?: boolean,
   addFileButton?: ReactElement
+  currentCatalogId?: number
 }
 
 export interface FileInputOptions extends DropzoneOptions {
@@ -50,10 +51,12 @@ export interface FileInputOptions extends DropzoneOptions {
 }
 
 const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
+
   const {
     accept,
     children,
     className,
+    currentCatalogId,
     classes: classesOverride,
     format,
     helperText,
@@ -78,15 +81,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   } = props
   const token = Cookies.get('token')
   const FileWrapperUploadOptions = {
-    signingUrlMethod: 'GET',
-    accept: '*/*',
-    uploadRequestHeaders: { 'x-amz-acl': 'public-read',  'Authorization': `Bearer ${token}`},
-    signingUrlHeaders: { 'Authorization': `Bearer ${token}` },
-    signingUrlWithCredentials: false,
-    signingUrlQueryParams: { uploadType: 'avatar' },
-    autoUpload: true,
-    signingUrl: `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/sign`,
-    s3path: 'masters-pages/files',
+    headers: { 'x-amz-acl': 'public-read',  'Authorization': `Bearer ${token}`},
     ...uploadOptions,
   }
 
@@ -94,7 +89,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
-        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, mediaId: item.mediaId, key: item.key, ...(item as any).data}}))
+        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, catalogId: item.catalogId, mediaId: item.mediaId, key: item.key, ...(item as any).data}}))
 
     }else{
       onChange(filtered[0]?.path || null)
@@ -104,12 +99,12 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     return nextId("file-");
   }
   const onUpload = (file: FileEntity) => {
-    console.log("onUploadFiles", files)
+    console.log("onUploadFiles", file)
 
     setFiles(oldFiles => oldFiles.map(item => {
       return {
         ...item,
-        ...(item.rawFile?.name === file.rawFile.name ? {path: file.path, mediaId: file.mediaId} : {})
+        ...(item.rawFile?.name === file.rawFile.name ? {catalogId: file.catalogId, path: file.path, mediaId: file.mediaId} : {})
       }
     }))
   }
@@ -152,6 +147,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
         {files.map((file, index) => (
           <FileWrapper
             key={file.key}
+            currentCatalogId={currentCatalogId}
             uploadOptions={FileWrapperUploadOptions}
             file={file}
             onUpload={onUpload}

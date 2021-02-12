@@ -20,6 +20,7 @@ const VideoJs = dynamic(() => import('components/video/VideoJs'), {
 })
 
 interface Props {
+    poster: string
     source: any,
     sources: any[],
     onCancel: (cutItems, duration) => void
@@ -246,6 +247,7 @@ export default function VideoEditor(props: Props) {
             <EditorCutInfo cutItems={cutItems} duration={duration} onSeek={handleSeekChange} onClear={handleClear} onDelete={handleDelete}/>
 
             <VideoJs
+                poster={props.poster}
                 playing={playing}
                 onCreateRef={(ref) => player.current = ref}
                 source={source}

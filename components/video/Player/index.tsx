@@ -17,6 +17,7 @@ const VideoJs = dynamic(() => import('components/video/VideoJs'), {
 })
 
 interface Props {
+    poster?: string
     source: any,
     sources: any[]
 }
@@ -172,6 +173,7 @@ export default function Player(props) {
               onDuration={handleDuration}
           />*/}
             <VideoJs
+                poster={props.poster}
                 playing={playing}
                 onCreateRef={(ref) => player.current = ref}
                 source={source}

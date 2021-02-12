@@ -61,6 +61,13 @@ export const deleteCatalogRequest = (id: number) => action(ActionTypes.DELETE_CA
 
 export const createFiles = (files: ICatalogEntry[]) => action(ActionTypes.CREATE_FILES, {files})
 export const createFile = ( data: ICatalogEntry) => action(ActionTypes.CREATE_FILE, {data})
+export const updateCatalogFileRequest = ( id: number, data: ICatalogEntry) => action(ActionTypes.UPDATE_CATALOG_FILE_REQUEST, {
+  api: {
+    url: `/api/catalog/${id}`,
+    method: 'PATCH',
+    data: { ...data }
+  }
+});
 export const createFileRequest = (data: any) => action(ActionTypes.CREATE_FILE_REQUEST, {
   api: {
     url: `/api/catalog`,

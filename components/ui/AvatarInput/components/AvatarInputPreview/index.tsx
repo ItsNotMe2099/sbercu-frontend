@@ -1,6 +1,7 @@
 import React, { useEffect, ReactNode, FunctionComponent } from 'react'
 import PropTypes from 'prop-types'
 import styles from './index.module.scss'
+import {Circle} from "rc-progress";
 interface Props {
   className?: string
   progress?: number,
@@ -38,10 +39,16 @@ const AvatarInputPreview: FunctionComponent<Props> = props => {
   }
   return (
         <div className={styles.root}>
-
+          <div className={styles.imageWrapper}>
+            {loading && <div className={styles.fade}><div className={styles.loader}>
+                <div className={styles.progressCircle}><Circle percent={progress} strokeWidth={4}
+                                                               trailColor="#fff" strokeColor="#27AE60"/></div>
+                <div className={styles.loaderProgress}>{props.progress}%</div>
+            </div></div>}
            <img className={styles.image}
               src={getImageSrc(file)}
             />
+          </div>
 
 
        </div>

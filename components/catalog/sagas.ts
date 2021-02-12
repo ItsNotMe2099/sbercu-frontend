@@ -8,8 +8,8 @@ import {
     deleteCatalog,
     deleteCatalogRequest,
     fetchCatalogItem,
-    fetchCatalogList, fetchMyUploadedFiles, resetCatalogList,
-    updateCatalog,
+    fetchCatalogList, resetCatalogList,
+    updateCatalog, updateCatalogFileRequest,
     updateCatalogRequest,
     updateFile,
     updateFileRequest
@@ -18,8 +18,9 @@ import { modalClose } from "components/Modal/actions";
 import ApiActionTypes from "constants/api";
 import { router } from "next/client";
 import { takeLatest, put, take, select } from 'redux-saga/effects'
-import { IRootState } from "types";
+import { IRequestData, IResponse, IRootState } from "types";
 import { ActionType } from 'typesafe-actions'
+import requestGen from "utils/requestGen";
 import ActionTypes from './const'
 
 import Router from "next/router";
@@ -95,14 +96,12 @@ function* catalogSaga() {
             const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
 
             for (const file of action.payload.files) {
-                console.log("Create File", file)
-                yield put(createFileRequest({
-                    ...file,
-                    entryType: 'file',
-                    parentId: currentCatalogId,
+                console.log("updateCatalogFileRequest", file)
+                yield put(updateCatalogFileRequest((file as any).catalogId,{
+                    name: file.name,
                     presenters: file.presenters
                 }));
-                const result = yield take([ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.CREATE_FILE_REQUEST + ApiActionTypes.FAIL])
+                const result = yield take([ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.FAIL])
             }
             yield put(fetchCatalogList(currentCatalogId));
             yield put(modalClose());

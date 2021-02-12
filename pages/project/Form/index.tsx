@@ -109,6 +109,7 @@ let ProjectForm = props => {
                 name='visibility'
                 component={RadioList}
                 label="Приватность"
+                validate={required}
                 options={[{value: "all", label: "Видим для всех"},{value: "department", label: "Доступен для подразделений"}, {value: "guest", label: "Доступен для гостей"}]}
                 />
                 <div className={styles.head}>Обложка</div>
