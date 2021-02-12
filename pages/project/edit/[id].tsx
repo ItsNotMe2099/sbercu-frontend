@@ -42,7 +42,7 @@ const EditProject = (props) => {
                 toRemove = [tagDepartment, tagAll];
                 break;
         }
-        
+
         if (tag) {
 
             data.tagsIds = data.tagsIds.filter(tagId => !toRemove.map(tag => tag ? tag.id : -1).includes(tagId))
@@ -66,7 +66,7 @@ const EditProject = (props) => {
     console.log("getVisibility()", getVisibility())
     return (
         <Layout>
-        <Header/>
+        <Header {...props}/>
         <div className={styles.root}>
             <div className={styles.title}>Редактирование проекта</div>
             <div className={styles.main}><Link href="/">&lt; Главная</Link></div>

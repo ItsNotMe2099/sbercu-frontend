@@ -145,7 +145,7 @@ const Catalog = (props) => {
   }
   return (
     <Layout>
-    <Header>
+    <Header {...props}>
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={handleCreateFolderClick}>Создать папку</Button></div>}
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
     </Header>

@@ -5,7 +5,7 @@ import ReactModal from 'react-modal'
 
 interface Props {
   isOpen: boolean
-  onRequestClose?: () => void,
+  onRequestClose?: (isCloseBtn) => void,
   title?: string,
   children?: any,
   closeBtn?: boolean
@@ -26,7 +26,7 @@ export default function Modal(props: Props) {
       margin: 'auto',
       position: 'static',
       inset: '0',
-      overflow: 'scroll',
+      overflow: 'hidden',
     },
   }
   return (
@@ -41,7 +41,7 @@ export default function Modal(props: Props) {
         <div className={styles.top}>
           <div className={styles.title}>{props.title}</div>
           {props.closeBtn ?
-            <div className={styles.btnContainer}><Button closeBtn onClick={props.onRequestClose}></Button></div>
+            <div className={styles.btnContainer}><Button closeBtn onClick={() => props.onRequestClose(true)}></Button></div>
           :
           null}
         </div>

@@ -140,7 +140,7 @@ const Users = (props) => {
 
     return (
         <Layout>
-            <Header>
+            <Header {...props}>
                 <div className={styles.tagBtn}><Button transparent invite textGreen btnGreen type="button"
                                                        onClick={handleNewUserClick}>Пригласить</Button></div>
             </Header>

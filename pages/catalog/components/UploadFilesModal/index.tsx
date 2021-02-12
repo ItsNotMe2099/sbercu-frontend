@@ -23,8 +23,8 @@ export default function UploadFilesModal(props: Props){
     const handleChange = (data) => {
       setFiles(data.files || []);
     }
-    const handleClose = () => {
-            if(files.length > 0){
+    const handleClose = (isCloseBtn) => {
+            if(!isCloseBtn && files.length > 0){
                 return;
             }
             dispatch(modalClose());

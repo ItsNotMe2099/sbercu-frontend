@@ -55,7 +55,7 @@ const CreateProject = (props) => {
 
     return (
         <Layout>
-            <Header/>
+            <Header {...props}/>
             <div className={styles.root}>
                 <div className={styles.title}>Создание нового проекта</div>
                 <div className={styles.main}><Link href="/">Главная</Link></div>

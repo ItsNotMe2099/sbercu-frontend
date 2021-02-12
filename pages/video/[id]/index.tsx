@@ -28,7 +28,7 @@ interface Props{
 
 
 const Video = (props: Props) => {
-  const settings = [{value: 'share', label: 'Поделиться'}, {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
+  const settings = [ {value:'edit', label: 'Редактировать'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -98,7 +98,7 @@ const Video = (props: Props) => {
 
   return (
     <Layout>
-    <Header/>
+    <Header {...props}/>
     {(!currentLoading  && video) &&  <div className={styles.root}>
       <div className={styles.title}>{video.name}</div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(video?.parents ? video?.parents : [])]}/>
@@ -119,7 +119,7 @@ const Video = (props: Props) => {
         <div className={styles.btns}>
           <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
           <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey>Копировать ВШ ID</Button></div>
-          <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>
+            {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
         </>}
         <Info authors={video.presenters} date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''} language="Русский, Английский"/>

@@ -79,7 +79,7 @@ const Editor = (props: Props) => {
     }
   return (
     <Layout>
-        <Header showSearch={false}>
+        <Header {...props} showSearch={false}>
             {video && <div className={styles.header}>
               <TextEllipsis
                 lines={1}

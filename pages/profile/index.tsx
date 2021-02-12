@@ -75,9 +75,7 @@ const Profile = (props) => {
 
   return (
     <Layout>
-    <Header>
-
-    </Header>
+    <Header {...props}/>
     <div className={styles.root}>
     <div className={styles.title}>Основная информация</div>
       <div className={styles.top}>

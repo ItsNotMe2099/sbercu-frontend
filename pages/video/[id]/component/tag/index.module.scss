@@ -34,9 +34,15 @@
 }
 
 .tag{
-  overflow: hidden;
   display: block;
   margin-left: -16px;
   margin-bottom: 6px;
-
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }

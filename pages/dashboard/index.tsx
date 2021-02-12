@@ -131,7 +131,7 @@ const Dashboard = (props) => {
 
   return (
     <Layout>
-    <Header/>
+    <Header {...props}/>
 
       <div className={styles.root}>
 

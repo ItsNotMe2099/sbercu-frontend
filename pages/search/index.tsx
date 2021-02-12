@@ -124,7 +124,7 @@ const Search = (props) => {
     }
     return (
         <Layout>
-            <Header searchValue={query as string}/>
+            <Header {...props} searchValue={query as string} />
             <div className={styles.root}>
                 {!loading && filesTotal === 0 && projectsTotal === 0 && tags.length === 0 &&
                 <NoFiles/>}

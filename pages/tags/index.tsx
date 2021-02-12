@@ -70,7 +70,7 @@ const Tags = (props) => {
 
   return (
     <Layout>
-    <Header>
+    <Header {...props}>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagClick}>Создать новый тег</Button></div>
       <div className={styles.tagBtn}><Button transparent visiblePlus textGreen btnGreen type="button" onClick={handleNewTagCategoryClick}>Создать новую коллекцию</Button></div>
     </Header>

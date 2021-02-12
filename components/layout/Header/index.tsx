@@ -5,7 +5,7 @@ import InputSearch from "components/ui/Inputs/InputSearch";
 import Profile from "./components/profile";
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { IRootState } from "types";
+import { IRootState, IUser } from "types";
 import { createFolderOpen, modalClose, tagCategoryModalOpen, tagModalOpen } from "components/Modal/actions";
 import Link from 'next/link'
 import { useState } from "react";
@@ -13,6 +13,7 @@ interface Props{
   children?: any,
     searchValue?: string,
     showSearch?: boolean
+    user?: IUser
 }
 
 export default function Header(props: Props){
@@ -30,7 +31,7 @@ export default function Header(props: Props){
           <div className={styles.mobile}>{props.children}</div>
           :null}
           <div className={styles.notMobile}>{props.children}</div>
-          <Profile/>
+          <Profile user={props.user}/>
           </div>
         </div>
         <ModalConfirm isOpen={key === 'confirm'}  onRequestClose={() => dispatch(modalClose())}/>
