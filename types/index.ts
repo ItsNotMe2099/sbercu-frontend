@@ -121,7 +121,7 @@ export interface IUser {
   email?: string
   role?: string
   virtualSchoolId?: string
-  inviteToken?: string
+  inviteSent?: boolean
   registeredAt?: string
   resetPasswordToken?: string
   departmentTags?: ITag[]
