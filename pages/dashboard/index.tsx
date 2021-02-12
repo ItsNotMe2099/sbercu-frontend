@@ -152,6 +152,7 @@ const Dashboard = (props) => {
               next={handleScrollNextProjects}
               loader={<div></div>}
               hasMore={showProjects && projectsTotal !== projects.length}
+              style={{overflow: "inherit"}}
               className={styles.scroll}
           >
             <div className={styles.projects}>
