@@ -34,12 +34,17 @@ export const withAuthSync = (WrappedComponent) =>
         static async getInitialProps(ctx) {
             const token = auth(ctx);
             const user = token ? await getUser(token) : null
-
-            console.log("User", user)
+            console.log("CTX", ctx);
+            console.log("User11", user, token)
             if (ctx.req && (!token || !user)) {
-                ctx.res.writeHead(302, { Location: "/auth/login" });
+                console.log("Req", ctx.req.url);
+                ctx.res.writeHead(302, { Location: `/auth/login?redirect=${ctx.req.url}` });
                 ctx.res.end();
                 return;
+            }else if(!ctx.req && (!token || !user)){
+                console.log("CTX", ctx);
+                Router.push(`/auth/login?redirect=${ctx.asPath}`);
+                
             }
             const componentProps =
                 WrappedComponent.getInitialProps &&

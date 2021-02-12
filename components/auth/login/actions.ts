@@ -3,6 +3,7 @@ import { action } from 'typesafe-actions'
 interface LoginSubmitData{
   email: | string,
   password: string,
+  redirect?: string,
 }
 export const loginSubmit = (data: LoginSubmitData) => action(ActionTypes.LOGIN_SUBMIT, data)
 export const loginReset = () => action(ActionTypes.LOGIN_RESET)

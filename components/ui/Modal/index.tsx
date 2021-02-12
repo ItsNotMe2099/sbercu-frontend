@@ -33,10 +33,10 @@ export default function Modal(props: Props) {
     <ReactModal
     style={customStyles}
     isOpen={props.isOpen}
-    onRequestClose={props.onRequestClose}
+    onRequestClose={() => props.onRequestClose(false)}
     >
       <div className={styles.frame} >
-        <div className={styles.overlay} onClick={props.onRequestClose}/>
+        <div className={styles.overlay} onClick={() => props.onRequestClose(false)}/>
       <div className={styles.root}>
         <div className={styles.top}>
           <div className={styles.title}>{props.title}</div>

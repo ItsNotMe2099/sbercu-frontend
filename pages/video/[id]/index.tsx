@@ -34,7 +34,7 @@ const Video = (props: Props) => {
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const dispatch = useDispatch();
     const  router = useRouter()
-    console.log("Query", router.query, video)
+    console.log("Auth", props)
     useEffect(() => {
         dispatch(resetCatalogItem());
         if(!router.query.id){

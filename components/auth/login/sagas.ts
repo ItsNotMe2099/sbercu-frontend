@@ -19,11 +19,11 @@ function* watchOnLoginSubmit() {
           console.log("Res signup", res)
           if(!res.err){
             cookie.set("token", res.data.accessToken, { expires: 1 });
-            window.location.href = '/';
+            window.location.href = action.payload.redirect || '/';
           }else{
             yield put(loginError(res.err?.message));
           }
-    
+
         })
 }
 
