@@ -18,7 +18,7 @@ function* watchOnLoginSubmit() {
           } as IRequestData)
           console.log("Res signup", res)
           if(!res.err){
-            cookie.set("token", res.data.accessToken, { expires: 1 });
+            cookie.set("token", res.data.accessToken, { expires: 7 });
             window.location.href = action.payload.redirect || '/';
           }else{
             yield put(loginError(res.err?.message));
