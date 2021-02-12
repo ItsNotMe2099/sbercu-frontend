@@ -51,8 +51,6 @@ export class FileUpload {
                     const baseProgress = i / blockCount;
                     const oneItemProgress =  (blockCount / 100) / 100
                     const progress = Math.floor((baseProgress + (oneItemProgress * chunkProgress)) * 100)
-
-                    console.log('progress',progress)
                     this.props.onProgress(progress === 100 ? 99 : progress)
                 },
             };
