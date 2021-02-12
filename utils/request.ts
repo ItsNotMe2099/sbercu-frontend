@@ -10,6 +10,7 @@ console.log(`Bearer ${token}`, process.env, process.env.NEXT_PUBLIC_API_URL  )
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token ? `Bearer ${token}` : '',
+         'Cache-Control': 'no-cache'
       },
       body: data ? JSON.stringify(data) : null,
     })
