@@ -20,7 +20,7 @@ export default function AuthSection(props: Props) {
       <div className={styles.container}>
           <div className={styles.head_green}>media.</div>
           <div className={styles.enter}>Войдите, чтобы продолжить</div>
-          <div className={styles.head}><a href={`${process.env.NEXT_PUBLIC_SBER_AUTH_URL}${redirect ? `%3Fredirect=${redirect}` : ''}`}>ВШ ID</a> или <span>Почта</span></div>
+          <div className={styles.head}><a href={`${process.env.NEXT_PUBLIC_SBER_AUTH_URL}`}>ВШ ID</a> или <span>Почта</span></div>
           <AuthForm onSubmit={submit}/>
       </div>
     )
