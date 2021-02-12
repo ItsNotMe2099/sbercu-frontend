@@ -28,6 +28,7 @@ let UserForm = props => {
             component={Input}
             label="Введите электронную почту"
             validate={required}
+            disabled={!!initialValues.email}
 
         />
         <Field

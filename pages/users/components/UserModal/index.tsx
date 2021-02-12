@@ -20,6 +20,7 @@ export default function UserModal(props: Props){
   const handleSubmit = (data) => {
     if(props.user){
       dispatch(updateUser(props.user.id, {
+        role: data.role,
         firstName: data.firstName,
         lastName: data.lastName,
         departmentTagIds: data.departmentTagId ? [data.departmentTagId] : []
