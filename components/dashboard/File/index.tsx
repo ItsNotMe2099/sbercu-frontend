@@ -77,7 +77,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
       return `/video/${item.id}`;
     }
     if(item.entryType === 'file'){
-      return getMediaPath(item.media?.fileName) || '';
+      return getMediaPath(item.media?.fileName)  ? `${getMediaPath(item.media?.fileName)}?download=1`  : '';
     }
     console.log("Item link", item, item.id, basePath);
     return `/catalog/${item.id}`;
