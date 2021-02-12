@@ -4,11 +4,13 @@ import ActionTypes from "./const";
 export interface State {
   formIsSuccess: boolean
   formError: string
+  formLoading: boolean
 }
 
 const initialState: State = {
   formIsSuccess: false,
-  formError: ''
+  formError: '',
+  formLoading: false,
 }
 
 export default function loginSubmitReducer(state = {...initialState}, action) {
@@ -17,6 +19,7 @@ export default function loginSubmitReducer(state = {...initialState}, action) {
 
     case ActionTypes.LOGIN_SUBMIT:
       state.formIsSuccess = false
+      state.formLoading = true
 
     case ActionTypes.LOGIN_SUCCESS:
       state.formIsSuccess = true
@@ -25,6 +28,7 @@ export default function loginSubmitReducer(state = {...initialState}, action) {
     case ActionTypes.LOGIN_ERROR:
       state.formError = action.payload.error
       console.log("ERROR", state.formError)
+      state.formLoading = false
       break
 
     case ActionTypes.LOGIN_RESET:

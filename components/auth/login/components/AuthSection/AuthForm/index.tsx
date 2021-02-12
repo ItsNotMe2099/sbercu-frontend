@@ -11,7 +11,9 @@ import FormError from 'components/ui/Form/FormError'
 
 let AuthForm = props => {
   const formError = useSelector((state: IRootState) => state.loginSubmit.formError)
-  const { handleSubmit } = props
+  const formLoading = useSelector((state: IRootState) => state.loginSubmit.formLoading)
+
+    const { handleSubmit } = props
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.inputContainer}>
@@ -33,7 +35,7 @@ let AuthForm = props => {
               <FormError error={formError}/>
 
               <div className={styles.container}>
-              <Button size='12px 15px' green>Войти</Button>
+              <Button disabled={formLoading} size='12px 15px' green>Войти</Button>
               <Link href="/auth/password-forgot">
                 <a className={styles.forgot}>Забыли пароль?</a>
               </Link>

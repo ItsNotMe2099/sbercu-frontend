@@ -6,7 +6,7 @@ enum ActionTypes {
   REG_ERROR = 'Registration/ERROR',
   GET_USER_BY_INVITE = 'Registration/GET_USER_BY_INVITE',
   GET_USER_BY_INVITE_SUCCESS = 'Registration/GET_USER_BY_INVITE_SUCCESS',
-  GET_USER_BY_INVITE_ERROR = 'Registration/GET_USER_BY_INVITE_SUCCESS',
+  GET_USER_BY_INVITE_ERROR = 'Registration/GET_USER_BY_INVITE_ERROR',
 }
 
 export default ActionTypes

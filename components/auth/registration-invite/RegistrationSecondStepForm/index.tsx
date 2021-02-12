@@ -1,8 +1,11 @@
+import FormError from "components/ui/Form/FormError";
 import { Field, reduxForm } from 'redux-form'
 import InputPassword from 'components/ui/Inputs/InputPassword'
 import Button from 'components/ui/Button'
+import { IRootState } from "types";
 import { minL, passwordsMatch, required } from 'utils/validations'
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 interface Props {
     onGoBack: () => void,
     onSubmit: (any) => void,
@@ -10,6 +13,8 @@ interface Props {
 }
 
 let RegistrationSecondStepForm = (props: Props) => {
+    const formError = useSelector((state: IRootState) => state.regReducer.formError)
+    const formLoading = useSelector((state: IRootState) => state.regReducer.formLoading)
     const { handleSubmit } = props
     return (
         <form onSubmit={handleSubmit}>
@@ -36,7 +41,8 @@ let RegistrationSecondStepForm = (props: Props) => {
                     />
                 </div>
             </div>
-            <Button green size="9px 16px">Зарегистрироваться</Button>
+            <FormError error={formError}/>
+            <Button green size="9px 16px" disabled={formLoading}>Зарегистрироваться</Button>
 
         </form>
     )

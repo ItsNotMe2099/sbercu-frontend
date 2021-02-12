@@ -2,6 +2,7 @@ import { getUserByInvite, regSubmit } from "components/auth/registration-invite/
 import RegistrationFirstStepForm from "components/auth/registration-invite/RegistrationFirstStepForm";
 import RegistrationSecondStepForm from "components/auth/registration-invite/RegistrationSecondStepForm";
 import useBodyClass from "components/hooks/useBodyClass";
+import FormError from "components/ui/Form/FormError";
 import { useRouter } from "next/router";
 import { IRootState } from "types";
 
@@ -19,6 +20,7 @@ export default function AuthControl(props: Props) {
     const router = useRouter()
     const { token } = router.query
     const currentUser = useSelector((state: IRootState) => state.regReducer.currentUser)
+    const currentUserError = useSelector((state: IRootState) => state.regReducer.currentUserError)
     const [formData, setFormData] = useState({})
 
     useEffect(() => {
@@ -38,8 +40,7 @@ export default function AuthControl(props: Props) {
     }, [formData, firstStepIsComplete])
     const handleSecondStepSubmit = useCallback(values => {
         dispatch(regSubmit({
-            firstName: values.firstName,
-            lastName: values.lastName,
+            ...formData,
             password: values.new_password as string,
             inviteToken: token as string
         }))
@@ -56,6 +57,7 @@ export default function AuthControl(props: Props) {
                                                                    onSubmit={handleFirstStepSubmit}/> :
                     <RegistrationSecondStepForm onSubmit={handleSecondStepSubmit} onGoBack={handleSecondStepGoBack}/>}
             </>) : null}
+            {currentUserError && <FormError error={currentUserError}/>}
         </div>
     )
 }

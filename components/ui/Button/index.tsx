@@ -34,6 +34,7 @@ interface Props {
   brdrGreen?: boolean
   createGroup?: boolean
   invite?: boolean
+  disabled?: boolean
   onClick?: (e: React.MouseEvent) => void
 }
 
@@ -42,6 +43,7 @@ export default function Button(props: Props) {
     <button
       type={props.type}
       onClick={props.onClick}
+      disabled={props.disabled}
       className={`
         ${styles.root}
         ${props.green && styles.green}
@@ -66,6 +68,7 @@ export default function Button(props: Props) {
       ${props.btnDarkGrey && styles.btn__darkGrey}
       ${props.btnWhite && styles.btn__white}
       ${props.btnGreen && styles.btn__green}
+      ${props.btnGreen && props.disabled && styles.disabled}
              ${styles.plus}
       `}><PlusSvg /></div>
     )}

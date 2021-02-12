@@ -34,6 +34,16 @@
     background: #219653;
     filter: drop-shadow(0px 6px 19px transparent);
   }
+  &:disabled{
+  background: #E0E0E0;
+    &:hover{
+      background: #E0E0E0;
+      filter: none;
+    }
+    &:active{
+      filter: none;
+    }
+  }
 }
 
 .notActive{
@@ -117,6 +127,7 @@
     svg{
       fill: #27AE60;;
     }
+
   }
 }
 
@@ -138,6 +149,7 @@
   width: 20px;
   height: 20px;
 }
+
 @media screen and (max-width: $sm-mid) {
   .folder{
     margin-right: 0px;

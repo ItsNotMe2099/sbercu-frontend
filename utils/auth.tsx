@@ -44,7 +44,7 @@ export const withAuthSync = (WrappedComponent) =>
             }else if(!ctx.req && (!token || !user)){
                 console.log("CTX", ctx);
                 Router.push(`/auth/login?redirect=${ctx.asPath}`);
-                
+
             }
             const componentProps =
                 WrappedComponent.getInitialProps &&

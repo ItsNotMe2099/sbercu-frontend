@@ -11,7 +11,8 @@ import FormError from 'components/ui/Form/FormError'
 
 let EmailForm = props => {
   const { handleSubmit } = props
-  const formError = useSelector((state: IRootState) => state.PWRecoverEmail.formError)
+    const formError = useSelector((state: IRootState) => state.PWRecoverEmail.formError)
+    const formLoading = useSelector((state: IRootState) => state.PWRecoverEmail.formLoading)
   return (
           <div className={styles.container}>
             <PasswordRecoveryHeader/>
@@ -28,9 +29,9 @@ let EmailForm = props => {
               label="Почта"
               validate={[email, required]}
             />
-            <div className={styles.error}><FormError error={formError}/></div>
+            <FormError error={formError}/>
               <div className={styles.send}>
-              <Button size='12px 15px' green>Отправить</Button>
+              <Button disabled={formLoading} size='12px 15px' green>Отправить</Button>
               </div>
           </form>
           </div>

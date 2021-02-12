@@ -11,6 +11,7 @@ let NewPWForm = props => {
 
   const { handleSubmit } = props
   const formError = useSelector((state: IRootState) => state.NewPasswordForm.formError)
+  const formLoading = useSelector((state: IRootState) => state.NewPasswordForm.formLoading)
 
   return (
           <div className={styles.container}>
@@ -35,9 +36,9 @@ let NewPWForm = props => {
               validate={[required, passwordsMatch, minL]}
             />
             </div>
-            <div className={styles.error}><FormError error={formError}/></div>
+            <FormError error={formError}/>
               <div className={styles.send}>
-              <Button size='12px 25px' green>Сохранить</Button>
+              <Button disabled={formLoading} size='12px 25px' green>Сохранить</Button>
               </div>
           </form>
           </div>
