@@ -125,7 +125,7 @@ const Video = (props: Props) => {
         :
           <>
         <Player
-            poster={video.poster}
+            poster={getMediaPath(video.poster)}
             sources={video.media?.videoElements?.map(el => ({label: el.quality, value: getMediaPathWithQuality(video.media.fileName, el.quality)}))}
             source={getDefaultSource()}/>
         <div className={styles.btns}>
