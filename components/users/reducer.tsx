@@ -46,7 +46,7 @@ export default function UserReducer(state = {...initialState}, action) {
       state.formLoading = false;
       break
     case ActionTypes.CREATE_USER_REQUEST + ApiActionTypes.FAIL:
-      state.formError = action.payload.error?.message || 'Unknown error'
+      state.formError = action.payload?.message || 'Unknown error'
       state.formIsSuccess = false;
       state.formLoading = false;
       break
