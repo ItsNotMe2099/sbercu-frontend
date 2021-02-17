@@ -191,7 +191,7 @@ export default function Player(props) {
             <div className={styles.shadow}></div>
             <div className={styles.controls}>
                 <div className={styles.progress}>
-                    <SeekSlider fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
+                    <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
                                 currentTime={duration * played} onChange={handleSeekChange}
                                 onChangeCurTime={handleChangeCurrentTime}/>
                 </div>

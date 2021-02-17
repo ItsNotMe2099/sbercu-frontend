@@ -26,7 +26,7 @@ export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(
 
 export const fetchMyUploadedFiles = (userId: number, data: any = {}) => action(ActionTypes.FETCH_MY_UPLOADED_FILES, {
   api: {
-    url: `/api/catalog?${queryString.stringify({s: JSON.stringify({entryType: 'file', userId}), ...data})}`,
+    url: `/api/catalog?${queryString.stringify({s: JSON.stringify({entryType: 'file', userId}), ...data})}&sort=createdAt,DESC`,
     method: 'GET',
   }
 })

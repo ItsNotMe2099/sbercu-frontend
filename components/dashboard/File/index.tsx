@@ -29,7 +29,7 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
   const getIconByType = (type) => {
     switch(type) {
       case 'video':
-        return !item.media.videoConverted || item.media.videoCutting ? '/img/icons/video_disabled.svg' : '/img/icons/camera.svg'
+        return props.additionalInfo && (!item.media.videoConverted || item.media.videoCutting) ? '/img/icons/video_disabled.svg' : '/img/icons/camera.svg'
       case 'audio':
         return '/img/icons/audio.svg'
       case 'document':

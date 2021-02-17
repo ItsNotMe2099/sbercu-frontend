@@ -25,13 +25,13 @@ export default function UploadFilesModal(props: Props){
     }
     const handleClose = (isCloseBtn) => {
             console.log("isCloseBtn", isCloseBtn)
-            if(!isCloseBtn && files.length > 0){
+            if(files.length > 0){
                 return;
             }
             dispatch(modalClose());
     }
   return (
-    <Modal {...props} title="Загрузка файлов" closeBtn onRequestClose={handleClose}>
+    <Modal {...props} title="Загрузка файлов" closeBtn={files.length === 0} onRequestClose={handleClose}>
         <UploadFilesForm onSubmit={handleSubmit} onChange={handleChange}/>
     </Modal>
   )

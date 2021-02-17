@@ -12,10 +12,13 @@ import Button from 'components/ui/Button'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { modalClose } from 'components/Modal/actions'
+import FormError from "../../../../../components/ui/Form/FormError";
 
 let UserForm = props => {
   const { handleSubmit, initialValues } = props
     const tagCategory = useSelector((state: IRootState) => state.tagCategory.list)
+    const formError = useSelector((state: IRootState) => state.users.formError)
+    const loading = useSelector((state: IRootState) => state.users.formLoading)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -61,9 +64,10 @@ let UserForm = props => {
 
         />
 
+        <FormError error={formError}/>
       <div className={styles.btnContainer}>
         {<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
-            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
+            <Button disabled={loading} transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
   )

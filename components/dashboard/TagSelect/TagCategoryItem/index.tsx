@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import { IRootState, ITag, ITagCategory } from "types";
-
+import { Scrollbars } from 'react-custom-scrollbars';
 interface Props {
   item: ITagCategory,
   onTagClick?: (item, selected) => void,
@@ -26,8 +26,15 @@ export const TagSelectCategoryItem = ({item, onTagClick, selectedTags}: Props) =
     <div className={styles.root}>
       <a href="#" onClick={handleClick} className={cx(styles.dropDownTrigger, { [styles.isSelected]: selectedTags.length > 0 }, {[styles.isActive]: isActive})}>{item.name}</a>
        <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
+         <Scrollbars
+             autoHeight
+             autoHeightMin={0}
+             autoHeightMax={145}>
+           <div className={styles.dropDownWrapper}>
          {item.tags.map(item => <TagSelectItem  item={item} isSelected={!!selectedTags.find(i => i.id === item.id)} onClick={onTagClick}/>)}
-       </nav>
+           </div>
+         </Scrollbars>
+         </nav>
     </div>
   );
 };
