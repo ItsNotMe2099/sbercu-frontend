@@ -185,6 +185,7 @@ const Search = (props) => {
                             onEditClick={handleEditClick}
                             onDeleteClick={handleDeleteClick}
                             canEdit={false}
+                            additionalInfo={false}
                             basePath={''}
                             item={item}
                         />))}
