@@ -1,4 +1,4 @@
-import { createCatalog, createFile, createFiles, updateCatalog } from "components/catalog/actions";
+import { createCatalog, createFiles, updateCatalog } from "components/catalog/actions";
 import { modalClose } from "components/Modal/actions";
 import Modal from 'components/ui/Modal'
 import CreateFolderForm from "pages/catalog/components/CreateFolder/Form";

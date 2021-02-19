@@ -66,8 +66,8 @@ let UserForm = props => {
 
         <FormError error={formError}/>
       <div className={styles.btnContainer}>
-        {<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
-            <Button disabled={loading} transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
+        {<Button disabled={loading}  green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
+            <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
   )

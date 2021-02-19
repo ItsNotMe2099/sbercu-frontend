@@ -170,7 +170,6 @@ function* catalogSaga() {
                     if (action.payload.toCatalogId === currentCatalogId || item.parentId === currentCatalogId ) {
                         yield put(fetchCatalogItem(currentCatalogId));
                         yield put(resetCatalogList(true));
-                        yield put(resetCatalogList(true));
                         yield put(fetchCatalogList(currentCatalogId, 1, 30));
                     }
                     localStorage.removeItem('copyCatalog');
