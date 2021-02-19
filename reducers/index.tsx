@@ -11,6 +11,7 @@ import registrationReducer from 'components/auth/registration-invite/reducer';
 import CategoryTagReducer from 'components/dashboard/TagSelect/reducer';
 import ModalReducer from 'components/Modal/reducer';
 import CreateTagCategoryReducer from 'components/tags/TagCategory/reducer';
+import JobReducer from "../components/jobs/reducer";
 
 export default combineReducers({
   form: formReducer,
@@ -25,4 +26,5 @@ export default combineReducers({
   tag: TagReducer,
   users: UserReducer,
   search: CatalogSearchReducer,
+  jobs: JobReducer,
 })

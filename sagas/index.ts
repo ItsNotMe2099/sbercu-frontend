@@ -9,6 +9,7 @@ import watchOnEmailSubmit from 'components/auth/password-forgot/sagas'
 import { watchOnNewPasswordSave } from 'components/auth/password-reset/sagas';
 import { watchOnRegistration } from 'components/auth/registration-invite/sagas';
 import apiSaga from "sagas/apiSaga";
+import jobSaga from "../components/jobs/sagas";
 
 export const rootSaga = function* root() {
     yield all([
@@ -22,5 +23,6 @@ export const rootSaga = function* root() {
         tagSaga(),
         userSaga(),
         catalogSearchSaga(),
+        jobSaga()
     ])
 };
