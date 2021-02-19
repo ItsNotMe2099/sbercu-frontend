@@ -196,12 +196,13 @@ export default function VideoJs(props: Props) {
     }, [props.playing])
 
     useEffect(() => {
+        console.log("SetVolume0", props.volume);
+        (volumeRef as any).current = props.volume;
         if (!(playerRef as any)?.current) {
             return;
         }
-        console.log("SetVolume0", props.volume);
+
         (playerRef as any)?.current?.volume(props.volume);
-        (volumeRef as any).current = props.volume;
 
     }, [props.volume])
     useEffect(() => {
