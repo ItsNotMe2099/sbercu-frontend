@@ -62,7 +62,7 @@ function* catalogSaga() {
                         if (myUploadedFilesListTotal > 0) {
                             //    yield put(fetchMyUploadedFiles(currentCatalogId, {limit: 30}));
                         }
-                        yield put(fetchCatalogList(currentCatalogId, 1, 15));
+                        yield put(fetchCatalogList(currentCatalogId, 1, 30));
                     }
                 }
             }
@@ -85,7 +85,7 @@ function* catalogSaga() {
                 } else {
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
                     yield put(resetCatalogList(true));
-                    yield put(fetchCatalogList(currentCatalogId, 1, 15));
+                    yield put(fetchCatalogList(currentCatalogId, 1, 30));
                 }
 
             }
@@ -103,7 +103,8 @@ function* catalogSaga() {
                 }));
                 const result = yield take([ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.FAIL])
             }
-            yield put(fetchCatalogList(currentCatalogId));
+            yield put(resetCatalogList(true));
+            yield put(fetchCatalogList(currentCatalogId, 1, 30));
             yield put(modalClose());
         })
     yield takeLatest(ActionTypes.CREATE_FILE,

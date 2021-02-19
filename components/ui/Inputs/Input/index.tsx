@@ -1,6 +1,7 @@
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import { useEffect } from "react";
 import styles from './index.module.scss'
+import InputMask from 'react-input-mask'
 
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
   disabled?: boolean
   tip?: string
   isLabel?: boolean,
+  mask?: string
 }
 
 export default function Input(props: Props) {
@@ -23,14 +25,24 @@ export default function Input(props: Props) {
   return (
     <div className={styles.root}>
       {props.label && <div className={styles.label}>{props.label}</div>}
-      <input
-        className={`${styles.input} ${(error && touched) && styles.error}`}
-        type={type}
-        autoComplete={'off'}
-        disabled={props.disabled}
-        placeholder={props.placeholder}
-        {...input}
-      />
+      {props.mask ? (
+          <InputMask    className={`${styles.input} ${(error && touched) && styles.error}`}
+                        type={type}
+                        autoComplete={'off'}
+                        disabled={props.disabled}
+                        placeholder={props.placeholder}
+                        {...input}
+                        mask={props.mask} />
+      ) : (
+          <input
+              className={`${styles.input} ${(error && touched) && styles.error}`}
+              type={type}
+              autoComplete={'off'}
+              disabled={props.disabled}
+              placeholder={props.placeholder}
+              {...input}
+          />
+      )}
         <ErrorInput {...props}/>
     </div>
   )

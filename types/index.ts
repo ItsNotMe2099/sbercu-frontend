@@ -10,6 +10,7 @@ import {TagState} from "components/tags/Tag/reducer";
 import {TagCategoryState} from "components/tags/TagCategory/reducer";
 import {UserState} from "components/users/reducer";
 import {JobState} from "components/jobs/reducer";
+import {MediaLinkState} from "../components/media-links/reducer";
 
 export interface IRootState {
     loginSubmit: LoginSubmitState
@@ -24,6 +25,7 @@ export interface IRootState {
     users: UserState
     search: CatalogSearchList,
     jobs: JobState
+    mediaLink: MediaLinkState
 }
 
 export interface BaseAction {
@@ -86,7 +88,8 @@ export interface ICatalogEntry {
     tagsIds?: number[]
     mediaId?: number
     presenters?: string[],
-    parents?: ICatalogEntry[]
+    parents?: ICatalogEntry[],
+    highlight?: any
 }
 
 export interface ITag {

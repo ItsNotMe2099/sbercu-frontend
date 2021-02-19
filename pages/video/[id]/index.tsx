@@ -8,7 +8,7 @@ import {
     editFileOpen,
     filePosterUploadModalOpen,
     modalClose,
-    videoCodeModalOpen
+    videoCodeModalOpen, videoTempLinkModalOpen
 } from "components/Modal/actions";
 import VideoCodeModal from "components/VideoCodeModal";
 import { useRouter } from "next/router";
@@ -29,6 +29,7 @@ import Player from 'components/video/Player';
 import { useDispatch, useSelector } from 'react-redux'
 
 import {format} from 'date-fns'
+import MediaLinkModal from "../../../components/MediaLinkModal";
 interface Props{
 
 }
@@ -130,7 +131,8 @@ const Video = (props: Props) => {
             source={getDefaultSource()}/>
         <div className={styles.btns}>
           <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
-          <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoCodeModalOpen())}>Копировать ВШ ID</Button></div>
+            <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoCodeModalOpen())}>Копировать ВШ ID</Button></div>
+            <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoTempLinkModalOpen())}>Временная ссылка</Button></div>
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
         </>}
@@ -153,6 +155,7 @@ const Video = (props: Props) => {
         <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
         {video?.media && <VideoCodeModal isOpen={modalKey === 'videoCode'} video={video} onRequestClose={() => dispatch(modalClose())}/>}
         {video?.media && <FilePosterModal isOpen={modalKey === 'filePoster'} file={video} onRequestClose={() => dispatch(modalClose())}/>}
+        {video?.media && <MediaLinkModal isOpen={modalKey === 'videoTempLink'} file={video} onRequestClose={() => dispatch(modalClose())}/>}
 
     </Layout>
   )

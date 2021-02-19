@@ -10,6 +10,7 @@ import { watchOnNewPasswordSave } from 'components/auth/password-reset/sagas';
 import { watchOnRegistration } from 'components/auth/registration-invite/sagas';
 import apiSaga from "sagas/apiSaga";
 import jobSaga from "../components/jobs/sagas";
+import mediaLinkSaga from "../components/media-links/sagas";
 
 export const rootSaga = function* root() {
     yield all([
@@ -23,6 +24,7 @@ export const rootSaga = function* root() {
         tagSaga(),
         userSaga(),
         catalogSearchSaga(),
-        jobSaga()
+        jobSaga(),
+        mediaLinkSaga()
     ])
 };

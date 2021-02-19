@@ -100,10 +100,12 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
         <div className={styles.title}>
           {item.name}
         </div>
+        {item.highlight?.fileExtractedText && <div className={styles.highlight}>Найдено в содержимом</div>}
         <div className={styles.bottom}>
           <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
           {item.presenters?.length > 0 &&  <div className={styles.separator}></div>}
           {item.presenters?.length > 0 &&  <div className={styles.text}>{item.presenters.join(', ')}</div>}
+
           {props.additionalInfo && item.entryType === 'file' && item.media ?
           <div className={styles.additional}>
             <div className={styles.separator}></div>
