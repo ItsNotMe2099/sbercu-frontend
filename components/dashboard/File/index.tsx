@@ -34,6 +34,8 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
         return '/img/icons/audio.svg'
       case 'document':
         return '/img/icons/document.svg'
+      case 'image':
+        return '/img/icons/document.svg'
       case 'folder':
         return '/img/icons/folder.svg'
     }
