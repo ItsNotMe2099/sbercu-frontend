@@ -1,11 +1,19 @@
-import { createCatalog, createFiles, updateCatalog } from "components/catalog/actions";
+import {
+    createCatalog,
+    createFiles,
+    fetchCatalogList,
+    resetCatalogList,
+    updateCatalog
+} from "components/catalog/actions";
 import { modalClose } from "components/Modal/actions";
 import Modal from 'components/ui/Modal'
 import CreateFolderForm from "pages/catalog/components/CreateFolder/Form";
 import UploadFilesForm from "pages/catalog/components/UploadFilesModal/Form";
 import { useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
+import {put} from "redux-saga/effects";
+import {IRootState} from "../../../../types";
 
 interface Props {
     isOpen: boolean,
@@ -13,6 +21,8 @@ interface Props {
 
 export default function UploadFilesModal(props: Props){
   const dispatch = useDispatch()
+    const currentCatalogId = useSelector((state: IRootState) => state.catalog.currentCatalogId)
+
     const [files, setFiles] = useState([])
     const handleSubmit = (data) => {
         console.log('handleSubmit', data)
@@ -29,6 +39,8 @@ export default function UploadFilesModal(props: Props){
                 return;
             }
             dispatch(modalClose());
+            dispatch(resetCatalogList());
+        dispatch(fetchCatalogList(currentCatalogId, 1, 30));
     }
   return (
     <Modal {...props} title="Загрузка файлов" closeBtn={files.length === 0} onRequestClose={handleClose}>
