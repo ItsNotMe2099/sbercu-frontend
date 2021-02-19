@@ -126,7 +126,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     <div className={styles.greyText}>Длительность</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{job.user.firstName} {job.user.lastName}</div>
+                    <div className={styles.text}>{job.user?.firstName} {job.user?.lastName}</div>
                     <div className={styles.greyText}>Пользователь</div>
                 </div>
 
