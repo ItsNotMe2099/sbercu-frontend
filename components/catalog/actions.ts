@@ -39,7 +39,7 @@ export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH
 
 export const fetchCatalogList = (id, page?, per_page?) => action(ActionTypes.FETCH_CATALOG_LIST, {
   api: {
-    url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}`,
+    url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}&sort=name,ASC`,
     method: 'GET',
   }
 })
