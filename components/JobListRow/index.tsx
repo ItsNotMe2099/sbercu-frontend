@@ -87,14 +87,14 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                 <div className={`${styles.cell}`}></div>
 
                 <div className={`${styles.cell} ${styles.editCell}`}>
-                    {['pending', 'canceled', 'started'].includes(job.state) &&<ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showEdit={false} showDelete={['pending', 'canceled'].includes(job.state)} showCopy={false} />}
+                    {['pending', 'canceled', 'started'].includes(job.state) &&<ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showPaste={false} showEdit={false} showDelete={['pending', 'canceled'].includes(job.state)} showCopy={false} />}
                 </div>
             </div>
             <div className={styles.root__mobile}>
                 <div className={styles.row}>
                     <div className={styles.name}>{job.id}</div>
                     <div className={`${styles.editCell}`}>
-                        {['pending', 'canceled', 'started'].includes(job.state) && <ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showDelete={['pending', 'canceled'].includes(job.state)} showEdit={false} showCopy={false} />}
+                        {['pending', 'canceled', 'started'].includes(job.state) && <ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showPaste={false} showDelete={['pending', 'canceled'].includes(job.state)} showEdit={false} showCopy={false} />}
                     </div>
                 </div>
                 <div className={styles.row}>
