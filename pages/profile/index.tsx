@@ -100,7 +100,7 @@ const Profile = (props) => {
       </div>
       <div className={styles.section}>
         <div className={styles.name}>ВШ ID</div>
-        <div className={styles.value}>{user.virtualSchoolId}</div>
+        <div className={styles.value}>{user.virtualSchoolLogin}</div>
       </div>
       <a  className={styles.more} onClick={() => setIsShow(false)}>
           <img className={styles.image} src="img/icons/arrowDown.svg" alt=''/><span>Скрыть</span>

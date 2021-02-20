@@ -67,12 +67,12 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     </div>}
                     <div className={styles.fileInfo}>
                         <div className={styles.fileName}>
-                          <Link href={`/video/${job.catalog?.id}`}  >{job.catalog?.name}</Link>
+                            {job.catalog && <Link href={`/video/${job.catalog?.id}`}  >{job.catalog?.name}</Link>}
                         </div>
                         <div className={styles.additionalInfo}>
                             <div className={styles.greyText}>{getTypeName(job.type)}</div>
                             <div className={styles.separator}></div>
-                            {job.media?.size && <div className={styles.greyText}>{formatSize(job.media.size)}</div>}
+                            {job.media?.size && <div className={styles.greyText}>{formatSize(job.media?.size)}</div>}
                             <div className={styles.separator}></div>
                             {job.codecInfo?.duration &&
                             <div className={styles.greyText}>{job.codecInfo?.duration}</div>}
@@ -118,7 +118,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     <div className={styles.greyText}>Время создания</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{formatSize(job.media.size)}</div>
+                    <div className={styles.text}>{formatSize(job.media?.size)}</div>
                     <div className={styles.greyText}>Размер</div>
                 </div>
                 <div className={styles.row}>

@@ -189,9 +189,9 @@ export default function VideoJs(props: Props) {
             return;
         }
         if (props.playing) {
-            (playerRef as any)?.current?.play();
+       //     (playerRef as any)?.current?.play();
         } else {
-            (playerRef as any)?.current?.pause();
+         //   (playerRef as any)?.current?.pause();
         }
     }, [props.playing])
 

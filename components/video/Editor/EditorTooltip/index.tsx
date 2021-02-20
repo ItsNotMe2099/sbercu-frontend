@@ -37,7 +37,7 @@ export default function EditorTooltip({ rootRef, seconds, cutItems, onAdd, onDel
 
         <div className={styles.line}></div>
 
-        <div className={styles.tip}>
+        <div className={cutItem ? styles.tip : styles.noTip}>
         {!cutItem ?
             <div className={styles.addState} onClick={() => onAdd(seconds)}>
                 <Duration className={styles.currentTime} seconds={seconds}/>
@@ -52,14 +52,14 @@ export default function EditorTooltip({ rootRef, seconds, cutItems, onAdd, onDel
 
         }
         </div>
-        <div className={styles.arrowDown}/>
+        {cutItem && <div className={styles.arrowDown}/>}
         {!cutItem ?
             <div className={styles.add}><PlusSvg/></div>
             :
             <div className={styles.delete}><Basket/></div>
 
         }
-        <div className={styles.arrowUp}/>
+        {cutItem && <div className={styles.arrowUp}/>}
     </div>)
 }
 

@@ -45,7 +45,7 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
       <div className={`${styles.cell} ${styles.status} ${user?.inviteSent ? styles.statusInviteSent : user?.registeredAt ? styles.statusRegistered : ''}`}>{user?.inviteSent ? 'Приглашение отправлено' : user?.registeredAt ? 'Зарегистрирован' : 'Не зарегистрирован'}
           {user?.registeredAt && <div className={styles.registeredAt}>{format(new Date(user?.registeredAt), 'dd.MM.yyy hh:mm')}</div>}
       </div>
-      <div className={`${styles.cell}`}>{user?.virtualSchoolId}</div>
+      <div className={`${styles.cell}`}>{user?.virtualSchoolLogin}</div>
       <div className={`${styles.cell}`}>{user?.email}</div>
         <div className={`${styles.cell} ${styles.tags}`}>
             {user?.departmentTags.slice(0, 1).map(tag => <TagItem item={tag} editMode={false}/>)}

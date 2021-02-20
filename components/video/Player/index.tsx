@@ -44,7 +44,13 @@ export default function Player(props) {
     }, [])
 
     const handlePlayPause = () => {
+       if (!playing) {
+                 (player as any)?.current?.play();
+        } else {
+               (player as any)?.current?.pause();
+        }
         setPlaying((playing) => !playing);
+
     }
 
     const handleStop = () => {

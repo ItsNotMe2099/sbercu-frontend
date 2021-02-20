@@ -57,15 +57,15 @@
   padding: 3px 6px;
   color: white;
   font-size: 12px;
-
-
-
+}
+.noTip{
+  height: 10px;
 }
 .separator{
   flex: 1;
 }
 .addState{
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
