@@ -13,7 +13,7 @@ export const fetchOneJob = (id: number) => action(ActionTypes.FETCH_ONE_JOB, {
 
 export const fetchJobList = ( data: any = {}) => action(ActionTypes.FETCH_JOB_LIST, {
   api: {
-    url: `/api/job?${queryString.stringify({...data, page: data.page || 1, limit: data.limit || 10})}`,
+    url: `/api/job?${queryString.stringify({...data, page: data.page || 1, limit: data.limit || 10, sort: 'id,DESC'})}`,
     method: 'GET',
   }
 })
