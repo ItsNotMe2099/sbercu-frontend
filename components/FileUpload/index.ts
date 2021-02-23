@@ -15,7 +15,7 @@ interface Props {
 // @ts-ignore
 export class FileUpload {
     props: Props
-
+    currentRequest: any
     constructor(props: Props) {
         this.props = props;
         this.upload(this.props.file);
@@ -25,61 +25,75 @@ export class FileUpload {
 
     }
 
-    async upload(file: File) {
-        const blobSlice =
-            File.prototype.slice || (File.prototype as any).mozSlice || (File.prototype as any).webkitSlice;
-        const blockCount = Math.ceil(file.size / chunkSize);
-        const hash = await this.hashFile(file);
-        console.log(hash);
-        for (let i = 0; i < blockCount; i++) {
-            const start = i * chunkSize;
-            const end = Math.min(file.size, start + chunkSize);
-            // Build a form
-            const form = new FormData();
-            form.append('file', blobSlice.call(file, start, end));
-            form.append('name', file.name);
-            form.append('total', blockCount.toString());
-            form.append('index', i.toString());
-            form.append('size', file.size.toString());
-            form.append('hash', hash);
-            // ajax submits a slice, where content-type is multipart/form-data
-            const axiosOptions = {
-                headers: this.props.headers,
-                onUploadProgress: e => {
-                    // Progress in processing uploads
-                    const chunkProgress = e.loaded / e.total;
-                    const baseProgress = i / blockCount;
-                    const oneItemProgress =  (blockCount / 100) / 100
-                    const progress = Math.floor((baseProgress + (oneItemProgress * chunkProgress)) * 100)
-                    this.props.onProgress(progress === 100 ? 99 : progress)
-                },
-            };
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/media/upload/chunk`, form, axiosOptions);
+    async cancel(){
+        if(this.currentRequest){
+            this.currentRequest.cancel();
         }
-        // Merge chunks
-        const data = {
-            size: file.size,
-            name: file.name,
-            total: blockCount,
-            hash
-        };
-        const res = await axios
-            .post(`${process.env.NEXT_PUBLIC_API_URL}/api/media/upload/finish`, data, {
-                headers: this.props.headers,
-            });
+    }
+    async upload(file: File) {
+        try {
+            const blobSlice =
+                File.prototype.slice || (File.prototype as any).mozSlice || (File.prototype as any).webkitSlice;
+            const blockCount = Math.ceil(file.size / chunkSize);
+            const hash = await this.hashFile(file);
+            for (let i = 0; i < blockCount; i++) {
+                const start = i * chunkSize;
+                const end = Math.min(file.size, start + chunkSize);
+                // Build a form
+                const form = new FormData();
+                form.append('file', blobSlice.call(file, start, end));
+                form.append('name', file.name);
+                form.append('total', blockCount.toString());
+                form.append('index', i.toString());
+                form.append('size', file.size.toString());
+                form.append('hash', hash);
+                // ajax submits a slice, where content-type is multipart/form-data
+                this.currentRequest = axios.CancelToken.source()
+                const axiosOptions = {
+                    headers: this.props.headers,
+                    cancelToken: this.currentRequest.token,
+                    onUploadProgress: e => {
+                        // Progress in processing uploads
+                        const chunkProgress = e.loaded / e.total;
+                        const baseProgress = i / blockCount;
+                        const oneItemProgress = 1 / blockCount
+                        console.log(" e.loaded / e.total", e.loaded / e.total, baseProgress, oneItemProgress, chunkProgress, oneItemProgress * chunkProgress * 100)
 
-        const resCatalog = await axios
-            .post(`${process.env.NEXT_PUBLIC_API_URL}/api/catalog`, {
-                mediaId: res.data.mediaId,
+                        const progress = Math.floor((baseProgress + (oneItemProgress * chunkProgress)) * 100)
+                        this.props.onProgress(progress === 100 ? 99 : progress)
+                    },
+                };
+
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/media/upload/chunk`, form, axiosOptions);
+            }
+            this.currentRequest = axios.CancelToken.source()
+            const data = {
+                size: file.size,
                 name: file.name,
-                entryType: 'file',
-                parentId: this.props.catalogId
-            }, {
-                headers: this.props.headers,
-            });
+                total: blockCount,
+                hash
+            };
+            const res = await axios
+                .post(`${process.env.NEXT_PUBLIC_API_URL}/api/media/upload/finish`, data, {
+                    headers: this.props.headers,
+                    cancelToken: this.currentRequest.token,
+                });
 
-        console.log("resCatalog.data", resCatalog.data)
-        this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
+            const resCatalog = await axios
+                .post(`${process.env.NEXT_PUBLIC_API_URL}/api/catalog`, {
+                    mediaId: res.data.mediaId,
+                    name: file.name,
+                    entryType: 'file',
+                    parentId: this.props.catalogId
+                }, {
+                    headers: this.props.headers,
+                });
+
+            console.log("resCatalog.data", resCatalog.data)
+            this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
+        }catch(e){
+            console.log("Error happened", axios.isCancel(e))
+        }
     }
 
     async hashFile(file): Promise<string> {

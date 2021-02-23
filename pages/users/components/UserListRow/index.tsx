@@ -63,7 +63,7 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
       </div>
       <div className={styles.row}>
         <div className={styles.text}>{user?.virtualSchoolLogin}</div>
-        <div className={styles.greyText}>ВШ ID</div>
+        <div className={styles.greyText}>Логин ВШ</div>
       </div>
       <div className={styles.row}>
         <div className={styles.text}>{user?.email}</div>

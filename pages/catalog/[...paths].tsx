@@ -3,9 +3,9 @@ import {
   deleteCatalog,
   fetchCatalogItem,
   fetchCatalogList,
-  resetCatalogList,
+  resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
-  setCurrentCatalogId
+  setCurrentCatalogId, setFilesFromDropZone
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 import UploadFilesModal from "./components/UploadFilesModal";
 import InfiniteScroll from "react-infinite-scroll-component";
+import CatalogDropZone from "../../components/CatalogDropZone";
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -51,6 +52,7 @@ const Catalog = (props) => {
   const currentCatalogItem = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const page = useSelector((state: IRootState) => state.catalog.page)
   const paths = router.query.paths as string[] || []
+  const filesFromDropZone = useSelector((state: IRootState) => state.catalog.filesFromDropZone)
 
   const handleScrollNext = () => {
     const id = paths[paths.length - 1]
@@ -140,9 +142,17 @@ const Catalog = (props) => {
       }
     }));
   }
+  const handleDropZoneDrop = (files) => {
+    dispatch(setFilesFromDropZone(files));
+    dispatch(uploadFilesModalOpen())
+  }
+  const handleCloseFilesUploadModal = () => {
+    dispatch(resetFilesFromDropzone());
+  }
   const handleUploadFiles = () => {
     dispatch(uploadFilesModalOpen())
   }
+  console.log("ModalKey", modalKey)
   return (
     <Layout>
     <Header {...props}>
@@ -196,9 +206,9 @@ const Catalog = (props) => {
       <Footer/>
       <CreateFolder isOpen={modalKey === 'createFolder'}
                onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
-      <UploadFilesModal isOpen={modalKey === 'uploadFiles'} />
+      {modalKey === 'uploadFiles' && <UploadFilesModal isOpen={modalKey === 'uploadFiles'}     filesFromDropZone={filesFromDropZone} onClose={handleCloseFilesUploadModal} />}
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
-
+      {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
     </Layout>
   )
 }

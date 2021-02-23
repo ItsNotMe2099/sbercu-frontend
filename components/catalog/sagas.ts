@@ -8,7 +8,7 @@ import {
     deleteCatalog,
     deleteCatalogRequest,
     fetchCatalogItem,
-    fetchCatalogList, resetCatalogList,
+    fetchCatalogList, resetCatalogList, resetFilesFromDropzone,
     updateCatalog, updateCatalogFileRequest,
     updateCatalogRequest,
     updateFile,
@@ -106,6 +106,7 @@ function* catalogSaga() {
             yield put(resetCatalogList(true));
             yield put(fetchCatalogList(currentCatalogId, 1, 30));
             yield put(modalClose());
+            yield put(resetFilesFromDropzone());
         })
     yield takeLatest(ActionTypes.CREATE_FILE,
         function* (action: ActionType<typeof createFile>) {

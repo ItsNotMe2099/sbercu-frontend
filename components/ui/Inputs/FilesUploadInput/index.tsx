@@ -14,7 +14,8 @@ import { useDropzone, DropzoneOptions } from 'react-dropzone'
 import styles from './index.module.scss'
 import Cookies from 'js-cookie'
 import nextId from "react-id-generator";
-
+import { useDispatch} from 'react-redux'
+import {deleteCatalog, deleteCatalogRequest, resetFilesFromDropzone} from "../../../catalog/actions";
 const transformFile = file => {
   if (!(file instanceof File)) {
     return file
@@ -47,7 +48,8 @@ export interface FileInputProps {
 
 export interface FileInputOptions extends DropzoneOptions {
   inputProps?: any
-  onRemove?: Function
+  onRemove?: Function,
+  filesFromDropZone: File[]
 }
 
 const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
@@ -79,6 +81,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     input: { value, onChange },
     ...rest
   } = props
+  const dispatch = useDispatch()
   const token = Cookies.get('token')
   const FileWrapperUploadOptions = {
     headers: { 'x-amz-acl': 'public-read',  'Authorization': `Bearer ${token}`},
@@ -86,6 +89,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   }
 
   const [files, setFiles] = useState<FileEntity[]>(formatValue(value))
+
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
@@ -95,6 +99,12 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
       onChange(filtered[0]?.path || null)
     }
   }, [files])
+  useEffect(() => {
+    if(props.filesFromDropZone && props.filesFromDropZone.length > 0){
+      onDrop(props.filesFromDropZone);
+      dispatch(resetFilesFromDropzone());
+    }
+  }, [props.filesFromDropZone])
   const generateKey = () => {
     return nextId("file-");
   }
@@ -118,7 +128,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
       }
     }))
   }
-  const onDrop = useCallback((newFiles, rejectedFiles, event) => {
+  const onDrop = useCallback((newFiles) => {
     const updatedFiles = multiple ? [...files, ...newFiles] : [...newFiles]
     setFiles(updatedFiles.map(transformFile));
   }, [files])
@@ -130,6 +140,10 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
       newFiles.splice(index, 1);
       return newFiles
     });
+    if(file.catalogId) {
+      dispatch(deleteCatalogRequest(file.catalogId));
+    }
+    console.log("FileRemove", file);
   },[files])
 
   const { getRootProps, getInputProps } = useDropzone({

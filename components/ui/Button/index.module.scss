@@ -79,6 +79,10 @@
   }
   &__white{
     color: #F2F2F2;
+    &:hover{
+      color: #F2F2F2;
+      text-decoration: underline;
+    }
   }
   &__lightGrey{
     color: #BDBDBD;

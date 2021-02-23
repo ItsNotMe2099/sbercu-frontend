@@ -20,6 +20,7 @@ export interface CatalogState {
     formLoading: boolean,
     parentsLoading: boolean,
     page: number
+    filesFromDropZone: File[]
 }
 
 const initialState: CatalogState = {
@@ -35,6 +36,7 @@ const initialState: CatalogState = {
     parentsLoading: false,
     page: 1,
     listTotal: 0,
+    filesFromDropZone: []
 }
 
 export default function CatalogReducer(state = { ...initialState }, action) {
@@ -187,6 +189,12 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             break
         case ActionTypes.FETCH_CATALOG + ApiActionTypes.FAIL:
             state.currentLoading = false;
+            break
+        case ActionTypes.SET_FILES_FROM_DROPZONE:
+            state.filesFromDropZone = action.payload.files;
+            break
+        case ActionTypes.RESET_FILES_FROM_DROPZONE:
+            state.filesFromDropZone = []
             break
     }
 

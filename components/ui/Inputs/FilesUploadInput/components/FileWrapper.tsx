@@ -1,10 +1,12 @@
 
 import { FileUpload } from "components/FileUpload";
 import FileInputPreview from "components/ui/Inputs/FilesUploadInput/components/FileInputPreview";
-import React, { useState, useCallback, useEffect,
+import React, {
+  useState, useCallback, useEffect, useRef,
 } from 'react'
-
-import S3Upload from 'components/ui/AvatarInput/S3Upload.js'
+import styles from './index.module.scss'
+import Button from "../../../Button";
+import {modalClose} from "../../../../Modal/actions";
 export interface FileEntity {
   catalogId?: number
   key?: string
@@ -35,8 +37,10 @@ const FileWrapper = (props: Props) => {
       key,
   } = props
 
+  const [confirmRemove, setConfirmRemove] = useState(true);
   const [isLoaded, setIsLoaded] = useState(!file.rawFile);
   const [progress, setProgress] = useState(0);
+  const fileUpload = useRef(null);
   const onFinishFileUpload = useCallback((result) => {
     onUpload({ ...file, catalogId: result.catalogId, path: result.fileKey, mediaId: result.mediaId })
     setIsLoaded(true);
@@ -61,20 +65,36 @@ const FileWrapper = (props: Props) => {
         onError: onFileUploadError,
         catalogId: currentCatalogId
       }
-        new FileUpload(options)
+      fileUpload.current = new FileUpload(options);
 
     }
   },[])
-  return (
-    <FileInputPreview
+  const handleRemove = () => {
+    if(  fileUpload.current  && file.rawFile){
+      console.log("Cancel");
+      fileUpload.current.cancel();
+    }else{
+      console.log("cantCancel", fileUpload.current, file.rawFile);
+    }
+    onRemove(file)
+  }
+  const handleConfirmRemove = () => {
+    setConfirmRemove(true);
+  }
+  const handleCancelRemove = () => {
+    setConfirmRemove(false);
+  }
+
+
+  return !confirmRemove ? <FileInputPreview
       file={file}
       loading={!isLoaded}
       progress={progress}
-      onRemove={() => onRemove(file)}
-      onChangeFileData={onChangeFileData}
-    >
-    </FileInputPreview>
-  )
+      onRemove={handleConfirmRemove}
+      onChangeFileData={onChangeFileData}/> : <div className={styles.remove}>
+    <Button white size="9px 16px" onClick={handleRemove} type="button">Удалить</Button>
+    <Button transparent onClick={handleCancelRemove}  textWhite type="button">Отменить</Button>
+        </div>
 }
 
 

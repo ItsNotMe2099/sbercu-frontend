@@ -99,7 +99,7 @@ const Profile = (props) => {
         <div className={styles.value}>{user.lastName}</div>
       </div>
       <div className={styles.section}>
-        <div className={styles.name}>ВШ ID</div>
+        <div className={styles.name}>Логин ВШ</div>
         <div className={styles.value}>{user.virtualSchoolLogin}</div>
       </div>
       <a  className={styles.more} onClick={() => setIsShow(false)}>

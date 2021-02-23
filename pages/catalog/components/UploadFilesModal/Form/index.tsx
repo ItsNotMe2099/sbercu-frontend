@@ -22,6 +22,7 @@ let UploadFilesForm = props => {
         currentCatalogId={currentCatalogItem?.id}
         buttonSubmit={<Button green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
         multiple={true}
+        filesFromDropZone={props.filesFromDropZone}
       />
     </form>
   )
