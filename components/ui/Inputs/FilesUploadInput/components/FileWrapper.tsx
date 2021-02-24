@@ -37,7 +37,7 @@ const FileWrapper = (props: Props) => {
       key,
   } = props
 
-  const [confirmRemove, setConfirmRemove] = useState(true);
+  const [confirmRemove, setConfirmRemove] = useState(false);
   const [isLoaded, setIsLoaded] = useState(!file.rawFile);
   const [progress, setProgress] = useState(0);
   const fileUpload = useRef(null);
