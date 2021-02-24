@@ -42,7 +42,22 @@
     }
   }
 }
+.support{
+  font-weight: 400;
+  color: #828282;
+  font-size: 12px;
+  line-height: 14px;
+  a{
+    display: block;
+    color: #27AE60;
+    margin-top: 4px;
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+  }
 
+}
 @media screen and (max-width: $sm-max) {
   .copyright{
     margin-bottom: 20px;
