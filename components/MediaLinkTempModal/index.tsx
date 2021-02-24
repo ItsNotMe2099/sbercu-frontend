@@ -7,7 +7,7 @@ import { ICatalogEntry, IRootState } from "types";
 import CreateFolderForm from './Form'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import {createMediaLink, resetMediaLinkForm} from "../media-links/actions";
+import {createMediaLinkTemp, resetMediaLinkForm} from "../media-links/actions";
 import MediaLinkForm from "./Form";
 import {useEffect} from "react";
 
@@ -18,7 +18,7 @@ interface Props {
   onRequestClose:() => void
 }
 
-export default function MediaLinkModal(props: Props){
+export default function MediaLinkTempModal(props: Props){
   const dispatch = useDispatch()
   const mediaLink = useSelector((state: IRootState) => state.mediaLink.currentMediaLink)
 
@@ -26,13 +26,12 @@ export default function MediaLinkModal(props: Props){
     dispatch(resetMediaLinkForm());
   }, []);
   const handleSubmit = (data) => {
-    dispatch(createMediaLink({catalogId: props.file.id, mediaId: props.file.mediaId, ...data}));
+    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, ...data}));
     console.log('success')
   }
-
   return (
     <Modal {...props} title={"Создать временную ссылку"}>
-      {mediaLink ? <div className={styles.link}>${mediaLink.hash}</div> : <MediaLinkForm onSubmit={handleSubmit}/>}
+      {mediaLink ? <div className={styles.link}>Временная сыылка: <p><a href={mediaLink} target={'blank'}>{mediaLink}</a></p></div> : <MediaLinkForm onSubmit={handleSubmit}/>}
     </Modal>
   )
 }

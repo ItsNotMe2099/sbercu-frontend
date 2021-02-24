@@ -1,0 +1,17 @@
+@import "scss/index";
+
+.create{
+    @media screen and (max-width: $sm-max) {
+        margin-right: 100%;
+      }
+}
+.link{
+  font-size: 12px;
+  word-wrap: break-word;
+}
+.codeLabel{
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  word-wrap: break-word;
+}

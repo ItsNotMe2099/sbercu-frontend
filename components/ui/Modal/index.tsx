@@ -51,3 +51,6 @@ export default function Modal(props: Props) {
     </ReactModal>
   )
 }
+Modal.defaultProps = {
+  closeBtn: true
+}

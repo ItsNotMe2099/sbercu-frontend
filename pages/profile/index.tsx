@@ -91,17 +91,17 @@ const Profile = (props) => {
         <div className={styles.value}>{user.email}</div>
       </div>
         <div className={styles.section}>
-        <div className={styles.name__name}>Имя</div>
+        <div className={styles.name}>Имя</div>
         <div className={styles.value}>{user.firstName}</div>
       </div>
       <div className={styles.section}>
-        <div className={styles.name__surname}>Фамилия</div>
+        <div className={styles.name}>Фамилия</div>
         <div className={styles.value}>{user.lastName}</div>
       </div>
-      <div className={styles.section}>
+        {user.virtualSchoolLogin && <div className={styles.section}>
         <div className={styles.name}>Логин ВШ</div>
         <div className={styles.value}>{user.virtualSchoolLogin}</div>
-      </div>
+      </div>}
       <a  className={styles.more} onClick={() => setIsShow(false)}>
           <img className={styles.image} src="img/icons/arrowDown.svg" alt=''/><span>Скрыть</span>
         </a>
@@ -109,11 +109,11 @@ const Profile = (props) => {
         :
         <>
         <div className={styles.section}>
-          <div className={styles.name__name}>Имя</div>
+          <div className={styles.name}>Имя</div>
           <div className={styles.value}>{user.firstName}</div>
         </div>
         <div className={styles.section}>
-          <div className={styles.name__surname}>Фамилия</div>
+          <div className={styles.name}>Фамилия</div>
           <div className={styles.value}>{user.lastName}</div>
         </div>
         <div className={styles.section}>

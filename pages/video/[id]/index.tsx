@@ -8,7 +8,7 @@ import {
     editFileOpen,
     filePosterUploadModalOpen,
     modalClose,
-    videoCodeModalOpen, videoTempLinkModalOpen
+    videoCodeModalOpen, mediaLinkTempModalOpen, mediaLinkPublicModalOpen, mediaLinkVirtSchoolModalOpen
 } from "components/Modal/actions";
 import VideoCodeModal from "components/VideoCodeModal";
 import { useRouter } from "next/router";
@@ -29,7 +29,9 @@ import Player from 'components/video/Player';
 import { useDispatch, useSelector } from 'react-redux'
 
 import {format} from 'date-fns'
-import MediaLinkModal from "../../../components/MediaLinkModal";
+import MediaLinkTempModal from "../../../components/MediaLinkTempModal";
+import MediaLinkVirtSchoolModal from "../../../components/MediaLinkVirtSchoolModal";
+import MediaLinkPublicModal from "../../../components/MediaLinkPublicModal";
 interface Props{
 
 }
@@ -37,7 +39,19 @@ interface Props{
 
 
 const Video = (props: Props) => {
-  const settings = [ {value:'edit', label: 'Редактировать'},{value:'poster', label: 'Загрузить постер'}, {value:'videoEditor', label: 'Редактировать видео'}, {value:'copy', label: 'Копировать'}, {value:'delete', label: 'Удалить'}]
+    const settings = [
+        {value:'edit', label: 'Редактировать'},
+        {value:'poster', label: 'Загрузить постер'},
+        {value:'videoEditor', label: 'Редактировать видео'},
+        {value:'copy', label: 'Копировать'},
+        {value:'delete', label: 'Удалить'}
+    ];
+    const links = [
+        {value:'virtualSchool', label: 'ВШ ID'},
+        {value:'temp', label: 'Временная'},
+        {value:'public', label: 'Публичная'},
+
+    ];
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -108,6 +122,20 @@ const Video = (props: Props) => {
         }
     }
 
+    const handleLinksClick = (item) => {
+        switch (item.value) {
+            case 'virtualSchool':
+                dispatch(mediaLinkVirtSchoolModalOpen());
+                break;
+            case 'public':
+                dispatch(mediaLinkPublicModalOpen());
+                break;
+            case 'temp':
+                dispatch(mediaLinkTempModalOpen());
+                break;
+        }
+    }
+
   return (
     <Layout>
     <Header {...props}/>
@@ -131,8 +159,7 @@ const Video = (props: Props) => {
             source={getDefaultSource()}/>
         <div className={styles.btns}>
           <div className={styles.select__down}><ButtonSelect size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
-            <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoCodeModalOpen())}>Копировать ВШ ID</Button></div>
-            <div className={styles.regularBtn}><Button size="9px 20px" transparent brdrDarkGrey textDarkGrey onClick={() => dispatch(videoTempLinkModalOpen())}>Временная ссылка</Button></div>
+            {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleLinksClick} options={links} size="9px 20px">Ссылки</ButtonSelect></div>}
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
         </>}
@@ -155,7 +182,9 @@ const Video = (props: Props) => {
         <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
         {video?.media && <VideoCodeModal isOpen={modalKey === 'videoCode'} video={video} onRequestClose={() => dispatch(modalClose())}/>}
         {video?.media && <FilePosterModal isOpen={modalKey === 'filePoster'} file={video} onRequestClose={() => dispatch(modalClose())}/>}
-        {video?.media && <MediaLinkModal isOpen={modalKey === 'videoTempLink'} file={video} onRequestClose={() => dispatch(modalClose())}/>}
+        {(video?.media && modalKey === 'mediaLinkTemp') && <MediaLinkTempModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
+        {(video?.media && modalKey === 'mediaLinkPublic') && <MediaLinkPublicModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
+        {(video?.media && modalKey === 'mediaLinkVirtSchool') && <MediaLinkVirtSchoolModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
 
     </Layout>
   )

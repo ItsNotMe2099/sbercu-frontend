@@ -52,8 +52,14 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.FILE_POSTER_UPLOAD_MODAL:
       state.modalKey = 'filePoster'
       break
-    case ActionTypes.VIDEO_TEMP_LINK_MODAL:
-      state.modalKey = 'videoTempLink'
+    case ActionTypes.MEDIA_LINK_TEMP_MODAL:
+      state.modalKey = 'mediaLinkTemp'
+      break
+    case ActionTypes.MEDIA_LINK_PUBLIC_MODAL:
+      state.modalKey = 'mediaLinkPublic'
+      break
+    case ActionTypes.MEDIA_LINK_VIRTSCHOOL_MODAL:
+      state.modalKey = 'mediaLinkVirtSchool'
       break
 
 
