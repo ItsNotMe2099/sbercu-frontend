@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {createMediaLinkTemp, resetMediaLinkForm} from "../media-links/actions";
 import MediaLinkForm from "./Form";
 import {useEffect} from "react";
+import {format, parse} from "date-fns";
 
 
 interface Props {
@@ -26,7 +27,7 @@ export default function MediaLinkTempModal(props: Props){
     dispatch(resetMediaLinkForm());
   }, []);
   const handleSubmit = (data) => {
-    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, ...data}));
+    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: format(parse(data.expiredAt, 'dd.mm.yyyy', new Date()), 'yyyy-mm-dd')}));
     console.log('success')
   }
   return (

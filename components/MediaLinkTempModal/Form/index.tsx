@@ -8,9 +8,13 @@ import { useState } from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { modalClose } from 'components/Modal/actions'
 import {IRootState} from "../../../types";
+import FormError from "../../ui/Form/FormError";
 
 let MediaLinkForm = props => {
-  const { handleSubmit, initialValues } = props
+    const formError = useSelector((state: IRootState) => state.mediaLink.formError)
+    const formLoading = useSelector((state: IRootState) => state.mediaLink.formLoading)
+
+    const { handleSubmit, initialValues } = props
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
 
@@ -26,11 +30,12 @@ let MediaLinkForm = props => {
         />
         </div>
         </div>
+        <FormError error={formError}/>
       <div className={styles.btnContainer}>
         {/*value === '' ?
           <Button notActive textWhite size="9px 16px" type="button">Создать</Button>
           :*/
-            <Button green size="9px 16px">{'Создать'}</Button>}
+            <Button disabled={formLoading} green size="9px 16px">{'Создать'}</Button>}
             <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
