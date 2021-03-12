@@ -11,7 +11,7 @@ interface Props {
   items: ITagCategory[],
   onChangeSelectedTags?: (tags: ITag[]) => void,
   selectedTags: ITag[],
-  initialTags: number[]
+  initialTags?: number[]
 }
 
 export const TagSelect = (props: Props) => {
@@ -65,3 +65,6 @@ export const TagSelect = (props: Props) => {
     </>
   );
 };
+TagSelect.defaultProps = {
+  initialTags: []
+}
