@@ -10,7 +10,8 @@ import { fetchTag } from "./actions";
 interface Props {
   items: ITagCategory[],
   onChangeSelectedTags?: (tags: ITag[]) => void,
-  selectedTags: ITag[]
+  selectedTags: ITag[],
+  initialTags: number[]
 }
 
 export const TagSelect = (props: Props) => {
@@ -31,6 +32,20 @@ export const TagSelect = (props: Props) => {
       setSelectedTags(tags => tags.filter(item => item.id !== selectedItem.id))
     }
   }
+  useEffect(() => {
+    if(props.initialTags.length > 0 && props.items.length > 0){
+      const newTags = [];
+      for(const tagId of props.initialTags){
+        for(const tagCategory of props.items){
+          const tag = tagCategory.tags.find(tag => tag.id === tagId);
+          if(tag){
+            newTags.push(tag);
+          }
+        }
+      }
+      setSelectedTags(newTags);
+    }
+  }, [])
   const handleSelectedTagClick = (e, selectedItem) => {
     e.preventDefault();
     handleTagClick(selectedItem, false);

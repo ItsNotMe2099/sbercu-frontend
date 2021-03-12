@@ -25,11 +25,13 @@ import Header from "components/layout/Header";
 import { useDispatch, useSelector } from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
-
+import {useRouter} from "next/router";
+const queryString = require('query-string')
 
 const Dashboard = (props) => {
   const user = props.user;
   const dispatch = useDispatch();
+  const router = useRouter();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
 
 
@@ -50,6 +52,12 @@ const Dashboard = (props) => {
   const [showFiles, setShowAllFiles] = useState(false)
   const [pageFiles, setPageFiles] = useState(1);
   const [pageProjects, setPageProjects] = useState(1);
+  let tagsFromQuery = [];
+  try{
+    tagsFromQuery = (router.query as any).tags ? JSON.parse((router.query as any).tags) : [];
+  }catch (e){
+
+  }
   const [tags, setTags] = useState([]);
   const [isInit, setIsInit] = useState(false)
 
@@ -77,6 +85,8 @@ const Dashboard = (props) => {
     setTags(tags);
     dispatch(resetCatalogList());
     dispatch(fetchCatalogProjects({page: 1, entryType: 'project', limit: limitProjects, ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
+    router.replace(`/?${queryString.stringify({tags: JSON.stringify(tags.map(tag => tag.id))})}`, undefined, { shallow: true })
+
   }
 
   const handleEditClick = useCallback((item) => {
@@ -136,7 +146,7 @@ const Dashboard = (props) => {
       <div className={styles.root}>
 
 
-        {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
+        {(isInit && tagCategories.length > 0) && <TagSelect items={tagCategories} selectedTags={tags} initialTags={tagsFromQuery} onChangeSelectedTags={handleTagChangeTags}/>}
         {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
         {!loading && projectsTotal === 0 &&
         <NoFiles/>}

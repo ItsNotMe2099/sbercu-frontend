@@ -32,6 +32,8 @@ import {format} from 'date-fns'
 import MediaLinkTempModal from "../../../components/MediaLinkTempModal";
 import MediaLinkVirtSchoolModal from "../../../components/MediaLinkVirtSchoolModal";
 import MediaLinkPublicModal from "../../../components/MediaLinkPublicModal";
+
+const queryString = require('query-string')
 interface Props{
 
 }
@@ -135,6 +137,10 @@ const Video = (props: Props) => {
                 break;
         }
     }
+    const handleTagClick = (tag) => {
+        console.log("TagClick", tag);
+        router.push(`/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
+    }
 
   return (
     <Layout>
@@ -167,15 +173,16 @@ const Video = (props: Props) => {
         </div>
         <div className={styles.tags}>
             {getTagCategories().map(category => <Tag
+                onClick={handleTagClick}
                 category={category.category.name}
-                tags={category.tags.map(tag => tag.name)}
+                tags={category.tags}
             />)}
         </div>
     </div>
     <div className={styles.tags__mobile}>
-        {getTagCategories().map(category => <Tag
+        {getTagCategories().map(category => <Tag onClick={handleTagClick}
             category={category.category.name}
-            tags={category.tags.map(tag => tag.name)}
+            tags={category.tags}
         />)}
         </div>
     </div>}
