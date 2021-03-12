@@ -31,7 +31,7 @@ export default function ButtonSelect(props: Props) {
     <Arrow/>
     <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })} style={{minWidth: props.minWidth}}>
       {props.options.map(item =>
-          <a className={styles.option} onClick={() => props.onChange(item)}><span>{item.label}</span> <span className={styles.tip}>{item.tip}</span></a>
+          <a className={styles.option} onClick={() => props.onChange(item)}><span>{item.label}</span> {item.tip && <span className={styles.tip}>{item.tip}</span>}</a>
         )}
     </nav>
     </div>
