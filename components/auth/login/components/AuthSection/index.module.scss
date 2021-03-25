@@ -15,22 +15,50 @@
     width: 100%;
   }
 }
+.virtScoolButton{
 
+  span {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  margin-top: 20px;
+}
 .enter{
   margin: 7px 0 32px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
 }
-
+.or{
+  display: flex;
+  align-items: center;
+  margin: 40px -29px 20px -29px;
+  &__text{
+  font-size: 14px;
+    font-weight: 400;
+    padding: 0px 8px;
+    color: black;
+  }
+  &__line{
+    height: 1px;
+    background: #E0E0E0;
+    flex: 1;
+  }
+}
 .head{
-  font-size: 24px;
+  font-size: 14px;
   line-height: 28px;
   margin: 0 0 23px 0;
-  font-weight: bold;
-
+  font-weight: 500;
   &_green{
     color: #27AE60;
     margin: 0;
     font-size: 24px;
     line-height: 28px;
+    font-weight: 700;
+    text-align: center;
   }
 
   a{
