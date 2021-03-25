@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 interface Props {
   input?: any,
   meta?: any,
+  disabled?: boolean,
   isIncludedCategory?: (category) => void
 }
 
@@ -44,6 +45,9 @@ const TagInput = (props: Props) => {
     dispatch(fetchTagCategoryList())
   }, [])
   const handleTagClick = (selectedItem, selected) => {
+    if(props.disabled){
+      return;
+    }
     console.log("HandleTagClick", selectedItem, selected)
     if(selected) {
       setSelectedTags(tags => [...tags, selectedItem])

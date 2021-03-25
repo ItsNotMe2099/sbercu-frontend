@@ -45,7 +45,7 @@ const Video = (props: Props) => {
         {value:'edit', label: 'Редактировать'},
         {value:'poster', label: 'Загрузить постер'},
         {value:'videoEditor', label: 'Редактировать видео'},
-        {value:'copy', label: 'Копировать'},
+        {value:'copy', label: 'Вырезать'},
         {value:'delete', label: 'Удалить'}
     ];
     const links = [

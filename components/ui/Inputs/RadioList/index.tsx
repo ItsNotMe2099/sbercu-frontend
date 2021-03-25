@@ -11,7 +11,8 @@ interface Props {
   input: any
   changeWithValue?: boolean
   restrictedValues: any[],
-  grid: number
+  grid: number,
+  disabled?: boolean,
 }
 
 export const RadioList = (props) => {
@@ -34,6 +35,7 @@ export const RadioList = (props) => {
         <div className={styles.radio}>
           <Radio
             className={`${!props.grid && styles.radioNoGrid}`}
+            disabled={props.disabled}
                      value={item.value} isActive={item.value === input.value} label={item.label} onChange={handleCheckboxChanged}/>
         </div>
       ))}

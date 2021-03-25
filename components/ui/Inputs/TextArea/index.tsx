@@ -6,7 +6,8 @@ interface Props {
   placeholder?: string
   input
   label
-  type
+  type,
+  disabled?: boolean
 }
 
 export default function TextArea(props: Props) {
@@ -15,8 +16,10 @@ export default function TextArea(props: Props) {
   return (
     <div className={styles.root}>
       <textarea
+
         className={`${styles.textarea} ${(error && touched) && styles.textareaError}`}
         type={type}
+        disabled={props.disabled}
         placeholder={label}
         {...input}
       />

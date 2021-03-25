@@ -89,7 +89,7 @@ export default function ButtonDots(props: Props) {
             </div>
             {!props.children &&  <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
                 {props.showEdit && <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>}
-                {props.showCopy && <div className={styles.option}><a onClick={handleCopyClick}>Копировать</a></div>}
+                {props.showCopy && <div className={styles.option}><a onClick={handleCopyClick}>Вырезать</a></div>}
               {(typeof  localStorage !== 'undefined' && localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
                 {props.showCancel && <div className={styles.option}><a onClick={handleCancelClick}>Отменить</a></div>}
 

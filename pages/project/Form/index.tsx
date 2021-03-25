@@ -29,6 +29,7 @@ let ProjectForm = props => {
                 <Field
                 name="tagsIds"
                 component={TagInput}
+                disabled={props.user.role !== 'admin'}
                 green
                 />
               </div>
@@ -46,12 +47,14 @@ let ProjectForm = props => {
                 <Field
                 name="projectManager"
                 component={Input}
+                disabled={props.user.role !== 'admin'}
                 label="ФИО менеджера проекта"
                 validate={required}
                 />
                 <Field
                 name="projectManagerMail"
                 component={Input}
+                disabled={props.user.role !== 'admin'}
                 label="е-почта менеджера"
                 validate={required}
                 />
@@ -60,6 +63,7 @@ let ProjectForm = props => {
                 <Field
                 name="projectDescription"
                 component={TextArea}
+                disabled={props.user.role !== 'admin'}
                 label="Краткое описание проекта"
                 validate={required}
                 />
@@ -67,12 +71,14 @@ let ProjectForm = props => {
                 <Field
                 name="projectAudience"
                 component={TextArea}
+                disabled={props.user.role !== 'admin'}
                 label="Для кого предназначена программа"
                 validate={required}
                 />
                 <div className={styles.head__right}>Цель обучения</div>
                 <Field
                 name="projectTarget"
+                disabled={props.user.role !== 'admin'}
                 component={TextArea}
                 label="Цель обучения"
                 validate={required}
@@ -80,6 +86,7 @@ let ProjectForm = props => {
                 <div className={styles.head__right}>Содержание программы</div>
                 <Field
                 name="projectContent"
+                disabled={props.user.role !== 'admin'}
                 component={TextArea}
                 label="Содержание программы"
                 validate={required}
@@ -93,6 +100,7 @@ let ProjectForm = props => {
               <div className={styles.tags}>
                 <Field
                 name="tagsIds"
+                disabled={props.user.role !== 'admin'}
                 component={TagInput}
                 isIncludedCategory={(category) => category.name !== 'Видимость'}
                 green
@@ -107,6 +115,7 @@ let ProjectForm = props => {
                 <div className={styles.head}>Приватность</div>
                 <Field
                 name='visibility'
+                disabled={props.user.role !== 'admin'}
                 component={RadioList}
                 label="Приватность"
                 validate={required}

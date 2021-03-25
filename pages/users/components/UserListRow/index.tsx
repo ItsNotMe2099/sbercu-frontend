@@ -43,7 +43,7 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
     <div className={styles.root}>
         <div className={`${styles.cell}`}>{user?.lastName} {user?.firstName} <div className={styles.role}>{getUserRoleName(user?.role)}</div></div>
       <div className={`${styles.cell} ${styles.status} ${user?.inviteSent ? styles.statusInviteSent : user?.registeredAt ? styles.statusRegistered : ''}`}>{user?.inviteSent ? 'Приглашение отправлено' : user?.registeredAt ? 'Зарегистрирован' : 'Не зарегистрирован'}
-          {user?.registeredAt && <div className={styles.registeredAt}>{format(new Date(user?.registeredAt), 'dd.MM.yyy hh:mm')}</div>}
+          {user?.registeredAt && <div className={styles.registeredAt}>{format(new Date(user?.registeredAt), 'dd.MM.yyy HH:mm')}</div>}
       </div>
       <div className={`${styles.cell}`}>{user?.virtualSchoolLogin}</div>
       <div className={`${styles.cell}`}>{user?.email}</div>

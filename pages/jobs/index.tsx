@@ -23,7 +23,7 @@ const Jobs = (props) => {
     const updateIds = useSelector((state: IRootState) => state.jobs.updateIds)
 
     const [isInit, setIsInit] = useState(true)
-    const limit = 10;
+    const limit = 30;
     useInterval(() => {
         if(updateIds.length > 0){
             dispatch(fetchJobListByIds(updateIds));

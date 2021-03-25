@@ -71,7 +71,7 @@ const EditProject = (props) => {
         <div className={styles.root}>
             <div className={styles.title}>Редактирование проекта</div>
             <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
-            {currentCatalogItem && <ProjectForm onSubmit={handleSubmit} initialValues={{
+            {currentCatalogItem && <ProjectForm user={props.user} onSubmit={handleSubmit} initialValues={{
                 ...currentCatalogItem,
                 tagsIds: currentCatalogItem.tags.map(item => item.id),
                 visibility: getVisibility()

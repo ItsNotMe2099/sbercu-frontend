@@ -5,7 +5,8 @@ interface Props {
   isActive: boolean
   label: string,
   className?: string
-  onChange: (boolean) => void
+  onChange: (boolean) => void,
+  disabled?: boolean,
 }
 export default function Radio(props: Props) {
   const [active, setActive] = useState(props.isActive);
@@ -13,6 +14,9 @@ export default function Radio(props: Props) {
     setActive(props.isActive)
   }, [props.isActive])
   const handleClick = () => {
+    if(props.disabled){
+      return;
+    }
     props.onChange(props.value);
   }
   return (

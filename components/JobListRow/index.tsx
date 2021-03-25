@@ -2,7 +2,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import {format} from "date-fns";
 import {IJob, IUser} from "types";
 import styles from './index.module.scss'
-import {formatSize} from "utils/formatters";
+import {formatJobDuration, formatSize} from "utils/formatters";
 import {Circle} from "rc-progress";
 import React from "react";
 import Cross from "components/svg/Cross";
@@ -75,13 +75,13 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                             {job.media?.size && <div className={styles.greyText}>{formatSize(job.media?.size)}</div>}
                             <div className={styles.separator}></div>
                             {job.codecInfo?.duration &&
-                            <div className={styles.greyText}>{job.codecInfo?.duration}</div>}
+                            <div className={styles.greyText}>{formatJobDuration(job.codecInfo?.duration)}</div>}
                         </div>
                     </div>
                 </div>
                 <div className={`${styles.cell}`}>{job.user?.firstName} {job.user?.lastName}</div>
                 <div className={`${styles.cell} ${styles.cellStat}`}>
-                    {job.createdAt && <div>Создано: {format(new Date(job.createdAt), 'dd.MM.yyy hh:mm')}</div>}
+                    {job.createdAt && <div>Создано: {format(new Date(job.createdAt), 'dd.MM.yyy HH:mm')}</div>}
                     <div className={styles.statRange}> {job.startedAt && job.finishedAt && <div>{format(new Date(job.startedAt), 'dd.MM.yyy hh:mm')} - {format(new Date(job.finishedAt), 'dd.MM.yyy hh:mm')}</div>}</div>
                 </div>
                 <div className={`${styles.cell}`}></div>
@@ -114,7 +114,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     <div className={styles.greyText}>Тип</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{format(new Date(job.createdAt), 'dd.MM.yyy hh:mm')}</div>
+                    <div className={styles.text}>{format(new Date(job.createdAt), 'dd.MM.yyy HH:mm')}</div>
                     <div className={styles.greyText}>Время создания</div>
                 </div>
                 <div className={styles.row}>
@@ -122,7 +122,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     <div className={styles.greyText}>Размер</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{job.codecInfo?.duration}</div>
+                    <div className={styles.text}>{formatJobDuration(job.codecInfo?.duration)}</div>
                     <div className={styles.greyText}>Длительность</div>
                 </div>
                 <div className={styles.row}>
