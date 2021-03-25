@@ -15,10 +15,13 @@ interface Props {
 export const TagSelectCategoryItem = ({item, onTagClick, selectedTags}: Props) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const tags = item.tags.sort((a, b) => {
+    if (a.name < b.name) return -1
+    return a.name > b.name ? 1 : 0
+  })
   const handleClick = (e) => {
     e.preventDefault()
     setIsActive(!isActive);
-    console.log("Click");
   }
 
 
@@ -31,7 +34,7 @@ export const TagSelectCategoryItem = ({item, onTagClick, selectedTags}: Props) =
              autoHeightMin={0}
              autoHeightMax={145}>
            <div className={styles.dropDownWrapper}>
-         {item.tags.map(item => <TagSelectItem  item={item} isSelected={!!selectedTags.find(i => i.id === item.id)} onClick={onTagClick}/>)}
+         {tags.map(item => <TagSelectItem  item={item} isSelected={!!selectedTags.find(i => i.id === item.id)} onClick={onTagClick}/>)}
            </div>
          </Scrollbars>
          </nav>

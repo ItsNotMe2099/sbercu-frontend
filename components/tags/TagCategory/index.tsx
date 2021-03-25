@@ -24,7 +24,10 @@ interface Props {
 
 export default function TagCategory({ item, editMode, onTagClick, onTagEditClick, onTagDeleteClick, onEditClick, onDeleteClick, selectedTags, ...props }: Props) {
     const [show, setShowAll] = useState(false)
-
+    const tags = item.tags.sort((a, b) => {
+        if (a.name < b.name) return -1
+        return a.name > b.name ? 1 : 0
+    })
     const onClick = () => {
         setShowAll(show => !show)
     }
@@ -64,7 +67,7 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
                 </div>}
             </div>
             <div className={styles.clearfix__mobile}>
-                {(show ? item.tags : item.tags.slice(0, 1)).map(item =>
+                {(show ? tags : tags.slice(0, 1)).map(item =>
                     <TagItem
                         green={props.green}
                         onClick={onTagClick}
@@ -75,7 +78,7 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
                         item={item}
                     />
                 )}
-                {item.tags.length > 1 && <div className={styles.btnContainer}>
+                {tags.length > 1 && <div className={styles.btnContainer}>
                   <TagArrow onClick={onClick} transparent brdrRadiusCircle brdrGreen textGreen
                           type="button">{show ? <>&larr;</> : <>&rarr;</>}</TagArrow>
                 </div>}
