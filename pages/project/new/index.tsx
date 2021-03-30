@@ -59,7 +59,7 @@ const CreateProject = (props) => {
             <div className={styles.root}>
                 <div className={styles.title}>Создание нового проекта</div>
                 <div className={styles.main}><Link href="/">Главная</Link></div>
-                <ProjectForm onSubmit={handleSubmit} initialValues={{visibility: 'all'}}/>
+                <ProjectForm  user={props.user} onSubmit={handleSubmit} initialValues={{visibility: 'all'}}/>
             </div>
             <Footer/>
         </Layout>
