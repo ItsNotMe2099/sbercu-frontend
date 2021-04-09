@@ -82,7 +82,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                 <div className={`${styles.cell}`}>{job.user?.firstName} {job.user?.lastName}</div>
                 <div className={`${styles.cell} ${styles.cellStat}`}>
                     {job.createdAt && <div>Создано: {format(new Date(job.createdAt), 'dd.MM.yyy HH:mm')}</div>}
-                    <div className={styles.statRange}> {job.startedAt && job.finishedAt && <div>{format(new Date(job.startedAt), 'dd.MM.yyy hh:mm')} - {format(new Date(job.finishedAt), 'dd.MM.yyy hh:mm')}</div>}</div>
+                    <div className={styles.statRange}> {job.startedAt && job.finishedAt && <div>{format(new Date(job.startedAt), 'dd.MM.yyy HH:mm')} - {format(new Date(job.finishedAt), 'dd.MM.yyy HH:mm')}</div>}</div>
                 </div>
                 <div className={`${styles.cell}`}></div>
 
