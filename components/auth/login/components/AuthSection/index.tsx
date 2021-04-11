@@ -29,7 +29,6 @@ export default function AuthSection(props: Props) {
           <div className={styles.or__text}>или</div>
           <div className={styles.or__line}/>
         </div>
-          <div className={styles.head}>Войти через Эл. почту</div>
           <AuthForm onSubmit={submit}/>
       </div>
     )

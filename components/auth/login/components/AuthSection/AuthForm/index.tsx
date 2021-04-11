@@ -8,6 +8,7 @@ import {email, required} from 'utils/validations'
 import { useSelector } from 'react-redux'
 import { IRootState } from 'types'
 import FormError from 'components/ui/Form/FormError'
+import React from 'react'
 
 let AuthForm = props => {
   const formError = useSelector((state: IRootState) => state.loginSubmit.formError)
@@ -16,22 +17,23 @@ let AuthForm = props => {
     const { handleSubmit } = props
   return (
           <form onSubmit={handleSubmit}>
-            <div className={styles.inputContainer}>
+            <div className={styles.title}>Войти через Эл. почту</div>
+
             <Field
               name="login"
               component={Input}
               placeholder="Логин"
+              className={styles.login}
               validate={[required, email]}
             />
-            </div>
-            <div className={styles.inputContainer}>
+
             <Field
               name="password"
               label="Пароль"
               component={InputPassword}
               validate={required}
             />
-            </div>
+
               <FormError error={formError}/>
 
               <div className={styles.container}>

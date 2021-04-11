@@ -13,7 +13,8 @@ interface Props {
   disabled?: boolean
   tip?: string
   isLabel?: boolean,
-  mask?: string
+  mask?: string,
+  className?: string
 }
 
 export default function Input(props: Props) {
@@ -23,7 +24,7 @@ export default function Input(props: Props) {
     console.log("destroy");
   }, [])
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${props.className && props.className}`}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       {props.mask ? (
           <InputMask    className={`${styles.input} ${(error && touched) && styles.error}`}

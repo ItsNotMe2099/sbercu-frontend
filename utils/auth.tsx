@@ -38,12 +38,13 @@ export const withAuthSync = (WrappedComponent) =>
       const user = token ? await getUser(token) : null
       if (ctx.req && (!token || !user)) {
         console.log("Req", ctx.req.url);
-        ctx.res.writeHead(302, {Location: `/auth/login?redirect=${ctx.req.url}`});
 
         setCookie(ctx, 'authRedirect', ctx.req.url, {
           maxAge: 60 * 3,
           path: '/',
         })
+        ctx.res.writeHead(302, {Location: `/auth/login?redirect=${ctx.req.url}`});
+
         ctx.res.end();
         return;
       } else if (!ctx.req && (!token || !user)) {

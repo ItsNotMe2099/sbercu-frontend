@@ -4,8 +4,15 @@
   line-height: 14px;
   color: #bdbdbd;
 }
-
+.login{
+  margin-top: 10px;
+}
+.title{
+  font-size: 14px;
+  font-weight: 500;
+}
 .container{
+  margin-top: 22px;
   display: flex;
   a{
     margin: auto auto auto 20px;
@@ -21,5 +28,5 @@
 }
 
 .inputContainer{
-  margin-bottom: 22px;
+
 }
