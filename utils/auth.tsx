@@ -39,11 +39,12 @@ export const withAuthSync = (WrappedComponent) =>
       if (ctx.req && (!token || !user)) {
         console.log("Req", ctx.req.url);
         ctx.res.writeHead(302, {Location: `/auth/login?redirect=${ctx.req.url}`});
-        ctx.res.end();
+
         setCookie(ctx, 'authRedirect', ctx.req.url, {
           maxAge: 60 * 3,
           path: '/',
         })
+        ctx.res.end();
         return;
       } else if (!ctx.req && (!token || !user)) {
         Router.push(`/auth/login?redirect=${ctx.asPath}`);
