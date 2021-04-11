@@ -19,7 +19,7 @@ export default function Footer(props: Props){
             <a href={''} target={'blank'}>Политика конфиденциальности</a>
             </div>
             <div className={styles.support}>
-                Нашли ошибку? Напишите нам <br/><a href={'mailto:media@sber.university'} target={'_blank'}>media@sber.university</a>
+                Нашли ошибку? Напишите нам <br/><a href={'mailto:media@sber.university'} rel="noreferrer" target={'_blank'}>media@sber.university</a>
             </div>
         </div>
     </div>
