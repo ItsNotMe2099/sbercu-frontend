@@ -33,9 +33,13 @@ export default function UploadFilesModal(props: Props) {
         }
     }
     const handleChange = (data) => {
+        console.log("HandleChange", data);
         setFiles(data.files || []);
     }
     const handleClose = (isCloseBtn) => {
+        if(!isCloseBtn){
+            return;
+        }
         console.log("isCloseBtn", isCloseBtn)
         if (files.length > 0) {
             return;

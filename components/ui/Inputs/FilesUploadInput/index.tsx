@@ -185,8 +185,8 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
 
       </div>}
       <ErrorInput {...props}/>
-      {files.length > 0 && <div className={styles.footer}>
-        {props.buttonSubmit}
+      {files.length > 0  && <div className={styles.footer}>
+        {props.buttonSubmit(files)}
           <div
               data-testid="dropzone"
               className={styles.uploadDropZone}
