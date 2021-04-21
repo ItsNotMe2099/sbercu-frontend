@@ -10,7 +10,14 @@ import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import { useSelector, useDispatch } from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
-import {cancelJob, fetchJobList, fetchJobListByIds, resetJobList, setJobListPage} from "components/jobs/actions";
+import {
+    cancelJob,
+    deleteJob,
+    fetchJobList,
+    fetchJobListByIds,
+    resetJobList,
+    setJobListPage
+} from "components/jobs/actions";
 import JobListRow from "components/JobListRow";
 import useInterval from 'react-useinterval';
 
@@ -48,11 +55,22 @@ const Jobs = (props) => {
     const handleCancelJob = (item: IUser) => {
         dispatch(confirmOpen({
             title: 'Вы уверены, что хотите отменить задачу?',
-            description: `${item.id}`,
+            description: `ID задачи: ${item.id}`,
             confirmColor: 'red',
             confirmText: 'Отменить',
             onConfirm: () => {
                 dispatch(cancelJob(item.id));
+            }
+        }));
+    }
+    const handleDeleteJob = (item: IUser) => {
+        dispatch(confirmOpen({
+            title: 'Вы уверены, что хотите удалить задачу?',
+            description: `ID задачи: ${item.id}`,
+            confirmColor: 'red',
+            confirmText: 'Удалить',
+            onConfirm: () => {
+                dispatch(deleteJob(item.id));
             }
         }));
     }
@@ -82,7 +100,7 @@ const Jobs = (props) => {
                                     <div className={styles.td} >Статистика</div>
                                     <div className={styles.td}></div>
                                  </div>
-                                {jobs.map(job => <JobListRow job={job} onDeleteClick={handleCancelJob}
+                                {jobs.map(job => <JobListRow job={job} onDeleteClick={handleDeleteJob}
                                                                 onCancelClick={handleCancelJob}/>)}
                             </InfiniteScroll>
                         }

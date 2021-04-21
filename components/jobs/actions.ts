@@ -24,13 +24,15 @@ export const fetchJobListByIds = ( ids: number[]) => action(ActionTypes.FETCH_JO
   }
 })
 
-export const cancelJob = (id: number) => action(ActionTypes.CANCEL_JOB, {
+export const cancelJob = (id: number) => action(ActionTypes.CANCEL_JOB, {id})
+export const cancelJobRequest = (id: number) => action(ActionTypes.CANCEL_JOB_REQUEST, {
   api: {
     url: `/api/job/cancel/${id}`,
     method: 'POST'
   }
 })
-export const deleteJob = (id: number) => action(ActionTypes.DELETE_JOB, {
+export const deleteJob = (id: number) => action(ActionTypes.DELETE_JOB, {id})
+export const deleteJobRequest = (id: number) => action(ActionTypes.DELETE_JOB_REQUEST, {
   api: {
     url: `/api/job/${id}`,
     method: 'DELETE'

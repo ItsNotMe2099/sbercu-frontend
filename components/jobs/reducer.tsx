@@ -24,8 +24,12 @@ export default function JobReducer(state = {...initialState}, action) {
     case ActionTypes.SET_JOB_PAGE:
       state.page = action.payload
       break;
-    case ActionTypes.CANCEL_JOB + ApiActionTypes.SUCCESS:
-
+    case ActionTypes.CANCEL_JOB_REQUEST + ApiActionTypes.SUCCESS:
+      state.list = state.list.map(user => user.id === action.payload.id ? action.payload : user);
+      break;
+    case ActionTypes.DELETE_JOB_REQUEST + ApiActionTypes.SUCCESS:
+      state.list = state.list.filter(user => user.id !== action.payload.id);
+      break;
 
     case ActionTypes.FETCH_ONE_JOB + ApiActionTypes.SUCCESS:
       console.log(" action.payload",  action.payload);

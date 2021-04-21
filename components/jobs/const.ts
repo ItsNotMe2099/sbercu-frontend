@@ -6,6 +6,8 @@ enum ActionTypes {
   RESET_JOB_LIST = 'Job/REST_JOB_LIST',
   CANCEL_JOB = 'Job/CANCEL_JOB',
   DELETE_JOB = 'Job/DELETE_JOB',
+  CANCEL_JOB_REQUEST = 'Job/CANCEL_JOB_REQUEST',
+  DELETE_JOB_REQUEST = 'Job/DELETE_JOB_REQUEST',
 }
 
 export default ActionTypes
