@@ -62,9 +62,13 @@ export default function InputCatalogSearch(props: Props) {
         dispatch(fetchAutoCompleteCatalogProjectsSearch(value, {}))
 
     }
-    const handleProjectClick = (item) => {
-        router.push(`/catalog/${item.id}`);
-    }
+  const handleProjectClick = (item) => {
+    router.push(`/catalog/${item.id}`);
+    setIsActiveItem(false);
+  }
+  const handleFileClick = (item) => {
+    setIsActiveItem(false);
+  }
     const handleInputClick = (item) => {
         if(value.length >= 3) {
             setIsActiveItem(true);
@@ -99,6 +103,7 @@ export default function InputCatalogSearch(props: Props) {
           <div className={styles.files}>
             <div className={styles.title}>Файлы</div>
             <div className={styles.wrapper}>{files.map(file => (<File
+                onClick={handleFileClick}
                 canEdit={false}
                 additionalInfo={false}
             item={file}

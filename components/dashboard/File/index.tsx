@@ -17,6 +17,7 @@ interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
   size?: any,
+  onClick?: (item) => void
   basePath?: string,
   length?: any,
   canEdit: boolean
@@ -24,7 +25,7 @@ interface Props{
   onDeleteClick?: (item) => void
 }
 
-export default function File({item, basePath, onDeleteClick, onEditClick, canEdit, ...props}: Props){
+export default function File({item, basePath, onDeleteClick, onEditClick, onClick, canEdit, ...props}: Props){
   const dispatch = useDispatch();
   const getIconByType = (type) => {
     switch(type) {
@@ -92,11 +93,16 @@ export default function File({item, basePath, onDeleteClick, onEditClick, canEdi
       return item.media.size;
     }
   }
+  const handleClick = (item) => {
+    if(onClick){
+      onClick(item);
+    }
+  }
   return (
       <div className={styles.root}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
       <Link href={getFileLink()}>
-      <a className={styles.inner} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+      <a className={styles.inner} onClick={handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.title}>
           {item.name}
         </div>
