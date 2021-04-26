@@ -70,7 +70,7 @@ const Video = (props: Props) => {
     }, [router.query.id])
     const getDefaultSource = () => {
         const path = video.media.fileName;
-        const quality = video.media?.videoElements?.find(el => el.quality === '1080p').quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
+        const quality = video.media?.videoElements?.find(el => el.quality === '1080p')?.quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
         return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
     }
     const handleDownload = (item) => {
