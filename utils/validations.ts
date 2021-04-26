@@ -1,5 +1,6 @@
 export function required(value: string | number) {
-  return value || typeof value === 'number' ? undefined : 'Обязательное поле'
+  const val = value && typeof value === 'string' ? value.trim() : value;
+  return val || typeof val === 'number' ? undefined : 'Обязательное поле'
 }
 
 export function email(value: string) {
