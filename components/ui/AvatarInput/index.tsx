@@ -263,5 +263,9 @@ AvatarInput.propTypes = {
   source: PropTypes.string,
   placeholder: PropTypes.node,
 }
+AvatarInput.defaultProps = {
+  maxSize: 10485760,
+  accept: ["image/jpeg", "image/png"]
+}
 
 export default AvatarInput

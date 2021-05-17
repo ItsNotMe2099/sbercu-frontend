@@ -77,10 +77,13 @@ function* catalogSaga() {
                 yield put(modalClose());
 
                 const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
-                if (currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'file') {
-                    Router.push(`/catalog/${currentCatalogItem.parentId}`);
-                    return;
-                } else if (currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'project') {
+              if (currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'file') {
+                Router.push(`/catalog/${currentCatalogItem.parentId}`);
+                return;
+              }else if (currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'folder') {
+                Router.push(`/catalog/${currentCatalogItem.parentId}`);
+                return;
+              } else if (currentCatalogItem.id === action.payload.id && currentCatalogItem.entryType === 'project') {
                     Router.replace(`/`);
                 } else {
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)

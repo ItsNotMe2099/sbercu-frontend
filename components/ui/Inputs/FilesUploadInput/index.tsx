@@ -49,7 +49,8 @@ export interface FileInputProps {
 export interface FileInputOptions extends DropzoneOptions {
   inputProps?: any
   onRemove?: Function,
-  filesFromDropZone: File[]
+  filesFromDropZone: File[],
+  onSyncFiles?: (files) => void
 }
 
 const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
@@ -78,6 +79,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     resource,
     source,
     validate,
+    onSyncFiles,
     input: { value, onChange },
     ...rest
   } = props
@@ -98,6 +100,10 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     }else{
       onChange(filtered[0]?.path || null)
     }
+    if(onSyncFiles){
+      onSyncFiles(files);
+    }
+
   }, [files])
   useEffect(() => {
     if(props.filesFromDropZone && props.filesFromDropZone.length > 0){
@@ -133,9 +139,9 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     setFiles(updatedFiles.map(transformFile));
   }, [files])
 
-  const onRemove = useCallback((file: FileEntity) => {
+  const onRemove =(file: FileEntity) => {
     setFiles(files => {
-      const index = files.findIndex( item => shallowEqual(item.rawFile, file.rawFile) || item.path === file.path)
+      const index = files.findIndex( item => (file.key && file.key === item.key) || item.path === file.path)
       const newFiles = [...files];
       newFiles.splice(index, 1);
       return newFiles
@@ -144,7 +150,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
       dispatch(deleteCatalogRequest(file.catalogId));
     }
     console.log("FileRemove", file);
-  },[files])
+  }
 
   const { getRootProps, getInputProps } = useDropzone({
     ...options,

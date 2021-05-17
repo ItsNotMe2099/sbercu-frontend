@@ -2,10 +2,16 @@ const pluralizeNative = require('numeralize-ru').pluralize;
 export const pluralize = (number, word1, word2, word3) => {
     return pluralizeNative(number, word1, word2, word3);
 }
-
+export const capitalizeFirstLetter = (string) => {
+    if(!string){
+        return '';
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 export const formatJobDuration = (duration: string) => {
     return duration ? duration.replace(/\..*/,'') : duration;
 }
+
 export const formatSeconds = (seconds) => {
     const date = new Date(seconds * 1000)
     const hh = date.getUTCHours()

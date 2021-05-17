@@ -66,6 +66,11 @@ const FileWrapper = (props: Props) => {
         catalogId: currentCatalogId
       }
       fileUpload.current = new FileUpload(options);
+      if(!(window as any)._fileUploads){
+        (window as any)._fileUploads = [];
+      }
+      (window as any)._fileUploads.push(fileUpload.current);
+      console.log("AddFileUpload",   (window as any)._fileUploads);
 
     }
   },[])
@@ -77,6 +82,7 @@ const FileWrapper = (props: Props) => {
       console.log("cantCancel", fileUpload.current, file.rawFile);
     }
     onRemove(file)
+    setConfirmRemove(false);
   }
   const handleConfirmRemove = () => {
     setConfirmRemove(true);

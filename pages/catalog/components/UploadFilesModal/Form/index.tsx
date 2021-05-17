@@ -8,10 +8,11 @@ import { useDispatch, useSelector} from 'react-redux'
 import { modalClose } from 'components/Modal/actions'
 
 let UploadFilesForm = props => {
-  const { handleSubmit, initialValues } = props
+  const { handleSubmit, initialValues, onSyncFiles } = props
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
   const currentCatalogItem = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
+
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -19,6 +20,7 @@ let UploadFilesForm = props => {
         name="files"
         component={FilesUploadInput}
         label="Файлы"
+        onSyncFiles={onSyncFiles}
         currentCatalogId={currentCatalogItem?.id}
         buttonSubmit={(files) =>  <Button disabled={files.filter(file => !file.path).length > 0} green size="9px 16px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
         multiple={true}

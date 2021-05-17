@@ -16,7 +16,7 @@ import VideoConverting from "pages/video/[id]/component/VideoConverting";
 import { useEffect } from "react";
 import { IRootState } from "types";
 import { withAuthSync } from "utils/auth";
-import { formatSize } from "utils/formatters";
+import {capitalizeFirstLetter, formatSize} from "utils/formatters";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -32,6 +32,8 @@ import {format} from 'date-fns'
 import MediaLinkTempModal from "../../../components/MediaLinkTempModal";
 import MediaLinkVirtSchoolModal from "../../../components/MediaLinkVirtSchoolModal";
 import MediaLinkPublicModal from "../../../components/MediaLinkPublicModal";
+import {Head} from 'next/document'
+import {NextSeo} from 'next-seo'
 
 const queryString = require('query-string')
 interface Props{
@@ -144,6 +146,7 @@ const Video = (props: Props) => {
 
   return (
     <Layout>
+      {video && <NextSeo title={video.name}/>}
     <Header {...props}/>
     {(!currentLoading  && video) &&  <div className={styles.root}>
       <div className={styles.title}>{video.name}</div>

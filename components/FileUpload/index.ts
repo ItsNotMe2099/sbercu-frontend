@@ -36,6 +36,7 @@ export class FileUpload {
                 File.prototype.slice || (File.prototype as any).mozSlice || (File.prototype as any).webkitSlice;
             const blockCount = Math.ceil(file.size / chunkSize);
             const hash = await this.hashFile(file);
+            //this.hash = hash;
             for (let i = 0; i < blockCount; i++) {
                 const start = i * chunkSize;
                 const end = Math.min(file.size, start + chunkSize);

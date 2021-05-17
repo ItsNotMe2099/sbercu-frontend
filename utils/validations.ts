@@ -1,5 +1,5 @@
 export function required(value: string | number) {
-  const val = value && typeof value === 'string' ? value.trim() : value;
+  const val = value && typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value;
   return val || typeof val === 'number' ? undefined : 'Обязательное поле'
 }
 
