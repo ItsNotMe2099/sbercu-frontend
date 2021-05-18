@@ -38,6 +38,7 @@ import ProjectLoader from "components/ContentLoaders/projectLoader";
 import UploadFilesModal from "./components/UploadFilesModal";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CatalogDropZone from "../../components/CatalogDropZone";
+import {NextSeo} from 'next-seo'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -155,6 +156,7 @@ const Catalog = (props) => {
   console.log("ModalKey", modalKey)
   return (
     <Layout>
+      {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
     <Header {...props}>
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={handleCreateFolderClick}>Создать папку</Button></div>}
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button" onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
