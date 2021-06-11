@@ -42,6 +42,7 @@ let ProjectForm = props => {
                 name="name"
                 component={Input}
                 label="Название проекта"
+                autoFocus={!initialValues?.id}
                 validate={required}
                 />
                 <Field

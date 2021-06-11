@@ -45,6 +45,10 @@ export default function UploadFilesModal(props: Props) {
     }, [])
     const handleSubmit = (data) => {
         console.log('handleSubmit', data)
+        if(data.files.filter(file =>  file.name && /^ *$/.test(file.name) || !file.name).length > 0) {
+          console.log("HasEmptyFiles")
+           return;
+        }
         if (!data.files.find(file => !file.name)) {
             dispatch(createFiles(data.files))
         }

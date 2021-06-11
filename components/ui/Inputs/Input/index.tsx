@@ -15,6 +15,7 @@ interface Props {
   isLabel?: boolean,
   mask?: string,
   className?: string
+  autoFocus?: boolean
 }
 
 export default function Input(props: Props) {
@@ -32,6 +33,7 @@ export default function Input(props: Props) {
                         autoComplete={'off'}
                         disabled={props.disabled}
                         placeholder={props.placeholder}
+                        autoFocus={props.autoFocus}
                         {...input}
                         mask={props.mask} />
       ) : (
@@ -41,6 +43,7 @@ export default function Input(props: Props) {
               autoComplete={'off'}
               disabled={props.disabled}
               placeholder={props.placeholder}
+              autoFocus={props.autoFocus}
               {...input}
           />
       )}

@@ -26,6 +26,7 @@ let NewPWForm = props => {
               component={InputPassword}
               label="Введите пароль"
               validate={[required, minL]}
+              autoFocus={true}
             />
             </div>
             <div className={styles.inputContainer}>

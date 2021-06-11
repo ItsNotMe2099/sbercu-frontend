@@ -28,6 +28,7 @@ let EmailForm = props => {
               component={Input}
               label="Почта"
               validate={[email, required]}
+              autoFocus={true}
             />
             <FormError error={formError}/>
               <div className={styles.send}>

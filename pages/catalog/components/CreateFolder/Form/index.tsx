@@ -20,6 +20,7 @@ let CreateFolderForm = props => {
         label="Название папки"
         value={value}
         onChange={() => setValue(value)}
+        autoFocus={true}
         validate={required}
       />
       <div className={styles.btnContainer}>

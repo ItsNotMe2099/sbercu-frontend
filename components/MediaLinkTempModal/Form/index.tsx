@@ -27,6 +27,7 @@ let MediaLinkForm = props => {
             component={Input}
             mask={'99.99.9999'}
             label={"Дата истечения"}
+            autoFocus={true}
         />
         </div>
         </div>

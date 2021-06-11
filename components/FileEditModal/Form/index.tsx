@@ -20,6 +20,7 @@ let FileEditForm = props => {
         label="Название файла"
         value={value}
         onChange={() => setValue(value)}
+        autoFocus={!initialValues?.id}
       />
         <Field
             name="presenters"
