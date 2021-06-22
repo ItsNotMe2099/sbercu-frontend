@@ -64,6 +64,7 @@ export interface IMedia {
     videoConverted: boolean
     videoCutting: boolean
     videoElements: IVideoElement[]
+    totalViews: number
 }
 
 export interface ICatalogEntry {

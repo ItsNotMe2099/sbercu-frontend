@@ -172,7 +172,7 @@ const Video = (props: Props) => {
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
         </>}
-        <Info authors={video.presenters} date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''} language="Русский, Английский"/>
+        <Info totalViews={video.media?.totalViews} authors={video.presenters} date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''} language="Русский, Английский"/>
         </div>
         <div className={styles.tags}>
             {getTagCategories().map(category => <Tag
