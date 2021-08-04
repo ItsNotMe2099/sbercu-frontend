@@ -10,7 +10,7 @@ export default function AuthPage() {
     if(!token){
       return;
     }
-    cookie.set("token", token, { expires: 7 });
+    cookie.set("token", token, { expires: 365 });
     window.location.href = '/';
   }, [token])
   return (

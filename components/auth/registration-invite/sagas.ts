@@ -21,7 +21,7 @@ export function* watchOnRegistration() {
                 yield put({type: ActionTypes.REG_ERROR, payload: res.err?.message})
             }else{
                 yield put({type: ActionTypes.REG_SUCCESS, payload: res.data})
-                cookie.set("token", res.data.accessToken, { expires: 7 });
+                cookie.set("token", res.data.accessToken, { expires: 365 });
                 window.location.href = "/";
             }
         }
