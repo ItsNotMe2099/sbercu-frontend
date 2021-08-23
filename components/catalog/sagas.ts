@@ -14,7 +14,7 @@ import {
     updateFile,
     updateFileRequest
 } from "components/catalog/actions";
-import { modalClose } from "components/Modal/actions";
+import {modalClose, pasteCatalogItemDuplicateOpen} from "components/Modal/actions";
 import ApiActionTypes from "constants/api";
 import { router } from "next/client";
 import { takeLatest, put, take, select } from 'redux-saga/effects'
@@ -166,8 +166,8 @@ function* catalogSaga() {
         function* (action: ActionType<typeof catalogPaste>) {
             try {
                 const item = JSON.parse(localStorage.getItem('copyCatalog'));
-                yield put(updateCatalogRequest(item.id, {parentId: action.payload.toCatalogId}));
-                const result = yield take([ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_CATALOG_REQUEST + ApiActionTypes.FAIL])
+                yield put(updateCatalogRequest(item.id, {parentId: action.payload.toCatalogId, ...(action.payload.name ? {name: action.payload.name} : {})}));
+                const result = yield take([ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.FAIL])
                 if (result.type === ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.SUCCESS) {
                     yield put(modalClose());
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
@@ -177,7 +177,12 @@ function* catalogSaga() {
                         yield put(fetchCatalogList(currentCatalogId, 1, 30));
                     }
                     localStorage.removeItem('copyCatalog');
-                }
+                }else if (result.type === ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.FAIL) {
+                  console.log("ErrorPaster");
+                    yield put(pasteCatalogItemDuplicateOpen())
+
+                  }
+
             } catch (e) {
 
             }

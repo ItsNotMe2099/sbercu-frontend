@@ -9,7 +9,7 @@ import { modalClose } from 'components/Modal/actions'
 import FormError from 'components/ui/Form/FormError'
 import {IRootState} from 'types'
 
-let CreateFolderForm = props => {
+let PasteCatalogItemForm = props => {
   const { handleSubmit, initialValues } = props
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ let CreateFolderForm = props => {
       <Field
         name="name"
         component={Input}
-        label="Название папки"
+        label="Новое название"
         value={value}
         onChange={() => setValue(value)}
         autoFocus={true}
@@ -32,15 +32,15 @@ let CreateFolderForm = props => {
         {/*value === '' ?
           <Button notActive textWhite size="9px 16px" type="button">Создать</Button>
           :*/
-            <Button green size="9px 16px" disabled={formLoading}>{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>}
+            <Button green size="9px 16px" disabled={formLoading}>Перенести</Button>}
             <Button transparent onClick={() => dispatch(modalClose())} type="button">Отменить</Button>
       </div>
     </form>
   )
 }
 
-CreateFolderForm = reduxForm ({
-  form: 'createFolder',
-}) (CreateFolderForm)
+PasteCatalogItemForm = reduxForm ({
+  form: 'PasteCatalogItemForm',
+}) (PasteCatalogItemForm)
 
-export default CreateFolderForm
+export default PasteCatalogItemForm

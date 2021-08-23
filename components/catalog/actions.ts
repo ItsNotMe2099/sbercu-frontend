@@ -103,6 +103,6 @@ export const resetCatalogList = (shallow: boolean = false, myFiles = true) => ac
 
 export const resetMyUploadedFiles = (shallow: boolean = false, myFiles = true) => action(ActionTypes.RESET_MY_UPLOADED_FILES)
 export const catalogCopy = (item: ICatalogEntry) => action(ActionTypes.CATALOG_COPY, item)
-export const catalogPaste = (toCatalogId: number) => action(ActionTypes.CATALOG_PASTE, {toCatalogId})
+export const catalogPaste = (toCatalogId: number, name?: string) => action(ActionTypes.CATALOG_PASTE, {toCatalogId, name})
 export const resetFilesFromDropzone = () => action(ActionTypes.RESET_FILES_FROM_DROPZONE)
 export const setFilesFromDropZone = (files: File[]) => action(ActionTypes.SET_FILES_FROM_DROPZONE, {files});

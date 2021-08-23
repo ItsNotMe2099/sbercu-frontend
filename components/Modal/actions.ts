@@ -15,4 +15,5 @@ export const filePosterUploadModalOpen = () => action(ActionTypes.FILE_POSTER_UP
 export const mediaLinkTempModalOpen = () => action(ActionTypes.MEDIA_LINK_TEMP_MODAL)
 export const mediaLinkPublicModalOpen = () => action(ActionTypes.MEDIA_LINK_PUBLIC_MODAL)
 export const mediaLinkVirtSchoolModalOpen = () => action(ActionTypes.MEDIA_LINK_VIRTSCHOOL_MODAL)
+export const pasteCatalogItemDuplicateOpen = () => action(ActionTypes.PASTE_CATALOG_ITEM_DUPLICATE)
 export const modalClose = () => action(ActionTypes.MODAL_CLOSE)

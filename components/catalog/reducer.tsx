@@ -79,7 +79,7 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             state.formLoading = false;
             break
         case ActionTypes.CREATE_CATALOG_REQUEST + ApiActionTypes.FAIL:
-            state.formError = action.payload.error || 'Unknown error'
+            state.formError = action.payload.error ||  action.payload.message || 'Произошла ошибка'
             state.formIsSuccess = false;
             state.formLoading = false;
             break
@@ -94,7 +94,7 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             state.formLoading = false;
             break
         case ActionTypes.UPDATE_CATALOG_REQUEST + ApiActionTypes.FAIL:
-            state.formError = action.payload.error || 'Unknown error'
+            state.formError = action.payload.error ||  action.payload.message || 'Произошла ошибка'
             state.formIsSuccess = false;
             state.formLoading = false;
             break

@@ -61,6 +61,9 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.MEDIA_LINK_VIRTSCHOOL_MODAL:
       state.modalKey = 'mediaLinkVirtSchool'
       break
+    case ActionTypes.PASTE_CATALOG_ITEM_DUPLICATE:
+      state.modalKey = 'pasteCatalogItemDuplicate'
+      break
 
 
   }

@@ -1,4 +1,4 @@
-import {createCatalog, resetCatalogForm, updateCatalog} from "components/catalog/actions";
+import {catalogPaste, createCatalog, resetCatalogForm, updateCatalog} from "components/catalog/actions";
 import Button from 'components/ui/Button'
 import Modal from 'components/ui/Modal'
 import { ICatalogEntry, IRootState } from "types";
@@ -6,21 +6,21 @@ import CreateFolderForm from './Form'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
+import PasteCatalogItemForm from './Form'
 
 
 interface Props {
   catalog?: ICatalogEntry
 }
 
-export default function CreateFolder(props){
+export default function PasteCatalogItem(props){
+  const {catalog} = props;
   const dispatch = useDispatch()
   const currentCatalogId = useSelector((state: IRootState) => state.catalog.currentCatalogId)
+  const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
+
   const handleSubmit = (data) => {
-    if(props.catalog){
-      dispatch(updateCatalog(props.catalog?.id,{ name: data.name}));
-    }else {
-      dispatch(createCatalog({ name: data.name, entryType: 'folder', parentId: currentCatalogId }));
-    }
+  dispatch(catalogPaste(catalog.id, data.name));
     console.log('success')
   }
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function CreateFolder(props){
   }, [])
 
   return (
-    <Modal {...props} title={props.catalog ? 'Редактирование папки' : <div><span className={styles.create}>Создание</span> новой папки</div>} cancel="Отменить">
-        <CreateFolderForm onSubmit={handleSubmit} initialValues={{...props.catalog}}/>
+    <Modal {...props} title={ `Перенос ${copyItem.entryType === 'file' ? 'файла' : 'папки'} «${copyItem?.name}»`} cancel="Отменить">
+        <PasteCatalogItemForm onSubmit={handleSubmit} initialValues={{name: copyItem?.name}}/>
     </Modal>
   )
 }

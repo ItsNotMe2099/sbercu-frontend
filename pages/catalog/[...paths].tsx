@@ -39,6 +39,7 @@ import UploadFilesModal from "./components/UploadFilesModal";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CatalogDropZone from "../../components/CatalogDropZone";
 import {NextSeo} from 'next-seo'
+import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -206,11 +207,12 @@ const Catalog = (props) => {
     </div>
 
       <Footer/>
-      <CreateFolder isOpen={modalKey === 'createFolder'}
-               onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>
+      {modalKey === 'createFolder' &&  <CreateFolder isOpen={modalKey === 'createFolder'}
+               onRequestClose={() => dispatch(modalClose())} catalog={currentEditCatalog}/>}
       {modalKey === 'uploadFiles' && <UploadFilesModal isOpen={modalKey === 'uploadFiles'}     filesFromDropZone={filesFromDropZone} onClose={handleCloseFilesUploadModal} />}
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
       {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
+      {modalKey === 'pasteCatalogItemDuplicate' && <PasteCatalogItem  onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}
     </Layout>
   )
 }
