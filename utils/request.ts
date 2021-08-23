@@ -4,8 +4,9 @@ function request(requestData: IRequestData): Promise<IResponse> {
   const { url, method, data, token, host } = requestData
   const defaultHost = `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}`
 console.log(`Bearer ${token}`, process.env, process.env.NEXT_PUBLIC_API_URL  )
+  const ts = new Date();
   return (
-    fetch(`${host || defaultHost}${url}`, {
+    fetch(`${host || defaultHost}${url}${url.includes('?') ? `&t=${ts}` : `?t=${ts}`}`, {
       method: method || 'GET',
       cache:'no-store',
       headers: {
