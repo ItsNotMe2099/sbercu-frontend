@@ -2,6 +2,7 @@ import { Field, reduxForm } from 'redux-form'
 import Input from 'components/ui/Inputs/Input'
 import { minL, passwordsMatch, required } from 'utils/validations'
 import styles from './index.module.scss'
+import Button from 'components/ui/Button'
 
 let RegistrationFirstStepForm = props => {
     const { handleSubmit } = props
@@ -37,10 +38,11 @@ let RegistrationFirstStepForm = props => {
                         validate={required}
                     />
                 </div>
-                <span>
-                    <a href="#" className={styles.next} onClick={handleSubmit}>Далее →</a>
+                <div className={styles.buttons}>
+                    <Button green size="9px 16px">Далее →</Button>
+
                     <a href="/" className={styles.enter}>или Войти</a>
-                </span>
+                </div>
             </div>
 
 
