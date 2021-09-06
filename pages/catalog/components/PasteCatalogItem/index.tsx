@@ -17,7 +17,7 @@ export default function PasteCatalogItem(props){
   const {catalog} = props;
   const dispatch = useDispatch()
   const currentCatalogId = useSelector((state: IRootState) => state.catalog.currentCatalogId)
-  const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
+  const copyItem = process.browser ? JSON.parse(localStorage.getItem('copyCatalog')) : null;
 
   const handleSubmit = (data) => {
   dispatch(catalogPaste(catalog.id, data.name));
@@ -28,7 +28,7 @@ export default function PasteCatalogItem(props){
   }, [])
 
   return (
-    <Modal {...props} title={ `Перенос ${copyItem.entryType === 'file' ? 'файла' : 'папки'} «${copyItem?.name}»`} cancel="Отменить">
+    <Modal {...props} title={ `Перенос ${copyItem?.entryType === 'file' ? 'файла' : 'папки'} «${copyItem?.name}»`} cancel="Отменить">
         <PasteCatalogItemForm onSubmit={handleSubmit} initialValues={{name: copyItem?.name}}/>
     </Modal>
   )
