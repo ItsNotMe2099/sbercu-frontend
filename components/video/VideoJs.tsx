@@ -296,7 +296,7 @@ export default function VideoJs(props: Props) {
                 listenEvents()
 
             });
-            (playerRef as any)?.current?.src({ src: props.source, ...(isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
+            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
 
             props.onCreateRef(playerRef.current);
         } else {
@@ -312,7 +312,7 @@ export default function VideoJs(props: Props) {
             }
             isReadyRef.current = false;
             isPlayingRef.current = false;
-            (playerRef as any)?.current?.src({ src: props.source, ...(isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
+            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
 
         }
 
