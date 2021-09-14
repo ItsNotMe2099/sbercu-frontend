@@ -15,13 +15,13 @@ const Video = (props: Props) => {
 
     const getDefaultSource = () => {
         const path = video.fileName;
-        const quality = video?.videoElements?.find(el => el.quality === '1080p')?.filePath || video.media?.videoElements[video.media?.videoElements?.length - 1]?.filePath;
+        const quality = video?.videoElements?.find(el => el.quality === '1080p')?.filePath || video?.videoElements[video?.videoElements?.length - 1]?.filePath;
         return quality  ||  getMediaPath(path);
     }
   return (
     <Player
       fullSize={true}
-      poster={getMediaPath(video.poster)}
+      poster={getMediaPath((video as any).poster)}
       sources={video?.videoElements?.map(el => ({label: el.quality, value: el.filePath}))}
       source={getDefaultSource()}/>
   )
