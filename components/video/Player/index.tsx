@@ -11,6 +11,7 @@ import ReactPlayer from 'react-player'
 import styles from './index.module.scss'
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
+import cx from 'classnames'
 
 const VideoJs = dynamic(() => import('components/video/VideoJs'), {
     ssr: false
@@ -150,7 +151,7 @@ export default function Player(props) {
 
     }
 
-    return (<div className={styles.root} ref={root}>
+    return (<div className={cx(styles.root, {[styles.fullSize]: props.fullSize})} ref={root}>
             {/*<ReactPlayer
               ref={player}
               className={styles.player}

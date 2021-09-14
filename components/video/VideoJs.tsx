@@ -40,6 +40,9 @@ export default function VideoJs(props: Props) {
         'error',
     ];
 
+    const isSourceHasExt = (source) => {
+        return source.includes('.mp4') || source.includes('.avi')
+    }
     const [isLoading, setIsLoading] = useState(false);
     const [loadOnReady, setLoadOnReady] = useState(null);
 
@@ -293,7 +296,7 @@ export default function VideoJs(props: Props) {
                 listenEvents()
 
             });
-            (playerRef as any)?.current?.src({ src: props.source });
+            (playerRef as any)?.current?.src({ src: props.source, ...(isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
 
             props.onCreateRef(playerRef.current);
         } else {
@@ -309,7 +312,7 @@ export default function VideoJs(props: Props) {
             }
             isReadyRef.current = false;
             isPlayingRef.current = false;
-            (playerRef as any)?.current?.src({ src: props.source });
+            (playerRef as any)?.current?.src({ src: props.source, ...(isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
 
         }
 
