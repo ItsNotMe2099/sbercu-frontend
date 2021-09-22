@@ -19,7 +19,7 @@ let RegistrationSecondStepForm = (props: Props) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <a href="#" onClick={props.onGoBack} className={styles.back}>← Назад к данным о себе</a>
+                <a href="#" onClick={props.onGoBack} className={styles.back}>Назад</a>
                 <div className={styles.head}>Придумайте пароль</div>
                 <div className={styles.tip}>Должен содержать не менее 8 символов, заглавные, строчные латинские буквы и небуквенные
                     символы
