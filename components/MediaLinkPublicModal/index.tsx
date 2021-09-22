@@ -24,13 +24,13 @@ export default function MediaLinkPublicModal(props: Props){
   const handleSubmit = (data) => {
 
   }
+
   return (
     <Modal {...props} title={"Публичная ссылка"}>
       {mediaLink && <div className={styles.link}>Публичная ссылка: <p><a href={mediaLink} target={'blank'}>{mediaLink}</a></p></div>}
-
       <div className={styles.codeLabel}>Код для вставки:</div>
       <TextArea meta={{}} input={{
-        value: `<iframe class="mediateka-video" style="max-width:100%;max-height:100%;" src="${mediaLink}" width="500" height="350" allowvr="yes" frameborder="0" scrolling="no" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>`,
+        value: `<iframe class="mediateka-video" style="max-width:100%;max-height:100%;" src="${mediaLink?.replace('media-link/public', 'embed')}" width="500" height="350" allowvr="yes" frameborder="0" scrolling="no" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>`,
 
       }} label={''} type={''}/>
     </Modal>

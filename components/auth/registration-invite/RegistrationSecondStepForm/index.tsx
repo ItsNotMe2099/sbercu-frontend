@@ -28,14 +28,14 @@ let RegistrationSecondStepForm = (props: Props) => {
                     <Field
                         name="new_password"
                         component={InputPassword}
-                        label="Введите пароль"
+                        label="Пароль"
                         validate={[required, passwordsMatch, minL]}
                     />
                 </div>
                 <div className={styles.inputContainer}>
                     <Field
                         name="new_password_confirm"
-                        label="Введите пароль повторно"
+                        label="Повторите пароль"
                         component={InputPassword}
                         validate={[required, passwordsMatch, minL]}
                     />

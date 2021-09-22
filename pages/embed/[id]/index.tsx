@@ -18,12 +18,13 @@ const Video = (props: Props) => {
         const quality = video?.videoElements?.find(el => el.quality === '1080p')?.filePath || video?.videoElements[video?.videoElements?.length - 1]?.filePath;
         return quality  ||  getMediaPath(path);
     }
-  return (
+  return (<div onContextMenu={e => e.preventDefault()}>
     <Player
       fullSize={true}
       poster={getMediaPath((video as any).poster)}
       sources={video?.videoElements?.map(el => ({label: el.quality, value: el.filePath}))}
       source={getDefaultSource()}/>
+    </div>
   )
 }
 export default Video

@@ -39,7 +39,7 @@ let RegistrationFirstStepForm = props => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Button green size="9px 16px">Далее →</Button>
+                    <Button green size="9px 16px">Далее</Button>
 
                     <a href="/" className={styles.enter}>или Войти</a>
                 </div>
