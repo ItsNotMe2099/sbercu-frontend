@@ -101,7 +101,7 @@ const SelectInput = (props: Props) => {
         </ul>
       </div>
         </div>
-        <ErrorInput {...props}/>
+        <ErrorInput {...props.meta}/>
     </div>
 
   );

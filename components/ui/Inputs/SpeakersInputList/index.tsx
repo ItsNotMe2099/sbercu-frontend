@@ -44,7 +44,7 @@ const SpeakersInputList = (props: Props) => {
       <div className={styles.root}>
         {items.map((val, index) => <Input autoFocus={true} meta={props.meta} input={{value: val, onChange: (val) => handleChangeInput(val,index)}} label={label} type={'text'}/>)}
         <div className={styles.addButton} onClick={handleAdd} style={{...(items.length > 0 ? {marginTop: '18px'}: {})}}><PlusSvg/>Добавить спикера</div>
-        <ErrorInput {...props}/>
+        <ErrorInput {...props.meta}/>
     </div>
 
   );

@@ -240,7 +240,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           </div>
         </div>
 
-        <ErrorInput {...props}/>
+        <ErrorInput {...props?.meta} />
             </div>
       )
     }

@@ -2,6 +2,7 @@ import {ICatalogEntry, IMedia, IRootState} from "types";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import Player from 'components/video/Player';
 import request from 'utils/request'
+import styles from './index.module.scss'
 const queryString = require('query-string')
 
 interface Props{
@@ -18,7 +19,7 @@ const Video = (props: Props) => {
         const quality = video?.videoElements?.find(el => el.quality === '1080p')?.filePath || video?.videoElements[video?.videoElements?.length - 1]?.filePath;
         return quality  ||  getMediaPath(path);
     }
-  return (<div onContextMenu={e => e.preventDefault()}>
+  return (<div className={styles.root} onContextMenu={e => e.preventDefault()}>
     <Player
       fullSize={true}
       poster={getMediaPath((video as any).poster)}

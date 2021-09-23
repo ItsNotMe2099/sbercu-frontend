@@ -32,7 +32,7 @@ export default function InputPassword(props: Props) {
       <a href="#" onClick={() => setIsShown(true)}>
         <img className={styles.icon} src='/img/field/notShown.svg' alt="" />
       </a>}
-      <ErrorInput {...props}/>
+      <ErrorInput {...props?.meta}/>
     </div>
   )
 }

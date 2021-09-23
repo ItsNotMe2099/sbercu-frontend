@@ -23,7 +23,7 @@ export default function TextArea(props: Props) {
         placeholder={label}
         {...input}
       />
-      <ErrorInput {...props}/>
+      <ErrorInput {...props.meta}/>
     </div>
   )
 }
