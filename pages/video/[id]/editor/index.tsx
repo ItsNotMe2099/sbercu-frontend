@@ -4,7 +4,7 @@ import { confirmOpen, editFileOpen, modalClose, videoEditorConfirmOpen } from "c
 import VideoEditor from "components/video/Editor";
 import ModalEditorConfirm from "components/video/Editor/EditorConfirm";
 import { useRouter } from "next/router";
-import VideoConverting from "pages/video/[id]/component/VideoConverting";
+import VideoConverting from "components/video-page/component/VideoConverting";
 import { useEffect, useState } from "react";
 import { IRootState } from "types";
 import { withAuthSync } from "utils/auth";

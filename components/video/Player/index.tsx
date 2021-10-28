@@ -21,6 +21,8 @@ interface Props {
     poster?: string
     source: any,
     sources: any[]
+    contentType?: string
+    isAudio?: boolean
 }
 
 export default function Player(props) {
@@ -151,7 +153,11 @@ export default function Player(props) {
 
     }
 
-    return (<div className={cx(styles.root, {[styles.fullSize]: props.fullSize})} ref={root}>
+    return (<div className={cx(styles.root, {
+        [styles.fullSize]: props.fullSize,
+          [styles.audio]: props.isAudio,
+          [styles.audioNoPoster]: props.isAudio && !props.poster,
+    })} ref={root}>
             {/*<ReactPlayer
               ref={player}
               className={styles.player}
@@ -180,6 +186,8 @@ export default function Player(props) {
               onDuration={handleDuration}
           />*/}
             <VideoJs
+                isAudio={props.isAudio}
+                contentType={props.contentType}
                 poster={props.poster}
                 playing={playing}
                 onCreateRef={(ref) => player.current = ref}
@@ -216,19 +224,21 @@ export default function Player(props) {
 
                     <div className={styles.playbackRateSelect}>
                         <QualitySelect options={[
+                            { value: 0.25, label: '0.25x' },
+                            { value: 0.5, label: '0.5x' },
+                            { value: 0.75, label: '0.75x' },
                             { value: 1.0, label: '1x' },
+                            { value: 1.25, label: '1.25x' },
                             { value: 1.5, label: '1.5x' },
+                            { value: 1.75, label: '1.75x' },
                             { value: 2, label: '2x' },
-                            { value: 4, label: '4x' },
                         ]} value={playbackRate} onChange={handleSetPlaybackRate}/>
                     </div>
-                    <div className={styles.qualitySelect}>
-
-
+                    {props.sources.length > 0 && <div className={styles.qualitySelect}>
                         <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
-                    </div>
-                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
-                        src={'/img/icons/video_fullscreen.svg'}/></div>
+                    </div>}
+                    {!props.isAudio && <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
+                        src={'/img/icons/video_fullscreen.svg'}/></div>}
                 </div>
             </div>
         </div>

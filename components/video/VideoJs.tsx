@@ -4,6 +4,7 @@ import videojs from 'video.js'
 
 import dynamic from 'next/dynamic';
 import 'videojs-vr/dist/videojs-vr.min.js'
+import {isAudio} from 'utils/media'
 
 interface Props {
     poster: string,
@@ -23,6 +24,8 @@ interface Props {
     onEnded: () => void
     onPause: () => void
     onError: (e) => void
+    isAudio?: boolean
+    contentType?: string
 }
 
 export default function VideoJs(props: Props) {
@@ -40,8 +43,9 @@ export default function VideoJs(props: Props) {
         'error',
     ];
 
+
     const isSourceHasExt = (source) => {
-        return source.includes('.mp4') || source.includes('.avi')
+        return source.includes('.mp4') || source.includes('.avi') || isAudio(source)
     }
     const [isLoading, setIsLoading] = useState(false);
     const [loadOnReady, setLoadOnReady] = useState(null);
@@ -91,6 +95,7 @@ export default function VideoJs(props: Props) {
         setIsLoading(false);
         props.onError(e)
     }
+
     const handlePlay = () => {
         console.log("HandlePlay", seekOnPlay.current)
 
@@ -296,7 +301,7 @@ export default function VideoJs(props: Props) {
                 listenEvents()
 
             });
-            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
+            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: props.contentType || ( props.isAudio ? 'audio/mp3' : 'video/mp4')} : {})  });
 
             props.onCreateRef(playerRef.current);
         } else {
@@ -312,7 +317,7 @@ export default function VideoJs(props: Props) {
             }
             isReadyRef.current = false;
             isPlayingRef.current = false;
-            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: 'video/mp4'} : {})  });
+            (playerRef as any)?.current?.src({ src: props.source, ...(!isSourceHasExt(props.source) ? {type: props.contentType || ( props.isAudio ? 'audio/mp3' : 'video/mp4')} : {})  });
 
         }
 
@@ -332,10 +337,13 @@ export default function VideoJs(props: Props) {
             }
         }
     }, [])
-    return (<video poster={props.poster} onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
-                   height='100%'>
+    return (props.source?.includes('.mp3') ?
+        <video poster={props.poster} onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
+               height='100%'></video>
+      :
 
-        </video>
+      <video poster={props.poster} onClick={() =>  isPlayingRef?.current ? (playerRef as any)?.current.pause() : (playerRef as any)?.current.play()} ref={videoRef} width='100%'  controls={false}
+                   height='100%'></video>
     );
 };
 

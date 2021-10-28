@@ -6,6 +6,7 @@
   display: flex;
   background-color: transparent;
   position: relative;
+  text-decoration: none;
 
   svg{
     margin: auto 0;
@@ -16,6 +17,12 @@
     margin-right: 10px;
     font-size: 12px;
     color: #828282;
+  }
+  &.empty{
+   .title{
+     margin-right: 0px;
+     text-align: center;
+   }
   }
 }
 

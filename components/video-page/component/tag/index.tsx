@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import styles from './index.module.scss'
+import styles from 'components/video-page/component/tag/index.module.scss'
 import cx from 'classnames'
-import {ITag} from "../../../../../types";
+import {ITag} from "types";
 
 interface Props{
   category: string

@@ -79,6 +79,9 @@ export default function File({item, basePath, onDeleteClick, onEditClick, onClic
     if(item.entryType === 'file' && item.media?.type === 'video' ){
       return `/video/${item.id}`;
     }
+    if(item.entryType === 'file' && item.media?.type === 'audio' ){
+      return `/audio/${item.id}`;
+    }
     if(item.entryType === 'file'){
       return getMediaPath(item.media?.fileName)  ? `${getMediaPath(item.media?.fileName)}?download=1`  : '';
     }
