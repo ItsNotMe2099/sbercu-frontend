@@ -54,8 +54,6 @@ deploy_dev:
   tags:
     - docker
   script:
-      - apk update
-      - apk add openssh
       - eval $(ssh-agent -s)
       - echo "$SSH_PRIVATE_KEY" | ssh-add -
       - mkdir -p ~/.ssh
@@ -69,8 +67,6 @@ deploy_prod:
   tags:
     - docker
   script:
-      - apk update
-      - apk add openssh
       - eval $(ssh-agent -s)
       - echo "$SSH_PRIVATE_KEY" | ssh-add -
       - mkdir -p ~/.ssh
