@@ -12,7 +12,7 @@ import Layout from "components/layout/Layout";
 import {
   confirmOpen,
   createFolderOpen,
-  editFileOpen,
+  editFileOpen, mediaLinkPublicModalOpen,
   modalClose,
   uploadFilesModalOpen
 } from "components/Modal/actions";
@@ -40,6 +40,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CatalogDropZone from "../../components/CatalogDropZone";
 import {NextSeo} from 'next-seo'
 import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
+import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -107,6 +108,17 @@ const Catalog = (props) => {
       dispatch(createFolderOpen());
     }
   }, [currentCatalogItem])
+
+  const handlePublicLinkClick = useCallback((item) => {
+    if(item.entryType === 'file') {
+      setCurrentEditCatalog(item);
+      dispatch(mediaLinkPublicModalOpen());
+    }else {
+      setCurrentEditCatalog(item);
+      dispatch(mediaLinkPublicModalOpen());
+    }
+  }, [currentCatalogItem])
+
   const handleCopyClick = () => {
     dispatch(catalogCopy(currentCatalogItem));
   }
@@ -184,6 +196,7 @@ const Catalog = (props) => {
         {items.map(item => (<File
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
+            onPublicLinkClick={handlePublicLinkClick}
             basePath={basePath}
             canEdit={currentCatalogItem?.canEdit}
             item={item}
@@ -213,6 +226,8 @@ const Catalog = (props) => {
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
       {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
       {modalKey === 'pasteCatalogItemDuplicate' && <PasteCatalogItem  onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}
+      {modalKey === 'mediaLinkPublic' && <MediaLinkPublicModal isOpen={true} file={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>}
+
     </Layout>
   )
 }

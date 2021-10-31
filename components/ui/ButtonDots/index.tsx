@@ -12,11 +12,13 @@ interface Props {
     onCopyClick?: () => void
     onPasteClick?: () => void
     onCancelClick?: () => void
+    onPublicLinkClick?: () => void,
     showPaste?: boolean
     showCopy?: boolean
     showEdit?: boolean
     showDelete?: boolean
     showCancel?: boolean
+    showPublicLink?: boolean
 
 }
 
@@ -40,15 +42,24 @@ export default function ButtonDots(props: Props) {
         }
         setIsActiveItem(false);
     }
-    const handleCancelClick = (e) => {
-        e.preventDefault()
-        if(props.onCancelClick){
-            props.onCancelClick()
-        }
-        setIsActiveItem(false);
+  const handleCancelClick = (e) => {
+    e.preventDefault()
+    if(props.onCancelClick){
+      props.onCancelClick()
     }
+    setIsActiveItem(false);
+  }
 
-    const handleClick = (e) => {
+
+  const handlePublicLinkClick = (e) => {
+    e.preventDefault()
+    if(props.onPublicLinkClick){
+      props.onPublicLinkClick()
+    }
+    setIsActiveItem(false);
+  }
+
+  const handleClick = (e) => {
         e.preventDefault()
         const params = dotsRef.current?.getBoundingClientRect();
         if(params) {
@@ -90,6 +101,8 @@ export default function ButtonDots(props: Props) {
             {!props.children &&  <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
                 {props.showEdit && <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>}
                 {props.showCopy && <div className={styles.option}><a onClick={handleCopyClick}>Вырезать</a></div>}
+              {props.showPublicLink && <div className={styles.option}><a onClick={handlePublicLinkClick}>Публичная ссылка</a></div>}
+
               {(typeof  localStorage !== 'undefined' && localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
                 {props.showCancel && <div className={styles.option}><a onClick={handleCancelClick}>Отменить</a></div>}
 
@@ -103,5 +116,6 @@ ButtonDots.defaultProps = {
     showPaste: true,
     showEdit: true,
     showDelete: true,
-    showCopy: true
+    showCopy: true,
+    showPublicLink: true
 }

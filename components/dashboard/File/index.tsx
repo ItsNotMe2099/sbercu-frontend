@@ -3,7 +3,7 @@ import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectO
 import { confirmOpen } from "components/Modal/actions";
 import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { ICatalogEntry } from "types";
 import { formatSize } from "utils/formatters";
 import { getMediaPath } from "utils/media";
@@ -13,6 +13,7 @@ import Dots from "components/svg/Dots";
 
 import { useDispatch } from 'react-redux'
 import {format} from 'date-fns'
+import {Circle} from 'rc-progress'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
@@ -23,9 +24,10 @@ interface Props{
   canEdit: boolean
   onEditClick?: (item) => void
   onDeleteClick?: (item) => void
+  onPublicLinkClick?: (item) => void
 }
 
-export default function File({item, basePath, onDeleteClick, onEditClick, onClick, canEdit, ...props}: Props){
+export default function File({item, basePath, onDeleteClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
   const dispatch = useDispatch();
   const getIconByType = (type) => {
     switch(type) {
@@ -75,6 +77,11 @@ export default function File({item, basePath, onDeleteClick, onEditClick, onClic
       onDeleteClick(item)
     }
   }
+  const handlePublicLinkClick = () => {
+    if(onPublicLinkClick){
+      onPublicLinkClick(item)
+    }
+  }
   const getFileLink = () => {
     if(item.entryType === 'file' && item.media?.type === 'video' ){
       return `/video/${item.id}`;
@@ -87,6 +94,9 @@ export default function File({item, basePath, onDeleteClick, onEditClick, onClic
     }
     console.log("Item link", item, item.id, basePath);
     return `/catalog/${item.id}`;
+
+  }
+  const getDetailsText = () => {
 
   }
   const getMediaSize = () => {
@@ -127,8 +137,13 @@ export default function File({item, basePath, onDeleteClick, onEditClick, onClic
         </div>
       </a>
       </Link>
-        {props.additionalInfo && item.entryType === 'file' && item.media &&  item.media.type === 'video' && (!item.media.videoConverted || item.media.videoCutting) && <div className={styles.encoding}>Видео {item.media.videoCutting ? 'обрезается' : 'обрабатывается'}</div>}
-        {canEdit && <ButtonDots showPaste={item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
+        {true && <div className={styles.encoding}>
+            <div className={styles.loader}><div className={styles.progressCircle}><Circle percent={28} strokeWidth={4} strokeColor="#27AE60" /> </div> <div className={styles.loaderProgress}>24%</div></div>
+            <div className={styles.status}>
+            Видео {item.media.videoCutting ? 'обрезается' : 'обрабатывается'}</div>
+            <div className={styles.details}></div>
+        </div>}
+        {canEdit && <ButtonDots showPaste={item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
       </div>
   )
 }

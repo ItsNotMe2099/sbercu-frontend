@@ -117,3 +117,26 @@
 }
 
 
+
+
+.loader{
+  width: 32px;
+  height: 32px;
+  position: relative;
+  .progressCircle{
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+  .loaderProgress{
+    position: absolute;
+    font-size: 10px;
+    text-align: center;
+    color: black;
+    top: 50%;
+    margin-top: -5px;
+    width: 100%;
+  }
+}
+
+
