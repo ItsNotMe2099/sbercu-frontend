@@ -164,14 +164,14 @@ const VideoPage = (props: Props) => {
                     </div>
                   </>
                   :
-                  video?.media ? <>
+                  <>
                     <Player
                       isAudio={isAudio}
                       poster={getMediaPath(video.poster)}
                       sources={video.media?.videoElements?.map(el => ({
                         label: el.quality,
                         value: getMediaPathWithQuality(video.media.fileName, el.quality)
-                      }))}
+                      })) || []}
                       source={getDefaultSource()}/>
                     <div className={styles.btns}>
                       <div className={styles.select__down}>
@@ -189,7 +189,7 @@ const VideoPage = (props: Props) => {
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings}
                                                                    size="9px 20px">Настройки</ButtonSelect></div>}
                     </div>
-                  </> : null}}
+                  </>}
                   <Info totalViews={video.media?.totalViews} authors={video.presenters}
                         date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''}
                         language="Русский, Английский"/>
