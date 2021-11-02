@@ -162,7 +162,7 @@ const isAudio = video?.media?.type === 'audio';
                 </div>
                 </>
         :
-              video.media ?  <>
+              video?.media ?  <>
         <Player
           isAudio={isAudio}
           poster={getMediaPath(video.poster)}
