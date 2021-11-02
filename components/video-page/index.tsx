@@ -170,7 +170,7 @@ const isAudio = video?.media?.type === 'audio';
             source={getDefaultSource()}/>
         <div className={styles.btns}>
           <div className={styles.select__down}>
-            <ButtonSelect options={[]} href={isAudio ?  `${getDefaultSource()}?download=1` : null} size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`}))}>Скачать</ButtonSelect></div>
+            <ButtonSelect  href={isAudio ?  `${getDefaultSource()}?download=1` : null} size="9px 20px" minWidth="120px" onChange={handleDownload} options={video.media?.videoElements?.map(el => ({label: `${el.quality}`, tip: formatSize(el.size), value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`})) || []}>Скачать</ButtonSelect></div>
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleLinksClick} options={links} size="9px 20px">Ссылки</ButtonSelect></div>}
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
