@@ -162,7 +162,7 @@ const isAudio = video?.media?.type === 'audio';
                 </div>
                 </>
         :
-          <>
+              video.media ?  <>
         <Player
           isAudio={isAudio}
           poster={getMediaPath(video.poster)}
@@ -174,7 +174,7 @@ const isAudio = video?.media?.type === 'audio';
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleLinksClick} options={links} size="9px 20px">Ссылки</ButtonSelect></div>}
             {video?.canEdit && <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings} size="9px 20px">Настройки</ButtonSelect></div>}
         </div>
-        </>}
+        </> : null}}
         <Info totalViews={video.media?.totalViews} authors={video.presenters} date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''} language="Русский, Английский"/>
         </div>
         <div className={styles.tags}>
