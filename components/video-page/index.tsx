@@ -72,7 +72,7 @@ const VideoPage = (props: Props) => {
         dispatch(fetchCatalogItem(router.query.id, {showTags: '1'}));
     }, [router.query.id])
     const getDefaultSource = () => {
-        const path = video.media.fileName;
+        const path = video.media?.fileName;
         const quality = video.media?.videoElements?.find(el => el.quality === '1080p')?.quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
         return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
     }
