@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-    fetchAutoCompleteCatalogFilesSearch, fetchAutoCompleteCatalogProjectsSearch,
-    resetAutoCompleteCatalogSearch
+  fetchAutoCompleteCatalogFilesSearch, fetchAutoCompleteCatalogFoldersSearch, fetchAutoCompleteCatalogProjectsSearch,
+  resetAutoCompleteCatalogSearch
 } from "components/search/actions";
 import { IRootState } from "types";
 import File from 'components/dashboard/File';
@@ -35,7 +35,10 @@ export default function InputCatalogSearch(props: Props) {
     const files = useSelector((state: IRootState) => state.search.autoCompleteFiles)
     const filesLoading = useSelector((state: IRootState) => state.search.autocompleteFilesLoading)
     const projectsLoading = useSelector((state: IRootState) => state.search.autocompleteProjectsLoading)
-    const loading = filesLoading || projectsLoading;
+    const folders = useSelector((state: IRootState) => state.search.autoCompleteFolders)
+    const foldersLoading = useSelector((state: IRootState) => state.search.autocompleteFoldersLoading)
+    console.log("SearchFolders", folders);
+    const loading = filesLoading || projectsLoading || foldersLoading;
 
     useEffect(() => {
         if(props.searchValue && !value) {
@@ -60,7 +63,7 @@ export default function InputCatalogSearch(props: Props) {
         }
         dispatch(fetchAutoCompleteCatalogFilesSearch(value, {}))
         dispatch(fetchAutoCompleteCatalogProjectsSearch(value, {}))
-
+        dispatch(fetchAutoCompleteCatalogFoldersSearch(value, {}))
     }
   const handleProjectClick = (item) => {
     router.push(`/catalog/${item.id}`);
@@ -91,30 +94,43 @@ export default function InputCatalogSearch(props: Props) {
           {loading && value && <div className={styles.loaderWrapper}><SearchSuggestionLoader/></div>}
           {value && !loading &&
             <>
-          {projects.length || files.length ?
+          {projects.length || files.length || folders.length ?
           <div className={styles.suggestion}>
             <div className={styles.innerWrapper}>
-          <div className={styles.projects}>
+
+              {projects.length >0 && <div className={styles.projects}>
             <div className={styles.title}>Проекты</div>
             {projects.map(project =>
               <div className={styles.project} key={project} onClick={() => handleProjectClick(project)}>{project.name}</div>
             )}
-          </div>
-          <div className={styles.files}>
-            <div className={styles.title}>Файлы</div>
-            <div className={styles.wrapper}>{files.map(file => (<File
-                onClick={handleFileClick}
-                canEdit={false}
-                additionalInfo={false}
-            item={file}
-            />))}</div>
-          </div>
+          </div>}
+              {folders.length > 0 && <div className={styles.folders}>
+                <div className={styles.title}>Папки</div>
+                <div className={styles.wrapper}>{folders.map(file => (<File
+                  onClick={handleFileClick}
+                  canEdit={false}
+                  additionalInfo={false}
+                  item={file}
+                />))}</div>
+              </div>}
+
+              {files.length > 0 && <div className={styles.files}>
+                <div className={styles.title}>Файлы</div>
+                <div className={styles.wrapper}>{files.map(file => (<File
+                  onClick={handleFileClick}
+                  canEdit={false}
+                  additionalInfo={false}
+                  item={file}
+                />))}</div>
+              </div>}
+              </div>
+
           <div className={styles.btnWrapper}>
           <div className={styles.transparent}>
           <a onClick={handleSubmit} className={styles.show}>Показать все результаты</a>
           </div>
           </div>
-          </div>
+
           </div>
           :
           <div className={styles.noSuggestion}>
