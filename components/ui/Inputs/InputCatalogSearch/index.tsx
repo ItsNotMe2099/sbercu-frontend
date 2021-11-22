@@ -110,6 +110,7 @@ export default function InputCatalogSearch(props: Props) {
                   onClick={handleFileClick}
                   canEdit={false}
                   additionalInfo={false}
+                  showFavorite={false}
                   item={file}
                 />))}</div>
               </div>}

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { ICatalogEntry } from "types";
 import styles from './index.module.scss'
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
+import React from 'react'
 
 interface Props{
   item: ICatalogEntry
@@ -34,6 +36,7 @@ export default function Project({item}: Props){
     {item.projectCover !== "link to cover" && item.projectCover !== null ?
     <img src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${item.projectCover}`} alt=''/>
     : null}
+    {!item.deletedAt && <div className={styles.favorite}><FavoriteCatalogButton item={item} style={'project'}/></div>}
   </div>
       <div className={styles.title}>{item.name}</div>
     </div>

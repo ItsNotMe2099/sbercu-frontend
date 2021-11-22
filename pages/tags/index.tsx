@@ -8,7 +8,7 @@ import TagCategoryModal from "pages/tags/components/TagCategoryModal";
 import TagModal from "pages/tags/components/TagModal";
 import { useEffect, useState } from "react";
 import { IRootState, ITag, ITagCategory } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import Link from "next/link";
@@ -94,5 +94,5 @@ const Tags = (props) => {
     </Layout>
   )
 }
-
-export default withAuthSync(Tags)
+export default Tags
+export const getServerSideProps = getAuthServerSide({redirect: true});

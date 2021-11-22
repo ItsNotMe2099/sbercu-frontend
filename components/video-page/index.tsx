@@ -1,4 +1,10 @@
-import {catalogCopy, deleteCatalog, fetchCatalogItem, resetCatalogItem} from "components/catalog/actions";
+import {
+  catalogCopy,
+  deleteCatalog,
+  fetchCatalogItemRequest,
+  resetCatalogItem,
+  setCatalogItem
+} from "components/catalog/actions";
 import FileEditModal from "components/FileEditModal";
 import FilePosterModal from "components/FilePosterModal";
 import Footer from "components/layout/Footer";
@@ -13,9 +19,8 @@ import {
 import VideoCodeModal from "components/VideoCodeModal";
 import {useRouter} from "next/router";
 import VideoConverting from "components/video-page/component/VideoConverting";
-import {useEffect} from "react";
-import {IRootState} from "types";
-import {withAuthSync} from "utils/auth";
+import React, {useEffect} from "react";
+import {ICatalogEntry, IRootState} from "types";
 import {capitalizeFirstLetter, formatSize} from "utils/formatters";
 import {getMediaPath, getMediaPathWithQuality} from "utils/media";
 import styles from 'components/video-page/index.module.scss'
@@ -34,22 +39,19 @@ import MediaLinkVirtSchoolModal from "components/MediaLinkVirtSchoolModal";
 import MediaLinkPublicModal from "components/MediaLinkPublicModal";
 import {Head} from 'next/document'
 import {NextSeo} from 'next-seo'
-
+import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
+import { IUser } from "types";
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 const queryString = require('query-string')
 
 interface Props {
-
+  initialVideo: ICatalogEntry,
+  user: IUser
 }
 
 
 const VideoPage = (props: Props) => {
 
-  const links = [
-    {value: 'virtualSchool', label: 'ВШ ID'},
-    {value: 'temp', label: 'Временная'},
-    {value: 'public', label: 'Публичная'},
-
-  ];
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const video = useSelector((state: IRootState) => state.catalog.currentCatalogItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -60,18 +62,34 @@ const VideoPage = (props: Props) => {
     {value: 'copy', label: 'Вырезать'},
     {value: 'delete', label: 'Удалить'}
   ];
+
+  const links = [
+  ...(video?.canEdit ? [
+    {value: 'virtualSchool', label: 'ВШ ID'},
+    {value: 'temp', label: 'Временная'},
+  ] : []),
+    {value: 'public', label: 'Публичная'},
+
+  ];
   const dispatch = useDispatch();
   const router = useRouter()
   console.log("Auth", props)
-  useEffect(() => {
+
+  useEffect( () => {
     dispatch(resetCatalogItem());
     if (!router.query.id) {
       return;
     }
+    if(props.initialVideo){
+     dispatch(setCatalogItem(props.initialVideo));
 
-    dispatch(fetchCatalogItem(router.query.id, {showTags: '1'}));
+    }else {
+      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    }
+
   }, [router.query.id])
   const getDefaultSource = () => {
+    return 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1920_18MG.mp4';
     const path = video.media?.fileName;
     const quality = video.media?.videoElements?.find(el => el.quality === '1080p')?.quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
     return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
@@ -145,6 +163,19 @@ const VideoPage = (props: Props) => {
     router.push(`/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
   }
   const isAudio = video?.media?.type === 'audio';
+  const handleProgressChange = async (data) => {
+    await createVideoViewHistory({
+      mediaId: video?.media?.id,
+      currentTime: data.currentTime,
+      muted: data.muted,
+      volume: data.volume,
+      rate: data.rate,
+    })
+  }
+  const loadVideoViewHistory = async () => {
+    const  viewHistoryRes = await getVideoViewHistory(video?.mediaId);
+    return viewHistoryRes?.data;
+  }
   return (
     <Layout>
       {video && <NextSeo title={video.name}/>}
@@ -172,6 +203,8 @@ const VideoPage = (props: Props) => {
                         label: el.quality,
                         value: getMediaPathWithQuality(video.media.fileName, el.quality)
                       })) || []}
+                      getViewHistory={loadVideoViewHistory}
+                      onChangeProgress={handleProgressChange}
                       source={getDefaultSource()}/>
                     <div className={styles.btns}>
                       <div className={styles.select__down}>
@@ -182,12 +215,13 @@ const VideoPage = (props: Props) => {
                                         tip: formatSize(el.size),
                                         value: `${getMediaPathWithQuality(video.media.fileName, el.quality)}&download=1`
                                       })) || []}>Скачать</ButtonSelect></div>
-                      {video?.canEdit &&
+                      {(video?.canEdit || ['admin', 'manager'].includes(props.user?.role)) &&
                       <div className={styles.select}><ButtonSelect onChange={handleLinksClick} options={links}
                                                                    size="9px 20px">Ссылки</ButtonSelect></div>}
                       {video?.canEdit &&
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings}
                                                                    size="9px 20px">Настройки</ButtonSelect></div>}
+                      <FavoriteCatalogButton item={video} style={'video'}/>
                     </div>
                   </>}
                   <Info totalViews={video.media?.totalViews} authors={video.presenters}

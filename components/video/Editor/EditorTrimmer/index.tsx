@@ -37,8 +37,6 @@ export default function EditorTrimmer(props: Props) {
             return resultArray
         }, [])
         const trackItems = chunked.map(item => ({id: `${item[0]}${item[1]}`, start: item[0], end: item[1]}));
-        console.log("TrackItemsBefore", props.trimItems)
-        console.log("TrackItemsAfter", trackItems)
         props.onChange(trackItems);
     }
     return (<div className={styles.root}>
@@ -48,11 +46,12 @@ export default function EditorTrimmer(props: Props) {
                     className={styles.range}
                     count={props.trimItems.length}
                     min={0}
+                    step={0.001}
                     max={props.duration}
                     pushable={true}
                     marks={props.trimItems.reduce((base, item) => {
-                        base[item.start] = { label: formatSeconds(item.start) };
-                        base[item.end] = { label: formatSeconds(item.end) };
+                        base[item.start] = { label: formatSeconds(item.start, true) };
+                        base[item.end] = { label: formatSeconds(item.end, true) };
                         return base;
                         }, {})}
                     value={props.trimItems.map(item => ([item.start, item.end])).flat()}

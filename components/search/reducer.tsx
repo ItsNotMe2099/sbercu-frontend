@@ -1,6 +1,7 @@
 import ApiActionTypes from "constants/api";
 import { ICatalogEntry, ITagCategory } from "types";
-import ActionTypes from "./const";
+import ActionTypes from "./const"
+import CatalogActionTypes from "components/catalog/const";
 
 export interface CatalogSearchList {
   files: ICatalogEntry[],
@@ -128,6 +129,18 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
     case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FOLDERS_SEARCH_LIST + ApiActionTypes.FAIL:
       state.autocompleteFoldersLoading = false
       break;
+
+    case CatalogActionTypes.CATALOG_ADD_TO_FAVORITE:
+      state.projects = state.projects.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+      state.folders = state.folders.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+      state.files = state.files.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+      break
+    case CatalogActionTypes.CATALOG_DELETE_FROM_FAVORITE:
+      state.projects = state.projects.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+      state.folders = state.folders.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+      state.files = state.files.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+      break
+
 
     case ActionTypes.RESET_AUTOCOMPLETE_SEARCH:
       state.autocompleteFilesLoading = false;

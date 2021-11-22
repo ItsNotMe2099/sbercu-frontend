@@ -1,4 +1,4 @@
-import { createCatalog, fetchCatalogItem, updateCatalog } from "components/catalog/actions";
+import { fetchCatalogItemRequest, updateCatalog} from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen } from "components/Modal/actions";
@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import ProjectForm from "pages/project/Form";
 import { useEffect } from "react";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import Link from "next/link";
@@ -23,7 +22,7 @@ const EditProject = (props) => {
 
 
     useEffect(() => {
-        dispatch(fetchCatalogItem(parseInt(router.query.id as string, 10)))
+        dispatch(fetchCatalogItemRequest(parseInt(router.query.id as string, 10)))
     }, [router.query.id])
     const handleSubmit = (data) => {
         let tag;
@@ -82,4 +81,4 @@ const EditProject = (props) => {
     )
 }
 
-export default withAuthSync(EditProject);
+export default EditProject;

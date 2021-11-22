@@ -45,5 +45,6 @@ export const fetchAutoCompleteCatalogFoldersSearch = (query, options) => action(
   }
 })
 
+
 export const resetAutoCompleteCatalogSearch = () => action(ActionTypes.RESET_AUTOCOMPLETE_SEARCH, {})
 export const resetCatalogSearch = () => action(ActionTypes.RESET_SEARCH, {})

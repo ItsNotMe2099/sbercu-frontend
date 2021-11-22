@@ -1,0 +1,17 @@
+@import "scss/index";
+.root{
+
+  display: flex;
+
+  &.video{
+    border-radius: 5px;
+    border: 1px solid #828282;
+    cursor: pointer;
+    display: flex;
+    background-color: transparent;
+    position: relative;
+    text-decoration: none;
+    align-items: center;
+    padding: 0px 5px;
+  }
+}

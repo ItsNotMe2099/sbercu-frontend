@@ -13,12 +13,15 @@ interface Props {
     onPasteClick?: () => void
     onCancelClick?: () => void
     onPublicLinkClick?: () => void,
+    onDeleteBasketClick?: () => void,
+    onRestoreClick?: () => void,
     showPaste?: boolean
     showCopy?: boolean
     showEdit?: boolean
     showDelete?: boolean
     showCancel?: boolean
     showPublicLink?: boolean
+    showBasketActions?: boolean
 
 }
 
@@ -55,6 +58,21 @@ export default function ButtonDots(props: Props) {
     e.preventDefault()
     if(props.onPublicLinkClick){
       props.onPublicLinkClick()
+    }
+    setIsActiveItem(false);
+  }
+
+  const handleRestoreClick = (e) => {
+    e.preventDefault()
+    if(props.onRestoreClick){
+      props.onRestoreClick()
+    }
+    setIsActiveItem(false);
+  }
+  const handleDeleteBasketClick = (e) => {
+    e.preventDefault()
+    if(props.onDeleteBasketClick){
+      props.onDeleteBasketClick()
     }
     setIsActiveItem(false);
   }
@@ -106,7 +124,9 @@ export default function ButtonDots(props: Props) {
               {(typeof  localStorage !== 'undefined' && localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
                 {props.showCancel && <div className={styles.option}><a onClick={handleCancelClick}>Отменить</a></div>}
 
-                {props.showDelete && <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>}
+              {props.showDelete && <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>}
+              {props.showBasketActions && <div className={styles.option}><a onClick={handleRestoreClick}>Восстановить</a></div>}
+              {props.showBasketActions && <div className={styles.option}><a onClick={handleDeleteBasketClick}>Удалить навсегда</a></div>}
             </nav>}
         </div>
     )
@@ -117,5 +137,6 @@ ButtonDots.defaultProps = {
     showEdit: true,
     showDelete: true,
     showCopy: true,
-    showPublicLink: true
+    showPublicLink: true,
+    showBasketActions: false,
 }

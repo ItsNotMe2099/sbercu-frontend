@@ -15,7 +15,7 @@ import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
@@ -157,7 +157,7 @@ const Search = (props) => {
         <Layout>
             <Header {...props} searchValue={query as string} />
             <div className={styles.root}>
-                {!loading && filesTotal === 0 && projectsTotal === 0 && tags.length === 0 &&
+                {!loading && filesTotal === 0 && projectsTotal === 0 && foldersTotal === 0 && tags.length === 0 &&
                 <NoFiles/>}
                 { (filesTotal > 0 || projectsTotal > 0) &&
                   <div
@@ -275,6 +275,6 @@ const Search = (props) => {
         </Layout>
     )
 }
-
-export default withAuthSync(Search)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Search
 

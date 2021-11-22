@@ -4,6 +4,7 @@
   margin-top: 16px;
 }
 
+
 .container{
   text-decoration: none;
   @media screen and (min-width: $sm-mid) {
@@ -12,6 +13,7 @@
 }
 
 .square{
+  position: relative;
     width: 193px;
     margin: auto;
   @media screen and (max-width: $sm-max) {
@@ -31,6 +33,7 @@
   width: 193px;
   height: 193px;
   margin: auto;
+  position: relative;
   @media screen and (max-width: $sm-max) {
     width: 128px;
     height: 128px;
@@ -41,6 +44,11 @@
     object-fit: cover;
     border-radius: 5px;
     }
+}
+.favorite{
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .title{

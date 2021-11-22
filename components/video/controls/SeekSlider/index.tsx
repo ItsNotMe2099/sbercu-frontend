@@ -382,6 +382,7 @@ export default class SeekSlider extends React.Component<VideoSeekSliderProps, Vi
 
 
     public render(): React.ReactNode {
+        console.log("currentTime", this.props.currentTime);
         return (
             <div className={styles["ui-video-seek-slider"]}>
                 <div

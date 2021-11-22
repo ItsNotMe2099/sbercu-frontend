@@ -5,7 +5,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import React, { useRef } from "react";
 import { ICatalogEntry } from "types";
-import { formatSize } from "utils/formatters";
+import {formatJobStatusName, formatSize} from "utils/formatters";
 import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
@@ -14,9 +14,13 @@ import Dots from "components/svg/Dots";
 import { useDispatch } from 'react-redux'
 import {format} from 'date-fns'
 import {Circle} from 'rc-progress'
+import Cross from 'components/svg/Cross'
+import LikeOutline from 'components/svg/LikeOutline'
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
+  showFavorite?: boolean,
   size?: any,
   onClick?: (item) => void
   basePath?: string,
@@ -24,10 +28,41 @@ interface Props{
   canEdit: boolean
   onEditClick?: (item) => void
   onDeleteClick?: (item) => void
+  onRestoreClick?: (item) => void
   onPublicLinkClick?: (item) => void
+  userRole?: string
 }
+interface FileJobProps{
+  item: ICatalogEntry
+}
+const FileJobInfo = ({item}: FileJobProps) => {
+  const job = item?.media?.lastJob;
+  return <div className={styles.jobInfo}>
 
-export default function File({item, basePath, onDeleteClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
+    {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
+
+    {['canceled'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Cross color={'#F2C94C'}/></div>}
+    {['error'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#EB5757'}}><Cross color={'#EB5757'}/></div>}
+
+    {['finished'].includes(job.state) && <div className={styles.statusIcon}><img src={'/img/icons/mark.svg'}/></div>}
+    {['started'].includes(job.state) && <div className={styles.loader}>
+        <div className={styles.progressCircle}>
+            <Circle percent={job.progress?.percent} strokeWidth={4} strokeColor="#27AE60"/>
+        </div>
+        <div className={styles.loaderProgress}>{job.progress?.percent > 100 ? 100 : job.progress?.percent?.toFixed(1)}%</div>
+    </div>}
+    <div className={styles.status}>
+      {formatJobStatusName(job.state)}
+    </div>
+  </div>
+}
+const FileDeleted = ({item}: FileJobProps) => {
+  const job = item?.media?.lastJob;
+  return <div className={styles.deleted}>
+
+  </div>
+}
+export default function File({item, basePath, userRole, onDeleteClick, onRestoreClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
   const dispatch = useDispatch();
   const getIconByType = (type) => {
     switch(type) {
@@ -77,6 +112,11 @@ export default function File({item, basePath, onDeleteClick, onPublicLinkClick, 
       onDeleteClick(item)
     }
   }
+  const handleRestoreClick = () => {
+    if(onRestoreClick){
+      onRestoreClick(item)
+    }
+  }
   const handlePublicLinkClick = () => {
     if(onPublicLinkClick){
       onPublicLinkClick(item)
@@ -111,6 +151,7 @@ export default function File({item, basePath, onDeleteClick, onPublicLinkClick, 
       onClick(item);
     }
   }
+
   return (
       <div className={styles.root}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
@@ -129,6 +170,7 @@ export default function File({item, basePath, onDeleteClick, onPublicLinkClick, 
           <div className={styles.additional}>
             <div className={styles.separator}></div>
             {item.media.size && <div className={styles.text}>{formatSize(getMediaSize())}</div>}
+
             {/*<div className={styles.separator}></div>
             <div className={styles.text}>{props.length}</div>*/}
           </div>
@@ -137,17 +179,30 @@ export default function File({item, basePath, onDeleteClick, onPublicLinkClick, 
         </div>
       </a>
       </Link>
-        {true && <div className={styles.encoding}>
-            <div className={styles.loader}><div className={styles.progressCircle}><Circle percent={28} strokeWidth={4} strokeColor="#27AE60" /> </div> <div className={styles.loaderProgress}>24%</div></div>
-            <div className={styles.status}>
-            Видео {item.media.videoCutting ? 'обрезается' : 'обрабатывается'}</div>
-            <div className={styles.details}></div>
-        </div>}
-        {canEdit && <ButtonDots showPaste={item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
+        {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
+
+        {!item.deletedAt && props.showFavorite && <FavoriteCatalogButton item={item} style={'catalog'}/>}
+        {item.deletedAt && <ButtonDots
+            showPaste={false}
+          showEdit={false}
+          showDelete={false}
+          showCopy={false}
+          showPublicLink={false}
+          showBasketActions={true}
+          onRestoreClick={handleRestoreClick}
+          onDeleteBasketClick={handleDeleteClick}
+            />}
+
+        {(canEdit || ['admin', 'manager'].includes(userRole)) && <ButtonDots
+            showEdit={canEdit}
+          showDelete={canEdit}
+          showCopy={canEdit}
+            showPublicLink={item.entryType === 'file' && ['admin', 'manager'].includes(userRole)} showPaste={ canEdit && item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
       </div>
   )
 }
 
 File.defaultProps = {
-  additionalInfo: true
+  additionalInfo: true,
+  showFavorite: true
 }

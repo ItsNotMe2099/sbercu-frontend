@@ -1,0 +1,28 @@
+@import "scss/index";
+
+.root {
+  display: inline-block;
+
+}
+.input{
+  width: 80px;
+  border-bottom: 1px solid #E0E0E0;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+
+  margin-top: 9px;
+  padding-bottom: 7px;
+  background: transparent;
+  &::placeholder{
+    color: #828282;
+    font-size: 16px;
+  }
+  &:disabled{
+    color: #000000;
+    font-size: 16px;
+  }
+  &.error{
+    border: 1px solid red;
+  }
+}

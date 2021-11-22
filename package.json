@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-cmpt/use-throttle": "^0.3.2",
     "@sentry/nextjs": "^6.10.0",
     "@types/date-fns": "^2.6.0",
     "@types/next-seo": "^2.1.2",
@@ -18,7 +19,7 @@
     "hc-react-ruler": "^1.0.4",
     "js-cookie": "^2.2.1",
     "less": "^4.1.0",
-    "next": "^11.0.1",
+    "next": "^12.0.3",
     "next-cookies": "^2.0.3",
     "next-seo": "^4.24.0",
     "nookies": "^2.5.2",

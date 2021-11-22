@@ -1,7 +1,7 @@
 import {
   catalogCopy, catalogPaste,
   deleteCatalog,
-  fetchCatalogItem,
+  fetchCatalogItemRequest,
   fetchCatalogList,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
@@ -25,7 +25,7 @@ import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import File from "components/dashboard/File";
@@ -71,7 +71,7 @@ const Catalog = (props) => {
     console.log("LIST", items)
     dispatch(resetCatalogList())
     dispatch(fetchCatalogList(id, 1, 30))
-    dispatch(fetchCatalogItem(id))
+    dispatch(fetchCatalogItemRequest(id))
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
@@ -111,9 +111,6 @@ const Catalog = (props) => {
 
   const handlePublicLinkClick = useCallback((item) => {
     if(item.entryType === 'file') {
-      setCurrentEditCatalog(item);
-      dispatch(mediaLinkPublicModalOpen());
-    }else {
       setCurrentEditCatalog(item);
       dispatch(mediaLinkPublicModalOpen());
     }
@@ -194,6 +191,7 @@ const Catalog = (props) => {
       >
       <div className={styles.files}>
         {items.map(item => (<File
+            userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             onPublicLinkClick={handlePublicLinkClick}
@@ -232,5 +230,5 @@ const Catalog = (props) => {
   )
 }
 
-
-export default withAuthSync(Catalog)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Catalog

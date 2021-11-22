@@ -140,6 +140,22 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.FAIL:
             state.listLoading = false;
             break
+        case ActionTypes.CATALOG_ADD_TO_FAVORITE:
+            if(state.currentCatalogItem && state.currentCatalogItem?.id === action.payload.id){
+                state.currentCatalogItem = {...state.currentCatalogItem, inFavorites: true}
+            }
+            state.list = state.list.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+            state.projects = state.projects.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+            state.myUploadedFilesList = state.myUploadedFilesList.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
+            break
+        case ActionTypes.CATALOG_DELETE_FROM_FAVORITE:
+            if(state.currentCatalogItem && state.currentCatalogItem?.id === action.payload.id){
+                state.currentCatalogItem = {...state.currentCatalogItem, inFavorites: false}
+            }
+            state.list = state.list.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+            state.projects = state.projects.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+            state.myUploadedFilesList = state.myUploadedFilesList.map(i => (i.id === action.payload.id ? {...i, inFavorites: false} : i));
+            break
 
         case ActionTypes.RESET_CATALOG_LIST:
             state.listLoading = false;
@@ -160,10 +176,10 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             state.myUploadedFilesListLoading = false;
             break;
 
-        case ActionTypes.FETCH_CATALOG_ITEM:
+        case ActionTypes.FETCH_CATALOG_ITEM_REQUEST:
             state.currentLoading = true;
             break
-        case ActionTypes.FETCH_CATALOG_ITEM + ApiActionTypes.SUCCESS:
+        case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
             let path = '/catalog'
             action.payload.parents?.splice(-1, 1);
             state.currentCatalogItem = {
@@ -176,7 +192,21 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             state.basePath = `/catalog/${action.payload.parents?.map(i => i.id).join('/')}`
             state.currentLoading = false;
             break
-        case ActionTypes.FETCH_CATALOG_ITEM + ApiActionTypes.FAIL:
+        case ActionTypes.SET_CATALOG_MEDIA_ITEM: {
+            let path = '/catalog'
+            action.payload.parents?.splice(-1, 1);
+            state.currentCatalogItem = {
+                ...action.payload,
+                parents: action.payload.parents?.map(item => {
+                    const link = `${path}/${item.id}`
+                    return {...item, link};
+                })
+            }
+            state.basePath = `/catalog/${action.payload.parents?.map(i => i.id).join('/')}`
+            state.currentLoading = false;
+            break
+        }
+        case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
             state.currentLoading = false;
             break
 

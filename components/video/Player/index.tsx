@@ -12,6 +12,8 @@ import styles from './index.module.scss'
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
 import cx from 'classnames'
+import {useThrottleFn} from '@react-cmpt/use-throttle'
+import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
 
 const VideoJs = dynamic(() => import('components/video/VideoJs'), {
     ssr: false
@@ -22,7 +24,9 @@ interface Props {
     source: any,
     sources: any[]
     contentType?: string
-    isAudio?: boolean
+    isAudio?: boolean,
+    getViewHistory?: () => any
+    onChangeProgress?: () => void
 }
 
 export default function Player(props) {
@@ -42,6 +46,17 @@ export default function Player(props) {
     const [seeking, setSeeking] = useState(false);
     const player = useRef();
     const root = useRef();
+
+    const handleSaveViewHistory = async (progress) => {
+            props.onChangeProgress({
+                currentTime: Math.ceil(progress),
+                muted,
+                volume,
+                rate: playbackRate
+            })
+    }
+    const { callback: saveViewHistory, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(handleSaveViewHistory, 3000)
+
     useEffect(() => {
         setSource(props.source)
     }, [])
@@ -100,7 +115,7 @@ export default function Player(props) {
 
 
     const handleSeekChange = value => {
-        console.log("SeekChange", value, loaded);
+        console.log("SeekChange", value, loaded, value / duration, duration);
         setPlayed(value / duration);
         (player?.current as any).currentTime(value);
     }
@@ -110,14 +125,32 @@ export default function Player(props) {
         console.log("handleProgress", state)
         setPlayed(state.played);
         setLoaded(state.loaded);
+        saveViewHistory(state.playedSeconds);
     }
 
     const handleEnded = () => {
         setPlaying(loop);
+        props.onChangeProgress({
+            currentTime: 0,
+            muted,
+            volume,
+            rate: playbackRate
+        })
     }
 
-    const handleDuration = (duration) => {
+    const handleDuration = async (duration) => {
         setDuration(duration);
+
+        if(props.getViewHistory) {
+            const viewHistory = await props.getViewHistory();
+           console.log("viewHistory", viewHistory);
+            if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
+                handleSeekChange(viewHistory?.currentTime);
+                setPlayed(viewHistory?.currentTime / duration);
+                (player?.current as any).currentTime(viewHistory?.currentTime);
+                setVolume(viewHistory.volume);
+            }
+        }
     }
 
     const handleClickFullscreen = (event) => {

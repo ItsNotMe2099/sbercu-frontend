@@ -1,6 +1,4 @@
 import nextCookie from "next-cookies";
-import {getDisplayName} from "next/dist/next-server/lib/utils";
-import {Component} from "react";
 import cookie from "js-cookie";
 import {parseCookies, setCookie, destroyCookie} from 'nookies'
 import Router from "next/router";
@@ -29,74 +27,42 @@ export const logout = () => {
   Router.push("/auth/login");
 };
 
-export const withAuthSync = (WrappedComponent) =>
-  class extends Component {
-    static displayName = `withAuthSync(${getDisplayName(WrappedComponent)})`;
 
-    static async getInitialProps(ctx) {
-      const token = auth(ctx);
-      const user = token ? await getUser(token) : null
-      if (ctx.req && (!token || !user)) {
-        console.log("Req", ctx.req.url);
+export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  => (async (ctx) => {
+    const token = auth(ctx)
+    console.log("Token111", token);
+    const user = token ? await getUser(token) : null
 
-        setCookie(ctx, 'authRedirect', ctx.req.url, {
-          maxAge: 60 * 3,
-          path: '/',
-        })
-        ctx.res.writeHead(302, {Location: `/auth/login?redirect=${ctx.req.url}`});
+    if (!user && redirect) {
+      setCookie(ctx, 'authRedirect', ctx.req.url, {
+        maxAge: 60 * 3,
+        path: '/',
+      })
 
-        ctx.res.end();
-        return;
-      } else if (!ctx.req && (!token || !user)) {
-        Router.push(`/auth/login?redirect=${ctx.asPath}`);
-        cookie.set('authRedirect', ctx.asPath, {
-          expires: new Date(new Date().getTime() + 3 * 60 * 1000)
-        });
-      }else{
-        const {authRedirect} = nextCookie(ctx);
-        if(authRedirect) {
-          destroyCookie(ctx, 'authRedirect');
-          console.log("authRedirect", authRedirect);
-          ctx.res.writeHead(302, {Location: authRedirect});
-          ctx.res.end();
-          return ;
+      return {    redirect: {
+          permanent: false,
+          destination:  `/auth/login?redirect=${ctx.req.url}`
         }
       }
-      const componentProps =
-        WrappedComponent.getInitialProps &&
-        (await WrappedComponent.getInitialProps(ctx));
+    }else if(user && ctx.req){
+      const {authRedirect} = nextCookie(ctx);
+      console.log("authRedirect", authRedirect);
+      if(authRedirect) {
+        destroyCookie(ctx, 'authRedirect');
+        console.log("authRedirect", authRedirect);
 
-      return {...componentProps, token, user};
-    }
-
-    // New: We bind our methods
-    constructor(props) {
-      super(props);
-
-      this.syncLogout = this.syncLogout.bind(this);
-    }
-
-    // New: Add event listener when a restricted Page Component mounts
-    componentDidMount() {
-      window.addEventListener("storage", this.syncLogout);
-    }
-
-    // New: Remove event listener when the Component unmount and
-    // delete all data
-    componentWillUnmount() {
-      window.removeEventListener("storage", this.syncLogout);
-      window.localStorage.removeItem("logout");
-    }
-
-    // New: Method to redirect the user when the event is called
-    syncLogout(event) {
-      if (event.key === "logout") {
-        console.log("logged out from storage!");
-        Router.push("/login");
+        return {    redirect: {
+            permanent: false,
+            destination: authRedirect
+          }
+        }
       }
     }
-
-    render() {
-      return <WrappedComponent {...this.props} />;
+    if (!user) {
+      return { props: {} }
     }
-  };
+    console.log("User11", user);
+
+    return { props: { user } }
+  })
+

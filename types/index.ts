@@ -11,6 +11,8 @@ import {TagCategoryState} from "components/tags/TagCategory/reducer";
 import {UserState} from "components/users/reducer";
 import {JobState} from "components/jobs/reducer";
 import {MediaLinkState} from "../components/media-links/reducer";
+import {CatalogFavoriteList} from 'components/favorite/reducer'
+import {CatalogDeletedList} from 'components/basket/reducer'
 
 export interface IRootState {
     loginSubmit: LoginSubmitState
@@ -26,6 +28,8 @@ export interface IRootState {
     search: CatalogSearchList,
     jobs: JobState
     mediaLink: MediaLinkState
+    favorite: CatalogFavoriteList
+    basket: CatalogDeletedList
 }
 
 export interface BaseAction {
@@ -39,6 +43,7 @@ export interface IRequestData {
     data?: any
     token?: string
     host?: string
+    timeout?: number
 }
 
 export interface IResponse {
@@ -65,6 +70,7 @@ export interface IMedia {
     videoCutting: boolean
     videoElements: IVideoElement[]
     totalViews: number
+    lastJob: IJob
 }
 
 export interface ICatalogEntry {
@@ -90,7 +96,9 @@ export interface ICatalogEntry {
     mediaId?: number
     presenters?: string[],
     parents?: ICatalogEntry[],
-    highlight?: any
+    highlight?: any,
+    inFavorites?: any
+    deletedAt?: string
 }
 
 export interface ITag {
@@ -188,4 +196,11 @@ export interface IJob {
     catalog: ICatalogEntry
     user: IUser
     media: IMedia
+}
+export interface VideoViewHistory{
+    mediaId: number
+    currentTime: number
+    muted: boolean
+    volume: number
+    rate: number
 }

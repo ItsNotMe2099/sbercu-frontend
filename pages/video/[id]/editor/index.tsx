@@ -1,4 +1,4 @@
-import { fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
+import { fetchCatalogItemRequest, resetCatalogItem} from "components/catalog/actions";
 import Layout from "components/layout/Layout";
 import { confirmOpen, editFileOpen, modalClose, videoEditorConfirmOpen } from "components/Modal/actions";
 import VideoEditor from "components/video/Editor";
@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import VideoConverting from "components/video-page/component/VideoConverting";
 import { useEffect, useState } from "react";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
+import {getAuthServerSide} from "utils/auth";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -38,9 +38,10 @@ const Editor = (props: Props) => {
             return;
         }
 
-        dispatch(fetchCatalogItem(router.query.id, {showTags: '1'}));
+        dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
     }, [router.query.id])
     const getDefaultSource = () => {
+      return 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1920_18MG.mp4';
         const path = video.media.fileName;
         const quality = video.media?.videoElements?.find(el => el.quality === '1080p').quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
         return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
@@ -110,4 +111,5 @@ const Editor = (props: Props) => {
     </Layout>
   )
 }
-export default withAuthSync(Editor)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Editor

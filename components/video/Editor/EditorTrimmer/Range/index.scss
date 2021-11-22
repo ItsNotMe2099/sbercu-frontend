@@ -79,10 +79,15 @@
   box-shadow: 0 0 0 5px white;
 }
 .rc-slider-handle-click-focused {
-  &:focus {
+
     border-color: white;
     box-shadow: unset;
-  }
+
+}
+.rc-slider-handle-focused {
+  border-color: white !important;
+  background: white !important;
+  box-shadow: unset;
 }
 .rc-slider-mark {
   position: absolute;

@@ -13,7 +13,7 @@ import UserModal from "pages/users/components/UserModal";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState, ITag, IUser } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import styles from './index.module.scss'
 import File from "components/dashboard/File";
 import Header from "components/layout/Header";
@@ -189,5 +189,5 @@ const Users = (props) => {
         </Layout>
     )
 }
-
-export default withAuthSync(Users)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Users

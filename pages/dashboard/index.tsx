@@ -14,7 +14,7 @@ import NoFiles from "components/ui/NoFiles";
 import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
@@ -223,5 +223,5 @@ const Dashboard = (props) => {
     </Layout>
   )
 }
-
-export default withAuthSync(Dashboard)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Dashboard
