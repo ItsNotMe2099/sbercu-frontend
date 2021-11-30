@@ -46,7 +46,7 @@ export default function EditorTrimmer(props: Props) {
                     className={styles.range}
                     count={props.trimItems.length}
                     min={0}
-                    step={0.001}
+                    step={0.040}
                     max={props.duration}
                     pushable={true}
                     marks={props.trimItems.reduce((base, item) => {

@@ -55,6 +55,7 @@ function request(requestData: IRequestData, ctx: any = null): Promise<IResponse>
         return isJson ? res.json() : res.text()
       })
       .then(res => {
+        console.log("RES111", res)
         return {
           data: res,
           err: null,

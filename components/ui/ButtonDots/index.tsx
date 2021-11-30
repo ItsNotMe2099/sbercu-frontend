@@ -6,6 +6,7 @@ import cx from 'classnames'
 
 interface Props {
     children?: ReactElement
+  style?: 'grey' | 'white'
     onClick?: () => void
     onEditClick?:() => void
     onDeleteClick?:() => void
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export default function ButtonDots(props: Props) {
+  const {style} = props;
     const dropdownRefItem = useRef(null)
     const dotsRef = useRef(null)
    const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
@@ -108,11 +110,11 @@ export default function ButtonDots(props: Props) {
     }
 
     return (
-        <div className={styles.root}>
+        <div className={cx(styles.root, { })}>
             <div
                 ref={dotsRef}
                 onClick={handleClick}
-                className={cx(styles.button, {[styles.buttonActive]: isActiveItem})}>
+                className={cx(styles.button, {[styles.buttonActive]: isActiveItem, [styles.grey]: style === 'grey', [styles.white]: style === 'white',})}>
                 <Dots/>
 
             </div>
@@ -133,6 +135,7 @@ export default function ButtonDots(props: Props) {
 }
 
 ButtonDots.defaultProps = {
+  style: 'grey',
     showPaste: true,
     showEdit: true,
     showDelete: true,

@@ -8,7 +8,10 @@
 }
 
 .container{
-  width: $container-lg;
+
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+  }
   margin: auto;
   display: flex;
   @media screen and (max-width: $sm-max) {

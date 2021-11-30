@@ -6,21 +6,21 @@ const queryString = require('query-string')
 
 export const fetchCatalogProjectsFavorite = (options) => action(ActionTypes.FETCH_CATALOG_PROJECTS_FAVORITE_LIST, {
   api: {
-    url: `/api/catalog/favorites?entryType=project`,
+    url: `/api/catalog/favorites?${queryString.stringify({...options, entryType: 'project'})}`,
     method: 'GET',
   }
 })
 
 export const fetchCatalogFilesFavorite = (options) => action(ActionTypes.FETCH_CATALOG_FILES_FAVORITE_LIST, {
   api: {
-    url: `/api/catalog/favorites?entryType=file`,
+    url: `/api/catalog/favorites?${queryString.stringify({...options, entryType: 'file'})}`,
     method: 'GET',
   }
 })
 
 export const fetchCatalogFoldersFavorite = (options) => action(ActionTypes.FETCH_CATALOG_FOLDERS_FAVORITE_LIST, {
   api: {
-    url: `/api/catalog/favorites?entryType=folder`,
+    url: `/api/catalog/favorites?${queryString.stringify({...options, entryType: 'folder'})}`,
     method: 'GET',
   }
 })

@@ -2,11 +2,9 @@
 .root{
 
   display: flex;
-
+  cursor: pointer;
   &.video{
-    border-radius: 5px;
-    border: 1px solid #828282;
-    cursor: pointer;
+
     display: flex;
     background-color: transparent;
     position: relative;
@@ -14,4 +12,27 @@
     align-items: center;
     padding: 0px 5px;
   }
+  &.project{
+    svg{
+      path{
+        fill: white;
+      }
+    }
+  }
+
+  &.catalog, &.video{
+    svg{
+      path{
+        fill: #828282;
+      }
+    }
+    &.selected
+    svg{
+    path{
+      fill: #828282;
+    }
+    }
+  }
+
+
 }

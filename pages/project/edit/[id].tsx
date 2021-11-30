@@ -10,6 +10,7 @@ import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import Link from "next/link";
 import { useSelector, useDispatch } from 'react-redux'
+import {getAuthServerSide} from 'utils/auth'
 
 const EditProject = (props) => {
     const dispatch = useDispatch()
@@ -63,7 +64,7 @@ const EditProject = (props) => {
         }
         return 'all'
     }
-    console.log("getVisibility()", getVisibility())
+    console.log("getVisibility()", getVisibility(), props.user)
     return (
         <Layout>
         <Header {...props}/>
@@ -80,5 +81,5 @@ const EditProject = (props) => {
         </Layout>
     )
 }
-
+export const getServerSideProps = getAuthServerSide({redirect: true});
 export default EditProject;

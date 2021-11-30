@@ -7,11 +7,17 @@
   display: flex;
   padding-top: 13px;
   padding-bottom: 8px;
-  padding-left: 10px;
   align-items: center;
-  @media screen and (max-width: $sm-max) {
-    padding-right: 22px;
-    padding-left: 22px;
+
+  &.withDots{
+    .like{
+      margin-right: 20px;
+    }
+  }
+  &.deleted{
+    .inner{
+      cursor: inherit;
+    }
   }
 }
 
@@ -141,7 +147,7 @@
 
 
 .jobInfo{
-
+  margin-right: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;

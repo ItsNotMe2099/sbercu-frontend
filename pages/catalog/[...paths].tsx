@@ -41,6 +41,7 @@ import CatalogDropZone from "../../components/CatalogDropZone";
 import {NextSeo} from 'next-seo'
 import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
 import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
+import request from 'utils/request'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -230,5 +231,30 @@ const Catalog = (props) => {
   )
 }
 
-export const getServerSideProps = getAuthServerSide({redirect: true});
+
+export async function getServerSideProps(ctx) {
+  const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+  if (!authRes?.props?.user) {
+    console.log("authRes", authRes);
+    return authRes;
+  }
+  const authProps = authRes.props;
+  const paths = ctx.query.paths as string[] || []
+  const id = paths[paths.length - 1]
+  const res = await request({
+    url: `/api/catalog/show/${id}`,
+    method: 'GET'
+  }, ctx);
+
+  if(!res.data){
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {initialVideo: res.data, ...authProps},
+  }
+
+}
 export default Catalog

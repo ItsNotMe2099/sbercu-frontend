@@ -39,7 +39,8 @@ export default function Header(props: Props){
           <div className={styles.mobile}>{props.children}</div>
           :null}
           <div className={styles.notMobile}>{props.children}</div>
-          <Profile user={props.user}/>
+
+            <Profile user={props.user} showSearch={isActive}/>
           </div>
         </div>
         <ModalConfirm isOpen={key === 'confirm'}  onRequestClose={() => dispatch(modalClose())}/>

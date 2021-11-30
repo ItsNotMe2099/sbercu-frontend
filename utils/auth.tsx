@@ -22,8 +22,6 @@ const getUser = async (token) => {
 }
 export const logout = () => {
   cookie.remove("token");
-  // To trigger the event listener we save some random data into the `logout` key
-  //window.localStorage.setItem("logout", Date.now()); // new
   Router.push("/auth/login");
 };
 
@@ -39,24 +37,27 @@ export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  =>
         path: '/',
       })
 
-      return {    redirect: {
+      console.log("Try redirect", `/auth/login?redirect=${ctx.req.url}`)
+      return {   redirect: {
+          destination: `/auth/login?redirect=${ctx.req.url}`,
           permanent: false,
-          destination:  `/auth/login?redirect=${ctx.req.url}`
-        }
-      }
+        },}
+
     }else if(user && ctx.req){
       const {authRedirect} = nextCookie(ctx);
-      console.log("authRedirect", authRedirect);
+      console.log("authRedirect", authRedirect, ctx.req.url);
       if(authRedirect) {
-        destroyCookie(ctx, 'authRedirect');
-        console.log("authRedirect", authRedirect);
-
-        return {    redirect: {
-            permanent: false,
-            destination: authRedirect
-          }
-        }
+        setCookie(ctx, 'authRedirect', '', {
+          maxAge: 60 * 3,
+          path: '/',
+        })
       }
+      if(authRedirect && authRedirect !== ctx.req.url)
+      return {   redirect: {
+          destination: authRedirect,
+          permanent: false,
+        },}
+
     }
     if (!user) {
       return { props: {} }

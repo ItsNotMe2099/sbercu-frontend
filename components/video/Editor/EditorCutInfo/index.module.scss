@@ -7,14 +7,58 @@
   right: 18px;
   z-index: 2;
   width: 250px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
   padding-bottom: 15px;
   cursor: move;
   box-shadow: 0px 0px 10px rgb(0 0 0 / 25%);
   border-radius: 5px;
 
+  .help{
+    padding: 0px;
+    .helpSideWrapper{
+      padding: 0px 15px;
+    }
+  }
+  &.helpExpanded{
+    width: 500px;
+
+  }
   &.edited{
     width: 270px;
   }
+}
+.helpSideWrapper{
+
+  max-height: 420px;
+  overflow-y: auto;
+}
+.helpSide{
+  flex: 1;
+  .help {
+    padding: 0px;
+  }
+  .helpSideWrapper{
+    padding: 0px 15px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .hepSideHeader{
+    padding: 15px 15px;
+    display: flex;
+    align-items: center;
+  }
+  .helpSideTitle{
+    flex: 1;
+    font-weight: 600;
+    font-size: 18px;
+    color: black;
+  }
+}
+.rightSide{
+  flex: 1;
 }
 .expandButton{
   position: absolute;
@@ -40,13 +84,14 @@
     font-size: 18px;
     flex: 1
   }
-  .close{
-    cursor: pointer;
-    &:hover{
-      svg{
-        path {
-          fill: black;
-        }
+
+}
+.close{
+  cursor: pointer;
+  &:hover{
+    svg{
+      path {
+        fill: black;
       }
     }
   }
@@ -139,6 +184,10 @@
     flex: 1;
     text-align: left;
     display: inline-block;
+    color: #27AE60;
+    &:hover{
+      text-decoration: underline;
+    }
   }
   .clear{
     cursor: pointer;

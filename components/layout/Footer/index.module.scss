@@ -16,12 +16,15 @@
   padding: 36px 0;
 }
 .container{
-  width: $container-lg;
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+  }
+
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  @media screen and (max-width: $sm-max) {
+  @media screen and (max-width: $container-lg) {
     padding: 0 22px;
     width: 100%;
     flex-direction: column;

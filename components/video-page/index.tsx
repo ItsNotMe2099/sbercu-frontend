@@ -89,7 +89,6 @@ const VideoPage = (props: Props) => {
 
   }, [router.query.id])
   const getDefaultSource = () => {
-    return 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1920_18MG.mp4';
     const path = video.media?.fileName;
     const quality = video.media?.videoElements?.find(el => el.quality === '1080p')?.quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
     return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
@@ -207,6 +206,7 @@ const VideoPage = (props: Props) => {
                       onChangeProgress={handleProgressChange}
                       source={getDefaultSource()}/>
                     <div className={styles.btns}>
+                      <FavoriteCatalogButton item={video} style={'video'}/>
                       <div className={styles.select__down}>
                         <ButtonSelect href={isAudio ? `${getDefaultSource()}?download=1` : null} size="9px 20px"
                                       minWidth="120px" onChange={handleDownload}
@@ -221,7 +221,6 @@ const VideoPage = (props: Props) => {
                       {video?.canEdit &&
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick} options={settings}
                                                                    size="9px 20px">Настройки</ButtonSelect></div>}
-                      <FavoriteCatalogButton item={video} style={'video'}/>
                     </div>
                   </>}
                   <Info totalViews={video.media?.totalViews} authors={video.presenters}

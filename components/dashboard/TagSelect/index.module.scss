@@ -97,9 +97,7 @@
   .choosed{
     margin: 0 16px 16px 0;
   }
-  @media screen and (max-width: $sm-max) {
-    padding: 0 22px;
-  }
+
 }
 
 .root{
@@ -108,9 +106,7 @@
     overflow-X: scroll;
     overflow-Y: hidden;
   }
-  @media screen and (max-width: $sm-max) {
-    padding: 0 0 0 22px;
-  }
+
 
 }
 

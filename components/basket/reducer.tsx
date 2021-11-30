@@ -36,7 +36,7 @@ export default function CatalogDeletedReducer(state = {...initialState}, action)
       state.listProjectsLoading = true;
       break;
     case ActionTypes.FETCH_CATALOG_PROJECTS_DELETED_LIST + ApiActionTypes.SUCCESS:
-      state.projects = [...state.projects, ...action.payload.data.map(item => ({...item, id: item.projectId}))];
+      state.projects = [...state.projects, ...action.payload.data];
       state.projectsTotal = action.payload.total
       state.listProjectsLoading = false;
       break;
@@ -72,35 +72,59 @@ export default function CatalogDeletedReducer(state = {...initialState}, action)
       state.currentLoadingItems = [...state.currentLoadingItems, action.payload.id];
       break;
     case ActionTypes.RESTORE_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
-      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.data.id);
+      console.log("dsdsadsad", state.projects, action.payload, state.projects.filter( i => i.id !== action.payload.id))
+     state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.id);
+
+      if( action.payload.entryType === 'project') {
+        state.projects = state.projects.filter(i => i.id !== action.payload.id);
+        state.projectsTotal = state.projectsTotal - 1;
+      }
+      if( action.payload.entryType === 'folder') {
+        state.folders = state.folders.filter(i => i.id !== action.payload.id);
+        state.foldersTotal = state.foldersTotal - 1;
+      }
+      if( action.payload.entryType === 'file') {
+        state.files = state.files.filter(i => i.id !== action.payload.id);
+        state.filesTotal = state.filesTotal - 1;
+      }
       break;
     case ActionTypes.RESTORE_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
-      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.data.id);
+      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.id);
       break;
 
     case ActionTypes.DELETE_CATALOG_ITEM_REQUEST:
       state.currentLoadingItems = [...state.currentLoadingItems, action.payload.id];
       break;
     case ActionTypes.DELETE_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
-      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.data.id);
-      state.folders = state.folders.filter( i => i.id != action.payload.data.id);
-      state.files = state.files.filter( i => i.id != action.payload.data.id);
-      state.projects = state.projects.filter( i => i.id != action.payload.data.id);
+      console.log("SetDeleted",  action.payload, state.files.filter( i => !action.payload?.includes(i.id)).map(i => i.id));
+      state.currentLoadingItems = state.currentLoadingItems.filter( i => !action.payload?.includes(i));
+
+      if(state.projects.filter( i => !action.payload?.includes(i.id)).length > 0) {
+        state.projects = state.projects.filter( i => !action.payload?.includes(i.id));
+        state.projectsTotal = state.projectsTotal - 1;
+      }
+      if(state.folders.filter( i => !action.payload?.includes(i.id)).length > 0) {
+        state.folders = state.folders.filter( i => !action.payload?.includes(i.id));
+        state.foldersTotal = state.foldersTotal - 1;
+      }
+      if( state.files.filter( i => !action.payload?.includes(i.id)).length > 0) {
+        state.files = state.files.filter( i => !action.payload?.includes(i.id));
+        state.filesTotal = state.filesTotal - 1;
+      }
       break;
     case ActionTypes.DELETE_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
-      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.data.id);
+      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.id);
       break;
     case ActionTypes.CLEAN_BASKET_REQUEST:
       state.isBasketCleaning = true;
       break;
-    case ActionTypes.CLEAN_BASKET_REQUEST + ApiActionTypes.SUCCESS:
-      state.isBasketCleaning = false;
-      break;
+
     case ActionTypes.CLEAN_BASKET_REQUEST + ApiActionTypes.FAIL:
       state.isBasketCleaning = false;
       break;
-
+    case ActionTypes.CLEAN_BASKET_REQUEST + ApiActionTypes.SUCCESS:
     case ActionTypes.RESET_DELETED:
+      state.isBasketCleaning = false;
       state.listFilesLoading = false;
       state.listProjectsLoading = false;
       state.listFoldersLoading = false;

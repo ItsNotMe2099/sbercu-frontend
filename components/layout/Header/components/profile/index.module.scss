@@ -34,9 +34,34 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin-top: -3px;
 }
+.favorite{
+  margin-right: 38px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 14px;
+  }
 
+  a {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #828282;
+    &:hover {
+      color: #27AE60;
+    }
+  }
+  &.isActive{
+    a {
+      color: black;
+      font-weight: 500;
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}
 
 .option{
   a{
@@ -59,5 +84,11 @@
   }
   &:hover{
     background-color: #F2F2F2;
+  }
+  &.isActive{
+    a {
+      background-color: #F2F2F2;
+      font-weight: 500;
+    }
   }
 }

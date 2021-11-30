@@ -3,12 +3,15 @@ import { ICatalogEntry } from "types";
 import styles from './index.module.scss'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import React from 'react'
+import ButtonDots from 'components/ui/ButtonDots'
 
 interface Props{
   item: ICatalogEntry
+  onDeleteClick?: (item) => void
+  onRestoreClick?: (item) => void
 }
 
-export default function Project({item}: Props){
+export default function Project({item, onDeleteClick, onRestoreClick}: Props){
 
   const getColorByType = (type) => {
     switch(type) {
@@ -24,6 +27,16 @@ export default function Project({item}: Props){
     }
 
   }
+  const handleDeleteClick = () => {
+    if(onDeleteClick){
+      onDeleteClick(item)
+    }
+  }
+  const handleRestoreClick = () => {
+    if(onRestoreClick){
+      onRestoreClick(item)
+    }
+  }
   console.log('cover', item.projectCover)
 
 
@@ -37,6 +50,17 @@ export default function Project({item}: Props){
     <img src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${item.projectCover}`} alt=''/>
     : null}
     {!item.deletedAt && <div className={styles.favorite}><FavoriteCatalogButton item={item} style={'project'}/></div>}
+    {item.deletedAt && <div className={styles.dots}><ButtonDots
+        style={'white'}
+        showPaste={false}
+        showEdit={false}
+        showDelete={false}
+        showCopy={false}
+        showPublicLink={false}
+        showBasketActions={true}
+        onRestoreClick={handleRestoreClick}
+        onDeleteBasketClick={handleDeleteClick}
+    /></div>}
   </div>
       <div className={styles.title}>{item.name}</div>
     </div>

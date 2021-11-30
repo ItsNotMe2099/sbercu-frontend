@@ -151,18 +151,24 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
       onClick(item);
     }
   }
+  const showDots = (canEdit || ['admin', 'manager'].includes(userRole));
 
+  const noop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   return (
-      <div className={styles.root}>
+      <div className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
-      <Link href={getFileLink()}>
-      <a className={styles.inner} onClick={handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+      <Link href={getFileLink()}  >
+      <a  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.title}>
           {item.name}
         </div>
         {item.highlight?.fileExtractedText && <div className={styles.highlight}>Найдено в содержимом</div>}
         <div className={styles.bottom}>
           <div className={styles.text}>{item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}</div>
+          {item.deletedAt &&<><div className={styles.separator}/><div className={styles.text}>Удалено: {item.deletedAt ? format(new Date(item.deletedAt), 'dd.MM.yyy HH:mm') : ''}</div></>}
           {item.presenters?.length > 0 &&  <div className={styles.separator}></div>}
           {item.presenters?.length > 0 &&  <div className={styles.text}>{item.presenters.join(', ')}</div>}
 
@@ -181,7 +187,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
       </Link>
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
-        {!item.deletedAt && props.showFavorite && <FavoriteCatalogButton item={item} style={'catalog'}/>}
+        {!item.deletedAt && props.showFavorite && <div className={styles.like}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
         {item.deletedAt && <ButtonDots
             showPaste={false}
           showEdit={false}
@@ -193,7 +199,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           onDeleteBasketClick={handleDeleteClick}
             />}
 
-        {(canEdit || ['admin', 'manager'].includes(userRole)) && <ButtonDots
+        {showDots && <ButtonDots
             showEdit={canEdit}
           showDelete={canEdit}
           showCopy={canEdit}

@@ -14,26 +14,42 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  svg{
+  svg {
     vertical-align: middle;
-    fill: #828282;
   }
-  &:hover{
-   border: 1px solid #BDBDBD;
+  &.grey{
     svg{
       fill: #828282;
     }
-  }
-  &:active{
-    border: 1px solid #2F80ED;
-    svg{
-      fill: #2F80ED;
+    &:hover{
+      border: 1px solid #BDBDBD;
+
+    }
+    &:active{
+      border: 1px solid #2F80ED;
+      svg{
+        fill: #2F80ED;
+      }
     }
   }
-  &.buttonActive{
-    border: 2px solid #2F80ED;
+  &.white{
+    border: 1px solid #FFFFFF;
     svg{
-      fill: #2F80ED;
+      fill: #FFFFFF;
+    }
+    &:hover{
+      border: 1px solid #FFFFFF;
+      background: white;
+      svg{
+        fill: #000;
+      }
+
+    }
+    &:active{
+      border: 1px solid #2F80ED;
+      svg{
+        fill: #2F80ED;
+      }
     }
   }
 }

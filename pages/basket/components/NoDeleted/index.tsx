@@ -8,8 +8,8 @@ export default function NoDeleted(props: Props) {
   return (
       <div className={styles.noFiles}>
           <div className={styles.text}>
-              <div className={styles.firstText}>Пока вы ничего не удалили. </div>
-              <div className={styles.secondText}>Любой удаленный файл будет попадать в корзину
+              <div className={styles.firstText}>Корзина пуста</div>
+              <div className={styles.secondText}>Здесь вы можете восстановить удаленные файлы
               </div>
           </div>
           <div className={styles.images}>

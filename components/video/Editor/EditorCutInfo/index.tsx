@@ -64,19 +64,29 @@ export default function EditorCutInfo(props: Props) {
         }));
     }
     const handleExpand = () => {
+        console.log("ClickExpand", expanded, (hasIteraction && props.cutItems.length === 0) );
         setExpanded(true);
     }
     const handleClose = () => {
+        console.log("ClickExpand1");
         setExpanded(false);
     }
-    const renderHelp = () => {
+    const renderHelp = (withHeader = false) => {
         return ( <div className={styles.help}>
-            <p>С помощью редактора вы можете вырезать 1 или несколько фрагментов видео. </p>
-            <p>Для того чтобы <span className={styles.green}>добавить фрагмент </span> для обрезки наведите мышью на нужное время на прогресс баре и нажмите левую кнопку мыши.</p>
-            <p>Для <span className={styles.red}>удаления</span> фрагмента навидте на него курсор и нажмите удалить.</p>
-            <p>После того как вы отметите все фрагменты нажмите кнопку <span className={styles.green}>сохранить</span> в нижней части экрана.</p>
+            {withHeader && <div className={styles.hepSideHeader}>
+                <div className={styles.helpSideTitle}>Инструкция</div>
+                <div className={styles.close} onClick={() => setShowHelp(false)}><img src={'/img/icons/close.svg'}/></div>
+            </div>}
+            <div className={styles.helpSideWrapper}>
+            <p>С помощью редактора вы можете вырезать 1 или несколько фрагментов из видео. </p>
+            <p>Для того, чтобы <span className={styles.green}>добавить фрагмент </span> который вы хотите вырезать, наведите мышью на примерную точку времени на верхней полосе и нажмите левую кнопку мыши.</p>
+            <p>Вы можете выбрать точку фрагмента и зажать на клавиатуре стрелочки ← и →, чтобы указать <span className={styles.green}>долю секунды</span> точнее, либо вписать цифру в списке фрагментов.</p>
+
+            <p>Для <span className={styles.red}>удаления</span> фрагмента наведите на него курсор и нажмите удалить, либо удалите его в списке фрагментов..</p>
+            <p>Если вы вырезали все фрагменты, то нажмите кнопку <span className={styles.green}>сохранить</span> в нижней части экрана. Обрезанное видео будет отправлено на конвертацию повторно.</p>
             <p><span className={styles.red}>* </span>Данное окно можно перемещать.</p>
             {props.cutItems.length > 0 && <p><span className={styles.red}>* </span>Чтобы скрыть данное окно нажмите крестик. Потом его можно будет сново развернуть.</p>}
+            </div>
         </div>);
     }
 
@@ -103,7 +113,13 @@ export default function EditorCutInfo(props: Props) {
 
 
     return (<Draggable offsetParent={window.document.getElementById('video-editor')} bounds="parent">
-        {!expanded || (hasIteraction && props.cutItems.length === 0)? <div className={styles.expandButton} onClick={handleExpand}><Info/></div> : <div className={cx(styles.root, {[styles.edited]: !!activeItemType})}>
+
+        {(!expanded ) ? <div className={styles.expandButton} onClick={handleExpand}><Info/></div> :
+          <div className={cx(styles.root, {[styles.edited]: !!activeItemType, [styles.helpExpanded]: showHelp && props.cutItems.length > 0})}>
+              {(showHelp && props.cutItems.length > 0) && <div className={styles.helpSide}>
+
+                  {renderHelp(true)}</div>}
+           <div className={styles.rightSide}>
             <div className={styles.header}>
                 <div className={styles.title}>Редактор</div>
                 <div className={styles.close} onClick={handleClose}><img src={'/img/icons/close.svg'}/></div>
@@ -134,13 +150,13 @@ export default function EditorCutInfo(props: Props) {
                 </div>
             </div>
           <div className={styles.actions}>
-                <Button size={'0px'} textDarkGrey className={styles.helpToggle} onClick={handleHelp} transparent> {!showHelp ? 'Помощь' : 'Свернуть'}</Button>
+               <Button size={'0px'} textDarkGrey className={styles.helpToggle} onClick={handleHelp} transparent>{!showHelp && 'Инструкция'}</Button>
                 {props.cutItems.length > 0 && <div className={styles.clear} onClick={handleClear}>Очистить</div>}
 
             </div>
-            {showHelp && renderHelp()}
 
-        </div> : renderHelp()}
+
+        </div> : renderHelp()} </div>
         </div>}</Draggable>
     );
 };
