@@ -1,2 +1,2 @@
 [web]
-dev ansible_host=95.216.74.100 ansible_user=admin ansible_become=yes
+dev ansible_host=glm-dev1-app.glob-com.ru ansible_user=admin ansible_become=yes
