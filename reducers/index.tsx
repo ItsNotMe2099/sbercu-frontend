@@ -13,6 +13,8 @@ import ModalReducer from 'components/Modal/reducer';
 import CreateTagCategoryReducer from 'components/tags/TagCategory/reducer';
 import JobReducer from "../components/jobs/reducer";
 import MediaLinkReducer from "../components/media-links/reducer";
+import CatalogFavoriteReducer from 'components/favorite/reducer'
+import CatalogDeletedReducer from 'components/basket/reducer'
 
 export default combineReducers({
   form: formReducer,
@@ -28,5 +30,7 @@ export default combineReducers({
   users: UserReducer,
   search: CatalogSearchReducer,
   jobs: JobReducer,
-  mediaLink: MediaLinkReducer
+  mediaLink: MediaLinkReducer,
+  favorite: CatalogFavoriteReducer,
+  basket: CatalogDeletedReducer
 })

@@ -1,4 +1,4 @@
-import { withAuthSync } from "utils/auth";
+import {getAuthServerSide} from "utils/auth";
 import Dashboard from "./dashboard";
 import styles from './index.module.scss'
 
@@ -10,4 +10,5 @@ const Home = (props) => {
   )
 
 }
-export default withAuthSync(Home)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Home

@@ -1,20 +1,33 @@
-import { IRequestData, IResponse } from 'types'
-
-function request(requestData: IRequestData): Promise<IResponse> {
-  const { url, method, data, token, host } = requestData
+import {IRequestData, IResponse} from 'types'
+import Cookies from 'js-cookie'
+import nextCookie from 'next-cookies'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import {parseSetCookies} from 'utils/cookies'
+function request(requestData: IRequestData, ctx: any = null): Promise<IResponse> {
+  const {url, method, data, host, timeout} = requestData
   const defaultHost = `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}`
-console.log(`Bearer ${token}`, process.env, process.env.NEXT_PUBLIC_API_URL  )
+  let token = requestData.token
+  if (!token) {
+    token = ctx ? nextCookie(ctx).token : Cookies.get('token')
+  }
+  const session = ctx ? nextCookie(ctx).btv_session : Cookies.get('media_sberbank_school_session')
+
+  console.log("TokenUrl",url, token);
   const ts = (new Date()).getTime();
-  return (
+  const controller = typeof window !== 'undefined' ? new AbortController() : null;
+  const promise =  (
     fetch(`${host || defaultHost}${url}${url.includes('?') ? `&t=${ts}` : `?t=${ts}`}`, {
+      signal: controller?.signal,
       method: method || 'GET',
-      cache:'no-store',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token ? `Bearer ${token}` : '',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        cookie: `media_sberbank_school_session=${session}`,
+        credentials: 'same-origin',
       },
       body: data ? JSON.stringify(data) : null,
     })
@@ -28,10 +41,21 @@ console.log(`Bearer ${token}`, process.env, process.env.NEXT_PUBLIC_API_URL  )
             throw {status: res.status, data: resData}
           })
         }
+        const cookies = parseSetCookies(res.headers.get('Set-Cookie'))
+        console.log('SetCookies', cookies)
+        cookies.forEach((c) =>
+          setCookie(ctx, c.name, c.value, {
+            path: c.path,
+            secure: c.secure,
+            httpOnly: c.httpOnly,
+            expires: c.expires,
+          })
+        )
 
         return isJson ? res.json() : res.text()
       })
       .then(res => {
+        console.log("RES111", res)
         return {
           data: res,
           err: null,
@@ -43,8 +67,12 @@ console.log(`Bearer ${token}`, process.env, process.env.NEXT_PUBLIC_API_URL  )
           status: err.status,
           err: err.data,
         }
-      })
-  )
+      }));
+  if(timeout && controller) {
+    const timer = setTimeout(() => controller.abort(), timeout);
+    return promise.finally(() => clearTimeout(timer));
+  }
+  return promise;
 }
 
 export default request

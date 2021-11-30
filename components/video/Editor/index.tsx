@@ -249,7 +249,7 @@ export default function VideoEditor(props: Props) {
     useEffect(() => {
     }, [cutItems])
     return (<div className={styles.root} ref={root} id={'video-editor'}>
-            <EditorCutInfo cutItems={cutItems} duration={duration} onSeek={handleSeekChange} onClear={handleClear} onDelete={handleDelete}/>
+            <EditorCutInfo cutItems={cutItems} duration={duration} onSeek={handleSeekChange} onClear={handleClear} onDelete={handleDelete} onSetCutItems={handleChangeTrimmer}/>
 
             <VideoJs
                 poster={props.poster}

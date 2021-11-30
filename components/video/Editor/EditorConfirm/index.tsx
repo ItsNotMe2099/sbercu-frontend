@@ -43,19 +43,19 @@ export default function ModalEditorConfirm(props: Props) {
         {props.cutItems.length > 0 && <div className={styles.cutItems}>
           {props.cutItems.map((item, index) => <div key={item.id} className={styles.cutItem}>
             <div className={styles.cutItemNumber}>{index + 1}.</div>
-            <div className={styles.cutItemRange}><Duration  className={styles.time} seconds={item.start} /> - <Duration className={styles.time} seconds={item.end}/></div>
-            <div className={styles.cutItemDuration}><Duration seconds={item.end - item.start} /></div>
+            <div className={styles.cutItemRange}><Duration  className={styles.time} seconds={item.start} showMs={true} /> - <Duration className={styles.time} seconds={item.end} showMs={true}/></div>
+            <div className={styles.cutItemDuration}><Duration seconds={item.end - item.start} showMs={true}/></div>
           </div>)}
         </div>}
       </div>
       <div className={styles.summary}>
         <div className={styles.summaryItem}>
           <div className={styles.summaryItemLabel}>Вырезано:</div>
-          <div className={styles.summaryItemValue}><Duration seconds={getTotalCut()}/></div>
+          <div className={styles.summaryItemValue}><Duration seconds={getTotalCut()} showMs={true}/></div>
         </div>
         <div className={styles.summaryItem}>
           <div className={styles.summaryItemLabel}>Итоговая длительность</div>
-          <div className={styles.summaryItemValue}><Duration seconds={getTotalDuration()}/></div>
+          <div className={styles.summaryItemValue}><Duration seconds={getTotalDuration()} showMs={true}/></div>
         </div>
       </div>
 

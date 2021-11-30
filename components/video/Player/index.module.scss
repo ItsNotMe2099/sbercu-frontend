@@ -11,6 +11,16 @@
     height: 100%;
     max-height: 100%;
   }
+  &.audio{
+    min-height: 64px;
+    overflow: initial;
+    .controls {
+      opacity: 1;
+    }
+  }
+  &.audioNoPoster{
+    max-height: 64px;
+  }
     :global .vjs-tech {
         position: absolute;
         top: 0;
@@ -113,7 +123,7 @@
     margin-right: 15px;
   }
 .playbackRateSelect{
-  margin-right: 15px;
+
 }
   .pictureInPicture {
     margin-right: 8px;
@@ -127,7 +137,7 @@
   .fullscreen {
     cursor: pointer;
     margin-top: 4px;
-
+    margin-left: 15px;
     svg {
       width: 24px;
       height: 24px;

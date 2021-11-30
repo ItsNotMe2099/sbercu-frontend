@@ -2,7 +2,12 @@ import { fetchCatalogList, fetchCatalogProjects, fetchMyUploadedFiles } from "co
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
-import { fetchCatalogFilesSearch, fetchCatalogProjectsSearch, resetCatalogSearch } from "components/search/actions";
+import {
+    fetchCatalogFilesSearch,
+    fetchCatalogFoldersSearch,
+    fetchCatalogProjectsSearch,
+    resetCatalogSearch
+} from "components/search/actions";
 import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
 import NoFiles from "components/ui/NoFiles";
 import { useRouter } from "next/router";
@@ -10,7 +15,7 @@ import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
@@ -31,22 +36,28 @@ const Search = (props) => {
     const projects = useSelector((state: IRootState) => state.search.projects)
     const projectsLoading = useSelector((state: IRootState) => state.search.listProjectsLoading)
     const filesLoading = useSelector((state: IRootState) => state.search.listFilesLoading)
-    const loading = projectsLoading || filesLoading;
+    const foldersLoading = useSelector((state: IRootState) => state.search.listFoldersLoading)
+    const loading = projectsLoading || filesLoading || foldersLoading;
     const files = useSelector((state: IRootState) => state.search.files)
+    const folders = useSelector((state: IRootState) => state.search.folders)
     const projectsTotal = useSelector((state: IRootState) => state.search.projectsTotal)
     const filesTotal = useSelector((state: IRootState) => state.search.filesTotal)
+    const foldersTotal = useSelector((state: IRootState) => state.search.foldersTotal)
 
     const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
 
     const [showProjects, setShowAllProjects] = useState(false)
     const [showFiles, setShowAllFiles] = useState(false)
+    const [showFolders, setShowAllFolders] = useState(false)
     const [pageFiles, setPageFiles] = useState(1);
     const [pageProjects, setPageProjects] = useState(1);
+    const [pageFolders, setPageFolders] = useState(1);
     const [tags, setTags] = useState([]);
     const [isInit, setIsInit] = useState(false)
 
     const limitFiles = 30;
     const limitProjects = 30;
+    const limitFolders = 30;
     const { query } = router.query;
     console.log("query", query);
     useEffect(() => {
@@ -57,6 +68,7 @@ const Search = (props) => {
         dispatch(fetchTagCategoryList());
         dispatch(fetchCatalogProjectsSearch(query, {limit: limitProjects}));
         dispatch(fetchCatalogFilesSearch(query, { limit: limitFiles }));
+        dispatch(fetchCatalogFoldersSearch(query, { limit: limitFiles }));
     }, [query])
     useEffect(() => {
         if(projectsTotal > 0){
@@ -72,6 +84,7 @@ const Search = (props) => {
         dispatch(resetCatalogSearch());
         dispatch(fetchCatalogProjectsSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitProjects }));
         dispatch(fetchCatalogFilesSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitProjects }));
+        dispatch(fetchCatalogFoldersSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitFolders }));
     }
 
     const handleEditClick = useCallback((item) => {
@@ -101,9 +114,27 @@ const Search = (props) => {
         }
 
     }
+
+    const handleShowFolders = () => {
+        if(showFiles){
+            setShowAllFolders(false)
+        }else{
+            setShowAllFolders(true)
+            if(pageFolders === 1){
+                setPageFolders(pageFolders + 1)
+                dispatch(fetchCatalogFoldersSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageFolders + 1, limit: limitFolders }));
+            }
+        }
+
+    }
     const handleScrollNextFiles = () => {
         setPageFiles(pageFiles + 1)
         dispatch(fetchCatalogFilesSearch(query, {...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageFiles + 1, limit: limitFiles }));
+    }
+
+    const handleScrollNextFolders = () => {
+        setPageFiles(pageFolders + 1)
+        dispatch(fetchCatalogFoldersSearch(query, {...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageFolders + 1, limit: limitFolders }));
     }
 
     const handleShowProjects = () => {
@@ -126,7 +157,7 @@ const Search = (props) => {
         <Layout>
             <Header {...props} searchValue={query as string} />
             <div className={styles.root}>
-                {!loading && filesTotal === 0 && projectsTotal === 0 && tags.length === 0 &&
+                {!loading && filesTotal === 0 && projectsTotal === 0 && foldersTotal === 0 && tags.length === 0 &&
                 <NoFiles/>}
                 { (filesTotal > 0 || projectsTotal > 0) &&
                   <div
@@ -135,7 +166,7 @@ const Search = (props) => {
                   </div>}
                 {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
 
-                {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
+                {loading && filesTotal === 0 && projectsTotal === 0 && foldersTotal === 0 && <DashboardLoader/>}
                 {projectsTotal > 0 && <>
                   <div className={styles.titleContainer}>
                     <div className={styles.title}>Проекты</div>
@@ -165,42 +196,76 @@ const Search = (props) => {
                     </div>}
                 </>}
 
-                {filesTotal > 0 && <>
-                  <div className={styles.titleContainer}>
-                    <div className={styles.title}>Файлы</div>
-                    <Quantity
-                      quantity={filesTotal}
-                    />
-                  </div>
-                  <div className={styles.files}>
-                    <InfiniteScroll
-                      dataLength={files.length}
-                      next={handleScrollNextFiles}
-                      loader={<div></div>}
-                      style={{overflow: "inherit"}}
-                      hasMore={showFiles && filesTotal !== files.length}
-                      className={styles.scroll}
-                    >
-                        {(showFiles ? files : files.slice(0, 5)).map(item => (<File
-                            onEditClick={handleEditClick}
-                            onDeleteClick={handleDeleteClick}
-                            canEdit={false}
-                            additionalInfo={false}
-                            basePath={''}
-                            item={item}
-                        />))}
 
-                    </InfiniteScroll>
-                  </div>
-                    {filesTotal > 5 && <div className={styles.moreFiles}>
-                      <a onClick={handleShowFiles}>
-                        <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg"
-                             alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
-                      </a>
+                {foldersTotal > 0 && <>
+                    <div className={styles.titleContainer}>
+                        <div className={styles.title}>Папки</div>
+                        <Quantity
+                          quantity={foldersTotal}
+                        />
+                    </div>
+                    <div className={styles.files}>
+                        <InfiniteScroll
+                          dataLength={folders.length}
+                          next={handleScrollNextFolders}
+                          loader={<div></div>}
+                          style={{overflow: "inherit"}}
+                          hasMore={showFolders && foldersTotal !== folders.length}
+                          className={styles.scroll}
+                        >
+                            {(showFolders ? folders : folders.slice(0, 5)).map(item => (<File
+                              onEditClick={handleEditClick}
+                              onDeleteClick={handleDeleteClick}
+                              canEdit={false}
+                              additionalInfo={false}
+                              basePath={''}
+                              item={item}
+                            />))}
+
+                        </InfiniteScroll>
+                    </div>
+                    {foldersTotal > 5 && <div className={styles.moreFiles}>
+                        <a onClick={handleShowFolders}>
+                            <img className={showFolders ? styles.hide : null} src="img/icons/arrowDown.svg"
+                                 alt=''/>{showFolders ? <span>Скрыть</span> : <span>Показать еще</span>}
+                        </a>
                     </div>}
                 </>}
 
+                {filesTotal > 0 && <>
+                    <div className={styles.titleContainer}>
+                        <div className={styles.title}>Файлы</div>
+                        <Quantity
+                          quantity={filesTotal}
+                        />
+                    </div>
+                    <div className={styles.files}>
+                        <InfiniteScroll
+                          dataLength={files.length}
+                          next={handleScrollNextFiles}
+                          loader={<div></div>}
+                          style={{overflow: "inherit"}}
+                          hasMore={showFiles && filesTotal !== files.length}
+                          className={styles.scroll}
+                        >
+                            {(showFiles ? files : files.slice(0, 5)).map(item => (<File
+                              onEditClick={handleEditClick}
+                              onDeleteClick={handleDeleteClick}
+                              canEdit={false}
+                              additionalInfo={false}
+                              basePath={''}
+                              item={item}
+                            />))}
 
+                        </InfiniteScroll>
+                    </div>
+                    {filesTotal > 5 && <div className={styles.moreFiles}>
+                        <a onClick={handleShowFiles}>
+                            <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg"
+                                 alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
+                        </a>
+                    </div>}
+                </>}
             </div>
 
             <FileEditModal isOpen={key === 'editFile'} catalog={currentEditCatalog}
@@ -210,6 +275,6 @@ const Search = (props) => {
         </Layout>
     )
 }
-
-export default withAuthSync(Search)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Search
 

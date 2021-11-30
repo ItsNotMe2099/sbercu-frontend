@@ -1,4 +1,3 @@
-import { use } from "ast-types";
 import { fetchCatalogProjects, fetchMyUploadedFiles, resetCatalogList } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
@@ -7,7 +6,7 @@ import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
 import FileEditModal from "components/FileEditModal";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import File from "components/dashboard/File";
@@ -173,5 +172,5 @@ const Profile = (props) => {
     </Layout>
   )
 }
-
-export default withAuthSync(Profile)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Profile

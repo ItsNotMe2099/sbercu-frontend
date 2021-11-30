@@ -14,3 +14,10 @@ export const getMediaPathWithQuality = (file, quality) => {
     }
     return `${getMediaPath(file)}?quality=${quality}`;
 }
+
+export const isAudio = source => {
+    const parts =  source.split('.');
+    const ext = parts.length > 0 ? parts[parts.length - 1] : '';
+
+    return ['mp3', 'ogg', 'wav'].includes(ext);
+}

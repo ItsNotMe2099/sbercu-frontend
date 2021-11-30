@@ -12,6 +12,8 @@ import styles from './index.module.scss'
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
 import cx from 'classnames'
+import {useThrottleFn} from '@react-cmpt/use-throttle'
+import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
 
 const VideoJs = dynamic(() => import('components/video/VideoJs'), {
     ssr: false
@@ -21,6 +23,10 @@ interface Props {
     poster?: string
     source: any,
     sources: any[]
+    contentType?: string
+    isAudio?: boolean,
+    getViewHistory?: () => any
+    onChangeProgress?: () => void
 }
 
 export default function Player(props) {
@@ -40,6 +46,17 @@ export default function Player(props) {
     const [seeking, setSeeking] = useState(false);
     const player = useRef();
     const root = useRef();
+
+    const handleSaveViewHistory = async (progress) => {
+            props.onChangeProgress({
+                currentTime: Math.ceil(progress),
+                muted,
+                volume,
+                rate: playbackRate
+            })
+    }
+    const { callback: saveViewHistory, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(handleSaveViewHistory, 3000)
+
     useEffect(() => {
         setSource(props.source)
     }, [])
@@ -98,7 +115,7 @@ export default function Player(props) {
 
 
     const handleSeekChange = value => {
-        console.log("SeekChange", value, loaded);
+        console.log("SeekChange", value, loaded, value / duration, duration);
         setPlayed(value / duration);
         (player?.current as any).currentTime(value);
     }
@@ -108,14 +125,32 @@ export default function Player(props) {
         console.log("handleProgress", state)
         setPlayed(state.played);
         setLoaded(state.loaded);
+        saveViewHistory(state.playedSeconds);
     }
 
     const handleEnded = () => {
         setPlaying(loop);
+        props.onChangeProgress({
+            currentTime: 0,
+            muted,
+            volume,
+            rate: playbackRate
+        })
     }
 
-    const handleDuration = (duration) => {
+    const handleDuration = async (duration) => {
         setDuration(duration);
+
+        if(props.getViewHistory) {
+            const viewHistory = await props.getViewHistory();
+           console.log("viewHistory", viewHistory);
+            if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
+                handleSeekChange(viewHistory?.currentTime);
+                setPlayed(viewHistory?.currentTime / duration);
+                (player?.current as any).currentTime(viewHistory?.currentTime);
+                setVolume(viewHistory.volume);
+            }
+        }
     }
 
     const handleClickFullscreen = (event) => {
@@ -151,7 +186,11 @@ export default function Player(props) {
 
     }
 
-    return (<div className={cx(styles.root, {[styles.fullSize]: props.fullSize})} ref={root}>
+    return (<div className={cx(styles.root, {
+        [styles.fullSize]: props.fullSize,
+          [styles.audio]: props.isAudio,
+          [styles.audioNoPoster]: props.isAudio && !props.poster,
+    })} ref={root}>
             {/*<ReactPlayer
               ref={player}
               className={styles.player}
@@ -180,6 +219,8 @@ export default function Player(props) {
               onDuration={handleDuration}
           />*/}
             <VideoJs
+                isAudio={props.isAudio}
+                contentType={props.contentType}
                 poster={props.poster}
                 playing={playing}
                 onCreateRef={(ref) => player.current = ref}
@@ -216,19 +257,21 @@ export default function Player(props) {
 
                     <div className={styles.playbackRateSelect}>
                         <QualitySelect options={[
+                            { value: 0.25, label: '0.25x' },
+                            { value: 0.5, label: '0.5x' },
+                            { value: 0.75, label: '0.75x' },
                             { value: 1.0, label: '1x' },
+                            { value: 1.25, label: '1.25x' },
                             { value: 1.5, label: '1.5x' },
+                            { value: 1.75, label: '1.75x' },
                             { value: 2, label: '2x' },
-                            { value: 4, label: '4x' },
                         ]} value={playbackRate} onChange={handleSetPlaybackRate}/>
                     </div>
-                    <div className={styles.qualitySelect}>
-
-
+                    {props.sources.length > 0 && <div className={styles.qualitySelect}>
                         <QualitySelect options={props.sources} value={source} onChange={handleSourceChange}/>
-                    </div>
-                    <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
-                        src={'/img/icons/video_fullscreen.svg'}/></div>
+                    </div>}
+                    {!props.isAudio && <div className={styles.fullscreen} onClick={handleClickFullscreen}><img
+                        src={'/img/icons/video_fullscreen.svg'}/></div>}
                 </div>
             </div>
         </div>

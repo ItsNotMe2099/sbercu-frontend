@@ -5,7 +5,7 @@ import { confirmOpen, modalClose, tagModalOpen, userModalOpen } from "components
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IRootState, ITag, IUser } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import { useSelector, useDispatch } from 'react-redux'
@@ -110,5 +110,5 @@ const Jobs = (props) => {
         </Layout>
     )
 }
-
-export default withAuthSync(Jobs)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Jobs

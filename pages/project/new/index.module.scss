@@ -6,6 +6,9 @@
     width: $container-lg;
     margin:0 auto;
   }
+  @media screen and (max-width: $container-lg) {
+    padding: 0px 22px;
+  }
 
 }
 
@@ -16,18 +19,14 @@
 .title{
   font-weight: bold;
   font-size: 24px;
-  @media screen and (max-width: $sm-max) {
-    padding: 0 22px;
-  }
+
 }
 
 .main{
   font-size: 12px;
   color: #bdbdbd;
   margin-top: 14px;
-  @media screen and (max-width: $sm-max) {
-    padding: 0 22px;
-  }
+
   a{
     font-size: 12px;
     color: #bdbdbd;

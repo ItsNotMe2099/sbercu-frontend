@@ -1,0 +1,41 @@
+@import "scss/index";
+
+.root{
+  display: flex;
+  min-height: 100%;
+  position:relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title{
+    font-weight: bold;
+    font-size: 32px;
+    color: var(--main-component-text);
+    margin-bottom: 7px;
+    margin-top: 27px;
+    @media screen and (max-width: $sm-min){
+      margin-bottom: 40px;
+    }
+}
+
+
+.logo{
+  font-weight: bold;
+  font-size: 36px;
+  color: #27AE60;
+
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  &:hover{
+    text-decoration: underline #27AE60;
+  }
+  &:active{
+    color: #219653;
+
+  }
+  @media screen and (max-width: $sm-max) {
+    margin-right: 11px;
+  }
+}

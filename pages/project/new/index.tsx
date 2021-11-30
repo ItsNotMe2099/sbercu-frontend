@@ -4,7 +4,7 @@ import Layout from "components/layout/Layout";
 import { confirmOpen } from "components/Modal/actions";
 import ProjectForm from "pages/project/Form";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import Link from "next/link";
@@ -66,5 +66,5 @@ const CreateProject = (props) => {
     )
 }
 
-
-export default withAuthSync(CreateProject)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default CreateProject

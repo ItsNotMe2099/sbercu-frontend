@@ -18,6 +18,13 @@ export const fetchCatalogFilesSearch = (query, options) => action(ActionTypes.FE
   }
 })
 
+export const fetchCatalogFoldersSearch = (query, options) => action(ActionTypes.FETCH_CATALOG_FOLDERS_SEARCH_LIST, {
+  api: {
+    url: `/api/catalog/search/folders?query=${query}&${queryString.stringify(options)}`,
+    method: 'GET',
+  }
+})
+
 
 export const fetchAutoCompleteCatalogProjectsSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST, {
   api: {
@@ -31,6 +38,13 @@ export const fetchAutoCompleteCatalogFilesSearch = (query, options) => action(Ac
     method: 'GET',
   }
 })
+export const fetchAutoCompleteCatalogFoldersSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FOLDERS_SEARCH_LIST, {
+  api: {
+    url: `/api/catalog/search/folders?query=${query}&${queryString.stringify(options)}`,
+    method: 'GET',
+  }
+})
+
 
 export const resetAutoCompleteCatalogSearch = () => action(ActionTypes.RESET_AUTOCOMPLETE_SEARCH, {})
 export const resetCatalogSearch = () => action(ActionTypes.RESET_SEARCH, {})

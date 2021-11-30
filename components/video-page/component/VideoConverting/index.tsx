@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from 'components/video-page/component/VideoConverting/index.module.scss'
 
 interface Props{
     isCutting: boolean

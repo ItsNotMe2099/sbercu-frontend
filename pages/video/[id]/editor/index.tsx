@@ -1,13 +1,13 @@
-import { fetchCatalogItem, resetCatalogItem } from "components/catalog/actions";
+import { fetchCatalogItemRequest, resetCatalogItem} from "components/catalog/actions";
 import Layout from "components/layout/Layout";
 import { confirmOpen, editFileOpen, modalClose, videoEditorConfirmOpen } from "components/Modal/actions";
 import VideoEditor from "components/video/Editor";
 import ModalEditorConfirm from "components/video/Editor/EditorConfirm";
 import { useRouter } from "next/router";
-import VideoConverting from "pages/video/[id]/component/VideoConverting";
+import VideoConverting from "components/video-page/component/VideoConverting";
 import { useEffect, useState } from "react";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
+import {getAuthServerSide} from "utils/auth";
 import { getMediaPath, getMediaPathWithQuality } from "utils/media";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -38,7 +38,7 @@ const Editor = (props: Props) => {
             return;
         }
 
-        dispatch(fetchCatalogItem(router.query.id, {showTags: '1'}));
+        dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
     }, [router.query.id])
     const getDefaultSource = () => {
         const path = video.media.fileName;
@@ -110,4 +110,5 @@ const Editor = (props: Props) => {
     </Layout>
   )
 }
-export default withAuthSync(Editor)
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default Editor

@@ -1,10 +1,13 @@
-@import "scss/index";
+@import "../../scss/index";
 
 .root{
   position: relative;
   @media screen and (min-width: $container-lg) {
     width: $container-lg;
     margin: 0 auto 50px;
+  }
+  @media screen and (max-width: $container-lg) {
+    padding: 0px 22px;
   }
   margin-bottom: 0px;
 
@@ -18,7 +21,7 @@
   font-size: 24px;
   color: #000;
   @media screen and (max-width: $sm-max) {
-    padding: 0 22px;
+
     font-weight: bold;
   }
 }
@@ -26,9 +29,7 @@
 .content{
   margin-top: 23px;
   display: flex;
-  @media screen and (max-width: $sm-max) {
-    padding: 0 22px;
-  }
+
 }
 
 .tags{
@@ -41,7 +42,6 @@
     display: none;
     @media screen and (max-width: $sm-max) {
       display: block;
-      padding: 0 22px;
       margin-top: 40px;
     }
   }

@@ -16,7 +16,7 @@ interface Props {
 export default function MediaLinkPublicModal(props: Props){
   const dispatch = useDispatch()
   const mediaLink = useSelector((state: IRootState) => state.mediaLink.currentMediaLink)
-
+  const hasIframe = ['audio', 'video'].includes(props.file?.media.type);
   useEffect(() => {
     dispatch(resetMediaLinkForm());
     dispatch(createMediaLinkPublic({catalogId: props.file.id, quality: '1080p'}));
@@ -28,11 +28,11 @@ export default function MediaLinkPublicModal(props: Props){
   return (
     <Modal {...props} title={"Публичная ссылка"}>
       {mediaLink && <div className={styles.link}>Публичная ссылка: <p><a href={mediaLink} target={'blank'}>{mediaLink}</a></p></div>}
-      <div className={styles.codeLabel}>Код для вставки:</div>
-      <TextArea meta={{}} input={{
+      {hasIframe && <div className={styles.codeLabel}>Код для вставки:</div>}
+      {hasIframe && <TextArea meta={{}} input={{
         value: `<iframe class="mediateka-video" style="max-width:100%;max-height:100%;" src="${mediaLink?.replace('media-link/public', 'embed')}" width="500" height="350" allowvr="yes" frameborder="0" scrolling="no" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>`,
 
-      }} label={''} type={''}/>
+      }} label={''} type={''}/>}
     </Modal>
   )
 }

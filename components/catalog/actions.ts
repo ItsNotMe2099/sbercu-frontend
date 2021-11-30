@@ -2,6 +2,7 @@
 import { ICatalogEntry, IVideoTrimRange } from "types";
 import ActionTypes from './const'
 import { action } from 'typesafe-actions'
+import request from 'utils/request'
 const queryString = require('query-string')
 
 export const setCurrentCatalogId = (id: number) => action(ActionTypes.SET_CURRENT_CATALOG_ID, {id})
@@ -43,7 +44,9 @@ export const fetchCatalogList = (id, page?, per_page?) => action(ActionTypes.FET
     method: 'GET',
   }
 })
-export const fetchCatalogItem = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM, {
+export const setCatalogItem = (data: any) => action(ActionTypes.SET_CATALOG_MEDIA_ITEM, data);
+export const fetchCatalogItemRequest = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
+
   api: {
     url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',
@@ -84,6 +87,26 @@ export const updateFileRequest = (id: number, data: ICatalogEntry) => action(Act
     data: data,
   }
 })
+export const catalogAddToFavorite = ( id: number) => action(ActionTypes.CATALOG_ADD_TO_FAVORITE, {id})
+export const catalogRemoveFromFavorite = ( id: number, entryType: string) => action(ActionTypes.CATALOG_DELETE_FROM_FAVORITE, {id, entryType})
+
+export const catalogAddToFavoriteRequest = (catalogEntryId: number) => action(ActionTypes.CATALOG_ADD_TO_FAVORITE_REQUEST, {
+  api: {
+    url: `/api/user/favorites`,
+    method: 'POST',
+    data: { catalogEntryId },
+  }
+})
+
+
+export const catalogRemoveFromFavoriteRequest = (catalogEntryId: number) => action(ActionTypes.CATALOG_DELETE_FROM_FAVORITE_REQUEST, {
+  api: {
+    url: `/api/user/favorites/${catalogEntryId}`,
+    method: 'DELETE',
+    data: { catalogEntryId },
+  }
+})
+
 
 export const cutVideo = ( id: number, intervals: IVideoTrimRange[]) => action(ActionTypes.CUT_VIDEO, {id, intervals})
 export const cutVideoRequest = (id: number, intervals: any[]) => action(ActionTypes.CUT_VIDEO_REQUEST, {

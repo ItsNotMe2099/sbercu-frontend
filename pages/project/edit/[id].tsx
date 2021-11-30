@@ -1,4 +1,4 @@
-import { createCatalog, fetchCatalogItem, updateCatalog } from "components/catalog/actions";
+import { fetchCatalogItemRequest, updateCatalog} from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen } from "components/Modal/actions";
@@ -6,11 +6,11 @@ import { useRouter } from "next/router";
 import ProjectForm from "pages/project/Form";
 import { useEffect } from "react";
 import { IRootState } from "types";
-import { withAuthSync } from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import Link from "next/link";
 import { useSelector, useDispatch } from 'react-redux'
+import {getAuthServerSide} from 'utils/auth'
 
 const EditProject = (props) => {
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const EditProject = (props) => {
 
 
     useEffect(() => {
-        dispatch(fetchCatalogItem(parseInt(router.query.id as string, 10)))
+        dispatch(fetchCatalogItemRequest(parseInt(router.query.id as string, 10)))
     }, [router.query.id])
     const handleSubmit = (data) => {
         let tag;
@@ -64,7 +64,7 @@ const EditProject = (props) => {
         }
         return 'all'
     }
-    console.log("getVisibility()", getVisibility())
+    console.log("getVisibility()", getVisibility(), props.user)
     return (
         <Layout>
         <Header {...props}/>
@@ -81,5 +81,5 @@ const EditProject = (props) => {
         </Layout>
     )
 }
-
-export default withAuthSync(EditProject);
+export const getServerSideProps = getAuthServerSide({redirect: true});
+export default EditProject;

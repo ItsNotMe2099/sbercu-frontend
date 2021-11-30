@@ -6,21 +6,28 @@ import cx from 'classnames'
 
 interface Props {
     children?: ReactElement
+  style?: 'grey' | 'white'
     onClick?: () => void
     onEditClick?:() => void
     onDeleteClick?:() => void
     onCopyClick?: () => void
     onPasteClick?: () => void
     onCancelClick?: () => void
+    onPublicLinkClick?: () => void,
+    onDeleteBasketClick?: () => void,
+    onRestoreClick?: () => void,
     showPaste?: boolean
     showCopy?: boolean
     showEdit?: boolean
     showDelete?: boolean
     showCancel?: boolean
+    showPublicLink?: boolean
+    showBasketActions?: boolean
 
 }
 
 export default function ButtonDots(props: Props) {
+  const {style} = props;
     const dropdownRefItem = useRef(null)
     const dotsRef = useRef(null)
    const [isActiveItem, setIsActiveItem] = useDetectOutsideClick(dropdownRefItem, false);
@@ -40,15 +47,39 @@ export default function ButtonDots(props: Props) {
         }
         setIsActiveItem(false);
     }
-    const handleCancelClick = (e) => {
-        e.preventDefault()
-        if(props.onCancelClick){
-            props.onCancelClick()
-        }
-        setIsActiveItem(false);
+  const handleCancelClick = (e) => {
+    e.preventDefault()
+    if(props.onCancelClick){
+      props.onCancelClick()
     }
+    setIsActiveItem(false);
+  }
 
-    const handleClick = (e) => {
+
+  const handlePublicLinkClick = (e) => {
+    e.preventDefault()
+    if(props.onPublicLinkClick){
+      props.onPublicLinkClick()
+    }
+    setIsActiveItem(false);
+  }
+
+  const handleRestoreClick = (e) => {
+    e.preventDefault()
+    if(props.onRestoreClick){
+      props.onRestoreClick()
+    }
+    setIsActiveItem(false);
+  }
+  const handleDeleteBasketClick = (e) => {
+    e.preventDefault()
+    if(props.onDeleteBasketClick){
+      props.onDeleteBasketClick()
+    }
+    setIsActiveItem(false);
+  }
+
+  const handleClick = (e) => {
         e.preventDefault()
         const params = dotsRef.current?.getBoundingClientRect();
         if(params) {
@@ -79,29 +110,36 @@ export default function ButtonDots(props: Props) {
     }
 
     return (
-        <div className={styles.root}>
+        <div className={cx(styles.root, { })}>
             <div
                 ref={dotsRef}
                 onClick={handleClick}
-                className={cx(styles.button, {[styles.buttonActive]: isActiveItem})}>
+                className={cx(styles.button, {[styles.buttonActive]: isActiveItem, [styles.grey]: style === 'grey', [styles.white]: style === 'white',})}>
                 <Dots/>
 
             </div>
             {!props.children &&  <nav ref={dropdownRefItem} className={cx(styles.dropDown, { [styles.dropDownActive]: isActiveItem})}>
                 {props.showEdit && <div className={styles.option}><a onClick={handleEditClick}>Редактировать</a></div>}
                 {props.showCopy && <div className={styles.option}><a onClick={handleCopyClick}>Вырезать</a></div>}
+              {props.showPublicLink && <div className={styles.option}><a onClick={handlePublicLinkClick}>Публичная ссылка</a></div>}
+
               {(typeof  localStorage !== 'undefined' && localStorage.getItem('copyCatalog') && props.showPaste) && <div className={styles.option}><a onClick={handlePasteClick}>Вставить</a></div>}
                 {props.showCancel && <div className={styles.option}><a onClick={handleCancelClick}>Отменить</a></div>}
 
-                {props.showDelete && <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>}
+              {props.showDelete && <div className={styles.option}><a onClick={handleDeleteClick}>Удалить</a></div>}
+              {props.showBasketActions && <div className={styles.option}><a onClick={handleRestoreClick}>Восстановить</a></div>}
+              {props.showBasketActions && <div className={styles.option}><a onClick={handleDeleteBasketClick}>Удалить навсегда</a></div>}
             </nav>}
         </div>
     )
 }
 
 ButtonDots.defaultProps = {
+  style: 'grey',
     showPaste: true,
     showEdit: true,
     showDelete: true,
-    showCopy: true
+    showCopy: true,
+    showPublicLink: true,
+    showBasketActions: false,
 }

@@ -6,7 +6,9 @@
     width: $container-lg;
     margin:0 auto;
   }
-
+  @media screen and (max-width: $container-lg) {
+    padding: 0px 22px;
+  }
 }
 
 .white{
@@ -16,16 +18,13 @@
 .title{
   font-weight: bold;
   font-size: 24px;
-  @media screen and (max-width: $sm-max) {
-    padding: 0 20px;
-  }
+
 }
 
 .container{
   width: 70%;
   @media screen and (max-width: $sm-max) {
     width: 100%;
-    padding: 0 20px;
     margin-top: 16px;
   }
 }
@@ -34,7 +33,6 @@
   width: 35%;
   @media screen and (max-width: $sm-max) {
     width: 100%;
-    padding: 0 20px;
   }
   form{
     @media screen and (max-width: $sm-max) {
@@ -59,7 +57,6 @@
   @media screen and (max-width: $sm-max) {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
   }
 }
 

@@ -27,9 +27,7 @@
   }
 }
 @media screen and (max-width: $sm-max) {
-  .root {
-    padding: 0px 22px;
-  }
+
   .item{
     display: none ;
     &.itemPrevious{

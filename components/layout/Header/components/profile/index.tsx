@@ -5,12 +5,16 @@ import { logout } from "utils/auth";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Link from 'next/link';
+import {useRouter} from 'next/router'
 
 interface Props {
-    user: IUser
+    user: IUser,
+  showSearch?: boolean
 }
-export default function Profile({user}: Props){
+export default function Profile({user, showSearch}: Props){
   const dropdownRef = useRef(null);
+  const router = useRouter();
+  console.log("Router", router);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
     const onClick = (e) => {
         e.preventDefault()
@@ -23,13 +27,17 @@ export default function Profile({user}: Props){
 
   return (
     <div className={styles.root}>
-        <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
+      {!showSearch && <div className={cx(styles.favorite, {[styles.isActive]: router.asPath === '/favorite'})}><Link href="/favorite">Избранное</Link></div>}
+
+      <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
             <div className={styles.option}><Link href="/profile">Личный кабинет</Link></div>
-            {['admin'].includes(user.role) && <div className={styles.option}><Link href="/project/new">Создать проект</Link></div>}
-            {['admin'].includes(user.role) && <div className={styles.option}><Link href="/tags">Теги</Link></div>}
-            {['admin'].includes(user.role) && <div className={styles.option}><Link href="/users">Пользователи</Link></div>}
-            {['admin'].includes(user.role) && <div className={styles.option}><Link href="/jobs">Задания</Link></div>}
+
+            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/project/new'})}><Link href="/project/new">Создать проект</Link></div>}
+            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/tags'})}><Link href="/tags">Теги</Link></div>}
+            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/users'})}><Link href="/users">Пользователи</Link></div>}
+            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/jobs'})}><Link href="/jobs">Задания</Link></div>}
+          <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/basket'})}><Link href="/basket">Корзина</Link></div>
             <div className={styles.option}><a onClick={handleLogout}>Выход</a></div>
         </nav>
     </div>

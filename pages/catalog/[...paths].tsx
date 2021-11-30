@@ -1,7 +1,7 @@
 import {
   catalogCopy, catalogPaste,
   deleteCatalog,
-  fetchCatalogItem,
+  fetchCatalogItemRequest,
   fetchCatalogList,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
@@ -12,7 +12,7 @@ import Layout from "components/layout/Layout";
 import {
   confirmOpen,
   createFolderOpen,
-  editFileOpen,
+  editFileOpen, mediaLinkPublicModalOpen,
   modalClose,
   uploadFilesModalOpen
 } from "components/Modal/actions";
@@ -25,7 +25,7 @@ import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
 import { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
-import { logout, withAuthSync } from "utils/auth";
+import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
 import File from "components/dashboard/File";
@@ -40,6 +40,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CatalogDropZone from "../../components/CatalogDropZone";
 import {NextSeo} from 'next-seo'
 import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
+import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
+import request from 'utils/request'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -70,7 +72,7 @@ const Catalog = (props) => {
     console.log("LIST", items)
     dispatch(resetCatalogList())
     dispatch(fetchCatalogList(id, 1, 30))
-    dispatch(fetchCatalogItem(id))
+    dispatch(fetchCatalogItemRequest(id))
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
@@ -107,6 +109,14 @@ const Catalog = (props) => {
       dispatch(createFolderOpen());
     }
   }, [currentCatalogItem])
+
+  const handlePublicLinkClick = useCallback((item) => {
+    if(item.entryType === 'file') {
+      setCurrentEditCatalog(item);
+      dispatch(mediaLinkPublicModalOpen());
+    }
+  }, [currentCatalogItem])
+
   const handleCopyClick = () => {
     dispatch(catalogCopy(currentCatalogItem));
   }
@@ -182,8 +192,10 @@ const Catalog = (props) => {
       >
       <div className={styles.files}>
         {items.map(item => (<File
+            userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
+            onPublicLinkClick={handlePublicLinkClick}
             basePath={basePath}
             canEdit={currentCatalogItem?.canEdit}
             item={item}
@@ -213,9 +225,36 @@ const Catalog = (props) => {
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>
       {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
       {modalKey === 'pasteCatalogItemDuplicate' && <PasteCatalogItem  onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}
+      {modalKey === 'mediaLinkPublic' && <MediaLinkPublicModal isOpen={true} file={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>}
+
     </Layout>
   )
 }
 
 
-export default withAuthSync(Catalog)
+export async function getServerSideProps(ctx) {
+  const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+  if (!authRes?.props?.user) {
+    console.log("authRes", authRes);
+    return authRes;
+  }
+  const authProps = authRes.props;
+  const paths = ctx.query.paths as string[] || []
+  const id = paths[paths.length - 1]
+  const res = await request({
+    url: `/api/catalog/show/${id}`,
+    method: 'GET'
+  }, ctx);
+
+  if(!res.data){
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {initialVideo: res.data, ...authProps},
+  }
+
+}
+export default Catalog

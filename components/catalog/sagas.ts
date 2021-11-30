@@ -1,18 +1,20 @@
 import {
-    catalogCopy, catalogPaste,
-    createCatalog,
-    createCatalogRequest,
-    createFile,
-    createFileRequest,
-    createFiles, cutVideo, cutVideoRequest,
-    deleteCatalog,
-    deleteCatalogRequest,
-    fetchCatalogItem,
-    fetchCatalogList, resetCatalogList, resetFilesFromDropzone,
-    updateCatalog, updateCatalogFileRequest,
-    updateCatalogRequest,
-    updateFile,
-    updateFileRequest
+  catalogAddToFavorite,
+  catalogAddToFavoriteRequest,
+  catalogCopy, catalogPaste, catalogRemoveFromFavorite, catalogRemoveFromFavoriteRequest,
+  createCatalog,
+  createCatalogRequest,
+  createFile,
+  createFileRequest,
+  createFiles, cutVideo, cutVideoRequest,
+  deleteCatalog,
+  deleteCatalogRequest,
+  fetchCatalogItemRequest,
+  fetchCatalogList, resetCatalogList, resetFilesFromDropzone,
+  updateCatalog, updateCatalogFileRequest,
+  updateCatalogRequest,
+  updateFile,
+  updateFileRequest
 } from "components/catalog/actions";
 import {modalClose, pasteCatalogItemDuplicateOpen} from "components/Modal/actions";
 import ApiActionTypes from "constants/api";
@@ -55,7 +57,7 @@ function* catalogSaga() {
                     yield put(modalClose());
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
                     if (action.payload.id === currentCatalogId) {
-                        yield put(fetchCatalogItem(currentCatalogId));
+                        yield put(fetchCatalogItemRequest(currentCatalogId));
                     } else {
                         yield put(resetCatalogList(true));
                         const myUploadedFilesListTotal = yield select((state: IRootState) => state.catalog.myUploadedFilesListTotal)
@@ -136,7 +138,7 @@ function* catalogSaga() {
                     const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
                     console.log("currentCatalogId", currentCatalogId, action.payload.id)
                     if (currentCatalogItem?.id === action.payload.id) {
-                        yield put(fetchCatalogItem(action.payload.id, { ...(action.payload.data.entryType === 'file' ? { showTags: true } : {}) }))
+                        yield put(fetchCatalogItemRequest(action.payload.id, { ...(action.payload.data.entryType === 'file' ? { showTags: true } : {}) }))
                     } else {
                         yield put(resetCatalogList(true));
                         yield put(fetchCatalogList(currentCatalogId, 1, 15));
@@ -157,10 +159,10 @@ function* catalogSaga() {
                 Router.push(`/video/${currentCatalogItem.id}`)
             }
         })
-    yield takeLatest(ActionTypes.CATALOG_COPY,
-        function* (action: ActionType<typeof catalogCopy>) {
-            localStorage.setItem('copyCatalog', JSON.stringify(action.payload));
-        })
+  yield takeLatest(ActionTypes.CATALOG_COPY,
+    function* (action: ActionType<typeof catalogCopy>) {
+      localStorage.setItem('copyCatalog', JSON.stringify(action.payload));
+    })
 
     yield takeLatest(ActionTypes.CATALOG_PASTE,
         function* (action: ActionType<typeof catalogPaste>) {
@@ -172,7 +174,7 @@ function* catalogSaga() {
                     yield put(modalClose());
                     const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
                     if (action.payload.toCatalogId === currentCatalogId || item.parentId === currentCatalogId ) {
-                        yield put(fetchCatalogItem(currentCatalogId));
+                        yield put(fetchCatalogItemRequest(currentCatalogId));
                         yield put(resetCatalogList(true));
                         yield put(fetchCatalogList(currentCatalogId, 1, 30));
                     }
@@ -188,6 +190,15 @@ function* catalogSaga() {
             }
 
         })
+
+  yield takeLatest(ActionTypes.CATALOG_ADD_TO_FAVORITE,
+    function* (action: ActionType<typeof catalogAddToFavorite>) {
+      yield put(catalogAddToFavoriteRequest(action.payload.id));
+    })
+  yield takeLatest(ActionTypes.CATALOG_DELETE_FROM_FAVORITE,
+    function* (action: ActionType<typeof catalogRemoveFromFavorite>) {
+      yield put(catalogRemoveFromFavoriteRequest(action.payload.id));
+    })
 }
 
 export default catalogSaga

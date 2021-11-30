@@ -6,6 +6,7 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
+  swcMinify: true,
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -2,7 +2,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import {format} from "date-fns";
 import {IJob, IUser} from "types";
 import styles from './index.module.scss'
-import {formatJobDuration, formatSize} from "utils/formatters";
+import {formatJobDuration, formatJobStatusName, formatSize} from "utils/formatters";
 import {Circle} from "rc-progress";
 import React from "react";
 import Cross from "components/svg/Cross";
@@ -34,20 +34,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                 return 'Редактирование';
         }
     }
-    const getStatusName = (status) => {
-        switch (status) {
-            case 'pending':
-                return 'В очереди';
-            case  'started':
-                return 'В процессе';
-            case  'finished':
-                return 'Выполнено';
-            case  'canceled':
-                return 'Отменено';
-            case  'error':
-                return 'Ошибка';
-        }
-    }
+
     return (
         <>
             <div className={styles.root}>
@@ -106,11 +93,11 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     <div className={styles.greyText}>Прогресс</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{getStatusName(job.state)}</div>
+                    <div className={styles.text}>{formatJobStatusName(job.state)}</div>
                     <div className={styles.greyText}>Статус</div>
                 </div>
                 <div className={styles.row}>
-                    <div className={styles.text}>{getTypeName(job.state)}</div>
+                    <div className={styles.text}>{getTypeName(job.type)}</div>
                     <div className={styles.greyText}>Тип</div>
                 </div>
                 <div className={styles.row}>
