@@ -40,7 +40,6 @@ export default function Profile({user, showSearch}: Props){
             {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/tags'})}><Link href="/tags">Теги</Link></div>}
             {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/users'})}><Link href="/users">Пользователи</Link></div>}
             {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/jobs'})}><Link href="/jobs">Задания</Link></div>}
-          <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/basket'})}><Link href="/basket">Корзина</Link></div>
             <div className={styles.option}><a onClick={handleLogout}>Выход</a></div>
         </nav>
     </div>
