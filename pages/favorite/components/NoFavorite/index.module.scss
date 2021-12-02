@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 12px;
-    @media screen and (min-width: $container-lg) {
+    @media screen and (min-width: $container-lg-br) {
       width: 40%;
       margin-right: 111px;
     }
@@ -37,7 +37,7 @@
     font-size: 14px;
     color: #000;
     margin-top: 11px;
-    @media screen and (min-width: $container-lg) {
+    @media screen and (min-width: $container-lg-br) {
       width: 50%;
     }
   }

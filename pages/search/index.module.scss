@@ -3,11 +3,11 @@
 
 .root{
   position: relative;
-  @media screen and (min-width: $container-lg) {
+  @media screen and (min-width: $container-lg-br) {
     width: $container-lg;
     margin:0 auto;
   }
-  @media screen and (max-width: $container-lg) {
+  @media screen and (max-width:$container-lg-br) {
     padding: 0px 22px;
   }
 

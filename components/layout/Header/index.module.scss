@@ -5,12 +5,12 @@
 }
 
 .container{
-  @media screen and (min-width: $container-lg) {
+  @media screen and (min-width: $container-lg-br){
     width: $container-lg;
   }
   margin: auto;
   display: flex;
-  @media screen and (max-width: $container-lg) {
+  @media screen and (max-width: $container-lg-br) {
     padding: 0 22px;
     width: 100%;
   }

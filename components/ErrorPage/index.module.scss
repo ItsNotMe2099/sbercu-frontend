@@ -12,17 +12,22 @@
     font-weight: bold;
     font-size: 32px;
     color: var(--main-component-text);
-    margin-bottom: 7px;
-    margin-top: 27px;
+    margin-bottom: 15px;
+    margin-top: 0px;
     @media screen and (max-width: $sm-min){
       margin-bottom: 40px;
     }
 }
+.description{
+  white-space: pre;
+  text-align: center;
 
+}
 
 .logo{
+  margin-top: 15px;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 24px;
   color: #27AE60;
 
   text-decoration: none;
