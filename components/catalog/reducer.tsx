@@ -20,6 +20,7 @@ export interface CatalogState {
     formLoading: boolean,
     parentsLoading: boolean,
     page: number
+    isSubmitting?: boolean
     filesFromDropZone: File[]
 }
 
@@ -208,6 +209,14 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         }
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
             state.currentLoading = false;
+            break
+
+        case ActionTypes.CUT_VIDEO_REQUEST :
+            state.isSubmitting = true;
+            break
+        case ActionTypes.CUT_VIDEO_REQUEST  + ApiActionTypes.SUCCESS:
+        case ActionTypes.CUT_VIDEO_REQUEST  + ApiActionTypes.FAIL:
+            state.isSubmitting = false;
             break
 
         case ActionTypes.FETCH_CATALOG:

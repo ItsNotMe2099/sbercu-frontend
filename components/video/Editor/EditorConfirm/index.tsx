@@ -18,6 +18,8 @@ interface Props {
 
 export default function ModalEditorConfirm(props: Props) {
   const dispatch = useDispatch();
+
+  const isSubmitting = useSelector((state: IRootState) => state.catalog.isSubmitting)
   const getTotalCut = () => {
     return props.cutItems.reduce((itemA, itemB) => itemA + itemB.end - itemB.start, 0);
   }
@@ -60,7 +62,7 @@ export default function ModalEditorConfirm(props: Props) {
       </div>
 
       <div className={styles.buttons}>
-        <Button green size="12px 25px" onClick={handleSubmit}>Изменить</Button>
+        <Button green size="12px 25px" onClick={handleSubmit} disabled={isSubmitting}>Изменить</Button>
         <Button transparent textLightGrey onClick={handleCancel}>Назад</Button>
       </div>
     </Modal>
