@@ -63,6 +63,41 @@
   }
 }
 
+
+.basket{
+  cursor: pointer;
+  margin-right: 38px;
+  margin-top: 3px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 14px;
+  }
+
+  svg {
+    path {
+      fill: #828282;
+    }
+
+  }
+  &:hover {
+    svg {
+      path {
+        fill: #27AE60;
+      }
+    }
+  }
+  &.isActive{
+    svg {
+      path {
+        fill: black;
+
+      }
+    }
+    &:hover {
+      fill: black;
+    }
+  }
+}
+
 .option{
   a{
     font-size: 12px;

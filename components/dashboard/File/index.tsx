@@ -17,10 +17,12 @@ import {Circle} from 'rc-progress'
 import Cross from 'components/svg/Cross'
 import LikeOutline from 'components/svg/LikeOutline'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
+import BreadCrumbs from 'components/ui/Breadcrumbs'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
   showFavorite?: boolean,
+  showBreadcrumbs?: boolean
   size?: any,
   onClick?: (item) => void
   basePath?: string,
@@ -183,6 +185,9 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           :
           null}
         </div>
+        {(item.parents && props.showBreadcrumbs) && <BreadCrumbs className={styles.breadcrumbs} items={(item?.parents || []).map(i => ({link: `/catalog/${i.id}`, name: i.name})).splice(0, item?.parents?.length - 1)} />}
+
+
       </a>
       </Link>
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}

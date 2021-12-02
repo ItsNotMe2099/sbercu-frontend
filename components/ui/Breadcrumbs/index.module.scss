@@ -5,13 +5,18 @@
 }
 
 .item{
+
   display: contents;
 }
 .link, .previousLink{
   font-size: 12px;
   color: #bdbdbd;
   display: contents;
+  &:hover{
+    color: black;
+  }
 }
+
 .separator{
   font-size: 12px;
   color: #bdbdbd;

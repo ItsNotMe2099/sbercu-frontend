@@ -47,8 +47,12 @@
   }
 }
 
+.favorite{
+  margin-right: 20px;
+}
 .btns{
   display: flex;
+  align-items: center;
   margin-top: 23px;
   button{
     margin-right: 20px;

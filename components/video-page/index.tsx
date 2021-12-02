@@ -206,7 +206,9 @@ const VideoPage = (props: Props) => {
                       onChangeProgress={handleProgressChange}
                       source={getDefaultSource()}/>
                     <div className={styles.btns}>
-                      <FavoriteCatalogButton item={video} style={'video'}/>
+                      <div className={styles.favorite}>
+                        <FavoriteCatalogButton item={video} style={'video'}/>
+                      </div>
                       <div className={styles.select__down}>
                         <ButtonSelect href={isAudio ? `${getDefaultSource()}?download=1` : null} size="9px 20px"
                                       minWidth="120px" onChange={handleDownload}

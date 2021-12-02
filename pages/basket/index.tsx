@@ -279,6 +279,7 @@ const DeletedPage = (props) => {
                               onRestoreClick={handleRestoreClick}
                               onDeleteClick={handleDeleteClick}
                               canEdit={false}
+                              showBreadcrumbs={true}
                               additionalInfo={false}
                               basePath={''}
                               item={item}
@@ -311,6 +312,7 @@ const DeletedPage = (props) => {
                           className={styles.scroll}
                         >
                             {(showFiles ? files : files.slice(0, 5)).map(item => (<File
+                              showBreadcrumbs={true}
                               onRestoreClick={handleRestoreClick}
                               onDeleteClick={handleDeleteClick}
                               canEdit={false}
