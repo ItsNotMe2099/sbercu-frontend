@@ -31,10 +31,20 @@
 
     flex-direction: row;
   }
+  .cleanBasketTitle{
+    margin-top: 3px;
+  }
   svg{
     margin-right: 8px;
     path{
-      fill: white;
+      fill: #EB5757;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        fill: #BA3D3D;
+      }
     }
   }
 }

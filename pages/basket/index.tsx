@@ -221,7 +221,7 @@ const DeletedPage = (props) => {
                     className={styles.titleDeleted}>Корзина
 
                   </div>
-                    <Button  size="9px 16px" red={true} className={styles.cleanBasket} onClick={handleCleanBasket}><Basket/>Очистить</Button>
+                    <Button  transparent textRed brdrRed  size="9px 20px"  className={styles.cleanBasket} onClick={handleCleanBasket}><Basket/><span className={styles.cleanBasketTitle}>Очистить</span></Button>
 
                 </div>}
                 {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
