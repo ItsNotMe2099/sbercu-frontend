@@ -11,6 +11,9 @@
         compose_file: "docker-compose.dev.yml"
       when: branch == "dev"
     - set_fact:
+        compose_file: "docker-compose.speakers.yml"
+      when: branch == "speakers"
+    - set_fact:
         compose_file: "docker-compose.prod.yml"
       when: branch == "master"
     - name: Creates directory
