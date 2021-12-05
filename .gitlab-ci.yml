@@ -43,10 +43,10 @@ build_speakers_image:
     - export APP_IMAGE=$IMAGE_TAG_SPEAKERS_APP
     - export NGINX_IMAGE=$IMAGE_TAG_SPEAKERS_NGINX
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker-compose -f docker-compose.dev.yml build app
-    - docker-compose -f docker-compose.dev.yml push app
-    - docker-compose -f docker-compose.dev.yml build --pull nginx
-    - docker-compose -f docker-compose.dev.yml push nginx
+    - docker-compose -f docker-compose.speakers.yml build app
+    - docker-compose -f docker-compose.speakers.yml push app
+    - docker-compose -f docker-compose.speakers.yml build --pull nginx
+    - docker-compose -f docker-compose.speakers.yml push nginx
   #  when: manual
   only:
     - speakers
