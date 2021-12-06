@@ -106,6 +106,10 @@
   flex-direction: column;
   flex: 1;
   font-size: 14px;
+  padding-right: 134px;
+  @media screen and (max-width: $sm-max) {
+    padding-right: 0px;
+  }
   div {
     &:active {
       outline: none;
@@ -125,6 +129,7 @@
 
 .description {
   margin-top: 20px;
+  line-height: 19px;
 }
 
 .bio {

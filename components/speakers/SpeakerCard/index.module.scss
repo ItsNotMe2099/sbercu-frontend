@@ -3,8 +3,9 @@
 .root{
   position: relative;
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
 }
-
 
 .container{
   text-decoration: none;
@@ -13,25 +14,9 @@
   }
 }
 
-.square{
-  position: relative;
-    width: 193px;
-    margin: auto;
-  background: #F2C94C;
-  @media screen and (max-width: $sm-max) {
-    width: 128px;
-  }
-  border-radius: 5px;
-}
-
-.square:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
 
 .cover{
-
+  position: relative;
 }
 .favorite{
   position: absolute;
@@ -43,18 +28,32 @@
   top: 15px;
   right: 15px;
 }
+.description{
+  margin-top: 6px;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  max-width: 192px;
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
 
+    max-width: 128px;
+  }
+}
 .title{
   @media screen and (min-width: $container-lg) {
     font-size: 14px;
   }
   @media screen and (max-width: $sm-max) {
-    font-size: 10px;
+    font-size: 12px;
+
+    max-width: 128px;
   }
   text-align: center;
   color: #000;
   max-width: 192px;
-  margin: 16px auto auto auto;
+  font-weight: 700;
+  margin-top: 16px;
 }
 
 .rating{

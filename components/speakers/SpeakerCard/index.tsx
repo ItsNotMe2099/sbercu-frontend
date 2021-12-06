@@ -45,8 +45,11 @@ export default function SpeakerCard({item, onDeleteClick, onRestoreClick}: Props
     <Link href={`/speaker/${item.id}`}>
       <a className={styles.container}>
         <div className={styles.root}>
-            <SpeakerPhoto size={'normal'} photo={item.mainCover}/>
-            <div className={styles.rating}><div className={styles.mark}>{item.rating?.toFixed(1) || 0}</div> <StarSmallFilled color={'white'}/></div>
+            <SpeakerPhoto size={'normal'} photo={item.mainCover}>
+              <div className={styles.rating}><div className={styles.mark}>{item.rating?.toFixed(1) || 0}</div> <StarSmallFilled color={'white'}/></div>
+
+            </SpeakerPhoto>
+
             {item.deletedAt && <div className={styles.dots}><ButtonDots
                 style={'white'}
                 showPaste={false}
@@ -59,6 +62,7 @@ export default function SpeakerCard({item, onDeleteClick, onRestoreClick}: Props
                 onDeleteBasketClick={handleDeleteClick}
             /></div>}
           <div className={styles.title}>{item.name}</div>
+          <div className={styles.description}>{item.description}</div>
         </div>
       </a>
     </Link>

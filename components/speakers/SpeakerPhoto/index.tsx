@@ -1,13 +1,14 @@
 import styles from './index.module.scss'
-import React from 'react'
+import React, {ReactElement} from 'react'
 import SpeakerIcon from 'components/svg/SpeakerIcon'
 import cx from 'classnames';
 interface Props {
  photo?: string
   size: 'small' | 'normal' | 'large'
+  children?: ReactElement | ReactElement[]
 }
 
-export default function SpeakerPhoto({photo, size}: Props) {
+export default function SpeakerPhoto({photo, size, children}: Props) {
 
 
   return (
@@ -23,6 +24,7 @@ export default function SpeakerPhoto({photo, size}: Props) {
                 src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${photo}`}
                 alt=''/>
               : <SpeakerIcon/>}
+            {children}
           </div>
   )
 }
