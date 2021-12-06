@@ -5,7 +5,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import {parseSetCookies} from 'utils/cookies'
 function request(requestData: IRequestData, ctx: any = null): Promise<IResponse> {
   const {url, method, data, host, timeout} = requestData
-  const defaultHost = `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}`
+  const defaultHost = `${process.env.NEXT_PUBLIC_API_URL || ''}`
   let token = requestData.token
   if (!token) {
     token = ctx ? nextCookie(ctx).token : Cookies.get('token')

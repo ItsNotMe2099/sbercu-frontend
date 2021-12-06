@@ -91,7 +91,7 @@ export default function InputSpeakerSearch(props: Props) {
             {speakers.map(speaker =>
               <div className={styles.speaker} key={speaker.id}>
                 <div className={styles.avatar}>{speaker.cover ?   <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${speaker.cover}`}
+                  src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${speaker.cover}`}
                   alt=''/> : <div className={styles.stub}/>}</div>
                 <div className={styles.info}>
                   <div className={styles.name}>{speaker.name}</div>

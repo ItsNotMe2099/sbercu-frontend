@@ -47,7 +47,7 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props){
       <div className={styles.root}>
   <div className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`} style={{backgroundColor: getColorByType(item.entryType)}}>
     {item.projectCover !== "link to cover" && item.projectCover !== null ?
-    <img src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${item.projectCover}`} alt=''/>
+    <img src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${item.projectCover}`} alt=''/>
     : null}
     {!item.deletedAt && <div className={styles.favorite}><FavoriteCatalogButton item={item} style={'project'}/></div>}
     {item.deletedAt && <div className={styles.dots}><ButtonDots

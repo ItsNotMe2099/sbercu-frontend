@@ -20,7 +20,7 @@ export default function SpeakerPhoto({photo, size}: Props) {
           })}>
             {photo !== null ?
               <img
-                src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${photo}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${photo}`}
                 alt=''/>
               : <SpeakerIcon/>}
           </div>

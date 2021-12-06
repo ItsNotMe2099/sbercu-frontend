@@ -35,7 +35,7 @@ const AvatarInputPreview: FunctionComponent<Props> = props => {
     if(!srcValue){
       return;
     }
-    return `${srcValue.indexOf('blob:') === 0 ? srcValue : (`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${srcValue}`)}`
+    return `${srcValue.indexOf('blob:') === 0 ? srcValue : (`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${srcValue}`)}`
   }
   return (
         <div className={styles.root}>
