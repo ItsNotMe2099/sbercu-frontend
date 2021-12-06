@@ -1,10 +1,10 @@
 import { useDetectOutsideClick } from "components/hooks/useDetectOutsideClick";
 import TagCategory from "components/tags/TagCategory";
-import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import {fetchTagCategoryList, resetTagCategoryList} from "components/tags/TagCategory/actions";
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { IRootState } from "types";
+import {IRootState, ITagCategoryType} from "types";
 import styles from './index.module.scss'
 import cx from 'classnames'
 
@@ -15,10 +15,11 @@ interface Props {
   meta?: any,
   disabled?: boolean,
   isIncludedCategory?: (category) => void
+  categoryType?: ITagCategoryType
 }
 
 const TagInput = (props: Props) => {
-  const { meta: { error, touched }, input, ...rest } = props;
+  const { meta: { error, touched }, input, categoryType, ...rest} = props;
   const dispatch = useDispatch()
   const items = useSelector((state: IRootState) => state.tagCategory.list)
   const [selectedTags, setSelectedTags] = useState([])
@@ -42,7 +43,8 @@ const TagInput = (props: Props) => {
     input.onChange(selectedTags.map( item => item.id))
   }, [selectedTags])
   useEffect(() => {
-    dispatch(fetchTagCategoryList())
+    dispatch(resetTagCategoryList())
+    dispatch(fetchTagCategoryList(categoryType))
   }, [])
   const handleTagClick = (selectedItem, selected) => {
     if(props.disabled){

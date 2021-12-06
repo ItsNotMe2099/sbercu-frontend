@@ -1,0 +1,29 @@
+.root{
+  position: relative;
+  margin-bottom: 20px;
+  &.error{
+    .stars{
+      svg{
+        path{
+          fill: #EB5757;
+        }
+      }
+    }
+  }
+}
+.stars {
+  display: flex;
+  cursor: pointer;
+
+  .star {
+    margin-right: 6px;
+
+    &:last-of-type {
+      margin-right: 0px;
+    }
+  }
+}
+
+.input {
+  display: none;
+}

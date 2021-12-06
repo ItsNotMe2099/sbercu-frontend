@@ -1,0 +1,29 @@
+@import "scss/index";
+
+.root{
+
+  &.stub{
+    background: radial-gradient(104.4% 104.4% at 50.26% -4.4%, #E0E0E0 0%, #D1D6DA 56.34%, #C5CFD6 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+.sizeSmall{
+
+}
+.sizeNormal{
+  border-radius: 40px;
+  width: 193px;
+  height: 193px;
+  @media screen and (max-width: $sm-max) {
+    width: 128px;
+    height: 128px;
+  }
+  img{
+    border-radius: 40px;
+  }
+}
+.sizeLarge{
+
+}

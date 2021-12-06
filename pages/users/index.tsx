@@ -1,26 +1,20 @@
-import { fetchCatalogList, setCatalogPage } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, modalClose, tagModalOpen, userModalOpen } from "components/Modal/actions";
-import { deleteTag } from "components/tags/Tag/actions";
-import { fetchTagCategoryListByName } from "components/tags/TagCategory/actions";
+import {confirmOpen, modalClose, userModalOpen} from "components/Modal/actions";
+import {fetchTagCategoryListByName} from "components/tags/TagCategory/actions";
 import Button from "components/ui/Button";
-import { deleteUser, fetchUserList, resetUserList, setUserListPage } from "components/users/actions";
-import { type } from "os";
-import TagCategoryModal from "pages/tags/components/TagCategoryModal";
+import {deleteUser, fetchUserList, resetUserList, setUserListPage} from "components/users/actions";
 import UserListRow from "pages/users/components/UserListRow";
 import UserModal from "pages/users/components/UserModal";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState, ITag, IUser } from "types";
-import {getAuthServerSide, logout} from "utils/auth";
+import {IRootState, ITag, ITagCategoryType, IUser} from "types";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
-import File from "components/dashboard/File";
 import Header from "components/layout/Header";
-import Link from "next/link";
 import TagCategory from "components/tags/TagCategory";
 import InputSearch from "components/ui/Inputs/InputSearch";
-import { useSelector, useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
 
 
@@ -80,7 +74,7 @@ const Users = (props) => {
     useEffect(() => {
         dispatch(resetUserList());
         fetchList(1);
-        dispatch(fetchTagCategoryListByName('Подразделения'));
+        dispatch(fetchTagCategoryListByName(ITagCategoryType.Project, 'Подразделения'));
     }, [])
 
     const handleEditUser = (item: ITag) => {

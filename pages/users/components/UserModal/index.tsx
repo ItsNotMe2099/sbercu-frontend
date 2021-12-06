@@ -3,7 +3,7 @@ import { createTag, updateTag } from "components/tags/Tag/actions";
 import { createTagCategory, updateTagCategory } from "components/tags/TagCategory/actions";
 import Modal from 'components/ui/Modal'
 import { createUser, updateUser } from "components/users/actions";
-import TagForm from "pages/tags/components/TagModal/Form";
+import TagForm from "components/tags/TagModal/Form";
 import UserForm from "pages/users/components/UserModal/Form";
 import { IRootState, ITag, ITagCategory, IUser } from "types";
 import CreateFolderForm from './Form'

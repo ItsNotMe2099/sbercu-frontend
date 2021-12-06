@@ -1,0 +1,91 @@
+@import "scss/index";
+
+.form{
+  display: flex;
+  margin-top: 21px;
+  @media screen and (max-width: $sm-max) {
+    flex-direction: column-reverse;
+  }
+}
+
+.border{
+  border-bottom: 1px solid #828282;
+  margin-top: 9px;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 18px;
+  color: #828282;
+}
+
+.btnContainer{
+  display: flex;
+  @media screen and (max-width: $sm-max) {
+    margin-top: 50px;
+  }
+}
+
+.section{
+  margin-right: 23px;
+  width: 40%;
+  @media screen and (max-width: $sm-max) {
+    width: 100%;
+    margin: 0;
+    margin-top: 20px;
+
+  }
+  &__tags{
+    margin-right: 23px;
+    width: 40%;
+    @media screen and (max-width: $sm-max) {
+      display: none;
+    }
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: block;
+    }
+  }
+  &__cover{
+
+  }
+}
+
+.content{
+  margin-top: 23px;
+  display: flex;
+  flex-direction: column;
+}
+
+.head{
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 18px;
+  &__right{
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 6px;
+  }
+}
+
+.textArea{
+  margin-top: 27px;
+}
+
+.desc{
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.btnContainer{
+  margin-bottom: 15px;
+  button{
+    margin-right: 15px;
+  }
+}

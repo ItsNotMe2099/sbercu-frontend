@@ -1,0 +1,48 @@
+@import "../../../../scss/index";
+
+.tagCategory{
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 16px;
+  margin-bottom: 10px;
+
+}
+
+.item{
+  display: block;
+  float: left;
+  cursor: pointer;
+  margin: 0 0 16px 16px;
+  padding: 7px 16px;
+  background: #F2F2F2;
+  border-radius: 50px;
+  font-size: 11px;
+  color: #828282;
+  text-decoration: none;
+  position: relative;
+  &:first-of-type{
+    margin-top: 0px;
+  }
+  &:hover{
+    background: #27AE60;
+    box-shadow: 0px 6px 19px rgba(39, 174, 96, 0.6);
+    color: #fff;
+  }
+  &:active{
+    background: #219653;
+  }
+}
+
+.tag{
+  display: block;
+  margin-left: -16px;
+  margin-bottom: 6px;
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}

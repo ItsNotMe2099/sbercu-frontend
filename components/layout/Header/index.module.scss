@@ -15,12 +15,32 @@
     width: 100%;
   }
 }
-
-.media{
+.logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-weight: bold;
   font-size: 24px;
-  color: #27AE60;
   margin-right: 34px;
+  text-decoration: none;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 11px;
+  }
+}
+.speakers{
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  &:hover{
+    text-decoration: underline #000000;
+  }
+  &:active{
+    color: #000000;
+  }
+}
+.media{
+  color: #27AE60;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -29,11 +49,8 @@
   }
   &:active{
     color: #219653;
+  }
 
-  }
-  @media screen and (max-width: $sm-max) {
-    margin-right: 11px;
-  }
 }
 
 .notMedia{

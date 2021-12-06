@@ -1,5 +1,5 @@
 import ApiActionTypes from "constants/api";
-import { ITagCategory } from "types";
+import {ITagCategory, ITagCategoryType} from "types";
 import ActionTypes from "./const";
 
 export interface TagCategoryState {
@@ -10,6 +10,7 @@ export interface TagCategoryState {
   listLoading: boolean,
   currentLoading: boolean
   formLoading: boolean,
+  categoryType: ITagCategoryType
 }
 
 const initialState: TagCategoryState = {
@@ -19,6 +20,7 @@ const initialState: TagCategoryState = {
   formLoading: false,
   listLoading: false,
   currentLoading: false,
+  categoryType: ITagCategoryType.Project
 }
 
 export default function TagCategoryReducer(state = {...initialState}, action) {
@@ -95,6 +97,15 @@ export default function TagCategoryReducer(state = {...initialState}, action) {
       break
     case ActionTypes.FETCH_TAG_CATEGORY + ApiActionTypes.FAIL:
       state.currentLoading = false;
+      break
+
+    case ActionTypes.SET_CATEGORY_TYPE:
+      state.categoryType = action.payload.categoryType;
+      break
+
+    case ActionTypes.RESET_TAG_CATEGORY_LIST:
+      state.listLoading = false;
+      state.list = [];
       break
   }
 

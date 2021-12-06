@@ -1,21 +1,21 @@
 @import "scss/index";
 
-.root{
+.root {
   margin-top: 16px;
 }
 
 
-.container{
+.container {
   text-decoration: none;
   @media screen and (min-width: $sm-mid) {
     display: flex;
   }
 }
 
-.square{
+.square {
   position: relative;
-    width: 193px;
-    margin: auto;
+  width: 193px;
+  margin: auto;
   @media screen and (max-width: $sm-max) {
     width: 128px;
   }
@@ -28,7 +28,7 @@
   padding-bottom: 100%;
 }
 
-.cover{
+.cover {
   border-radius: 5px;
   width: 193px;
   height: 193px;
@@ -38,25 +38,28 @@
     width: 128px;
     height: 128px;
   }
-  img{
+
+  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 5px;
-    }
+  }
 }
-.favorite{
-  position: absolute;
-  top: 15px;
-  right: 15px;
-}
-.dots{
+
+.favorite {
   position: absolute;
   top: 15px;
   right: 15px;
 }
 
-.title{
+.dots {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.title {
   @media screen and (min-width: $container-lg) {
     font-size: 14px;
   }

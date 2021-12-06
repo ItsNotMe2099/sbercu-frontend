@@ -1,23 +1,23 @@
-import {fetchCatalogList, fetchCatalogProjects, fetchMyUploadedFiles} from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import {confirmOpen, createFolderOpen, editFileOpen, modalClose} from "components/Modal/actions";
+import {confirmOpen, modalClose} from "components/Modal/actions";
 import {
   cleanBasket,
   deleteCatalogItemDeleted,
   fetchCatalogFilesDeleted,
   fetchCatalogFoldersDeleted,
   fetchCatalogProjectsDeleted,
-  resetCatalogDeleted, restoreCatalogItemDeleted
+  resetCatalogDeleted,
+  restoreCatalogItemDeleted
 } from "components/basket/actions";
 import {fetchTagCategoryList} from "components/tags/TagCategory/actions";
-import NoFiles from "components/ui/NoFiles";
 import {useRouter} from "next/router";
 import FileEditModal from "components/FileEditModal";
-import {useCallback, useEffect, useState} from "react";
+import * as React from "react";
+import {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {IRootState} from "types";
-import {getAuthServerSide, logout} from "utils/auth";
+import {IRootState, ITagCategoryType} from "types";
+import {getAuthServerSide} from "utils/auth";
 import {pluralize} from "utils/formatters";
 import styles from './index.module.scss'
 import {TagSelect} from "components/dashboard/TagSelect";
@@ -27,10 +27,8 @@ import File from "components/dashboard/File";
 import Header from "components/layout/Header";
 import {useDispatch, useSelector} from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
-import ProjectLoader from "components/ContentLoaders/projectLoader";
 import NoDeleted from 'pages/basket/components/NoDeleted'
 import Button from 'components/ui/Button'
-import * as React from 'react'
 import Basket from 'components/svg/Basket'
 
 
@@ -68,9 +66,8 @@ const DeletedPage = (props) => {
   const {query} = router.query;
   console.log("query", query);
   useEffect(() => {
-
     dispatch(resetCatalogDeleted());
-    dispatch(fetchTagCategoryList());
+    dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjectsDeleted({limit: limitProjects}));
     dispatch(fetchCatalogFilesDeleted({limit: limitFiles}));
     dispatch(fetchCatalogFoldersDeleted({limit: limitFiles}));

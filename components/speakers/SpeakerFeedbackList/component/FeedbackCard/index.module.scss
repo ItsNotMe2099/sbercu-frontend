@@ -1,0 +1,36 @@
+@import "../../../../../scss/index";
+
+.root{
+  position: relative;
+  background: #F2F2F2;
+  padding: 13px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 12px;
+  border-radius: 5px;
+  &.editable{
+    min-height: 68px;
+  }
+}
+.dots{
+  position: absolute !important;
+  bottom: 4px;
+  right: 4px;
+
+}
+.description{
+  flex: 1;
+  padding-right: 4px;
+}
+.rating{
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  svg{
+    margin-left: 2px;
+    margin-top: -2px;
+  }
+}

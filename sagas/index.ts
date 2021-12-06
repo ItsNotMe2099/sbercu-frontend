@@ -11,6 +11,8 @@ import { watchOnRegistration } from 'components/auth/registration-invite/sagas';
 import apiSaga from "sagas/apiSaga";
 import jobSaga from "../components/jobs/sagas";
 import mediaLinkSaga from "../components/media-links/sagas";
+import speakerSaga from 'components/speakers/sagas'
+import feedbackSaga from 'components/feedback/sagas'
 
 export const rootSaga = function* root() {
     yield all([
@@ -25,6 +27,8 @@ export const rootSaga = function* root() {
         userSaga(),
         catalogSearchSaga(),
         jobSaga(),
-        mediaLinkSaga()
+        mediaLinkSaga(),
+        speakerSaga(),
+        feedbackSaga(),
     ])
 };

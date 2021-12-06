@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import FileEditModal from "components/FileEditModal";
 import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState } from "types";
+import {IRootState, ITagCategoryType} from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
@@ -65,7 +65,7 @@ const Search = (props) => {
             return;
         }
         dispatch(resetCatalogSearch());
-        dispatch(fetchTagCategoryList());
+        dispatch(fetchTagCategoryList(ITagCategoryType.Project));
         dispatch(fetchCatalogProjectsSearch(query, {limit: limitProjects}));
         dispatch(fetchCatalogFilesSearch(query, { limit: limitFiles }));
         dispatch(fetchCatalogFoldersSearch(query, { limit: limitFiles }));

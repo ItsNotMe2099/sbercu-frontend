@@ -4,7 +4,7 @@
   border: 0;
   cursor: pointer;
   display: flex;
-
+  background: none;
   svg{
     margin: auto;
   }
@@ -86,6 +86,9 @@
   }
   &__lightGrey{
     color: #BDBDBD;
+    &:hover{
+      color: #828282;
+    }
   }
   &__green{
     color: #27AE60;
@@ -147,6 +150,12 @@
 .brdr{
   &__darkGrey{
     border: 1px solid #828282;
+  }
+  &__lightGrey{
+    border: 1px solid #BDBDBD;
+    &:hover{
+      border: 1px solid #828282;
+    }
   }
   &__green{
     border: 1px solid #27AE60;

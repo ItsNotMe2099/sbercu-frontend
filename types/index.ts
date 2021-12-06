@@ -13,194 +13,235 @@ import {JobState} from "components/jobs/reducer";
 import {MediaLinkState} from "../components/media-links/reducer";
 import {CatalogFavoriteList} from 'components/favorite/reducer'
 import {CatalogDeletedList} from 'components/basket/reducer'
+import {SpeakerState} from 'components/speakers/reducer'
+import React from 'react'
+import {FeedbackState} from 'components/feedback/reducer'
 
 export interface IRootState {
-    loginSubmit: LoginSubmitState
-    PWRecoverEmail: PWRecoverEmailState
-    NewPasswordForm: NewPWFormState
-    regReducer: regReducerState
-    CategoryTagReducer: CategoryTagState
-    ModalReducer: ModalState
-    tagCategory: TagCategoryState
-    catalog: CatalogState
-    tag: TagState
-    users: UserState
-    search: CatalogSearchList,
-    jobs: JobState
-    mediaLink: MediaLinkState
-    favorite: CatalogFavoriteList
-    basket: CatalogDeletedList
+  loginSubmit: LoginSubmitState
+  PWRecoverEmail: PWRecoverEmailState
+  NewPasswordForm: NewPWFormState
+  regReducer: regReducerState
+  CategoryTagReducer: CategoryTagState
+  ModalReducer: ModalState
+  tagCategory: TagCategoryState
+  catalog: CatalogState
+  tag: TagState
+  users: UserState
+  search: CatalogSearchList,
+  jobs: JobState
+  mediaLink: MediaLinkState
+  favorite: CatalogFavoriteList
+  basket: CatalogDeletedList,
+  speakers: SpeakerState
+  feedback: FeedbackState
 }
 
 export interface BaseAction {
-    type: string
-    payload: any
+  type: string
+  payload: any
 }
 
 export interface IRequestData {
-    url: string
-    method?: 'POST' | 'PUT' | 'DELETE' | 'GET'
-    data?: any
-    token?: string
-    host?: string
-    timeout?: number
+  url: string
+  method?: 'POST' | 'PUT' | 'DELETE' | 'GET'
+  data?: any
+  token?: string
+  host?: string
+  timeout?: number
 }
 
 export interface IResponse {
-    data: any
-    err: any
+  data: any
+  err: any
 }
 
 export interface IVideoElement {
-    size: number
-    quality: '1080p' | '720p' | '360p'
-    duration: number
-    filePath: string
+  size: number
+  quality: '1080p' | '720p' | '360p'
+  duration: number
+  filePath: string
 }
 
 export interface IMedia {
-    id: number
-    fileName: string
-    filePath: string
-    originalName: string
-    contentType: string
-    type: 'video' | 'document' | 'audio',
-    size: number
-    videoConverted: boolean
-    videoCutting: boolean
-    videoElements: IVideoElement[]
-    totalViews: number
-    lastJob: IJob
+  id: number
+  fileName: string
+  filePath: string
+  originalName: string
+  contentType: string
+  type: 'video' | 'document' | 'audio',
+  size: number
+  videoConverted: boolean
+  videoCutting: boolean
+  videoElements: IVideoElement[]
+  totalViews: number
+  lastJob: IJob
 }
 
 export interface ICatalogEntry {
-    id?: number
-    name?: string
-    entryType?: 'project' | 'folder' | 'file'
-    parentId?: number
-    projectManager?: string
-    projectManagerMail?: string
-    projectCover?: string,
-    projectDescription?: string
-    projectAudience?: string
-    projectTarget?: string
-    projectContent?: string
-    poster?: string
-    userId?: number
-    tags?: ITag[],
-    canEdit?: boolean
-    media?: IMedia,
-    createdAt?: string
-    link?: string,
-    tagsIds?: number[]
-    mediaId?: number
-    presenters?: string[],
-    parents?: ICatalogEntry[],
-    highlight?: any,
-    inFavorites?: any
-    deletedAt?: string
+  id?: number
+  name?: string
+  entryType?: 'project' | 'folder' | 'file'
+  parentId?: number
+  projectManager?: string
+  projectManagerMail?: string
+  projectCover?: string,
+  projectDescription?: string
+  projectAudience?: string
+  projectTarget?: string
+  projectContent?: string
+  poster?: string
+  userId?: number
+  tags?: ITag[],
+  canEdit?: boolean
+  media?: IMedia,
+  createdAt?: string
+  link?: string,
+  tagsIds?: number[]
+  mediaId?: number
+  presenters?: string[],
+  parents?: ICatalogEntry[],
+  highlight?: any,
+  inFavorites?: any
+  deletedAt?: string
 }
 
 export interface ITag {
-    id?: number,
-    name: string,
-    tagCategoryId: number,
+  id?: number,
+  name: string,
+  tagCategoryId: number,
 }
 
 export interface ITagCategory {
-    id?: number
-    name: string
-    tags: ITag[]
+  id?: number
+  name: string
+  tags: ITag[]
 }
 
 export interface CreateProjectData {
-    name?: string
-    entryType?: string
-    projectManager?: string
-    projectManagerMail?: string
-    projectCover?: string
-    projectDescription?: string
-    projectAudience?: string
-    projectTarget?: string
-    projectContent?: string
-    tagsIds?: number[]
+  name?: string
+  entryType?: string
+  projectManager?: string
+  projectManagerMail?: string
+  projectCover?: string
+  projectDescription?: string
+  projectAudience?: string
+  projectTarget?: string
+  projectContent?: string
+  tagsIds?: number[]
 }
 
 export interface ConfirmDataModal {
-    cancelText?: string,
-    confirmColor?: string,
-    confirmText?: string,
-    description?: string,
-    title?: string
-    onConfirm: () => void,
-    onCancel?: () => void
+  cancelText?: string,
+  confirmColor?: string,
+  confirmText?: string,
+  description?: string,
+  title?: string
+  onConfirm: () => void,
+  onCancel?: () => void
 }
 
 export interface IUser {
-    id?: number
-    firstName?: string
-    lastName?: string
-    email?: string
-    role?: string
-    virtualSchoolId?: string
-    virtualSchoolLogin?: string
-    inviteSent?: boolean
-    registeredAt?: string
-    resetPasswordToken?: string
-    departmentTags?: ITag[]
-    departmentTagIds?: number[]
+  id?: number
+  firstName?: string
+  lastName?: string
+  email?: string
+  role?: string
+  virtualSchoolId?: string
+  virtualSchoolLogin?: string
+  inviteSent?: boolean
+  registeredAt?: string
+  resetPasswordToken?: string
+  departmentTags?: ITag[]
+  departmentTagIds?: number[]
 }
 
 export interface IVideoTrimRange {
-    id: string,
-    start: number
-    end: number,
-    color: string
+  id: string,
+  start: number
+  end: number,
+  color: string
 }
 
 export interface IJobCodecInfo {
-    audio: string,
-    video: string,
-    format: string
-    duration: string,
-    audio_details: string[]
-    video_details: string[]
+  audio: string,
+  video: string,
+  format: string
+  duration: string,
+  audio_details: string[]
+  video_details: string[]
 }
 
 export interface IJobProgress {
-    frames: number,
-    percent: number,
-    timemark: string,
-    currentFps: number,
-    targetSize: number,
-    currentKbps: number
+  frames: number,
+  percent: number,
+  timemark: string,
+  currentFps: number,
+  targetSize: number,
+  currentKbps: number
 }
 
 export interface IJob {
-    id: number,
-    type: "converting" | 'cutting',
-    state: "pending" | "started" | "finished" | "canceled" | "error",
-    startedAt: string,
-    finishedAt: string,
-    createdAt: string,
-    updatedAt: string,
-    deletedAt: string,
-    userId: number,
-    mediaId: number,
-    params: any,
-    error: null,
-    detailes: string,
-    codecInfo: IJobCodecInfo
-    video_details: string[]
-    progress: IJobProgress
-    catalog: ICatalogEntry
-    user: IUser
-    media: IMedia
+  id: number,
+  type: "converting" | 'cutting',
+  state: "pending" | "started" | "finished" | "canceled" | "error",
+  startedAt: string,
+  finishedAt: string,
+  createdAt: string,
+  updatedAt: string,
+  deletedAt: string,
+  userId: number,
+  mediaId: number,
+  params: any,
+  error: null,
+  detailes: string,
+  codecInfo: IJobCodecInfo
+  video_details: string[]
+  progress: IJobProgress
+  catalog: ICatalogEntry
+  user: IUser
+  media: IMedia
 }
-export interface VideoViewHistory{
-    mediaId: number
-    currentTime: number
-    muted: boolean
-    volume: number
-    rate: number
+
+export interface VideoViewHistory {
+  mediaId: number
+  currentTime: number
+  muted: boolean
+  volume: number
+  rate: number
+}
+
+export enum ITagCategoryType {
+  Project = 'project',
+  Speaker = 'speaker',
+}
+
+export interface ISpeaker {
+  id?: number
+  name?: string
+  nameEng?: string
+  cover?: string[]
+  mainCover?: string
+  bio?: string
+  description?: string
+  inFavorites?: boolean
+  deletedAt?: string
+  legalEntity?: string
+  price?: string
+  languages?: string
+  speakerContacts?: string
+  agentContacts?: string
+  rating?: number
+}
+
+
+export interface ISpeakerFeedback {
+  id?: number
+  description?: string
+  mark?: number
+}
+
+export enum IHeaderType {
+  Speaker = 'speaker',
+  Catalog = 'catalog'
 }

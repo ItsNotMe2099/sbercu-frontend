@@ -1,31 +1,29 @@
 import {
-  fetchCatalogList,
   fetchCatalogProjects,
   fetchMyUploadedFiles,
-  resetCatalogList, resetMyUploadedFiles
+  resetCatalogList,
+  resetMyUploadedFiles
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
-import { fetchCatalogFilesSearch, fetchCatalogProjectsSearch } from "components/search/actions";
-import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import {confirmOpen, editFileOpen, modalClose} from "components/Modal/actions";
+import {fetchTagCategoryList} from "components/tags/TagCategory/actions";
 import FileEditModal from "components/FileEditModal";
 import NoFiles from "components/ui/NoFiles";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState } from "types";
-import {getAuthServerSide, logout} from "utils/auth";
-import { pluralize } from "utils/formatters";
+import {IRootState, ITagCategoryType} from "types";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
-import { TagSelect } from "components/dashboard/TagSelect";
+import {TagSelect} from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
 import File from "components/dashboard/File";
 import Header from "components/layout/Header";
-import { useDispatch, useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
-import ProjectLoader from "components/ContentLoaders/projectLoader";
 import {useRouter} from "next/router";
+
 const queryString = require('query-string')
 
 const Dashboard = (props) => {
@@ -67,7 +65,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     dispatch(resetCatalogList());
     dispatch(resetMyUploadedFiles());
-    dispatch(fetchTagCategoryList());
+    dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjects({entryType: 'project', limit: limitProjects}))
     dispatch(fetchMyUploadedFiles(user.id, {limit: limitFiles}));
     return () => {

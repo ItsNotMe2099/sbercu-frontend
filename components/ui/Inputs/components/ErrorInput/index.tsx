@@ -9,9 +9,10 @@ interface Props {
 
 export default function ErrorInput(props: Props) {
   const { error, touched } = props.meta ? props.meta : {error: null, touched: false}
+  console.log("ErrorInput", error, touched)
   if(touched && error) {
     return (<div className={styles.root}>{error}</div>)
   }else{
-    return (<></>)
+    return null
   }
 }
