@@ -162,7 +162,7 @@ const SpeakerPage = (props: Props) => {
                       <div className={styles.star}><StarFilled/></div>
                   </div>
 
-                  <Button className={styles.newFeedbackBtn} brdrLightGrey textLightGrey size="9px 16px"
+                  <Button className={styles.newFeedbackBtn} brdrDarkGrey textDarkGrey size="9px 16px"
                           onClick={handleCreateFeedbackClick}>Оставить отзыв</Button>
                   <div className={styles.info}>
                     {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}

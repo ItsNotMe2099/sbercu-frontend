@@ -39,10 +39,16 @@ let SpeakerForm = props => {
               <div className={styles.border}></div>
               <div className={styles.desc}>
                 <Field
-                name="name"
-                component={Input}
-                label="Имя"
-                autoFocus={!initialValues?.id}
+                  name="name"
+                  component={Input}
+                  label="Имя"
+                  autoFocus={!initialValues?.id}
+                />
+                <Field
+                  name="nameEng"
+                  component={Input}
+                  label="Имя на английском"
+                  autoFocus={!initialValues?.id}
                 />
                 <Field
                   name="legalEntity"
