@@ -86,7 +86,7 @@ const SpeakerFeedbackList = (props: Props) => {
         </div>
        {loading && listTotal === 0 && <DashboardLoader/>}
         {!loading && listTotal === 0 &&
-        <div className={styles.empty}>       <Button green size="9px 16px" onClick={onCreateClick} >Оставить отзыв</Button></div>}
+        <div className={styles.empty}>   <div className={styles.text}>Пока никто не оставил отзыв о спикере.</div>    <Button green size="9px 16px" onClick={onCreateClick} >Оставить отзыв</Button></div>}
         {listTotal > 0 && <>
 
             <InfiniteScroll
@@ -98,7 +98,7 @@ const SpeakerFeedbackList = (props: Props) => {
                 className={styles.scroll}
             >
                 <div className={styles.list}>
-                  {list.map(item => (<FeedbackCard item={item} onEditClick={props.onEditClick} onDeleteClick={handleDeleteClick} canEdit={user?.role === 'admin' }/>))}
+                  {list.map(item => (<FeedbackCard item={item} onEditClick={props.onEditClick} onDeleteClick={handleDeleteClick} canEdit={user?.role === 'admin' || item.fromUserId === user?.id}/>))}
                 </div>
             </InfiniteScroll>
             <Button green size="9px 16px" onClick={onCreateClick}>Оставить отзыв</Button>

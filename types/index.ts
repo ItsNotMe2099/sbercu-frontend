@@ -239,6 +239,7 @@ export interface ISpeakerFeedback {
   id?: number
   description?: string
   mark?: number
+  fromUserId?: number
 }
 
 export enum IHeaderType {

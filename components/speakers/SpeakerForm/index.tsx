@@ -115,6 +115,7 @@ let SpeakerForm = props => {
                 <Field
                 name="mainCover"
                 component={AvatarInput}
+                addFileTitle={'Загрузить фото'}
                 />
               </div>
             </div>

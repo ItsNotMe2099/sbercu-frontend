@@ -25,6 +25,7 @@ export interface AvatarInputProps {
   labelSingle?: string
   maxSize?: number
   minSize?: number
+  addFileTitle?: string
   multiple?: boolean,
   handleChangePhoto?: (string) => {}
   handleDeletePhoto?: () => {}
@@ -226,7 +227,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             >
             </AvatarInputPreview>
           ))}
-            {files.length === 0 ? <AddFileButton uploadBtn/> :
+            {files.length === 0 ? <AddFileButton uploadBtn uploadTitle={props.addFileTitle}/> :
             <div className={styles.btns}>
             <Button onClick={handleChangePhoto} transparent textGreen brdrGreen size="9px 20px" type="button">Заменить</Button>
           </div>}
