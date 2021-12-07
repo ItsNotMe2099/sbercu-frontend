@@ -135,7 +135,7 @@ const SpeakerPage = (props: Props) => {
       {speaker && <NextSeo title={speaker.name}/>}
       <Header {...props} type={IHeaderType.Speaker}/>
       {(!currentLoading && speaker) && <div className={styles.root}>
-          <div className={styles.title}>{speaker.name}</div>
+
           <BreadCrumbs items={[{name: 'Главная', link: '/'}, {name: 'Спикеры', link: '/speakers'}]}/>
           <div className={styles.content}>
               <div className={styles.left}>
