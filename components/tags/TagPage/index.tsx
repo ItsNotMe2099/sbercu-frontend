@@ -2,7 +2,12 @@ import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
 import { confirmOpen, modalClose, tagCategoryModalOpen, tagModalOpen } from "components/Modal/actions";
 import { deleteTag } from "components/tags/Tag/actions";
-import {deleteTagCategory, fetchTagCategoryList, setTagCategoryType} from "components/tags/TagCategory/actions";
+import {
+  deleteTagCategory,
+  fetchTagCategoryList,
+  resetTagCategoryList,
+  setTagCategoryType
+} from "components/tags/TagCategory/actions";
 import Button from "components/ui/Button";
 import TagCategoryModal from "components/tags/TagCategoryModal";
 import TagModal from "components/tags/TagModal";
@@ -27,8 +32,12 @@ const TagPage = (props: Props) => {
   const [currentEditTagCategory, setCurrentEditTagCategory] = useState(null)
 
   useEffect(() => {
+    dispatch(resetTagCategoryList());
     dispatch(setTagCategoryType(props.categoryType))
     dispatch(fetchTagCategoryList(props.categoryType))
+    return () => {
+      dispatch(resetTagCategoryList());
+    }
   }, [])
 
   const handleEditTag = (item: ITag) => {

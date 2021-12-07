@@ -37,10 +37,11 @@ export default function Profile({user, showSearch}: Props){
             <div className={styles.option}><Link href="/profile">Личный кабинет</Link></div>
 
           {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/project/new'})}><Link href="/project/new">Создать проект</Link></div>}
-            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/tags'})}><Link href="/tags">Теги</Link></div>}
+            {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/tag/project'})}><Link href="/tags/project">Теги</Link></div>}
             {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/users'})}><Link href="/users">Пользователи</Link></div>}
             {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/jobs'})}><Link href="/jobs">Задания</Link></div>}
           <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/speakers'})}><Link href="/speakers">Спикеры</Link></div>
+          {['admin'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/tag/speaker'})}><Link href="/tags/speaker">Теги спикеров</Link></div>}
 
           {['admin', 'manager'].includes(user?.role) && <div className={cx(styles.option, {[styles.isActive]: router.asPath === '/speakers/new'})}><Link href="/speakers/new">Создать спикера</Link></div>}
 
