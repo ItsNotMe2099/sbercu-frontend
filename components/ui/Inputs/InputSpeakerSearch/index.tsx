@@ -10,6 +10,7 @@ import {
 } from "components/search/actions";
 import { IRootState } from "types";
 import SearchSuggestionLoader from 'components/ContentLoaders/searchSuggestionLoader';
+import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
 
 
 
@@ -90,9 +91,8 @@ export default function InputSpeakerSearch(props: Props) {
               {speakers.length > 0 && <div className={styles.speakers}>
             {speakers.map(speaker =>
               <div className={styles.speaker} key={speaker.id}>
-                <div className={styles.avatar}>{speaker.cover ?   <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${speaker.cover}`}
-                  alt=''/> : <div className={styles.stub}/>}</div>
+                <div className={styles.avatar}>
+                  <SpeakerPhoto size={'small'} photo={speaker.mainCover}/></div>
                 <div className={styles.info}>
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.description}>{speaker.description}</div>
