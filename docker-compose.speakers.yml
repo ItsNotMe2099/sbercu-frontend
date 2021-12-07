@@ -52,7 +52,7 @@ services:
       depends_on:
         - app
       environment:
-        API_HOST: http://sber-cu-api-speakers-nginx-firelabse
+        API_HOST: http://sber-cu-api-speakers-nginx
         VIRTUAL_HOST: speakers.sber.dev.firelabs.ru
         LETSENCRYPT_HOST: speakers.sber.dev.firelabs.ru
         LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
