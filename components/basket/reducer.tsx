@@ -99,15 +99,15 @@ export default function CatalogDeletedReducer(state = {...initialState}, action)
       console.log("SetDeleted",  action.payload, state.files.filter( i => !action.payload?.includes(i.id)).map(i => i.id));
       state.currentLoadingItems = state.currentLoadingItems.filter( i => !action.payload?.includes(i));
 
-      if(state.projects.filter( i => !action.payload?.includes(i.id)).length > 0) {
+      if(state.projects.filter( i => action.payload?.includes(i.id)).length > 0) {
         state.projects = state.projects.filter( i => !action.payload?.includes(i.id));
         state.projectsTotal = state.projectsTotal - 1;
       }
-      if(state.folders.filter( i => !action.payload?.includes(i.id)).length > 0) {
+      if(state.folders.filter( i => action.payload?.includes(i.id)).length > 0) {
         state.folders = state.folders.filter( i => !action.payload?.includes(i.id));
         state.foldersTotal = state.foldersTotal - 1;
       }
-      if( state.files.filter( i => !action.payload?.includes(i.id)).length > 0) {
+      if( state.files.filter( i => action.payload?.includes(i.id)).length > 0) {
         state.files = state.files.filter( i => !action.payload?.includes(i.id));
         state.filesTotal = state.filesTotal - 1;
       }
