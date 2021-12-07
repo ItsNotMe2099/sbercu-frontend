@@ -2,9 +2,7 @@
 
 .inputContainer{
   position: relative;
-  @media screen and (max-width: $sm-mid) {
-    margin-right: 32px;
-  }
+
   input{
     border: 1px solid #BDBDBD;
     border-radius: 5px;

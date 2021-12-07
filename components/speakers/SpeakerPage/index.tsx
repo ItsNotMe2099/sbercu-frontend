@@ -8,7 +8,7 @@ import BreadCrumbs from 'components/ui/Breadcrumbs';
 import Tag from 'components/video-page/component/tag';
 import {useDispatch, useSelector} from 'react-redux'
 import {NextSeo} from 'next-seo'
-import { IUser } from "types";
+import {IUser} from "types";
 import {
   deleteSpeaker,
   fetchSpeakerItemRequest,
@@ -31,6 +31,8 @@ import ButtonSelect from 'components/ui/ButtonSelect'
 import {catalogCopy, deleteCatalog} from 'components/catalog/actions'
 import {fetchFeedbackList} from 'components/feedback/actions'
 import SpeakerFeedbackList from 'components/speakers/SpeakerFeedbackList'
+import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
+
 const queryString = require('query-string')
 
 interface Props {
@@ -55,14 +57,14 @@ const SpeakerPage = (props: Props) => {
     {value: 'delete', label: 'Удалить'}
   ];
 
-  useEffect( () => {
+  useEffect(() => {
     dispatch(resetSpeakerItem());
     if (!router.query.id) {
       return;
     }
-    if(props.initialSpeaker){
-     dispatch(setSpeakerItem(props.initialSpeaker));
-    }else {
+    if (props.initialSpeaker) {
+      dispatch(setSpeakerItem(props.initialSpeaker));
+    } else {
       dispatch(fetchSpeakerItemRequest(router.query.id, {showTags: '1'}));
     }
 
@@ -94,10 +96,13 @@ const SpeakerPage = (props: Props) => {
   }
 
   const renderInfoItem = (label: string, value: any) => {
-    if(!value){
+    if (!value) {
       return null;
     }
-    return <div className={styles.infoItem}><div className={styles.label}>{label}</div><div className={styles.value}>{value}</div></div>
+    return <div className={styles.infoItem}>
+      <div className={styles.label}>{label}</div>
+      <div className={styles.value}>{value}</div>
+    </div>
   }
   const handleCreateFeedbackClick = () => {
     setCurrentEditFeedback(null);
@@ -134,8 +139,10 @@ const SpeakerPage = (props: Props) => {
           <BreadCrumbs items={[{name: 'Главная', link: '/'}, {name: 'Спикеры', link: '/speakers'}]}/>
           <div className={styles.content}>
               <div className={styles.left}>
-                {speaker.cover &&
-                <div className={styles.gallery}></div>}
+
+                <div className={styles.gallery}>
+                    <div className={styles.mainPhoto}><SpeakerPhoto size={'large'} photo={speaker.mainCover}/></div>
+                </div>
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.nameEng}>{speaker.nameEng}</div>
                   <div className={styles.description}>{speaker.description}</div>
@@ -150,24 +157,30 @@ const SpeakerPage = (props: Props) => {
                 />)}
                 {canEdit &&
                 <div className={styles.actions}><ButtonSelect onChange={handleSettingsClick} options={settings}
-                                                             size="9px 20px">Настройки</ButtonSelect></div>}
-                  <div className={styles.rating}>{speaker.rating || 0} <div className={styles.star}><StarFilled/></div></div>
+                                                              size="9px 20px">Настройки</ButtonSelect></div>}
+                  <div className={styles.rating}>{speaker.rating || 0}
+                      <div className={styles.star}><StarFilled/></div>
+                  </div>
 
-                  <Button className={styles.newFeedbackBtn} brdrLightGrey textLightGrey size="9px 16px" onClick={handleCreateFeedbackClick}>Оставить отзыв</Button>
-                <div className={styles.info}>
-                  {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}
-                  {renderInfoItem('Стоимость', speaker.price)}
-                  {renderInfoItem('Язык выступления', speaker.languages)}
-                  {renderInfoItem('Контакты спикера', speaker.speakerContacts)}
-                  {renderInfoItem('Контакты агента', speaker.agentContacts)}
-                </div>
+                  <Button className={styles.newFeedbackBtn} brdrLightGrey textLightGrey size="9px 16px"
+                          onClick={handleCreateFeedbackClick}>Оставить отзыв</Button>
+                  <div className={styles.info}>
+                    {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}
+                    {renderInfoItem('Стоимость', speaker.price)}
+                    {renderInfoItem('Язык выступления', speaker.languages)}
+                    {renderInfoItem('Контакты спикера', speaker.speakerContacts)}
+                    {renderInfoItem('Контакты агента', speaker.agentContacts)}
+                  </div>
               </div>
           </div>
- {speaker && <SpeakerFeedbackList user={props.user} speakerId={speaker?.id} onEditClick={handleEditFeedbackClick} onCreateClick={handleCreateFeedbackClick}/>}
+        {speaker && <SpeakerFeedbackList user={props.user} speakerId={speaker?.id} onEditClick={handleEditFeedbackClick}
+                                         onCreateClick={handleCreateFeedbackClick}/>}
       </div>}
 
-      {modalKey === 'createSpeakerFeedback' &&  <SpeakerReviewModal isOpen={modalKey === 'createSpeakerFeedback'}
-                                                     onRequestClose={() => dispatch(modalClose())} feedback={currentEditFeedback} speakerId={speaker.id}/>}
+      {modalKey === 'createSpeakerFeedback' && <SpeakerReviewModal isOpen={modalKey === 'createSpeakerFeedback'}
+                                                                   onRequestClose={() => dispatch(modalClose())}
+                                                                   feedback={currentEditFeedback}
+                                                                   speakerId={speaker.id}/>}
 
     </Layout>
   )

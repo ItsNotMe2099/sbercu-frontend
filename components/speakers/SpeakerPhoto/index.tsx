@@ -19,7 +19,7 @@ export default function SpeakerPhoto({photo, size, children}: Props) {
             [styles.sizeLarge]: size === 'large',
 
           })}>
-            {photo !== null ?
+            {photo ?
               <img
                 src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${photo}`}
                 alt=''/>

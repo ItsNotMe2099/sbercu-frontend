@@ -45,5 +45,14 @@
 
 }
 .sizeLarge{
-
+  border-radius: 40px;
+  min-height: 307px;
+  max-width: 407px;
+  svg{
+    width: 50%;
+    height: 50%;
+  }
+  @media screen and (max-width: $sm-max) {
+    max-width: 100%;
+  }
 }
