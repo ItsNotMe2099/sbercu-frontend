@@ -1,6 +1,6 @@
 @import "scss/index";
 .root{
-
+  user-select: none;
   display: flex;
   cursor: pointer;
   &.video{
