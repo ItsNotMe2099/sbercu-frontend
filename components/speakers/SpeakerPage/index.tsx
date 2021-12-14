@@ -32,6 +32,7 @@ import {catalogCopy, deleteCatalog} from 'components/catalog/actions'
 import {fetchFeedbackList} from 'components/feedback/actions'
 import SpeakerFeedbackList from 'components/speakers/SpeakerFeedbackList'
 import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
+import Footer from 'components/layout/Footer'
 
 const queryString = require('query-string')
 
@@ -181,7 +182,7 @@ const SpeakerPage = (props: Props) => {
                                                                    onRequestClose={() => dispatch(modalClose())}
                                                                    feedback={currentEditFeedback}
                                                                    speakerId={speaker.id}/>}
-
+      <Footer/>
     </Layout>
   )
 }

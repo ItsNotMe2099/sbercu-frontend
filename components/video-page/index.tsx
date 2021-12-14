@@ -255,7 +255,7 @@ const VideoPage = (props: Props) => {
       <MediaLinkPublicModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
       {(video?.media && modalKey === 'mediaLinkVirtSchool') &&
       <MediaLinkVirtSchoolModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
-
+      <Footer/>
     </Layout>
   )
 }
