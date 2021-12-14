@@ -2,7 +2,7 @@ import {
   catalogCopy, catalogPaste,
   deleteCatalog,
   fetchCatalogItemRequest,
-  fetchCatalogList,
+  fetchCatalogList, resetCatalogItem,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
   setCurrentCatalogId, setFilesFromDropZone
@@ -76,6 +76,7 @@ const Catalog = (props) => {
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
+       dispatch(resetCatalogItem());
     }
   }, [router.query.paths])
 

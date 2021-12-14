@@ -25,6 +25,7 @@ export async function getServerSideProps(ctx) {
         notFound: true
       }
     }
+    console.log("GetVideoBackend", res.data);
 
     return {
       props: {initialVideo: res.data, ...authProps},
