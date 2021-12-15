@@ -12,6 +12,13 @@
   font-size: 12px;
   color: #bdbdbd;
   display: contents;
+  &.deleted{
+    cursor: initial;
+    color: #EB5757;
+    &:hover{
+      color: #EB5757;
+    }
+  }
   &:hover{
     color: black;
   }

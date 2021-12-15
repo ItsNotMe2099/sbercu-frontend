@@ -17,6 +17,7 @@ interface Props {
 }
 
 export default function ModalEditorConfirm(props: Props) {
+  const {video} = props;
   const dispatch = useDispatch();
 
   const isSubmitting = useSelector((state: IRootState) => state.catalog.isSubmitting)
@@ -31,7 +32,16 @@ export default function ModalEditorConfirm(props: Props) {
   }
 
   const handleSubmit = () => {
-    dispatch(cutVideo(props.video.mediaId, props.cutItems));
+    const intervals = props.cutItems;
+    for (const interval of intervals) {
+      const overflowDurationItem = video.media.videoElements.find(
+        elem => elem.duration < interval.end,
+      )
+      if(overflowDurationItem && interval.end - overflowDurationItem.duration < 1){
+        interval.end = overflowDurationItem.duration;
+      }
+    }
+    dispatch(cutVideo(video.mediaId, intervals));
   }
   return (
     <Modal

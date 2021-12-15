@@ -78,6 +78,7 @@ export default function DurationInput({value, onChange, minSeconds, maxSeconds, 
         return;
       }
       const seconds = convertTimeToNumber(val);
+      console.log("TimeToNumber", seconds, maxSeconds, seconds >= maxSeconds)
       if (seconds <= minSeconds || seconds >= maxSeconds) {
         setError(true);
         return;

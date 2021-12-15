@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import React from 'react'
 import ButtonDots from 'components/ui/ButtonDots'
-
+import cx from 'classnames'
 interface Props {
   item: ICatalogEntry
   onDeleteClick?: (item) => void
@@ -37,12 +37,14 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
       onRestoreClick(item)
     }
   }
-  console.log('cover', item.projectCover)
-
+  const noop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
   return (
     <Link href={`/catalog/${item.id}`}>
-      <a className={styles.container}>
+      <a className={cx(styles.container, {[styles.deleted]: !!item.deletedAt})}  onClick={item.deletedAt ? noop : null}>
         <div className={styles.root}>
           <div
             className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`}

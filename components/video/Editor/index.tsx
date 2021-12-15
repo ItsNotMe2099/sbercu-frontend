@@ -255,7 +255,7 @@ export default function VideoEditor(props: Props) {
                 poster={props.poster}
                 playing={playing}
                 onCreateRef={(ref) => player.current = ref}
-                source={source}
+                source={`/063289d237bda928be78fa9534df0671.mp4`}
                 playbackRate={playbackRate}
                 volume={volume / 100}
                 onDuration={handleDuration}

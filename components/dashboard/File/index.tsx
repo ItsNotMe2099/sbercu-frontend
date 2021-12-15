@@ -185,7 +185,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           :
           null}
         </div>
-        {(item.parents && props.showBreadcrumbs) && <BreadCrumbs className={styles.breadcrumbs} items={(item?.parents || []).map(i => ({link: `/catalog/${i.id}`, name: i.name})).splice(0, item?.parents?.length - 1)} />}
+        {(item.parents && props.showBreadcrumbs) && <BreadCrumbs className={styles.breadcrumbs} items={(item?.parents || []).map(i => ({link: `/catalog/${i.id}`, name: i.name, deleted: !!i.deletedAt})).splice(0, item?.parents?.length - 1)} />}
 
 
       </a>

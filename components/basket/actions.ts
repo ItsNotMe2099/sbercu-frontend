@@ -6,21 +6,21 @@ const queryString = require('query-string')
 
 export const fetchCatalogProjectsDeleted = (options) => action(ActionTypes.FETCH_CATALOG_PROJECTS_DELETED_LIST, {
   api: {
-    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'project'})}`,
+    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'project', sort: 'deletedAt,DESC'})}`,
     method: 'GET',
   }
 })
 
 export const fetchCatalogFilesDeleted = (options) => action(ActionTypes.FETCH_CATALOG_FILES_DELETED_LIST, {
   api: {
-    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'file'})}`,
+    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'file', sort: 'deletedAt,DESC'})}`,
     method: 'GET',
   }
 })
 
 export const fetchCatalogFoldersDeleted = (options) => action(ActionTypes.FETCH_CATALOG_FOLDERS_DELETED_LIST, {
   api: {
-    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'folder'})}`,
+    url: `/api/catalog/deleted?${queryString.stringify({...options, entryType: 'folder', sort: 'deletedAt,DESC'})}`,
     method: 'GET',
   }
 })
