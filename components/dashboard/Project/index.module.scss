@@ -1,12 +1,14 @@
 @import "scss/index";
 
 .root {
-  margin-top: 16px;
+width: 100%;
 }
 
 
 .container {
+  margin-top: 16px;
   text-decoration: none;
+
   @media screen and (min-width: $sm-mid) {
     display: flex;
   }
@@ -14,11 +16,6 @@
 
 .square {
   position: relative;
-  width: 193px;
-  margin: auto;
-  @media screen and (max-width: $sm-max) {
-    width: 128px;
-  }
   border-radius: 5px;
 }
 
@@ -30,20 +27,17 @@
 
 .cover {
   border-radius: 5px;
-  width: 193px;
-  height: 193px;
-  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
   position: relative;
-  @media screen and (max-width: $sm-max) {
-    width: 128px;
-    height: 128px;
-  }
+
 
   img {
-    height: 100%;
-    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
     object-fit: cover;
     border-radius: 5px;
+    aspect-ratio: 1;
   }
 }
 

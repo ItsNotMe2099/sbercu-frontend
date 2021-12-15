@@ -23,6 +23,9 @@ import Header from "components/layout/Header";
 import {useDispatch, useSelector} from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import {useRouter} from "next/router";
+import {fetchSpeakerList, resetSpeakerList} from 'components/speakers/actions'
+import SpeakerCard from 'components/speakers/SpeakerCard'
+import Link from 'next/link'
 
 const queryString = require('query-string')
 
@@ -36,13 +39,17 @@ const Dashboard = (props) => {
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const projectsLoading = useSelector((state: IRootState) => state.catalog.listLoading)
   const filesLoading = useSelector((state: IRootState) => state.catalog.myUploadedFilesListLoading)
-  const loading = projectsLoading || filesLoading;
+  const speakersLoading = useSelector((state: IRootState) => state.speakers.listLoading)
+  const loading = projectsLoading || filesLoading || speakersLoading;
 
 
   const projects = useSelector((state: IRootState) => state.catalog.projects)
   const projectsTotal = useSelector((state: IRootState) => state.catalog.projectsTotal)
   const files = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
   const filesTotal = useSelector((state: IRootState) => state.catalog.myUploadedFilesListTotal)
+
+  const speakers = useSelector((state: IRootState) => state.speakers.list)
+  const speakersTotal = useSelector((state: IRootState) => state.speakers.listTotal)
 
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
 
@@ -68,8 +75,10 @@ const Dashboard = (props) => {
     dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjects({entryType: 'project', limit: limitProjects}))
     dispatch(fetchMyUploadedFiles(user.id, {limit: limitFiles}));
+    dispatch(fetchSpeakerList({limit: 5}))
     return () => {
       dispatch(resetCatalogList());
+      dispatch(resetSpeakerList());
     }
   }, [])
 
@@ -145,37 +154,55 @@ const Dashboard = (props) => {
 
 
         {(isInit && tagCategories.length > 0) && <TagSelect items={tagCategories} selectedTags={tags} initialTags={tagsFromQuery} onChangeSelectedTags={handleTagChangeTags}/>}
-        {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
+        {loading && filesTotal === 0 && projectsTotal === 0 && speakersTotal === 0 && <DashboardLoader/>}
         {!loading && projectsTotal === 0 &&
         <NoFiles/>}
         {projectsTotal > 0 && <>
-          <div className={styles.titleContainer}>
-            <div className={styles.title}>Проекты</div>
-            <Quantity
-                quantity={projectsTotal}
-            />
-          </div>
-          <InfiniteScroll
-              dataLength={projects.length}
-              next={handleScrollNextProjects}
-              loader={<div></div>}
-              hasMore={showProjects && projectsTotal !== projects.length}
-              style={{overflow: "inherit"}}
-              className={styles.scroll}
-          >
-            <div className={styles.projects}>
-              {(showProjects ? projects : projects.slice(0, 5)).map(item => (<Project
-                      item={item}
-                  />
-              ))}
+            <div className={styles.titleContainer}>
+                <div className={styles.title}>Проекты</div>
+                <Quantity
+                    quantity={projectsTotal}
+                />
             </div>
-          </InfiniteScroll>
+            <InfiniteScroll
+                dataLength={projects.length}
+                next={handleScrollNextProjects}
+                loader={<div></div>}
+                hasMore={showProjects && projectsTotal !== projects.length}
+                style={{overflow: "inherit"}}
+                className={styles.scroll}
+            >
+                <div className={styles.projects}>
+                  {(showProjects ? projects : projects.slice(0, 5)).map(item => (<Project
+                      item={item}
+                    />
+                  ))}
+                </div>
+            </InfiniteScroll>
           {projectsTotal > 5 && <div className={styles.more}>
-            <a onClick={handleShowProjects}>
-              <img className={showProjects ? styles.hide : null} src="img/icons/arrowDown.svg"
-                   alt=''/>{showProjects ? <span>Скрыть</span> : <span>Показать еще</span>}
-            </a>
+              <a onClick={handleShowProjects}>
+                  <img className={showProjects ? styles.hide : null} src="img/icons/arrowDown.svg"
+                       alt=''/>{showProjects ? <span>Скрыть</span> : <span>Показать еще</span>}
+              </a>
           </div>}
+        </>}
+
+
+
+        {speakersTotal > 0 && <>
+            <div className={styles.titleContainer}>
+                <div className={styles.titleWrapper}>
+                <div className={styles.title}>Спикеры</div>
+                <Quantity
+                    quantity={speakersTotal}
+                />
+                </div>
+                <Link href={'/speakers'}><a className={styles.speakersAllLink}>Перейти в раздел</a></Link>
+            </div>
+                <div className={styles.speakers}>
+                  {speakers.map(item => (<SpeakerCard item={item} />))}
+                </div>
+
         </>}
 
         {filesTotal > 0 && <>

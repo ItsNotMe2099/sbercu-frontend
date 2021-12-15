@@ -27,7 +27,7 @@ export const updateSpeakerRequest = (id: number, data: ISpeaker) => action(Actio
 
 export const fetchSpeakerList = (data: any = {}) => action(ActionTypes.FETCH_SPEAKER_LIST, {
   api: {
-    url: `/api/speaker?${queryString.stringify(data)}`,
+    url: `/api/speaker?${queryString.stringify({...data, sort: 'rating,DESC'})}`,
     method: 'GET',
   }
 })

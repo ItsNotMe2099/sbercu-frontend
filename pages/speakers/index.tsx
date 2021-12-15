@@ -16,11 +16,7 @@ import Header from 'components/layout/Header'
 import {TagSelect} from 'components/dashboard/TagSelect'
 import DashboardLoader from 'components/ContentLoaders/dashboardLoader'
 import NoFiles from 'components/ui/NoFiles'
-import Quantity from 'pages/dashboard/components'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Project from 'components/dashboard/Project'
-import File from 'components/dashboard/File'
-import FileEditModal from 'components/FileEditModal'
 import Footer from 'components/layout/Footer'
 
 const queryString = require('query-string')
