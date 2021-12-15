@@ -47,7 +47,7 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
         <div className={styles.root}>
             <div className={styles.head}>
                 {!props.hideHeader && <div className={styles.categoryText}>{item.name}</div>}
-                {editMode && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>}
+                {editMode && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} showEdit={true} showDelete={true}/>}
             </div>
             <div className={styles.clearfix}>
                 {(show ? item.tags : item.tags.slice(0, 3)).map(item =>

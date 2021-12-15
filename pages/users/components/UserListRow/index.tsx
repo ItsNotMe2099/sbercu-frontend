@@ -51,14 +51,14 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
             {user?.departmentTags.slice(0, 1).map(tag => <TagItem item={tag} editMode={false}/>)}
         </div>
         <div className={`${styles.cell} ${styles.editCell}`}>
-            <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>
+            <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} showDelete={true} showEdit={true}/>
         </div>
     </div>
     <div className={styles.root__mobile}>
       <div className={styles.row}>
         <div className={styles.name}>{user?.lastName} {user?.firstName}</div>
         <div className={`${styles.editCell}`}>
-            <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick}/>
+            <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} showDelete={true} showEdit={true}/>
         </div>
       </div>
       <div className={styles.row}>

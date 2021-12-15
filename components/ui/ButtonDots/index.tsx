@@ -136,10 +136,10 @@ export default function ButtonDots(props: Props) {
 
 ButtonDots.defaultProps = {
   style: 'grey',
-    showPaste: true,
-    showEdit: true,
-    showDelete: true,
-    showCopy: true,
-    showPublicLink: true,
+    showPaste: false,
+    showEdit: false,
+    showDelete: false,
+    showCopy: false,
+    showPublicLink: false,
     showBasketActions: false,
 }
