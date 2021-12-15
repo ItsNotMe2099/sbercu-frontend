@@ -8,10 +8,12 @@
     align-items: flex-end;
     justify-content: center;
   }
-  img{
+  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    border-radius: 5px;
+    aspect-ratio: 1;
   }
 }
 .sizeSmall{
@@ -28,11 +30,11 @@
 }
 .sizeNormal{
   border-radius: 40px;
-  width: 193px;
-  height: 193px;
+
+    max-width: 100%;
+    max-height: 100%;
   @media screen and (max-width: $sm-max) {
-    width: 128px;
-    height: 128px;
+
     border-radius: 32px;
     img{
       border-radius: 32px;
@@ -40,6 +42,14 @@
     svg{
       max-width: 75%;
       max-height: 75%;
+    }
+  }
+
+  &.stub{
+    &:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
     }
   }
 

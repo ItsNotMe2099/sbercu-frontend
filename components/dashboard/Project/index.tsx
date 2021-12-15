@@ -45,7 +45,7 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props){
     <Link href={`/catalog/${item.id}`}>
       <a className={styles.container}>
       <div className={styles.root}>
-  <div className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`} style={{backgroundColor: getColorByType(item.entryType)}}>
+  <div className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`} >
     {item.projectCover !== "link to cover" && item.projectCover !== null ?
     <img src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${item.projectCover}`} alt=''/>
     : null}
