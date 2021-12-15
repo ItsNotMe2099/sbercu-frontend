@@ -111,6 +111,7 @@ export default function EditorCutInfo(props: Props) {
         onSetCutItems(newCutItems);
     }
 
+    console.log("getDuration " , props.duration)
 
     return (<Draggable offsetParent={window.document.getElementById('video-editor')} bounds="parent">
 

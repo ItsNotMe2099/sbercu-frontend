@@ -17,6 +17,7 @@ import InputSearch from "components/ui/Inputs/InputSearch";
 import {useDispatch, useSelector} from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
 
+import {useThrottleFn} from '@react-cmpt/use-throttle'
 
 const Users = (props) => {
     const dispatch = useDispatch()
@@ -131,6 +132,7 @@ const Users = (props) => {
             fetchList({page: 1, sort: key, sortOrder: newSortOrder})
         }
     }
+
 
     return (
         <Layout>

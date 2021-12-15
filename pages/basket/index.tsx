@@ -135,7 +135,7 @@ const DeletedPage = (props) => {
   }
 
   const handleShowFolders = () => {
-    if (showFiles) {
+    if (showFolders) {
       setShowAllFolders(false)
     } else {
       setShowAllFolders(true)
@@ -160,7 +160,7 @@ const DeletedPage = (props) => {
   }
 
   const handleScrollNextFolders = () => {
-    setPageFiles(pageFolders + 1)
+    setPageFolders(pageFolders + 1)
     dispatch(fetchCatalogFoldersDeleted({
       ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {}),
       page: pageFolders + 1,

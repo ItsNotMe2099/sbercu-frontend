@@ -2,6 +2,7 @@ import Button from 'components/ui/Button'
 import { useRouter } from "next/router";
 import { useEffect, useState } from 'react'
 import styles from './index.module.scss'
+import {useThrottleFn} from '@react-cmpt/use-throttle'
 
 
 interface Props {
@@ -15,6 +16,8 @@ export default function InputSearch(props: Props) {
     const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState('');
     const router = useRouter();
+
+
     useEffect(() => {
         if(props.searchValue && !value) {
             setValue(props.searchValue);
@@ -25,10 +28,14 @@ export default function InputSearch(props: Props) {
             router.push(`/search?query=${value}`);
         }
     }
+    const { callback: onChange, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(props.onChange, 8000)
+
     const handleSearch = (e) => {
-        setValue(e.currentTarget.value);
-        props.onChange(e.currentTarget.value);
+        console.log("handleSearch", e);
+        setValue(e.target.value);
+        onChange(e.target.value);
     }
+
     return (
             <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
                 <input

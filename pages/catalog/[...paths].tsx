@@ -2,7 +2,7 @@ import {
   catalogCopy, catalogPaste,
   deleteCatalog,
   fetchCatalogItemRequest,
-  fetchCatalogList,
+  fetchCatalogList, resetCatalogItem,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
   setCurrentCatalogId, setFilesFromDropZone
@@ -76,6 +76,7 @@ const Catalog = (props) => {
     dispatch(setCurrentCatalogId(parseInt(id, 10)))
     return () => {
       dispatch(resetCatalogList());
+       dispatch(resetCatalogItem());
     }
   }, [router.query.paths])
 
@@ -176,7 +177,7 @@ const Catalog = (props) => {
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
         <div className={styles.image}>
-          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
+          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showEdit={true} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} showPaste={true} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>

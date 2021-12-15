@@ -30,7 +30,14 @@
         height: 100%;
         margin: 0 auto;
         max-width: 100%;
+        width: 100%;
+        object-fit: cover;
     }
+  &.fullSize{
+    :global .vjs-tech {
+      object-fit: none;
+    }
+  }
   &:hover{
     .shadow{
       opacity: 1;
@@ -121,6 +128,7 @@
 
   .qualitySelect {
     margin-right: 15px;
+    margin-left: 15px;
   }
 .playbackRateSelect{
 

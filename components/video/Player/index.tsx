@@ -44,12 +44,14 @@ export default function Player(props) {
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
+
     const player = useRef();
     const root = useRef();
 
     const handleSaveViewHistory = async (progress) => {
+        const currentTime = Math.ceil(progress);
             props.onChangeProgress({
-                currentTime: Math.ceil(progress),
+                currentTime: currentTime - 3 <= 0 ? currentTime : currentTime -3,
                 muted,
                 volume,
                 rate: playbackRate

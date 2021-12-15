@@ -80,18 +80,21 @@ const VideoPage = (props: Props) => {
     if (!router.query.id) {
       return;
     }
-    if(props.initialVideo){
-     dispatch(setCatalogItem(props.initialVideo));
 
-    }else {
-      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    return () => {
+      dispatch(resetCatalogItem());
     }
 
-  }, [router.query.id])
+  }, [])
+
   const getDefaultSource = () => {
     const path = video.media?.fileName;
+
     const quality = video.media?.videoElements?.find(el => el.quality === '1080p')?.quality || video.media?.videoElements[video.media?.videoElements?.length - 1]?.quality;
+    console.log("DefaultSource", video, quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path));
     return quality ? getMediaPathWithQuality(path, quality) : getMediaPath(path);
+
   }
   const handleDownload = (item) => {
     window.location.href = item.value;

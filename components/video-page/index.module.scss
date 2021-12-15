@@ -49,6 +49,9 @@
 
 .favorite{
   margin-right: 20px;
+  @media screen and (max-width: $sm-max) {
+   margin-bottom: 10px;
+  }
 }
 .btns{
   display: flex;
