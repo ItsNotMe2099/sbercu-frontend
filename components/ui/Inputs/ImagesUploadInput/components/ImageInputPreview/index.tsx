@@ -38,7 +38,7 @@ const ImageInputPreview: FunctionComponent<Props> = props => {
     }, [file])
 
     const getImageSrc = (file) => {
-        const srcValue =  file.preview;
+        const srcValue =  file.path || file.preview;
         if (!srcValue) {
             return;
         }
