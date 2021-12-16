@@ -125,9 +125,10 @@
   }
   .mainPhoto{
     flex: 1;
-    padding-right: 19px;
+    margin-right: 19px;
+    cursor: pointer;
     @media screen and (max-width: $sm-max) {
-      padding-right: 0px;
+      margin-right: 0px;
       flex: 0;
     }
   }
@@ -148,6 +149,7 @@
       cursor: pointer;
 
       overflow: hidden;
+
       &:hover{
         img {
           transform: scale(1.5);
