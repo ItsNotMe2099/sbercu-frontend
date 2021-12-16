@@ -58,6 +58,16 @@
   border-radius: 40px;
   height: 307px;
   max-width: 100%;
+  overflow: hidden;
+  img{
+    transform-origin: 65% 75%;
+    transition: transform 1s, filter .5s ease-out;
+  }
+  &:hover{
+    img {
+      transform: scale(5);
+    }
+  }
   svg{
     width: 70%;
     height: 70%;

@@ -146,7 +146,16 @@
       width: 91px;
       height: 91px;
       cursor: pointer;
+
+      overflow: hidden;
+      &:hover{
+        img {
+          transform: scale(5);
+        }
+      }
       img {
+        transform-origin: 65% 75%;
+        transition: transform 1s, filter .5s ease-out;
         width: 91px;
         height: 91px;
         object-fit: cover;
