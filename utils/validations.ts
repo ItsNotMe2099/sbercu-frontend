@@ -1,3 +1,4 @@
+import parsePhoneNumber, {isPossiblePhoneNumber} from 'libphonenumber-js'
 export function required(value: string | number) {
   const val = value && typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value;
   return val || typeof val === 'number' ? undefined : 'Обязательное поле'
@@ -18,3 +19,6 @@ const minLength = min => value =>
   value && value.length < min ? `Must be ${min} characters or more` : undefined
 
 export const minL = minLength(8)
+export function phone(value: string) {
+  return value && !isPossiblePhoneNumber(`+${value}`) ? 'Неверный формат телефона' : undefined;
+}

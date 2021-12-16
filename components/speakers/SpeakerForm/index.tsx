@@ -6,7 +6,7 @@ import Button from 'components/ui/Button'
 import {IRootState, ITagCategoryType} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
-import {email, required} from 'utils/validations'
+import {email, phone, required} from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import AvatarInput from "components/ui/AvatarInput";
 import InputPhone from 'components/ui/Inputs/InputPhone'
@@ -148,6 +148,7 @@ let SpeakerForm = props => {
                   name="speakerContactPhone"
                   component={InputPhone}
                   label="Телефон"
+                  validate={phone}
                 />
                 <Field
                   name="speakerContactEmail"
@@ -163,6 +164,7 @@ let SpeakerForm = props => {
                   name="agentContactPhone"
                   component={InputPhone}
                   label="Телефон"
+                  validate={phone}
                 />
                 <Field
                   name="agentContactEmail"
