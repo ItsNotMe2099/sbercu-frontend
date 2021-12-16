@@ -32,14 +32,14 @@ let SpeakerForm = props => {
     if (firstNameEnTouched) {
       return
     }
-    props.change('lastNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
+    props.change('firstNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
   }
   const handleChangeLastName = (e) => {
     if (lastNameEnTouched) {
       return
     }
     console.log("ChangeLastName",  `${firstName || ''} ${e.target.value || ''}`);
-    props.change('firstNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
+    props.change('lastNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
   }
   const handleChangeFirstNameEng = (val) => {
     setFirstNameEnTouched(true)

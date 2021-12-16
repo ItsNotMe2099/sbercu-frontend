@@ -8,7 +8,7 @@ position: relative;
 .dropDown {
   background: #ffffff;
   position: absolute;
-  top: 25px;
+  top: 28px;
   opacity: 0;
   -webkit-opacity: 0;
   visibility: hidden;
@@ -57,30 +57,26 @@ position: relative;
   color: #828282;
   margin-right: 20px;
   flex-shrink: 0;
-  &:hover{
-    color: #27AE60;
+  position: relative;
+  &:hover, &:active{
+   &:after{
+     content: " ";
+     position: absolute;
+     bottom: -6px;
+     left: 0px;
+     right: 0px;
+     height: 2px;
+     background: #27AE60;
+   }
   }
-  &:active{
-    color: #219653;
-  }
+
   @media screen and (max-width: $sm-max) {
     margin-bottom: 15px;
   }
 }
 .isSelected{
-  position: relative;
-  padding-left: 6px;
-  &:before{
-    content: '';
-    width: 4px;
-    height: 4px;
-    background: #27AE60;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    margin-top: -2px;
-    left: 0px
-  }
+
+
 }
 
 
