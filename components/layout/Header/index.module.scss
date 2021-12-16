@@ -1,0 +1,59 @@
+@import "scss/index";
+
+.root{
+  padding: 30px 0;
+}
+
+.container{
+  @media screen and (min-width: $container-lg-br){
+    width: $container-lg;
+  }
+  margin: auto;
+  display: flex;
+  @media screen and (max-width: $container-lg-br) {
+    padding: 0 22px;
+    width: 100%;
+  }
+}
+
+.media{
+  font-weight: bold;
+  font-size: 24px;
+  color: #27AE60;
+  margin-right: 34px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  &:hover{
+    text-decoration: underline #27AE60;
+  }
+  &:active{
+    color: #219653;
+
+  }
+  @media screen and (max-width: $sm-max) {
+    margin-right: 11px;
+  }
+}
+
+.notMedia{
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  position: relative;
+  align-items: center;
+}
+
+.mobile{
+  display: none;
+  @media screen and (max-width: $sm-mid) {
+    display: flex;
+  }
+}
+
+.notMobile{
+  display: flex;
+  @media screen and (max-width: $sm-mid) {
+    display: none;
+  }
+}

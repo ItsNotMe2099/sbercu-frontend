@@ -1,0 +1,13 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 20px;
+  }
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+    margin:0 auto;
+  }
+
+}

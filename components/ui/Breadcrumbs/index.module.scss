@@ -1,0 +1,61 @@
+@import "scss/index";
+
+.root{
+  margin-top: 15px;
+}
+
+.item{
+
+  display: contents;
+}
+.link, .previousLink{
+  font-size: 12px;
+  color: #bdbdbd;
+  display: contents;
+  &.deleted{
+    cursor: initial;
+    color: #EB5757;
+    &:hover{
+      color: #EB5757;
+    }
+  }
+  &:hover{
+    color: black;
+  }
+}
+
+.separator{
+  font-size: 12px;
+  color: #bdbdbd;
+  padding: 0px 8px;
+  line-height: 14px;
+  display: inline-block;
+}
+.item{
+  &.itemPrevious{
+    .previousLink{
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: $sm-max) {
+
+  .item{
+    display: none ;
+    &.itemPrevious{
+      display: contents;
+      .link{
+        display: none;
+      }
+      .previousLink{
+        display: contents;
+      }
+    }
+    &:first-of-type{
+      display: contents;
+    }
+    &:last-of-type{
+      display: contents;
+    }
+  }
+}

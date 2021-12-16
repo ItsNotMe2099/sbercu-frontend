@@ -1,11 +1,70 @@
 html{
   font-family: 'Roboto';
+
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
   }
 
 *{
   box-sizing: border-box;
 }
 
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
 body{
-  background-color: #f2f2f2;
+  background-color: #ffffff;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  &.grey{
+    background-color: #f2f2f2
+  }
+  &.modal-open{
+    overflow-y: hidden;
+  }
+}
+#__next{
+  position:relative;
+  min-height: 100%;
+  height: 100%;
+}
+input, button{
+  outline:none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+
+font-size: inherit;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  background: none;
+}
+
+a{
+  color: #27AE60;
+  cursor: pointer;
+  &:hover{
+    text-decoration: none;
+  }
+}
+.infinite-scroll-component {
+  overflow: inherit;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }

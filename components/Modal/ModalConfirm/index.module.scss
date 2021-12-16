@@ -1,0 +1,25 @@
+@import "scss/index";
+.buttons{
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 25px;
+  button{
+    &:first-of-type {
+      margin-right: 15px;
+    }
+  }
+}
+
+.buttonSubmit{
+  flex: 1;
+  margin-left: 15px;
+}
+
+.title{
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 93%;
+}
+.description{
+  margin-top: 20px;
+}

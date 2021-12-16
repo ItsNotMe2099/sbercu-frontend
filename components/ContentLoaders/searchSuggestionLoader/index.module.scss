@@ -1,0 +1,26 @@
+@import "scss/index";
+
+.root{
+  padding: 25px 25px 27px 13px;
+}
+
+.loading{
+  display: flex;
+  span{
+    margin: 0 auto;
+    color: #27AE60;
+    font-size: 12px;
+  }
+}
+
+.separator{
+  padding: 10px;
+}
+
+.separatorAvrg{
+  padding: 8px;
+}
+
+.separatorMini{
+  padding: 5px;
+}

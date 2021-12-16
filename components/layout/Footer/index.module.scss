@@ -1,0 +1,129 @@
+@import "scss/index";
+
+.root{
+  margin-top: auto;
+  padding-top: 20px;
+
+  a{
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+.wrapper{
+  background: #F2F2F2;
+  padding: 36px 0;
+}
+.container{
+  @media screen and (min-width: $container-lg-br) {
+    width: $container-lg;
+  }
+
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @media screen and (max-width: $container-lg) {
+    padding: 0 22px;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+  }
+}
+.top{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  @media screen and (max-width: $sm-max) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.media{
+  font-weight: bold;
+  font-size: 24px;
+  color: #27AE60;
+  margin-right: 34px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  &:hover{
+    text-decoration: underline;
+  }
+  &:active{
+    color: #219653;
+
+  }
+
+}
+.menu{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex: 1;
+  margin-left: 53px;
+  @media screen and (max-width: $sm-max) {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+}
+.menuLink{
+  color: #828282;
+  font-size: 13px;
+  font-weight: 400;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.menuSeparator{
+  width: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: #219653;
+  margin: 0px 15px;
+}
+.copyright{
+  margin-top: 45px;
+  font-weight: 400;
+  color: #828282;
+  font-size: 12px;
+  line-height: 14px;
+  flex: 1;
+  @media screen and (max-width: $sm-max) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    a{
+      margin-top: 20px;
+    }
+  }
+}
+.support{
+  font-weight: 400;
+  color: #828282;
+  font-size: 12px;
+  line-height: 14px;
+  a{
+    display: block;
+    color: #27AE60;
+    margin-top: 4px;
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+  @media screen and (max-width: $sm-max) {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+
+}
+@media screen and (max-width: $sm-max) {
+  .copyright{
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,18 @@
+@import 'variables';
+
+@mixin inputError {
+  border-color: #C60D0D;
+  color: #C60D0D;
+  &::placeholder{
+    color: #C60D0D;
+  }
+}
+
+@mixin error{
+  color: #C60D0D;
+  font-size: 12px;
+  margin-top: 5px;
+  position: absolute;
+  bottom: -16px;
+  left: 0px;
+}

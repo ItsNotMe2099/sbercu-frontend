@@ -1,0 +1,28 @@
+.root{
+ display: none;
+}
+.rootIsDragging{
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  z-index: 10;
+}
+.wrapper{
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+
+  border: 3px white dashed;
+}
+.text{
+  margin-top: 40px;
+  text-align: center;
+  font-size: 28px;
+}

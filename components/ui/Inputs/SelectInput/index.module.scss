@@ -1,0 +1,110 @@
+@import 'scss/mixins.scss';
+
+.root{
+  position: relative;
+  margin-top:18px;
+
+}
+
+
+.inputContainer{
+  position: relative;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  padding: 8px 6px;
+  font-size: 14px;
+  min-height: 32px;
+  cursor: pointer;
+  padding-right: 30px;
+}
+
+.error{
+  border-color: #FF1066;
+}
+.root{
+  position: relative;
+  margin-top: 15px;
+}
+.rootInput{
+  position: relative;
+  margin-top: 9px;
+}
+.label{
+  font-size: 12px;
+  line-height: 14px;
+  color: #BDBDBD;
+
+}
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  border: 1px solid #E0E0E0;
+  visibility: hidden;
+
+  border-radius: 4px;
+  z-index: 4;
+  max-height: 100px;
+  overflow-y: auto;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+.dropDownActive{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.dropDownWithLabelCross{
+  top: 4px;
+  right: 0px;
+}
+
+.dropDownTrigger {
+  position: absolute;
+  top: 50%;
+  margin-top: -3px;
+  right: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownItem {
+
+}
+
+.dropdownItemLabel{
+  display: block;
+  font-size: 12px;
+  line-height: 17px;
+
+  vertical-align: middle;
+  color: #000000;
+  padding: 6px 10px;
+
+  text-decoration: none;
+  &:hover{
+    background: #F2F2F2;
+  }
+  @media screen and (max-width: $sm-max){
+
+  }
+}
+.dropdownItemActive{
+  .dropdownItemLabel{
+     background: #F2F2F2;
+  }
+}
+.arrowActive{
+  margin-left: 6px;
+}
+.arrow{
+  padding-left: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}

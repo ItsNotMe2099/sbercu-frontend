@@ -1,0 +1,78 @@
+@import "scss/index";
+
+.root{
+  margin-top: 16px;
+  &.deleted{
+    .inner{
+      cursor: inherit;
+    }
+  }
+}
+
+
+.container{
+  text-decoration: none;
+  @media screen and (min-width: $sm-mid) {
+    display: flex;
+  }
+  &.deleted{
+    cursor: initial;
+  }
+}
+
+.square{
+  position: relative;
+    width: 193px;
+    margin: auto;
+  @media screen and (max-width: $sm-max) {
+    width: 128px;
+  }
+  border-radius: 5px;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.cover{
+  border-radius: 5px;
+  width: 193px;
+  height: 193px;
+  margin: auto;
+  position: relative;
+  @media screen and (max-width: $sm-max) {
+    width: 128px;
+    height: 128px;
+  }
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    }
+}
+.favorite{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.dots{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.title{
+  @media screen and (min-width: $container-lg) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+  }
+  text-align: center;
+  color: #000;
+  max-width: 192px;
+  margin: 16px auto auto auto;
+}

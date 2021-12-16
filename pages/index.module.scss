@@ -1,3 +1,9 @@
+@import "scss/index";
+
 .root{
   position: relative;
+  @media screen and (min-width: $container-lg-br) {
+    width: $container-lg - 10px;
+  }
+  margin: auto;
 }

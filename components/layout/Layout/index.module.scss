@@ -1,0 +1,21 @@
+@import "scss/index";
+
+.root{
+  display: flex;
+  min-height: 100%;
+  position:relative;
+  flex-direction: column;
+}
+
+.container{
+
+  @media screen and (min-width: $container-lg-br) {
+    width: $container-lg;
+  }
+  margin: auto;
+  display: flex;
+  @media screen and (max-width: $sm-max) {
+    padding: 0 22px;
+    width: 100%;
+  }
+}

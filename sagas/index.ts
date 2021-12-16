@@ -1,6 +1,30 @@
-import { all, fork } from 'redux-saga/effects';
-import { watchSaga } from './sagas';
+import catalogSaga from "components/catalog/sagas";
+import catalogSearchSaga from "components/search/sagas";
+import tagSaga from "components/tags/Tag/sagas";
+import tagCategorySaga from "components/tags/TagCategory/sagas";
+import userSaga from "components/users/sagas";
+import { all } from 'redux-saga/effects'
+import watchOnLoginSubmit  from 'components/auth/login/sagas'
+import watchOnEmailSubmit from 'components/auth/password-forgot/sagas'
+import { watchOnNewPasswordSave } from 'components/auth/password-reset/sagas';
+import { watchOnRegistration } from 'components/auth/registration-invite/sagas';
+import apiSaga from "sagas/apiSaga";
+import jobSaga from "../components/jobs/sagas";
+import mediaLinkSaga from "../components/media-links/sagas";
 
 export const rootSaga = function* root() {
-  yield all([fork(watchSaga)]);
+    yield all([
+        apiSaga(),
+        watchOnLoginSubmit(),
+        watchOnEmailSubmit(),
+        watchOnNewPasswordSave(),
+        watchOnRegistration(),
+        tagCategorySaga(),
+        catalogSaga(),
+        tagSaga(),
+        userSaga(),
+        catalogSearchSaga(),
+        jobSaga(),
+        mediaLinkSaga()
+    ])
 };

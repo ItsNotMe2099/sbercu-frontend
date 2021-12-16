@@ -1,0 +1,50 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  @media screen and (min-width: $container-lg-br) {
+    width: $container-lg;
+    margin:0 auto;
+  }
+  @media screen and (max-width: $container-lg-br) {
+    padding: 0px 22px;
+  }
+
+}
+
+.white{
+  background-color: #fff;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 24px;
+
+}
+
+.main{
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-top: 14px;
+
+  a{
+    font-size: 12px;
+    color: #bdbdbd;
+    text-decoration: none;
+  }
+}
+
+.tagBtn{
+  margin: auto 27px auto auto;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
+
+.container{
+  width: 70%;
+  @media screen and (max-width: $sm-max) {
+    width: 100%;
+    margin-top: 16px;
+  }
+}

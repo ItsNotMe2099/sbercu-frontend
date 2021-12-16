@@ -1,0 +1,157 @@
+@import "../../scss/index";
+.root{
+  display: table-row;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid #E0E0E0;
+      padding-top: 16px;
+      padding-bottom: 10px;
+    }
+  }
+}
+.cell{
+  display: table-cell;
+  font-size: 12px;
+  padding: 16px 12px 16px 0px;
+  border-top: 1px solid #E0E0E0;
+  position: relative;
+  vertical-align: middle;
+  position: relative;
+}
+.role{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  color: #bdbdbd;
+}
+.registeredAt{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  right: 0px;
+  color: #bdbdbd;
+}
+.editCell{
+  padding: 0px;
+  width: 38px;
+  @media screen and (max-width: $sm-max) {
+    width: auto;
+    div{
+      button{
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}
+.cellStat{
+  font-size: 12px;
+}
+.statRange{
+  margin-top: 4px;
+}
+.status{
+  font-size: 10px;
+}
+.statusRegistered{
+  color: #27AE60;
+}
+.statusInviteSent{
+  color: #F2C94C;
+}
+.tags{
+  div:first-of-type{
+    a:first-child{
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.row{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.name{
+  font-weight: 500;
+  font-size: 12px;
+  margin: auto 0;
+}
+.additionalInfo{
+  display: flex;
+  flex-direction: row;
+  margin-top: 4px;
+}
+.greyText{
+  font-size: 12px;
+  color: #bdbdbd;
+}
+.cellFileInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.fileInfo{
+  margin-left: 10px;
+}
+.statusIcon{
+  border-radius: 50%;
+  border: 2px solid #27AE60;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progressCircle{
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+.loader{
+  width: 32px;
+  height: 32px;
+  position: relative;
+
+}
+.loaderProgress{
+  position: absolute;
+  font-size: 10px;
+  text-align: center;
+  color: black;
+  top: 50%;
+  margin-top: -5px;
+  width: 100%;
+}
+
+.text{
+  font-size: 12px;
+}
+.separator{
+  width: 1px;
+  height: 1px;
+  border-radius: 50px;
+  border: 1px solid #828282;
+  margin: auto 5px;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+}
+.fileName{
+  a{
+    color: black;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}

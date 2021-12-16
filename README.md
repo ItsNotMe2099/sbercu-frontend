@@ -28,3 +28,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+###Old Links
+/public - /api/media-link/old/public/:hash
+/virtschool - from fs
+/api/v1/link - /api/media-link/old/link/:hash
+###New Links
+/media-link/public/:link
+/media-link/temp/:link
+/media-link/virtual-school/:link
+
+
+
+/auth/login
+/auth/password-forgot
+/auth/password-reset
+/auth/registration

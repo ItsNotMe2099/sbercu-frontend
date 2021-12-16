@@ -1,0 +1,96 @@
+@import "scss/index";
+.root{
+position: relative;
+@media screen and (max-width: $sm-max) {
+  flex-shrink: 0;
+}
+}
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  top: 25px;
+  opacity: 0;
+  -webkit-opacity: 0;
+  visibility: hidden;
+  //transform: translateY(-20px);
+  //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+  z-index: 5;
+  @media screen and (min-width: 1024px) {
+    width: 500px;
+  }
+  @media screen and (max-width: 1023px) {
+    position: fixed;
+    top: auto;
+    width: auto;
+    left: 0;
+    right: 0;
+    margin-right: 22px;
+    margin-left: 22px;
+  }
+}
+.dropDownWrapper{
+  padding: 16px 25px 0px 0px;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  @media screen and (max-width: 1023px) {
+    padding: 15px 20px 0px 0px;
+  }
+}
+.dropDownActive{
+    opacity: 1;
+  -webkit-opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    background: #FFFFFF;
+    border-radius: 5px;
+}
+
+.dropDownTrigger {
+  text-decoration: none;
+  display: flex;
+  font-size: 14px;
+  color: #828282;
+  margin-right: 20px;
+  flex-shrink: 0;
+  &:hover{
+    color: #27AE60;
+  }
+  &:active{
+    color: #219653;
+  }
+  @media screen and (max-width: $sm-max) {
+    margin-bottom: 15px;
+  }
+}
+.isSelected{
+  position: relative;
+  padding-left: 6px;
+  &:before{
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #27AE60;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 0px
+  }
+}
+
+
+.dropdownTriggerActive{
+  position: relative;
+  font-size: 14px;
+  color: #000000;
+  padding-bottom: 6px;
+}
+
+.isActive{
+  color: #27AE60;
+}

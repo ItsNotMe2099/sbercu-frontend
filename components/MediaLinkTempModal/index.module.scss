@@ -1,0 +1,11 @@
+@import "scss/index";
+
+.create{
+    @media screen and (max-width: $sm-max) {
+        margin-right: 100%;
+      }
+}
+.link{
+  font-size: 12px;
+  word-wrap: break-word;
+}

@@ -1,0 +1,123 @@
+@import "scss/index";
+.tagSelector{
+  display: flex;
+  @media screen and (max-width: $sm-max) {
+    overflow: scroll;
+    padding: 0 22px;
+  }
+
+}
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  top: 130px;
+  opacity: 0;
+  visibility: hidden;
+  //transform: translateY(-20px);
+  //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  padding: 16px 25px;
+  z-index: 5;
+  overflow-Y: scroll;
+  max-width: 458px;
+  max-height: 145px;
+  @media screen and (max-width: $sm-max) {
+    margin-right: 22px;
+    padding: 15px 20px;
+  }
+}
+.dropDownActive{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+    background: #FFFFFF;
+    border-radius: 5px;
+}
+
+.dropDownTrigger {
+  text-decoration: none;
+  display: flex;
+  font-size: 14px;
+  color: #828282;
+  margin-right: 20px;
+  flex-shrink: 0;
+  @media screen and (max-width: $sm-max) {
+    margin-bottom: 15px;
+  }
+}
+
+.dropdownItem {
+       padding: 7px 16px;
+       display: flex;
+       background: #F2F2F2;
+       border-radius: 50px;
+       font-size: 11px;
+       color: #828282;
+       text-decoration: none;
+       float: left;
+       margin: 0 0 16px 16px;
+
+}
+
+.dropdownTriggerActive{
+  position: relative;
+  font-size: 14px;
+  color: #000000;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #27AE60;
+}
+
+.dropdownItemLabel{
+  vertical-align: middle;
+}
+
+.choosed{
+  padding: 7px 16px;
+  display: flex;
+  background: #27AE60;
+  border-radius: 50px;
+  font-size: 11px;
+  color: #fff;
+  text-decoration: none;
+  float: left;
+  margin: 0 0 16px 16px;
+}
+
+.filtered{
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+  @media screen and (min-width: $container-lg) {
+    margin-top: 24px;
+  }
+  .choosed{
+    margin: 0 16px 16px 0;
+  }
+
+}
+
+.root{
+  display: flex;
+  @media screen and (max-width: $sm-mid) {
+    overflow-X: scroll;
+    overflow-Y: hidden;
+  }
+
+
+}
+
+.delete{
+  margin-right: 8px;
+}
+
+.transparent{
+  width: 22px;
+  position: fixed;
+  height: 16px;
+  right: 0;
+  background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.51) 100%);
+}

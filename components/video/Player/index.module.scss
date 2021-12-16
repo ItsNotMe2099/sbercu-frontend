@@ -1,0 +1,161 @@
+@import "scss/index";
+
+.root {
+  background: black;
+  position: relative;
+  padding-bottom: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: 480px;
+  &.fullSize{
+    height: 100%;
+    max-height: 100%;
+  }
+  &.audio{
+    min-height: 64px;
+    overflow: initial;
+    .controls {
+      opacity: 1;
+    }
+  }
+  &.audioNoPoster{
+    max-height: 64px;
+  }
+    :global .vjs-tech {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+  &.fullSize{
+    :global .vjs-tech {
+      object-fit: none;
+    }
+  }
+  &:hover{
+    .shadow{
+      opacity: 1;
+    }
+    .controls {
+      opacity: 1;
+    }
+  }
+}
+.shadow{
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  background: linear-gradient(to bottom, transparent 0%, black 100%);
+}
+
+.player {
+  video {
+    border-radius: 10px;
+  }
+
+
+}
+
+.controls {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  right: 10px;
+  z-index: 3;
+
+}
+
+.controlsBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  .controlsLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .playButton {
+    margin-right: 8px;
+    cursor: pointer;
+
+    &:hover {
+      svg {
+        path {
+          fill: #27AE60;
+        }
+      }
+    }
+
+    svg {
+      box-sizing: border-box;
+      width: 24px;
+      height: 24px;
+
+    }
+
+    margin-left: -6px;
+  }
+
+  .progressText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .progressSeparator {
+    padding: 0px 5px;
+  }
+
+  .qualitySelect {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+.playbackRateSelect{
+
+}
+  .pictureInPicture {
+    margin-right: 8px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .fullscreen {
+    cursor: pointer;
+    margin-top: 4px;
+    margin-left: 15px;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.progress {
+  position: relative;
+  height: 20px;
+
+}
+

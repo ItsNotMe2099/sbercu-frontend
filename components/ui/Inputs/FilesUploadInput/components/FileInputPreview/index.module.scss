@@ -1,0 +1,86 @@
+.root{
+  position: relative;
+  display: flex;
+  padding: 12.5px 0px;
+
+}
+.progressCircle{
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+.loader{
+  width: 32px;
+  height: 32px;
+  position: relative;
+
+}
+.loaderProgress{
+  position: absolute;
+  font-size: 10px;
+  text-align: center;
+  color: black;
+  top: 50%;
+  margin-top: -5px;
+  width: 100%;
+}
+.statusIcon{
+  border-radius: 50%;
+  border: 2px solid #27AE60;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main{
+  flex: 1;
+  margin-left: 16px;
+}
+.topBar{
+  display: flex;
+  align-items: center;
+  .name{
+    flex: 1;
+    font-size: 14px;
+  }
+}
+.deleteButton{
+  cursor: pointer;
+  padding-right: 8px;
+  &:hover{
+    svg{
+      path {
+        fill: #EB5757;
+      }
+    }
+  }
+}
+.title{
+  flex: 1;
+}
+.image{
+  position: relative;
+  width: 192px;
+  height: 192px;
+  img{
+    width: 192px;
+    height: 192px;
+    border-radius: 5px;
+  }
+}
+.loaderFill{
+  background: #EB5757;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.btn{
+  float: right;
+  margin-top: 24px;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

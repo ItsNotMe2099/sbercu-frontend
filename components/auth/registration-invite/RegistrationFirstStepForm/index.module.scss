@@ -1,0 +1,31 @@
+@import "scss/index";
+.inputContainer{
+  margin-bottom: 22px;
+}
+
+.head{
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0 0 23px 0;
+}
+
+.next{
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  margin-right: 17px;
+  color: #000;
+}
+
+.enter{
+  font-size: 12px;
+  line-height: 14px;
+  color: #bdbdbd;
+  margin-left: 12px;
+}
+.buttons{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}

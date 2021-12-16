@@ -1,0 +1,109 @@
+@import "scss/index";
+
+.root {
+  position: absolute;
+  bottom: 60px;
+  height: 85px;
+  cursor: pointer;
+  svg{
+    width: 16px;
+    height: 16px;
+    fill: white
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrowDown {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #4d4d4d;
+  z-index: 2;
+}
+.arrowUp {
+  position: absolute;
+  bottom: -3px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #4d4d4d;
+  z-index: 2;
+}
+
+.line{
+  position: absolute;
+  top: 18.5px;
+  bottom: 0px;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-left: -1px;
+
+  z-index: 1;
+}
+.rootDelete{
+  height: 100px;
+  .line{
+    top: 32px;
+  }
+}
+.tip{
+  background: #4d4d4d;
+  border-radius: 5px;
+  padding: 3px 6px;
+  color: white;
+  font-size: 12px;
+}
+.noTip{
+  height: 10px;
+}
+.separator{
+  flex: 1;
+}
+.addState{
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  .add{
+    margin-right: 5px;
+    margin-top: 2px;
+  }
+  .currentTime{
+    color: #27AE60;
+  }
+}
+
+.deleteState{
+  text-align: center;
+  .cutItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    .duration{
+      color: #EB5757;
+    }
+  }
+  .currentTime{
+    color: #EB5757;
+  }
+}
+.add{
+  z-index: 2;
+}
+.delete{
+
+  z-index: 2;
+  svg{
+    path{
+      fill: #EB5757;
+    }
+    fill: white
+  }
+}

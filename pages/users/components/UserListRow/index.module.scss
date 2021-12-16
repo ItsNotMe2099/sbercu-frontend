@@ -1,0 +1,91 @@
+@import "scss/index";
+.root{
+  display: table-row;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid #E0E0E0;
+      padding-top: 16px;
+      padding-bottom: 10px;
+    }
+  }
+}
+.cell{
+  display: table-cell;
+  font-size: 14px;
+  padding: 16px 12px 16px 0px;
+  border-top: 1px solid #E0E0E0;
+  position: relative;
+  vertical-align: middle;
+  position: relative;
+}
+.role{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  color: #bdbdbd;
+}
+.registeredAt{
+  position: absolute;
+  bottom: 8px;
+  font-size: 10px;
+  left: 0px;
+  right: 0px;
+  color: #bdbdbd;
+}
+.editCell{
+  padding: 0px;
+  width: 38px;
+  @media screen and (max-width: $sm-max) {
+    width: auto;
+    div{
+      button{
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}
+.status{
+  font-size: 10px;
+}
+.statusRegistered{
+  color: #27AE60;
+}
+.statusInviteSent{
+  color: #F2C94C;
+}
+.tags{
+  div:first-of-type{
+    a:first-child{
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.row{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.name{
+  font-weight: 500;
+  font-size: 12px;
+  margin: auto 0;
+}
+
+.greyText{
+  font-size: 12px;
+  color: #bdbdbd;
+}
+
+.text{
+  font-size: 12px;
+}

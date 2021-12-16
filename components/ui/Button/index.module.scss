@@ -1,6 +1,5 @@
+@import "scss/index";
 .root{
-  background: #27AE60;
-  color: #F2F2F2;
   border-radius: 5px;
   border: 0;
   cursor: pointer;
@@ -14,28 +13,173 @@
     font-size: 12px;
   }
 }
-
-.small{
-  width: 69px;
-  height: 33px;
+.red{
+  background: #EB5757;
+  color: #F2F2F2;
+  &:hover{
+    filter: drop-shadow(0px 6px 19px rgba(235, 87, 87, 0.6));
+  }
+  &:active{
+    background: #BA3D3D;
+    filter: drop-shadow(0px 6px 19px transparent);
+  }
+}
+.green{
+  background: #27AE60;
+  color: #F2F2F2;
+  &:hover{
+    filter: drop-shadow(0px 6px 19px rgba(39, 174, 96, 0.6));
+  }
+  &:active{
+    background: #219653;
+    filter: drop-shadow(0px 6px 19px transparent);
+  }
+  &:disabled{
+  background: #E0E0E0;
+    &:hover{
+      background: #E0E0E0;
+      filter: none;
+    }
+    &:active{
+      filter: none;
+    }
+  }
 }
 
-.medium{
-  width: 83px;
-  height: 33px;
+.notActive{
+  background: #E0E0E0;
+  color: #828282;
 }
 
-.large{
-  width: 98px;
-  height: 33px;
+.transparent{
+  background-color: transparent;
+  color: #BDBDBD;
+  &:hover{
+    color: #219653;
+  }
+  &:active{
+    color: #219653;
+  }
 }
 
-.vlarge{
-  width: 105px;
-  height: 33px;
+.underline{
+  &:hover{
+    text-decoration: underline #27AE60;
+  }
 }
 
-.vvlarge{
-  width: 144px;
-  height: 33px;
+.white{
+  background-color: #fff;
+  color: #000;
+}
+
+.text{
+  &__darkGrey{
+    color: #828282;
+  }
+  &__white{
+    color: #F2F2F2;
+    &:hover{
+      color: #F2F2F2;
+      text-decoration: underline;
+    }
+  }
+  &__lightGrey{
+    color: #BDBDBD;
+  }
+  &__green{
+    color: #27AE60;
+    &:hover{
+      text-decoration: underline #27AE60;
+    }
+    &:active{
+      color: #219653;
+      filter: drop-shadow(0px 6px 19px transparent);
+    }
+  }
+  &__red{
+    color: #EB5757;
+    &:hover{
+      color: #BA3D3D;
+    }
+    &:active{
+      color: #BA3D3D;
+    }
+  }
+}
+
+.closeBtn{
+  width: 14px;
+  height: 14px;
+  background: url('/img/icons/close.svg');
+}
+
+.removeBtn{
+  width: 14px;
+  height: 18px;
+  background: url('/img/icons/remove.svg');
+}
+
+.btn{
+  &__lightGrey{
+    svg{
+      fill: #BDBDBD;
+    }
+  }
+  &__white{
+    svg{
+      fill: #F2F2F2;
+    }
+  }
+  &__darkGrey{
+    svg{
+      fill: #828282;
+    }
+  }
+  &__green{
+    svg{
+      fill: #27AE60;;
+    }
+
+  }
+}
+
+.brdr{
+  &__darkGrey{
+    border: 1px solid #828282;
+  }
+  &__green{
+    border: 1px solid #27AE60;
+  }
+  &__red{
+    border: 1px solid #EB5757;
+
+    &:hover{
+      border: 1px solid #BA3D3D;
+
+    }
+
+  }
+}
+
+.folder{
+  margin-right: 11px;
+}
+
+.plus{
+  margin-right: 11px;
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (max-width: $sm-mid) {
+  .folder{
+    margin-right: 0px;
+    padding-top: 2px
+  }
+  .plus{
+    margin-right: 0px;
+    vertical-align: middle;
+    padding-top: 2px
+  }
 }

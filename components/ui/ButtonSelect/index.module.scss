@@ -1,0 +1,107 @@
+@import "scss/index";
+.root{
+  border-radius: 5px;
+  border: 1px solid #828282;
+  cursor: pointer;
+  display: flex;
+  background-color: transparent;
+  position: relative;
+  text-decoration: none;
+
+  svg{
+    margin: auto 0;
+    fill: #828282;
+  }
+  .title{
+    flex: 1;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #828282;
+  }
+  &.empty{
+   .title{
+     margin-right: 0px;
+     text-align: center;
+   }
+  }
+}
+
+.isActive{
+  border-radius: 5px;
+  border: 1px solid #27AE60;
+  cursor: pointer;
+  display: flex;
+  background-color: transparent;
+  position: relative;
+
+  svg{
+    margin: auto;
+    fill: #27AE60;
+    transform: rotate(180deg);
+  }
+  .title{
+    margin: auto 10px auto auto;
+    font-size: 12px;
+    color: #27AE60;
+  }
+}
+
+.dropDown {
+  background: #ffffff;
+  position: absolute;
+  bottom: 120%;
+  margin-top: 0px;
+  opacity: 0;
+  visibility: hidden;
+  //transform: translateY(-20px);
+  //transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 0px 0 0 0;
+  z-index: 5;
+  min-width: 178px;
+  display: flex;
+  flex-direction: column;
+  left: 0%;
+}
+
+.dropDownActive{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  background: #FFFFFF;
+  border-radius: 5px;
+}
+
+.option{
+
+    font-size: 12px;
+    display: flex;
+    color: #000000;
+    padding: 6px 10px;
+    text-decoration: none;
+    &:first-of-type{
+      padding-top: 10px;
+    }
+    &:last-of-type{
+      padding-bottom: 10px;
+    }
+    &:hover{
+      background: #F2F2F2;
+      font-weight: bold;
+    }
+
+  &:hover{
+    background-color: #F2F2F2;
+  }
+  span{
+    flex: 1;
+  }
+  .tip{
+    font-size: 10px;
+    text-align: right;
+    color: #828282;
+  }
+}
+
