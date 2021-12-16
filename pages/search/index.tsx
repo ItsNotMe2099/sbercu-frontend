@@ -170,7 +170,7 @@ const Search = (props) => {
             setShowAllSpeakers(true)
             if(pageSpeakers === 1){
                 setPageSpeakers(pageSpeakers + 1)
-                dispatch(fetchSpeakersSearch(query, {page: pageProjects + 1, limit: limitSpeakers }));
+                dispatch(fetchSpeakersSearch(query, {page: pageSpeakers + 1, limit: limitSpeakers }));
             }
         }
 

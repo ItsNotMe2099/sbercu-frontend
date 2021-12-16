@@ -14,13 +14,17 @@ interface Props {
   tip?: string
   isLabel?: boolean,
   mask?: string,
+  maskChar?: string
   className?: string
-  autoFocus?: boolean
+  autoFocus?: boolean,
+  hasAutoComplete?: boolean
 }
 
 export default function Input(props: Props) {
   const { error, touched } = props.meta
-  const { input, label, type } = props
+  const { input, label, type, hasAutoComplete } = props
+  const autoCompleteProps: any = !hasAutoComplete ? {autoComplete: 'new-password', autoCorrect: 'off'} : {};
+
   useEffect(() => {
     console.log("destroy");
   }, [])
@@ -34,7 +38,9 @@ export default function Input(props: Props) {
                         disabled={props.disabled}
                         placeholder={props.placeholder}
                         autoFocus={props.autoFocus}
+                        {...autoCompleteProps}
                         {...input}
+                        maskChar={props.maskChar}
                         mask={props.mask} />
       ) : (
           <input
@@ -45,6 +51,7 @@ export default function Input(props: Props) {
               placeholder={props.placeholder}
               autoFocus={props.autoFocus}
               {...input}
+              {...autoCompleteProps}
           />
       )}
         <ErrorInput {...props}/>

@@ -17,6 +17,7 @@ let RegistrationFirstStepForm = props => {
                         component={Input}
                         label="Почта"
                         disabled={true}
+                        hasAutoComplete={true}
                         validate={required}
                     />
                 </div>
@@ -26,6 +27,7 @@ let RegistrationFirstStepForm = props => {
                         name="firstName"
                         label="Имя"
                         component={Input}
+                        hasAutoComplete={true}
                         validate={required}
                     />
                 </div>
@@ -35,6 +37,7 @@ let RegistrationFirstStepForm = props => {
                         name="lastName"
                         label="Фамилия"
                         component={Input}
+                        hasAutoComplete={true}
                         validate={required}
                     />
                 </div>

@@ -20,7 +20,7 @@ const EditSpeaker= (props) => {
 
 
     useEffect(() => {
-        dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10)))
+        dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
     }, [router.query.id])
     const handleSubmit = (data) => {
 
@@ -35,7 +35,7 @@ const EditSpeaker= (props) => {
             <div className={styles.main}><Link href="/">&lt; Главная</Link></div>
             {currentCatalogItem && <SpeakerForm user={props.user} onSubmit={handleSubmit} initialValues={{
                 ...currentCatalogItem,
-                tagsIds: currentCatalogItem.tags.map(item => item.id),
+                tagsIds: currentCatalogItem.tags?.map(item => item.id) || [],
             }}/>}
         </div>
             <Footer/>

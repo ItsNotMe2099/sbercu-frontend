@@ -128,13 +128,20 @@
   margin-top: 4px;
   font-size: 14px;
 }
+.shortDescription {
+  white-space: pre;
+  margin-top: 20px;
+  line-height: 19px;
+}
 
 .description {
+  white-space: pre;
   margin-top: 20px;
   line-height: 19px;
 }
 
 .bio {
+  white-space: pre;
   margin-top: 20px;
 }
 .info{
@@ -152,6 +159,18 @@
   }
   .value{
     font-size: 14px;
+  }
+  .contact{
+
+    display: block;
+    color: #000;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+    &.space{
+     margin-top: 8px;
+    }
   }
 }
 .rating{

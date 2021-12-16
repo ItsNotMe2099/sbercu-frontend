@@ -228,9 +228,11 @@ export interface ISpeaker {
   deletedAt?: string
   legalEntity?: string
   price?: string
-  languages?: string
-  speakerContacts?: string
-  agentContacts?: string
+  languages?: string[]
+  speakerContactPhone?: string
+  speakerContactEmail?: string
+  agentContactPhone?: string
+  agentContactEmail?: string
   rating?: number
 }
 

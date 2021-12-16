@@ -33,7 +33,9 @@ import {fetchFeedbackList} from 'components/feedback/actions'
 import SpeakerFeedbackList from 'components/speakers/SpeakerFeedbackList'
 import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
 import Footer from 'components/layout/Footer'
-
+import {capitalizeFirstLetter, formatPhone} from 'utils/formatters'
+import cx from 'classnames'
+import {LanguagesList} from 'utils/languages'
 const queryString = require('query-string')
 
 interface Props {
@@ -63,11 +65,8 @@ const SpeakerPage = (props: Props) => {
     if (!router.query.id) {
       return;
     }
-    if (props.initialSpeaker) {
-      dispatch(setSpeakerItem(props.initialSpeaker));
-    } else {
+
       dispatch(fetchSpeakerItemRequest(router.query.id, {showTags: '1'}));
-    }
 
 
   }, [router.query.id])
@@ -103,6 +102,17 @@ const SpeakerPage = (props: Props) => {
     return <div className={styles.infoItem}>
       <div className={styles.label}>{label}</div>
       <div className={styles.value}>{value}</div>
+    </div>
+  }
+
+  const renderInfoContactItem = (label: string, phone: string,  email: string) => {
+
+    return <div className={styles.infoItem}>
+      <div className={styles.label}>{label}</div>
+      <div className={styles.value}>
+        {phone && <a className={styles.contact} href={`tel:${phone}`}>{formatPhone(`+${phone}`)}</a>}
+        {email && <a className={cx(styles.contact, {[styles.space]: phone && email})} href={`mailto:${email}`}>{email}</a>}
+      </div>
     </div>
   }
   const handleCreateFeedbackClick = () => {
@@ -146,6 +156,7 @@ const SpeakerPage = (props: Props) => {
                 </div>
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.nameEng}>{speaker.nameEng}</div>
+                  <div className={styles.shortDescription}>{speaker.shortDescription}</div>
                   <div className={styles.description}>{speaker.description}</div>
                   <div className={styles.bio}>{speaker.bio}</div>
 
@@ -168,9 +179,9 @@ const SpeakerPage = (props: Props) => {
                   <div className={styles.info}>
                     {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}
                     {renderInfoItem('Стоимость', speaker.price)}
-                    {renderInfoItem('Язык выступления', speaker.languages)}
-                    {renderInfoItem('Контакты спикера', speaker.speakerContacts)}
-                    {renderInfoItem('Контакты агента', speaker.agentContacts)}
+                    {renderInfoItem('Язык выступления', speaker.languages?.map(i => capitalizeFirstLetter(LanguagesList[i])).join(', '))}
+                    {renderInfoContactItem('Контакты спикера', speaker.speakerContactPhone, speaker.speakerContactEmail)}
+                    {renderInfoContactItem('Контакты агента', speaker.agentContactPhone, speaker.agentContactEmail)}
                   </div>
               </div>
           </div>

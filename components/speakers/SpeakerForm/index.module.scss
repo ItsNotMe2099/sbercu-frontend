@@ -49,7 +49,10 @@
     }
   }
   &__cover{
-
+    width: 20%;
+    @media screen and (max-width: $sm-max) {
+      width: auto;
+    }
   }
 }
 
@@ -70,6 +73,8 @@
     color: #000;
     margin-bottom: 6px;
   }
+
+
 }
 
 .textArea{
@@ -77,9 +82,23 @@
 }
 
 .desc{
-  margin-top: 6px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
+
+}
+.twoColumns{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  align-items: center;
+  flex-direction: row;
+  &.formField{
+    margin-bottom: 18px;
+  }
+  > div{
+    margin-top: 0px;
+  }
 
 }
 
