@@ -11,25 +11,19 @@ interface Props {
 }
 
 export default function FavoriteButton({selected, onClick, style}: Props) {
-  const [isHover, setIsHover] = useState(false);
-  const [isSelectedNow, setIsSelectedNow] = useState(false);
-  useEffect(() => {
-    if(isHover){
-      console.log("setIsSelectedNow")
-      setIsSelectedNow(true)
-    }
-  }, [selected])
 
+  const [isSelectedNow, setIsSelectedNow] = useState(false);
+
+
+  const handleClick = (e) => {
+    setIsSelectedNow(true)
+    onClick(e);
+  }
   return (
-   <div className={cx(styles.root, {[styles.selected]: selected, [styles.project]: style === 'project', [styles.catalog]: style === 'catalog', [styles.video]: style === 'video'})}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => {
-          setIsHover(false)
-          console.log("onMouseLeave")
-          setIsSelectedNow(false)
-        }}
-        onClick={onClick}>
-     { selected ? isHover && !isSelectedNow ?  <LikeOutline/>  : <LikeFilled/> : isHover && !isSelectedNow ? <LikeFilled/> : <LikeOutline/>}
+   <div className={cx(styles.root, {[styles.selected]: selected, [styles.nonSelected]: !selected, [styles.tempSelected]: isSelectedNow, [styles.project]: style === 'project', [styles.catalog]: style === 'catalog', [styles.video]: style === 'video'})}
+      onMouseLeave={() =>   setIsSelectedNow(false)}
+        onClick={handleClick}>
+     <div className={styles.icon}/>
    </div>
   )
 }
