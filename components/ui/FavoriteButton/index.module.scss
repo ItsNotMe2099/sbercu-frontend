@@ -12,27 +12,68 @@
     align-items: center;
     padding: 0px 5px;
   }
-  &.project{
-    svg{
-      path{
-        fill: #F2F2F2;
-      }
-    }
-  }
+
 
   &.catalog, &.video{
-    svg{
-      path{
-        fill: #828282;
+    .icon {
+      background: url('/img/icons/like_outlined_grey.svg');
+    }
+    &.nonSelected{
+      &:hover{
+        background: url('/img/icons/like_filled_grey.svg');
       }
     }
-    &.selected
-    svg{
-    path{
-      fill: #828282;
+    &.selected{
+      background: url('/img/icons/like_filled_grey.svg');
+      &:hover{
+        background: url('/img/icons/like_outlined_grey.svg');
+      }
     }
+    &.tempSelected{
+      &.selected{
+        &:hover{
+          background: url('/img/icons/like_filled_grey.svg');
+        }
+      }
+      &.nonSelected{
+        &:hover{
+          background: url('/img/icons/like_outlined_grey.svg');
+        }
+      }
     }
   }
+  &.project {
+    .icon {
+      background: url('/img/icons/like_outlined_white.svg');
+    }
+    &.nonSelected{
+      &:hover{
+        background: url('/img/icons/like_filled_white.svg');
+      }
+    }
+    &.selected{
+      background: url('/img/icons/like_filled_white.svg');
+      &:hover{
+        background: url('/img/icons/like_outlined_white.svg');
+      }
+    }
+    &.tempSelected{
+      &.selected{
+        &:hover{
+          background: url('/img/icons/like_filled_white.svg');
+        }
+      }
+      &.nonSelected{
+        &:hover{
+          background: url('/img/icons/like_outlined_white.svg');
+        }
+      }
+    }
 
+  }
 
+}
+.icon{
+  width: 20px;
+  height: 19px;
 }

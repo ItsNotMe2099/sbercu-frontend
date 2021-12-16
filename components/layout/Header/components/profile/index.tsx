@@ -8,6 +8,9 @@ import Link from 'next/link';
 import {useRouter} from 'next/router'
 import Basket from 'components/svg/Basket'
 import * as React from 'react'
+import LikeOutline from 'components/svg/LikeOutline'
+import BasketMenu from 'components/svg/BasketMenu'
+import LikeFilled from 'components/svg/LikeFilled'
 
 interface Props {
     user: IUser,
@@ -29,8 +32,9 @@ export default function Profile({user, showSearch}: Props){
 
   return (
     <div className={styles.root}>
-      {!showSearch && <div className={cx(styles.favorite, {[styles.isActive]: router.asPath === '/favorite'})}><Link href="/favorite">Избранное</Link></div>}
-      {!showSearch && <Link href="/basket"><a className={cx(styles.basket, {[styles.isActive]: router.asPath === '/basket'})}><Basket/></a></Link>}
+      {!showSearch && <Link href="/basket"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/basket'})}><BasketMenu/><span>Корзина</span></a></Link>}
+
+      {!showSearch &&<Link href="/favorite"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/favorite'})}>{router.asPath === '/favorite' ? <LikeFilled/> : <LikeOutline/>}<span>Избранное</span></a></Link>}
 
       <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
