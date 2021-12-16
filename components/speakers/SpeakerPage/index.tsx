@@ -172,9 +172,9 @@ const SpeakerPage = (props: Props) => {
                       {(speaker.cover.length > 5
                             ? speaker.cover.slice(0, 5)
                             : speaker.cover
-                      ).map((i, index) => <div className={styles.photoItem} onClick={() => handleGalleryItemClick(index)}><img src={'/jon-parry-C8eSYwQkwHw-unsplash.jpg'}/></div>)}
+                      ).map((i, index) => <div className={styles.photoItem} onClick={() => handleGalleryItemClick(index)}><img src={getMediaPath(i)}/></div>)}
                       {speaker.cover.length > 5 && (
-                        <div className={styles.photoItem} onClick={() => handleGalleryItemClick(5)}><img src={'/jon-parry-C8eSYwQkwHw-unsplash.jpg'}/>
+                        <div className={styles.photoItem} onClick={() => handleGalleryItemClick(5)}><img src={getMediaPath(speaker.cover[6])}/>
                           <div className={styles.overlay}/>
                           <div className={styles.number}>
                               +{speaker.cover.length - speaker.cover.slice(0, 5).length}
@@ -226,7 +226,7 @@ const SpeakerPage = (props: Props) => {
                                                                    speakerId={speaker.id}/>}
       <Footer/>
 
-      {showGallery && <Lightbox  images={[...(speaker.mainCover ? [speaker.mainCover] : [] ), ...speaker.cover.map(file => `/jon-parry-C8eSYwQkwHw-unsplash.jpg`) ]}
+      {showGallery && <Lightbox  images={[...(speaker.mainCover ? [getMediaPath(speaker.mainCover)] : [] ), ...speaker.cover.map(file => getMediaPath(file)) ]}
                                startIndex={galleryIndex}
                                onClose={() => setShowGallery(false)}/>}
 

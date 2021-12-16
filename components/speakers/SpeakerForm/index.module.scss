@@ -99,7 +99,9 @@
   > div{
     margin-top: 0px;
   }
-
+&.withMargin{
+  margin-top: 15px;
+}
 }
 
 .btnContainer{

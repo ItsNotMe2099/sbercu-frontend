@@ -92,7 +92,7 @@ let SpeakerForm = props => {
               />
             </div>
 
-            <div className={styles.twoColumns}>
+            <div className={cx(styles.twoColumns, styles.withMargin)}>
               <Field
                 name="firstNameEng"
                 component={Input}
