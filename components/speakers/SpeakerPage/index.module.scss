@@ -150,11 +150,11 @@
       overflow: hidden;
       &:hover{
         img {
-          transform: scale(5);
+          transform: scale(1.5);
         }
       }
       img {
-        transform-origin: 65% 75%;
+        transform-origin: 25% 35%;
         transition: transform 1s, filter .5s ease-out;
         width: 91px;
         height: 91px;
