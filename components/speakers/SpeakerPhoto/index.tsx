@@ -6,9 +6,10 @@ interface Props {
  photo?: string
   size: 'small' | 'normal' | 'large'
   children?: ReactElement | ReactElement[]
+  onClick?: () => void | null
 }
 
-export default function SpeakerPhoto({photo, size, children}: Props) {
+export default function SpeakerPhoto({photo, size, children, onClick}: Props) {
 
 
   return (
@@ -18,7 +19,7 @@ export default function SpeakerPhoto({photo, size, children}: Props) {
             [styles.sizeNormal]: size === 'normal',
             [styles.sizeLarge]: size === 'large',
 
-          })}>
+          })} onClick={onClick}>
             {photo ?
               <img
                 src={`${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files/${photo}`}

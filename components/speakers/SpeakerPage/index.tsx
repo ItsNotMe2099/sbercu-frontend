@@ -36,6 +36,9 @@ import Footer from 'components/layout/Footer'
 import {capitalizeFirstLetter, formatPhone} from 'utils/formatters'
 import cx from 'classnames'
 import {LanguagesList} from 'utils/languages'
+import {getMediaPath} from 'utils/media'
+
+import Lightbox from "react-awesome-lightbox";
 const queryString = require('query-string')
 
 interface Props {
@@ -46,6 +49,8 @@ interface Props {
 
 const SpeakerPage = (props: Props) => {
 
+  const [showGallery, setShowGallery] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const speaker = useSelector((state: IRootState) => state.speakers.currentSpeakerItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
@@ -141,6 +146,16 @@ const SpeakerPage = (props: Props) => {
     setCurrentEditFeedback(item);
     dispatch(createSpeakerFeedbackOpen());
   }
+  const handleMainPhotoClick = () =>{
+    setShowGallery( !showGallery);
+    setGalleryIndex(0)
+  }
+  const handleGalleryItemClick= (index) =>{
+    console.log("SetGallery", showGallery)
+    setShowGallery( !showGallery);
+    setGalleryIndex(speaker.mainCover ? index + 1 : index)
+  }
+
   return (
     <Layout>
       {speaker && <NextSeo title={speaker.name}/>}
@@ -152,7 +167,23 @@ const SpeakerPage = (props: Props) => {
               <div className={styles.left}>
 
                 <div className={styles.gallery}>
-                    <div className={styles.mainPhoto}><SpeakerPhoto size={'large'} photo={speaker.mainCover}/></div>
+                    <div className={styles.mainPhoto}><SpeakerPhoto size={'large'} photo={speaker.mainCover} onClick={speaker.mainCover && handleMainPhotoClick }/></div>
+                    <div className={styles.photoList}>
+                      {(speaker.cover.length > 5
+                            ? speaker.cover.slice(0, 5)
+                            : speaker.cover
+                      ).map((i, index) => <div className={styles.photoItem} onClick={() => handleGalleryItemClick(index)}><img src={'/jon-parry-C8eSYwQkwHw-unsplash.jpg'}/></div>)}
+                      {speaker.cover.length > 5 && (
+                        <div className={styles.photoItem} onClick={() => handleGalleryItemClick(5)}><img src={'/jon-parry-C8eSYwQkwHw-unsplash.jpg'}/>
+                          <div className={styles.overlay}/>
+                          <div className={styles.number}>
+                              +{speaker.cover.length - speaker.cover.slice(0, 5).length}
+                          </div>
+
+                        </div>
+
+                      )}
+                    </div>
                 </div>
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.nameEng}>{speaker.nameEng}</div>
@@ -194,6 +225,12 @@ const SpeakerPage = (props: Props) => {
                                                                    feedback={currentEditFeedback}
                                                                    speakerId={speaker.id}/>}
       <Footer/>
+
+      {showGallery && <Lightbox  images={[...(speaker.mainCover ? [speaker.mainCover] : [] ), ...speaker.cover.map(file => `/jon-parry-C8eSYwQkwHw-unsplash.jpg`) ]}
+                               startIndex={galleryIndex}
+                               onClose={() => setShowGallery(false)}/>}
+
+
     </Layout>
   )
 }

@@ -118,6 +118,65 @@
 }
 .gallery{
   margin-bottom: 25px;
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: $sm-max) {
+    flex-direction: column;
+  }
+  .mainPhoto{
+    flex: 1;
+    padding-right: 19px;
+    @media screen and (max-width: $sm-max) {
+      padding-right: 0px;
+      flex: 0;
+    }
+  }
+  .photoList{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 15px;
+    @media screen and (max-width: $sm-max) {
+      margin-top: 20px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .photoItem{
+      position: relative;
+      width: 91px;
+      height: 91px;
+      cursor: pointer;
+      img {
+        width: 91px;
+        height: 91px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .number{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 24px;
+        color: white;
+      }
+      .overlay{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        border-radius: 5px;
+      }
+    }
+  }
 }
 .name {
   font-size: 24px;
@@ -132,6 +191,8 @@
   white-space: pre;
   margin-top: 20px;
   line-height: 19px;
+  max-width: 300px;
+  padding-bottom: 10px;
 }
 
 .description {

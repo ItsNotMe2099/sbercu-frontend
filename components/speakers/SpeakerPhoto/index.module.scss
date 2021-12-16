@@ -56,11 +56,11 @@
 }
 .sizeLarge{
   border-radius: 40px;
-  min-height: 307px;
-  max-width: 407px;
+  height: 307px;
+  max-width: 100%;
   svg{
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 70%;
   }
   @media screen and (max-width: $sm-max) {
     max-width: 100%;
