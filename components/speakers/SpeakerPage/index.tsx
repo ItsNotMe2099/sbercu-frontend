@@ -211,8 +211,8 @@ const SpeakerPage = (props: Props) => {
                     {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}
                     {renderInfoItem('Стоимость', speaker.price)}
                     {renderInfoItem('Язык выступления', speaker.languages?.map(i => capitalizeFirstLetter(LanguagesList[i])).join(', '))}
-                    {renderInfoContactItem('Контакты спикера', speaker.speakerContactPhone, speaker.speakerContactEmail)}
-                    {renderInfoContactItem('Контакты агента', speaker.agentContactPhone, speaker.agentContactEmail)}
+                    {(speaker.speakerContactPhone || speaker.speakerContactEmail) && renderInfoContactItem('Контакты спикера', speaker.speakerContactPhone, speaker.speakerContactEmail)}
+                    {(speaker.agentContactPhone || speaker.agentContactEmail) && renderInfoContactItem('Контакты агента', speaker.agentContactPhone, speaker.agentContactEmail)}
                   </div>
               </div>
           </div>
