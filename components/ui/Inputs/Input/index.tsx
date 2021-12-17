@@ -37,7 +37,7 @@ export default function Input(props: Props) {
                         autoComplete={'off'}
                         disabled={props.disabled}
                         placeholder={props.placeholder}
-                        autoFocus={props.autoFocus}
+                        autoFocus={props.autoFocus || false}
                         {...autoCompleteProps}
                         {...input}
                         maskChar={props.maskChar}
