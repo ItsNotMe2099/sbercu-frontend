@@ -48,8 +48,9 @@
 }
 
 .favorite{
-  margin-right: 20px;
-  @media screen and (max-width: $sm-max) {
+  margin-right: 15px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 0px;
    margin-bottom: 10px;
   }
 }
