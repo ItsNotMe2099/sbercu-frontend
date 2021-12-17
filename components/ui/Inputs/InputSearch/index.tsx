@@ -28,7 +28,7 @@ export default function InputSearch(props: Props) {
             router.push(`/search?query=${value}`);
         }
     }
-    const { callback: onChange, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(props.onChange, 8000)
+    const { callback: onChange, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(props.onChange, 800)
 
     const handleSearch = (e) => {
         console.log("handleSearch", e);
