@@ -19,25 +19,36 @@
       background: url('/img/icons/like_outlined_grey.svg');
     }
     &.nonSelected{
+
       &:hover{
-        background: url('/img/icons/like_filled_grey.svg');
+        .icon {
+          background: url('/img/icons/like_filled_grey.svg');
+        }
       }
     }
     &.selected{
-      background: url('/img/icons/like_filled_grey.svg');
+      .icon {
+        background: url('/img/icons/like_filled_grey.svg');
+      }
       &:hover{
-        background: url('/img/icons/like_outlined_grey.svg');
+        .icon {
+          background: url('/img/icons/like_outlined_grey.svg');
+        }
       }
     }
     &.tempSelected{
       &.selected{
         &:hover{
-          background: url('/img/icons/like_filled_grey.svg');
+          .icon {
+            background: url('/img/icons/like_filled_grey.svg');
+          }
         }
       }
       &.nonSelected{
         &:hover{
-          background: url('/img/icons/like_outlined_grey.svg');
+          .icon {
+            background: url('/img/icons/like_outlined_grey.svg');
+          }
         }
       }
     }
@@ -48,24 +59,34 @@
     }
     &.nonSelected{
       &:hover{
-        background: url('/img/icons/like_filled_white.svg');
+        .icon {
+          background: url('/img/icons/like_filled_white.svg');
+        }
       }
     }
     &.selected{
-      background: url('/img/icons/like_filled_white.svg');
+      .icon {
+        background: url('/img/icons/like_filled_white.svg');
+      }
       &:hover{
-        background: url('/img/icons/like_outlined_white.svg');
+        .icon {
+          background: url('/img/icons/like_outlined_white.svg');
+        }
       }
     }
     &.tempSelected{
       &.selected{
         &:hover{
-          background: url('/img/icons/like_filled_white.svg');
+          .icon {
+            background: url('/img/icons/like_filled_white.svg');
+          }
         }
       }
       &.nonSelected{
         &:hover{
-          background: url('/img/icons/like_outlined_white.svg');
+          .icon {
+            background: url('/img/icons/like_outlined_white.svg');
+          }
         }
       }
     }
