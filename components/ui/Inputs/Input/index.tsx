@@ -46,7 +46,7 @@ export default function Input(props: Props) {
       {props.label && <div className={styles.label}>{props.label}</div>}
       {props.mask ? (
           <InputMask    className={`${styles.input} ${(error && touched) && styles.error}`}
-                        mask={props.mask}  disabled={props.disabled}   {...({value: props.input.value, onChange: props.input.onChange}) }  maskPlaceholder={null}  alwaysShowMask={props.alwaysShowMask}   maskChar={props.maskChar}>
+                        mask={props.mask}  disabled={props.disabled}   {...({value: props.input.value, onChange: props.input.onChange}) }  maskPlaceholder={null}  alwaysShowMask={false}   maskChar={props.maskChar}>
             {(inputProps) => renderInput(inputProps)}</InputMask>
       ) : (
         renderInput(props.input)
