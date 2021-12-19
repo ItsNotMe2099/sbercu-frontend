@@ -23,7 +23,7 @@ const TagInput = (props: Props) => {
   const dispatch = useDispatch()
   const items = useSelector((state: IRootState) => state.tagCategory.list)
   const [selectedTags, setSelectedTags] = useState([])
-
+  const isInited = useRef(false);
   useEffect(() => {
     if(items.length > 0) {
       setSelectedTags((input.value ? input.value : []).map(item => {
@@ -34,10 +34,14 @@ const TagInput = (props: Props) => {
           }
         }
     }));
+      setTimeout(() => {
+        isInited.current = true;
+      }, 500)
+
     }
   }, [items])
   useEffect(() => {
-    if(items.length === 0) {
+    if(items.length === 0 || !isInited.current) {
       return;
     }
     input.onChange(selectedTags.map( item => item.id))

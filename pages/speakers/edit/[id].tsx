@@ -20,12 +20,15 @@ const EditSpeaker= (props) => {
 
 
     useEffect(() => {
+        console.log("fetchSpeakerItemRequest", router.query.id);
         dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
     }, [router.query.id])
     const handleSubmit = (data) => {
 
         dispatch(updateSpeaker(parseInt(router.query.id as string, 10), data))
     }
+    console.log(" currentCatalogItem.tags",  currentCatalogItem?.tags)
+    console.log(" currentCatalogItem.tags2",  currentCatalogItem?.tags?.map(item => item.id) || [])
 
     return (
         <Layout>
