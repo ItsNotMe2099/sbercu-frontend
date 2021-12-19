@@ -131,7 +131,7 @@ export default function InputPhone(props: Props) {
           className={props.className}
           type={'text'}
           hasAutoComplete={props.hasAutoComplete}
-          mask={maskBuilder(value)}
+          mask={'+ 9 999-999-99-99'}
           disabled={props.disabled}
           input={{
             name: props.input.name,
