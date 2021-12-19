@@ -148,7 +148,6 @@ let SpeakerForm = props => {
                   name="speakerContactPhone"
                   component={InputPhone}
                   label="Телефон"
-                  validate={phone}
                 />
                 <Field
                   name="speakerContactEmail"
