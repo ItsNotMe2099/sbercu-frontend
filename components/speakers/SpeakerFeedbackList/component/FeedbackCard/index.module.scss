@@ -22,7 +22,8 @@
 .description{
   flex: 1;
   padding-right: 4px;
-  white-space: pre;
+  white-space: pre-line;
+  word-break: break-word;
 }
 .rating{
   font-size: 10px;

@@ -76,6 +76,10 @@ export default function InputCatalogSearch(props: Props) {
     router.push(`/catalog/${item.id}`);
     setIsActiveItem(false);
   }
+  const handleSpeakerClick = (item) => {
+    router.push(`/speaker/${item.id}`);
+    setIsActiveItem(false);
+  }
   const handleFileClick = (item) => {
     setIsActiveItem(false);
   }
@@ -116,7 +120,7 @@ export default function InputCatalogSearch(props: Props) {
                   {speakers.length > 0 && <div className={styles.speakers}>
                       <div className={styles.title}>Спикеры</div>
                     {speakers.map(speaker =>
-                      <div className={styles.speaker} key={speaker.id}>
+                      <div className={styles.speaker} key={speaker.id} onClick={() => handleSpeakerClick(speaker)}>
                         <div className={styles.avatar}>
                           <SpeakerPhoto size={'small'} photo={speaker.mainCover}/></div>
                         <div className={styles.info}>

@@ -63,6 +63,7 @@ export default function FeedbackReducer(state = {...initialState}, action) {
       break;
     case ActionTypes.DELETE_FEEDBACK_REQUEST + ApiActionTypes.SUCCESS:
       state.list = state.list.filter(i => i.id !== action.payload.id)
+      state.total = state.total - 1;
       state.formLoading = false;
       break;
     case ActionTypes.DELETE_FEEDBACK_REQUEST + ApiActionTypes.FAIL:
