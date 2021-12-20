@@ -199,7 +199,8 @@
   font-size: 14px;
 }
 .shortDescription {
-  white-space: pre;
+  white-space: pre-line;
+  word-break: break-word;
   margin-top: 20px;
   line-height: 19px;
   max-width: 300px;
@@ -207,13 +208,15 @@
 }
 
 .description {
-  white-space: pre;
+  white-space: pre-line;
+  word-break: break-word;
   margin-top: 20px;
   line-height: 19px;
 }
 
 .bio {
-  white-space: pre;
+  white-space: pre-line;
+  word-break: break-word;
   margin-top: 20px;
 }
 .info{
