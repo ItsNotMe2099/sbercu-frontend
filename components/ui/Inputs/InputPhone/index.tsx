@@ -5,7 +5,6 @@ import parsePhoneNumber, {isPossiblePhoneNumber} from 'libphonenumber-js'
 import {Metadata} from 'libphonenumber-js/core'
 // @ts-ignore
 import minMetadata from 'libphonenumber-js/metadata.min'
-import Input from 'components/ui/Inputs/Input'
 // @ts-ignore
 const metadata = new Metadata(minMetadata)
 
@@ -19,6 +18,7 @@ interface Props {
   onClick: () => void,
   hasAutoComplete?: boolean
   className?: string
+  placeholder?: string
 }
 
 const codeDoubles = {
@@ -30,7 +30,7 @@ const codeDoubles = {
   '44': 'GB',
   '61': 'AU',
 }
-
+import Input from 'react-phone-number-input/input'
 const codesOptions = Object.keys(metadata.metadata.countries).map((key) => {
   const value = metadata.metadata.countries[key];
   return {
@@ -87,7 +87,7 @@ export default function InputPhone(props: Props) {
     setChanged(true);
   }
   const handleInputChange = (e) => {
-    onChange(e.target.value.replace(/[^\d]/g, ''))
+    onChange(e)
 
   }
   const handleCodeChange = (val) => {
@@ -125,20 +125,18 @@ export default function InputPhone(props: Props) {
   }
 
   return (
-        <Input
-          maskChar={''}
-          label={props.label}
-          className={props.className}
-          type={'text'}
-          hasAutoComplete={props.hasAutoComplete}
-          mask={'+ 9 999-999-99-99'}
-          disabled={props.disabled}
-          input={{
-            name: props.input.name,
-            value,
-            onChange: handleInputChange
-          }}
-          meta={props.meta}
-        />
+    <div className={`${styles.root} ${props.className && props.className}`}>
+      {props.label && <div className={styles.label}>{props.label}</div>}
+      <Input
+        placeholder={props.placeholder}
+        className={styles.input}
+        value={!value ? `+7` : value}
+        international={true}
+        withCountryCallingCode={false}
+        onChange={handleInputChange}/>
+      <ErrorInput {...props}/>
+    </div>
+
+
   )
 }

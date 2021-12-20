@@ -25,7 +25,11 @@ const EditSpeaker= (props) => {
     }, [router.query.id])
     const handleSubmit = (data) => {
 
-        dispatch(updateSpeaker(parseInt(router.query.id as string, 10), data))
+        dispatch(updateSpeaker(parseInt(router.query.id as string, 10), {
+            ...data,
+            speakerContactPhone: data.speakerContactPhone?.replace(/[^\d]/g, ''),
+            agentContactPhone: data.agentContactPhone?.replace(/[^\d]/g, '')
+        }))
     }
     console.log(" currentCatalogItem.tags",  currentCatalogItem?.tags)
     console.log(" currentCatalogItem.tags2",  currentCatalogItem?.tags?.map(item => item.id) || [])

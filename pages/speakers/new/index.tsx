@@ -24,7 +24,10 @@ const CreateSpeaker = (props) => {
             description: data.name,
             confirmText: 'Создать',
             onConfirm: () => {
-                dispatch(createSpeaker({ ...data}))
+                dispatch(createSpeaker({ ...data,
+                    speakerContactPhone: data.speakerContactPhone?.replace(/[^\d]/g, ''),
+                    agentContactPhone: data.agentContactPhone?.replace(/[^\d]/g, '')
+                }))
             }
         }));
     }
