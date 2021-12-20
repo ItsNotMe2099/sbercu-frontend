@@ -211,6 +211,7 @@ const FavoritePage = (props) => {
                               onEditClick={handleEditClick}
                               onDeleteClick={handleDeleteClick}
                               canEdit={false}
+                              showFavorite={true}
                               additionalInfo={false}
                               basePath={''}
                               item={item}
@@ -246,6 +247,7 @@ const FavoritePage = (props) => {
                               onEditClick={handleEditClick}
                               onDeleteClick={handleDeleteClick}
                               canEdit={false}
+                              showFavorite={true}
                               additionalInfo={false}
                               basePath={''}
                               item={item}

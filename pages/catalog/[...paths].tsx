@@ -193,6 +193,7 @@ const Catalog = (props) => {
       >
       <div className={styles.files}>
         {items.map(item => (<File
+            showFavorite={true}
             userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
