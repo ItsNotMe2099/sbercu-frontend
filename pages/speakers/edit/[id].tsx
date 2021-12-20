@@ -27,8 +27,8 @@ const EditSpeaker= (props) => {
 
         dispatch(updateSpeaker(parseInt(router.query.id as string, 10), {
             ...data,
-            speakerContactPhone: data.speakerContactPhone?.replace(/[^\d]/g, ''),
-            agentContactPhone: data.agentContactPhone?.replace(/[^\d]/g, '')
+            speakerContactPhone: data.speakerContactPhone ? data.speakerContactPhone?.replace(/[^\d]/g, '') : data.speakerContactPhone ,
+            agentContactPhone: data.agentContactPhone ? data.agentContactPhone?.replace(/[^\d]/g, '') : data.agentContactPhone
         }))
     }
     console.log(" currentCatalogItem.tags",  currentCatalogItem?.tags)
