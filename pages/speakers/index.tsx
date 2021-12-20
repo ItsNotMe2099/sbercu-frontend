@@ -100,7 +100,7 @@ const Home = (props) => {
       setShowAllSpeakers(true)
       if(pageSpeakers === 1){
         setPageSpeakers(pageSpeakers + 1)
-        dispatch(fetchSpeakerList({entryType: 'project', ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageSpeakers + 1, limit: limitProjects }));
+        dispatch(fetchSpeakerList({entryType: 'project', ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageSpeakers + 1, limit }));
       }
     }
 

@@ -201,7 +201,7 @@ const SpeakerPage = (props: Props) => {
                 {canEdit &&
                 <div className={styles.actions}><ButtonSelect onChange={handleSettingsClick} options={settings}
                                                               size="9px 20px">Настройки</ButtonSelect></div>}
-                  <div className={styles.rating}>{speaker2.rating?.toFixed(1) || 0}
+                  <div className={styles.rating}>{speaker.rating?.toFixed(1) || 0}
                       <div className={styles.star}><StarFilled/></div>
                   </div>
 
