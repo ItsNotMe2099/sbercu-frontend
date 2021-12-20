@@ -199,6 +199,7 @@ const Dashboard = (props) => {
               {(showFiles ? files : files.slice(0, 5)).map(item => (<File
                   onEditClick={handleEditClick}
                   onDeleteClick={handleDeleteClick}
+                  showFavorite={true}
                   canEdit={false}
                   basePath={''}
                   item={item}
