@@ -124,6 +124,7 @@ export default function InputPhone(props: Props) {
     return '+ 9 999-999'
   }
 
+  console.log("PhoneValue", value)
   return (
     <div className={`${styles.root} ${props.className && props.className}`}>
       {props.label && <div className={styles.label}>{props.label}</div>}

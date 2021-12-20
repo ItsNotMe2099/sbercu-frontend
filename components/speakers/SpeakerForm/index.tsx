@@ -16,6 +16,7 @@ import LanguageInputList from 'components/ui/Inputs/LanguageInputList'
 import {useState} from 'react'
 import FilesUploadInput from 'components/ui/Inputs/FilesUploadInput'
 import ImagesUploadInput from 'components/ui/Inputs/ImagesUploadInput'
+import {formatPhone} from 'utils/formatters'
 
 let SpeakerForm = props => {
   const router = useRouter()
@@ -81,6 +82,7 @@ let SpeakerForm = props => {
                 component={Input}
                 label="Имя"
                 autoFocus={!initialValues?.id}
+                validate={required}
                 onChange={handleChangeFirstName}
               />
               <Field
@@ -88,6 +90,7 @@ let SpeakerForm = props => {
                 component={Input}
                 label="Фамилия"
                 onChange={handleChangeLastName}
+                validate={required}
                 autoFocus={!initialValues?.id}
               />
             </div>
@@ -148,6 +151,8 @@ let SpeakerForm = props => {
                   name="speakerContactPhone"
                   component={InputPhone}
                   label="Телефон"
+                  format={formatPhone}
+                  validate={phone}
                 />
                 <Field
                   name="speakerContactEmail"
@@ -163,6 +168,7 @@ let SpeakerForm = props => {
                   name="agentContactPhone"
                   component={InputPhone}
                   label="Телефон"
+                  format={formatPhone}
                   validate={phone}
                 />
                 <Field

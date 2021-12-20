@@ -52,7 +52,7 @@ export const formatJobStatusName = (status) => {
 }
 export const formatPhone = (phone) => {
     try {
-        const phoneNumber = parsePhoneNumber(phone);
+        const phoneNumber = parsePhoneNumber(phone.includes('+') ? phone :`+${phone}`);
         console.log("Format", phoneNumber.format('INTERNATIONAL', {nationalPrefix: true}));
         return phoneNumber.format('INTERNATIONAL', {nationalPrefix: true});
     }catch (e){
