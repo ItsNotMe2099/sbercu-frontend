@@ -1,6 +1,6 @@
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import {confirmOpen} from "components/Modal/actions";
+import {confirmOpen, modalClose} from "components/Modal/actions";
 import {IHeaderType, IRootState} from "types";
 import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
@@ -24,6 +24,7 @@ const CreateSpeaker = (props) => {
             description: data.name,
             confirmText: 'Создать',
             onConfirm: () => {
+                dispatch(modalClose());
                 dispatch(createSpeaker({ ...data,
                     speakerContactPhone: data.speakerContactPhone ? data.speakerContactPhone?.replace(/[^\d]/g, '') : data.speakerContactPhone ,
                     agentContactPhone: data.agentContactPhone ? data.agentContactPhone?.replace(/[^\d]/g, '') : data.agentContactPhone
