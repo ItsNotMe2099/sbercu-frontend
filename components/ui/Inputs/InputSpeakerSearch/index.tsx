@@ -89,7 +89,7 @@ export default function InputSpeakerSearch(props: Props) {
 
                   {speakers.length > 0 && <div className={styles.speakers}>
                     {speakers.map(speaker =>
-                      <div className={styles.speaker} key={speaker.id}>
+                      <div className={styles.speaker} key={speaker.id} onClick={( () => handleSpeakerClick(speaker))}>
                         <div className={styles.avatar}>
                           <SpeakerPhoto size={'small'} photo={speaker.mainCover}/></div>
                         <div className={styles.info}>
