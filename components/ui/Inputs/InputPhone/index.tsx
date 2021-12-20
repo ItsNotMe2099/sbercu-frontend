@@ -135,7 +135,7 @@ export default function InputPhone(props: Props) {
           disabled={props.disabled}
           input={{
             name: props.input.name,
-            value: !value && !changed && code ? code.label.replace(/[^\d]/g, '') : value,
+            value,
             onChange: handleInputChange
           }}
           meta={props.meta}
