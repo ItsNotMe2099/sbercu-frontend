@@ -54,13 +54,12 @@ const Home = (props) => {
   const [tags, setTags] = useState([]);
   const [isInit, setIsInit] = useState(false)
 
-  const limitFiles = 30;
-  const limitProjects = 30;
+  const limit = 30;
 
   useEffect(() => {
     dispatch(resetSpeakerList());
     dispatch(fetchTagCategoryList(ITagCategoryType.Speaker));
-    dispatch(fetchSpeakerList({}))
+    dispatch(fetchSpeakerList({limit}))
     return () => {
       dispatch(resetSpeakerList());
     }
@@ -75,7 +74,7 @@ const Home = (props) => {
   const handleTagChangeTags = (tags) => {
     setTags(tags);
     dispatch(resetSpeakerList());
-    dispatch(fetchSpeakerList({page: 1,  limit: limitProjects, ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
+    dispatch(fetchSpeakerList({page: 1,  limit, ...(tags.length > 0 ? {tags: tags.map(tag => tag.id).join(',')} : {})}))
     router.replace(`/speakers?${queryString.stringify({tags: JSON.stringify(tags.map(tag => tag.id))})}`, undefined, { shallow: true })
 
   }
@@ -108,7 +107,7 @@ const Home = (props) => {
   }
   const handleScrollNextProjects = () => {
     setPageSpeakers(pageSpeakers + 1)
-    dispatch(fetchSpeakerList({entryType: 'project', ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageSpeakers + 1, limit: limitProjects }));
+    dispatch(fetchSpeakerList({ ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageSpeakers + 1, limit }));
   }
 
   return (
