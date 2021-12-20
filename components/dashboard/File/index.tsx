@@ -23,6 +23,7 @@ interface Props{
   additionalInfo?: boolean,
   showFavorite?: boolean,
   showBreadcrumbs?: boolean
+  showBasketActions?: boolean
   size?: any,
   onClick?: (item) => void
   basePath?: string,
@@ -199,7 +200,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           showDelete={false}
           showCopy={false}
           showPublicLink={false}
-          showBasketActions={true}
+          showBasketActions={props.showBasketActions}
           onRestoreClick={handleRestoreClick}
           onDeleteBasketClick={handleDeleteClick}
             />}
@@ -215,5 +216,5 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
 
 File.defaultProps = {
   additionalInfo: true,
-  showFavorite: true
+  showFavorite: false
 }
