@@ -1,4 +1,4 @@
-import ErrorInput from "components/ui/Inputs/Input/components/ErrorInput";
+import ErrorInput from "components/ui/Inputs/components/ErrorInput";
 import {useEffect, useState} from "react";
 import styles from './index.module.scss'
 import parsePhoneNumber, {isPossiblePhoneNumber} from 'libphonenumber-js'
