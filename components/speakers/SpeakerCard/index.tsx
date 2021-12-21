@@ -6,7 +6,7 @@ import React from 'react'
 import ButtonDots from 'components/ui/ButtonDots'
 import {StarSmallFilled} from 'components/svg/Star'
 import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
-
+import LinesEllipsis from 'react-lines-ellipsis'
 interface Props {
   item: ISpeaker
   onDeleteClick?: (item) => void
@@ -62,7 +62,14 @@ export default function SpeakerCard({item, onDeleteClick, onRestoreClick}: Props
                 onDeleteBasketClick={handleDeleteClick}
             /></div>}
           <div className={styles.title}>{item.name}</div>
-          <div className={styles.description}>{item.description}</div>
+          <div className={styles.description}>
+            <LinesEllipsis
+              text={item.description ?? ''}
+              maxLine={3}
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            /></div>
         </div>
       </a>
     </Link>
