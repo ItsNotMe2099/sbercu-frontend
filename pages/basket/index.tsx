@@ -281,6 +281,7 @@ const DeletedPage = (props) => {
                               canEdit={false}
                               showBreadcrumbs={true}
                               additionalInfo={false}
+                              showBasketActions={true}
                               basePath={''}
                               item={item}
                             />))}
