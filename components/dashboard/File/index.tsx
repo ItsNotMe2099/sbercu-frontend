@@ -160,6 +160,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
     e.preventDefault();
     e.stopPropagation();
   }
+  console.log("item.deletedAt ", item.deletedAt );
   return (
       <div className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
       <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
