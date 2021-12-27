@@ -59,7 +59,7 @@ const SpeakerPage = (props: Props) => {
   const router = useRouter()
   console.log("Auth", props)
 
-  const canEdit = props.user.role === 'admin';
+  const canEdit = props.user.role === 'admin' || (speaker?.userId && speaker?.userId === props.user?.id);
   const settings = [
     {value: 'edit', label: 'Редактировать'},
     {value: 'delete', label: 'Удалить'}
