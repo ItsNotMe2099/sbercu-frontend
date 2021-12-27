@@ -66,7 +66,7 @@ const Catalog = (props) => {
       dispatch(fetchCatalogListByIds(id, updateIds));
     }
 
-  }, 1000);
+  }, 3000);
   const handleScrollNext = () => {
     const id = paths[paths.length - 1]
     const newPage = page + 1;
