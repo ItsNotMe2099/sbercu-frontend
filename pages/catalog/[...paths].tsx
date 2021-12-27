@@ -2,7 +2,7 @@ import {
   catalogCopy, catalogPaste,
   deleteCatalog,
   fetchCatalogItemRequest,
-  fetchCatalogList, resetCatalogItem,
+  fetchCatalogList, fetchCatalogListByIds, resetCatalogItem,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
   setCurrentCatalogId, setFilesFromDropZone
@@ -42,6 +42,8 @@ import {NextSeo} from 'next-seo'
 import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
 import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
 import request from 'utils/request'
+import useInterval from 'react-useinterval'
+import {fetchJobListByIds} from 'components/jobs/actions'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -57,7 +59,14 @@ const Catalog = (props) => {
   const page = useSelector((state: IRootState) => state.catalog.page)
   const paths = router.query.paths as string[] || []
   const filesFromDropZone = useSelector((state: IRootState) => state.catalog.filesFromDropZone)
+  const updateIds = useSelector((state: IRootState) => state.catalog.updateIds)
+  useInterval(() => {
+    if(updateIds.length > 0){
+      const id = paths[paths.length - 1]
+      dispatch(fetchCatalogListByIds(id, updateIds));
+    }
 
+  }, 1000);
   const handleScrollNext = () => {
     const id = paths[paths.length - 1]
     const newPage = page + 1;
