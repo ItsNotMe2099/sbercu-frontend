@@ -5,7 +5,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import React, { useRef } from "react";
 import { ICatalogEntry } from "types";
-import {formatJobStatusName, formatSize} from "utils/formatters";
+import {formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
 import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
@@ -40,6 +40,7 @@ interface FileJobProps{
 }
 const FileJobInfo = ({item}: FileJobProps) => {
   const job = item?.media?.lastJob;
+  console.log("estimatedTimeInSeconds", job?.estimatedTimeInSeconds)
   return <div className={styles.jobInfo}>
 
     {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
@@ -56,7 +57,11 @@ const FileJobInfo = ({item}: FileJobProps) => {
     </div>}
     <div className={styles.status}>
       {formatJobStatusName(job.state)}
+      {job?.estimatedTimeInSeconds > 0 && <div className={styles.estimate}>
+        Осталось: ~{formatSeconds(job?.estimatedTimeInSeconds)}
+      </div>}
     </div>
+
   </div>
 }
 const FileDeleted = ({item}: FileJobProps) => {
