@@ -44,6 +44,13 @@ export const fetchCatalogList = (id, page?, per_page?) => action(ActionTypes.FET
     method: 'GET',
   }
 })
+export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.FETCH_CATALOG_LIST_BY_IDS, {
+  api: {
+    url: `/api/catalog/list/${id}?filter=id||$in||${ids.join(',')}`,
+    method: 'GET',
+  }
+})
+
 export const setCatalogItem = (data: any) => action(ActionTypes.SET_CATALOG_MEDIA_ITEM, data);
 export const fetchCatalogItemRequest = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
 
