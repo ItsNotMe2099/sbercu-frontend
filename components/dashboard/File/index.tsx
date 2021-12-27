@@ -18,6 +18,7 @@ import Cross from 'components/svg/Cross'
 import LikeOutline from 'components/svg/LikeOutline'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
+import {FileJobInfo} from 'components/file/FileJobInfo'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
@@ -34,41 +35,6 @@ interface Props{
   onRestoreClick?: (item) => void
   onPublicLinkClick?: (item) => void
   userRole?: string
-}
-interface FileJobProps{
-  item: ICatalogEntry
-}
-const FileJobInfo = ({item}: FileJobProps) => {
-  const job = item?.media?.lastJob;
-  console.log("estimatedTimeInSeconds", job?.estimatedTimeInSeconds)
-  return <div className={styles.jobInfo}>
-
-    {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
-
-    {['canceled'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Cross color={'#F2C94C'}/></div>}
-    {['error'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#EB5757'}}><Cross color={'#EB5757'}/></div>}
-
-    {['finished'].includes(job.state) && <div className={styles.statusIcon}><img src={'/img/icons/mark.svg'}/></div>}
-    {['started'].includes(job.state) && <div className={styles.loader}>
-        <div className={styles.progressCircle}>
-            <Circle percent={job.progress?.percent} strokeWidth={4} strokeColor="#27AE60"/>
-        </div>
-        <div className={styles.loaderProgress}>{job.progress?.percent > 100 ? 100 : job.progress?.percent?.toFixed(1)}%</div>
-    </div>}
-    <div className={styles.status}>
-      {formatJobStatusName(job.state)}
-      {job?.estimatedTimeInSeconds > 0 && <div className={styles.estimate}>
-        Осталось: ~{formatSeconds(job?.estimatedTimeInSeconds)}
-      </div>}
-    </div>
-
-  </div>
-}
-const FileDeleted = ({item}: FileJobProps) => {
-  const job = item?.media?.lastJob;
-  return <div className={styles.deleted}>
-
-  </div>
 }
 export default function File({item, basePath, userRole, onDeleteClick, onRestoreClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
   const dispatch = useDispatch();

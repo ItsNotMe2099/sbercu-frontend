@@ -42,6 +42,8 @@ import {NextSeo} from 'next-seo'
 import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
 import { IUser } from "types";
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
+import useInterval from 'react-useinterval'
+import {fetchJobListByIds} from 'components/jobs/actions'
 const queryString = require('query-string')
 
 interface Props {
@@ -74,6 +76,14 @@ const VideoPage = (props: Props) => {
   const dispatch = useDispatch();
   const router = useRouter()
   console.log("Auth", props)
+
+  useInterval(() => {
+    const isConverting =  video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
+    if(isConverting){
+      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    }
+
+  }, 3000);
 
   useEffect( () => {
     dispatch(resetCatalogItem());
@@ -189,7 +199,7 @@ const VideoPage = (props: Props) => {
               <div className={styles.videoWrapper}>
                 {video.media?.type === 'video' && (!video.media || !video.media?.videoConverted || video.media?.videoCutting) ?
                   <>
-                    <VideoConverting isCutting={video.media?.videoCutting}/>
+                    <VideoConverting isCutting={video.media?.videoCutting} item={video}/>
                     <div className={styles.btns}>
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick}
                                                                    options={[{value: 'edit', label: 'Редактировать'}]}
