@@ -196,6 +196,7 @@ export interface IJob {
     catalog: ICatalogEntry
     user: IUser
     media: IMedia
+    estimatedTimeInSeconds?: number
 }
 export interface VideoViewHistory{
     mediaId: number
