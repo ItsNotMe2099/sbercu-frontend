@@ -112,6 +112,7 @@ export default function VideoEditor(props: Props) {
     const handleSeekChange = value => {
         console.log("SeekChange", value, loaded);
         setPlayed(value / duration);
+        console.log("SeekChange111", value, value / duration, (value / duration) * duration);
         (player?.current as any).currentTime(value);
     }
 
@@ -286,9 +287,9 @@ export default function VideoEditor(props: Props) {
                     <div className={styles.controlsLeft}>
                         <div className={styles.playButton} onClick={handlePlayPause}>{playing ? <Pause/> :
                             <Play/>}</div>
-                        <div className={styles.progressText}><Duration seconds={duration * played}/>
+                        <div className={styles.progressText}><Duration seconds={duration * played} showMs/>
                             <div className={styles.progressSeparator}>/</div>
-                            <Duration seconds={duration}/></div>
+                            <Duration seconds={duration} showMs/></div>
 
                     </div>
                     {/*<div className={styles.pictureInPicture} onClick={handleTogglePIP}><img src={'/img/icons/picture_in_picture.svg'}/></div>*/}

@@ -40,14 +40,14 @@ export default function EditorTooltip({ rootRef, seconds, cutItems, onAdd, onDel
         <div className={cutItem ? styles.tip : styles.noTip}>
         {!cutItem ?
             <div className={styles.addState} onClick={() => onAdd(seconds)}>
-                <Duration className={styles.currentTime} seconds={seconds}/>
+                <Duration className={styles.currentTime} seconds={seconds} showMs/>
             </div>
             :
             <div className={styles.deleteState}>
                 <div className={styles.cutItem}>
-                    <div className={styles.duration}><Duration className={styles.time} seconds={cutItem.start} /> - <Duration  className={styles.time} seconds={cutItem.end}/></div>
+                    <div className={styles.duration}><Duration className={styles.time} seconds={cutItem.start} showMs/> - <Duration  className={styles.time} seconds={cutItem.end} showMs/></div>
                 </div>
-                <Duration className={styles.currentTime} seconds={seconds}/>
+                <Duration className={styles.currentTime} seconds={seconds} showMs/>
             </div>
 
         }
