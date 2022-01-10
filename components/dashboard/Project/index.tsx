@@ -44,11 +44,9 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
 
   return (
     <Link href={`/catalog/${item.id}`}>
-      <a className={cx(styles.container, {[styles.deleted]: !!item.deletedAt})}  onClick={item.deletedAt ? noop : null}>
-        <div className={styles.root}>
+      <a className={cx(styles.root, {[styles.deleted]: !!item.deletedAt})}  onClick={item.deletedAt ? noop : null}>
           <div
-            className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`}
-            style={{backgroundColor: getColorByType(item.entryType)}}>
+            className={`${item.projectCover !== "link to cover" && item.projectCover !== null ? styles.cover : styles.square}`}>
             {item.projectCover !== "link to cover" && item.projectCover !== null ?
               <img
                 src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${item.projectCover}`}
@@ -64,7 +62,6 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
             /></div>}
           </div>
           <div className={styles.title}>{item.name}</div>
-        </div>
       </a>
     </Link>
   )
