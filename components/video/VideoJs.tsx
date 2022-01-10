@@ -132,7 +132,6 @@ export default function VideoJs(props: Props) {
         const duration = getDuration()
         const playedSeconds = getCurrentTime() || 0
         const loadedSeconds = getSecondsLoaded() * duration
-        console.log("Buffered Present", loadedSeconds);
 
         if (duration) {
             const progress = {
@@ -224,7 +223,6 @@ export default function VideoJs(props: Props) {
     }, [props.playbackRate])
 
     const handleVideoJsEvent = (event, value) => {
-        console.log("event", event, props.source, (playerRef as any).current?.currentSrc())
         switch (event) {
             case 'canplay':
                 handleReady();

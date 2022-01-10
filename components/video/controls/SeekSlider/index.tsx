@@ -159,7 +159,9 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
                 position = 0;
             }
             if(position < 0){
-                this.setSeeking(false, evt);
+                if(this.seeking) {
+                    this.setSeeking(false, evt);
+                }
             }else {
                 this.setState({
                     seekHoverPosition: position,
@@ -238,7 +240,6 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
         const sec: number = seconds < 1 ? 0 : Math.floor(divirsForMinutes % 60);
         const ms: number = Math.round((seconds % 1) * 1000);
         let mSeconds: string = ms.toString();
-        console.log("offset111", seconds, divirsForMinutes, sec)
         if (ms < 10) {
             mSeconds = "00" + ms;
         } else if (ms < 100) {
@@ -258,7 +259,6 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
         let time: number = +(percent * (this.props.fullTime / 100));
         time = Math.floor(time * 1000) / 1000;
         const times: Time = this.secondsToTime(time);
-        console.log("Time", time, times)
         if ((this.props.fullTime + this.offset) < 60) {
             return this.secondsPrefix + (times.ss + ":" + times.ms);
         } else if ((this.props.fullTime + this.offset) < 3600) {
@@ -275,7 +275,6 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
     private seekOnChange = (state: boolean): void => {
         const percent: number = this.state.seekHoverPosition * 100 / this.state.trackWidth;
         const time: number = +(percent * (this.props.fullTime / 100));
-
         if (!state) {
             this.props.onChange(time, (time + this.offset));
         }
@@ -384,7 +383,6 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
 
 
     public render(): React.ReactNode {
-        console.log("currentTime", this.props.currentTime);
         return (
             <div className={styles["ui-video-seek-slider"]}>
                 <div
