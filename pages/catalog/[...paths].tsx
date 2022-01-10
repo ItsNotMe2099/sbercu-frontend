@@ -23,7 +23,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import CreateFolder from "pages/catalog/components/CreateFolder";
 import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
@@ -44,6 +44,7 @@ import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
 import request from 'utils/request'
 import useInterval from 'react-useinterval'
 import {fetchJobListByIds} from 'components/jobs/actions'
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -185,6 +186,9 @@ const Catalog = (props) => {
     <div className={styles.root}>
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
+        {currentCatalogItem && <div className={styles.favorite}>
+          <FavoriteCatalogButton item={currentCatalogItem} style={'video'}/>
+        </div>}
         <div className={styles.image}>
           {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showEdit={true} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} showPaste={true} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
         </div>

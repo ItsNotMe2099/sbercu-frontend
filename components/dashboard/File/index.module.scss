@@ -5,19 +5,33 @@
     border-top: 1px solid #e0e0e0;
   }
   display: flex;
-  padding-top: 13px;
-  padding-bottom: 8px;
+  padding: 7px 13px;
   align-items: center;
-
+  text-decoration: none;
+  border-top: 1px solid #E0E0E0;;
   &.withDots{
     .like{
       margin-right: 20px;
     }
   }
   &.deleted{
-    .inner{
       cursor: inherit;
+
+  }
+  &:hover{
+    background: rgba(155, 81, 224, 0.1);
+
+    .like{
+      &.noLike{
+        display: block;
+      }
     }
+  }
+}
+
+.like{
+  &.noLike{
+    display: none;
   }
 }
 
@@ -30,7 +44,6 @@
     margin: auto;
   }
 }
-
 .title{
   font-size: 14px;
   color: black;

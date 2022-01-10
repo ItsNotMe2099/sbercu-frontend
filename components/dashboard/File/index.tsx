@@ -133,10 +133,11 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
   }
   console.log("item.deletedAt ", item.deletedAt );
   return (
-      <div className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
-      <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
       <Link href={getFileLink()}  >
-      <a  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+        <a className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
+          <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
+
+          <div  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.title}>
           {item.name}
         </div>
@@ -161,11 +162,10 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
         {(item.parents && props.showBreadcrumbs) && <BreadCrumbs className={styles.breadcrumbs} items={(item?.parents || []).map(i => ({link: `/catalog/${i.id}`, name: i.name, deleted: !!i.deletedAt})).splice(0, item?.parents?.length - 1)} />}
 
 
-      </a>
-      </Link>
+      </div>
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
-        {!item.deletedAt && props.showFavorite && <div className={styles.like}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
+        {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
         {item.deletedAt && <ButtonDots
             showPaste={false}
           showEdit={false}
@@ -182,7 +182,8 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           showDelete={canEdit}
           showCopy={canEdit}
             showPublicLink={item.entryType === 'file' && ['admin', 'manager'].includes(userRole)} showPaste={ canEdit && item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
-      </div>
+      </a>
+      </Link>
   )
 }
 
