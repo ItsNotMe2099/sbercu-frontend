@@ -292,7 +292,7 @@
   max-height: 500px;
   overflow-y: auto;
   @media screen and (max-width: $sm-max) {
-    max-height: auto;
+    max-height: 100%;
   }
 }
 .items{

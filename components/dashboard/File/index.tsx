@@ -134,10 +134,10 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
   console.log("item.deletedAt ", item.deletedAt );
   return (
       <Link href={getFileLink()}  >
-        <a className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
+        <a className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
           <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
 
-          <div  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+          <div  className={styles.inner} >
         <div className={styles.title}>
           {item.name}
         </div>

@@ -4,6 +4,9 @@
   @media screen and (max-width: $sm-max) {
     display: none;
   }
+  &:hover{
+    background: rgba(155, 81, 224, 0.1);
+  }
   &__mobile{
     display: none;
     @media screen and (max-width: $sm-max) {
@@ -23,6 +26,9 @@
   position: relative;
   vertical-align: middle;
   position: relative;
+  &.cellId{
+    padding-left: 12px;
+  }
 }
 .role{
   position: absolute;

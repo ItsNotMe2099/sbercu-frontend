@@ -10,6 +10,7 @@ import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import { useSelector, useDispatch } from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
+import cx from 'classnames';
 import {
     cancelJob,
     deleteJob,
@@ -93,7 +94,7 @@ const Jobs = (props) => {
                                 className={styles.table}
                             >
                                 <div className={styles.tr}>
-                                    <div className={styles.td}>ID</div>
+                                    <div className={cx(styles.td, styles.tdId)}>ID</div>
                                     <div className={styles.td}>Файл</div>
 
                                     <div className={styles.td} >Пользователь</div>
