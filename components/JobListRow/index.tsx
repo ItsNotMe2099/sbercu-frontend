@@ -8,6 +8,7 @@ import React from "react";
 import Cross from "components/svg/Cross";
 import Dots from "components/svg/Dots";
 import Link from "next/link";
+import cx from 'classnames'
 interface Props {
     job: IJob
     onCancelClick?: (item: IJob) => void
@@ -38,7 +39,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
     return (
         <>
             <div className={styles.root}>
-                <div className={`${styles.cell}`}>{job.id}</div>
+                <div className={cx(styles.cell, styles.cellId)}>{job.id}</div>
                 <div className={`${styles.cell} ${styles.cellFileInfo}`}>
                     {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
 
