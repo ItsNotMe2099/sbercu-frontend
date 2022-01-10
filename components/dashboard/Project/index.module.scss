@@ -6,8 +6,18 @@
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  &:hover{
+    .square, .cover{
+      box-shadow: 4px 4px 20px 0px rgba(34, 60, 80, 0.5);
+    }
+  }
   &.deleted{
     cursor: initial;
+    &:hover {
+      .square, .cover {
+        box-shadow: none;
+      }
+    }
   }
 }
 
