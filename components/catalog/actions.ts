@@ -38,9 +38,10 @@ export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH
   }
 })
 
-export const fetchCatalogList = (id, page?, per_page?) => action(ActionTypes.FETCH_CATALOG_LIST, {
+export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) => action(ActionTypes.FETCH_CATALOG_LIST, {
+  sortField, sortOrder,
   api: {
-    url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}&sort=name,ASC`,
+    url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}&sortField=${sortField || 'name'}&sortOrder=${sortOrder || 'ASC'}${!sortOrder ? '&foldersFirst=true' : ''}`,
     method: 'GET',
   }
 })

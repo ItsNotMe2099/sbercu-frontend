@@ -11,7 +11,7 @@
   border-top: 1px solid #E0E0E0;;
   &.withDots{
     .like{
-      margin-right: 20px;
+      margin-left: 20px;
     }
   }
   &.deleted{
@@ -47,6 +47,7 @@
 .title{
   font-size: 14px;
   color: black;
+  word-break: break-all;
   @media screen and (max-width: $sm-max) {
     font-size: 10px;
   }
@@ -74,11 +75,7 @@
     font-size: 10px;
   }
 }
-.encoding{
-  color: #828282;
-  font-size: 10px;
-  margin-right: 27px;
-}
+
 .image{
   margin: auto 22px auto 0;
   @media screen and (min-width: $container-lg) {
@@ -100,33 +97,6 @@
   }
 }
 
-.dots{
-  position: relative;
-  cursor: pointer;
-  width: 36px;
-  display: flex;
-    svg{
-      fill: #828282;
-      margin: auto;
-    }
-  &:hover{
-    border: 1px solid #2F80ED;
-    border-radius: 5px;
-      svg{
-        fill: #2F80ED;
-      }
-  }
-  &:active{
-    border: 2px solid #2F80ED;
-    border-radius: 5px;
-      svg{
-        fill: #2F80ED;
-    }
-  }
-  @media screen and (max-width: $sm-max) {
-    display: none;
-  }
-}
 
 .additional{
   display: flex;
@@ -160,7 +130,7 @@
 
 
 .jobInfo{
-  margin-right: 20px;
+  margin-left: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -209,4 +179,7 @@
   a{
     color: #828282;
   }
+}
+.dots{
+  margin-left: 20px;
 }

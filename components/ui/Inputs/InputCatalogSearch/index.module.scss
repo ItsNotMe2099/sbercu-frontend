@@ -3,7 +3,7 @@
 .inputContainer{
   position: relative;
   @media screen and (max-width: $sm-mid) {
-    margin-right: 32px;
+    margin-right: 0px;
   }
   input{
     border: 1px solid #BDBDBD;
@@ -56,7 +56,7 @@
 .form{
   margin-right: 27px;
   @media screen and (max-width: $sm-mid) {
-    margin-right: 15px;
+    margin-right: 12px;
   }
 }
 

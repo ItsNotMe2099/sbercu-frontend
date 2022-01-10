@@ -166,7 +166,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
         {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
-        {item.deletedAt && <ButtonDots
+        {item.deletedAt &&<div className={styles.dots}> <ButtonDots
             showPaste={false}
           showEdit={false}
           showDelete={false}
@@ -175,13 +175,13 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           showBasketActions={props.showBasketActions}
           onRestoreClick={handleRestoreClick}
           onDeleteBasketClick={handleDeleteClick}
-            />}
+            /></div>}
 
-        {showDots && <ButtonDots
+        {showDots && <div className={styles.dots}><ButtonDots
             showEdit={canEdit}
           showDelete={canEdit}
           showCopy={canEdit}
-            showPublicLink={item.entryType === 'file' && ['admin', 'manager'].includes(userRole)} showPaste={ canEdit && item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
+            showPublicLink={item.entryType === 'file' && ['admin', 'manager'].includes(userRole)} showPaste={ canEdit && item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/></div>}
       </a>
       </Link>
   )

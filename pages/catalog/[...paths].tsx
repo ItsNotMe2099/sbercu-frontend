@@ -45,6 +45,7 @@ import request from 'utils/request'
 import useInterval from 'react-useinterval'
 import {fetchJobListByIds} from 'components/jobs/actions'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
+import CatalogSortToolbar from 'components/CatalogSortToolbar'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -61,6 +62,9 @@ const Catalog = (props) => {
   const paths = router.query.paths as string[] || []
   const filesFromDropZone = useSelector((state: IRootState) => state.catalog.filesFromDropZone)
   const updateIds = useSelector((state: IRootState) => state.catalog.updateIds)
+
+  const [sortField, setSortField] = useState(null)
+  const [sortOrder, setSortOrder] = useState(null)
   useInterval(() => {
     if(updateIds.length > 0){
       const id = paths[paths.length - 1]
@@ -73,7 +77,7 @@ const Catalog = (props) => {
     const newPage = page + 1;
     dispatch(setCatalogPage(newPage))
     console.log("PAGE", page)
-    dispatch(fetchCatalogList(id, newPage, 30))
+    dispatch(fetchCatalogList(id, newPage, 30, sortField, sortOrder))
   }
 
   useEffect(() => {
@@ -175,6 +179,13 @@ const Catalog = (props) => {
   const handleUploadFiles = () => {
     dispatch(uploadFilesModalOpen())
   }
+  const handleChangeSort = (sortField, sortOrder) => {
+    const id = paths[paths.length - 1]
+    setSortField(sortField);
+    setSortOrder(sortOrder);
+    dispatch(resetCatalogList())
+    dispatch(fetchCatalogList(id, 1, 30, sortField, sortOrder))
+  }
   console.log("ModalKey", modalKey)
   return (
     <Layout>
@@ -194,7 +205,11 @@ const Catalog = (props) => {
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
-      {items.length > 0  &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
+      {items.length > 0  &&
+      <div className={styles.toolbar}>
+          <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>
+      <CatalogSortToolbar sortOrder={sortOrder} sortField={sortField} onChange={handleChangeSort}/>
+      </div>}
       {items.length > 0 ?
       <InfiniteScroll
       dataLength={items.length}
