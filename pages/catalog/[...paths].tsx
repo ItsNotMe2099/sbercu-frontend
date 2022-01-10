@@ -2,7 +2,7 @@ import {
   catalogCopy, catalogPaste,
   deleteCatalog,
   fetchCatalogItemRequest,
-  fetchCatalogList, resetCatalogItem,
+  fetchCatalogList, fetchCatalogListByIds, resetCatalogItem,
   resetCatalogList, resetFilesFromDropzone,
   setCatalogPage,
   setCurrentCatalogId, setFilesFromDropZone
@@ -23,7 +23,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import CreateFolder from "pages/catalog/components/CreateFolder";
 import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IRootState } from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
@@ -42,6 +42,9 @@ import {NextSeo} from 'next-seo'
 import PasteCatalogItem from 'pages/catalog/components/PasteCatalogItem'
 import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
 import request from 'utils/request'
+import useInterval from 'react-useinterval'
+import {fetchJobListByIds} from 'components/jobs/actions'
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 
 const Catalog = (props) => {
   const router = useRouter()
@@ -57,7 +60,14 @@ const Catalog = (props) => {
   const page = useSelector((state: IRootState) => state.catalog.page)
   const paths = router.query.paths as string[] || []
   const filesFromDropZone = useSelector((state: IRootState) => state.catalog.filesFromDropZone)
+  const updateIds = useSelector((state: IRootState) => state.catalog.updateIds)
+  useInterval(() => {
+    if(updateIds.length > 0){
+      const id = paths[paths.length - 1]
+      dispatch(fetchCatalogListByIds(id, updateIds));
+    }
 
+  }, 3000);
   const handleScrollNext = () => {
     const id = paths[paths.length - 1]
     const newPage = page + 1;
@@ -176,6 +186,9 @@ const Catalog = (props) => {
     <div className={styles.root}>
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
+        {currentCatalogItem && <div className={styles.favorite}>
+          <FavoriteCatalogButton item={currentCatalogItem} style={'video'}/>
+        </div>}
         <div className={styles.image}>
           {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showEdit={true} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} showPaste={true} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
         </div>

@@ -45,6 +45,8 @@ export default function Player(props) {
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
 
+    const viewHistoryRef = useRef(false);
+
     const player = useRef();
     const root = useRef();
 
@@ -124,7 +126,6 @@ export default function Player(props) {
 
 
     const handleProgress = state => {
-        console.log("handleProgress", state)
         setPlayed(state.played);
         setLoaded(state.loaded);
         saveViewHistory(state.playedSeconds);
@@ -143,7 +144,7 @@ export default function Player(props) {
     const handleDuration = async (duration) => {
         setDuration(duration);
 
-        if(props.getViewHistory) {
+        if(props.getViewHistory && !viewHistoryRef.current) {
             const viewHistory = await props.getViewHistory();
            console.log("viewHistory", viewHistory);
             if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
@@ -152,6 +153,7 @@ export default function Player(props) {
                 (player?.current as any).currentTime(viewHistory?.currentTime);
                 setVolume(viewHistory.volume);
             }
+            viewHistoryRef.current = true;
         }
     }
 

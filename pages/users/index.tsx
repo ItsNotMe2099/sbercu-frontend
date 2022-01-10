@@ -16,7 +16,7 @@ import TagCategory from "components/tags/TagCategory";
 import InputSearch from "components/ui/Inputs/InputSearch";
 import {useDispatch, useSelector} from 'react-redux'
 import UsersLoader from "components/ContentLoaders/usersLoader";
-
+import cx from 'classnames';
 import {useThrottleFn} from '@react-cmpt/use-throttle'
 
 const Users = (props) => {
@@ -165,7 +165,7 @@ const Users = (props) => {
                                 className={styles.table}
                             >
                                 <div className={styles.tr}>
-                                    <div className={styles.td} onClick={() => handleSortChange('lastName')}>ФИО {renderSort('lastName')}</div>
+                                    <div className={cx(styles.td, styles.fio)} onClick={() => handleSortChange('lastName')}>ФИО {renderSort('lastName')}</div>
                                     <div className={styles.td} onClick={() => handleSortChange('registeredAt')}>Статус {renderSort('registeredAt')}</div>
                                     <div className={styles.td} onClick={() => handleSortChange('virtualSchoolId')}>Логин ВШ {renderSort('virtualSchoolId')}</div>
                                     <div className={styles.td} onClick={() => handleSortChange('email')}>Почта {renderSort('email')}</div>

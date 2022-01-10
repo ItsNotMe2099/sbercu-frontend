@@ -102,7 +102,7 @@ const Editor = (props: Props) => {
             </TextEllipsis></div>}
       </Header>
       {!video?.media || !video.media?.videoConverted || video.media?.videoCutting &&
-      <VideoConverting isCutting={video.media?.videoCutting}/>}
+      <VideoConverting isCutting={video.media?.videoCutting} item={video}/>}
       {video?.media?.videoConverted && <div className={styles.root}>
           <VideoEditor
               poster={getMediaPath(video.poster)}

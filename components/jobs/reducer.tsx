@@ -53,8 +53,6 @@ export default function JobReducer(state = {...initialState}, action) {
         state.list = state.list.map(item => item.id === job.id ? job : item)
       }
       state.updateIds = state.list.filter(job => ['pending', 'started'].includes(job.state)).map(job => job.id)
-
-
       break;
 
     case ActionTypes.RESET_JOB_LIST:

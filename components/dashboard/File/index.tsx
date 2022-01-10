@@ -5,7 +5,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import Link from 'next/link'
 import React, { useRef } from "react";
 import { ICatalogEntry } from "types";
-import {formatJobStatusName, formatSize} from "utils/formatters";
+import {formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
 import { getMediaPath } from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
@@ -18,6 +18,7 @@ import Cross from 'components/svg/Cross'
 import LikeOutline from 'components/svg/LikeOutline'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
+import {FileJobInfo} from 'components/file/FileJobInfo'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
@@ -34,36 +35,6 @@ interface Props{
   onRestoreClick?: (item) => void
   onPublicLinkClick?: (item) => void
   userRole?: string
-}
-interface FileJobProps{
-  item: ICatalogEntry
-}
-const FileJobInfo = ({item}: FileJobProps) => {
-  const job = item?.media?.lastJob;
-  return <div className={styles.jobInfo}>
-
-    {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
-
-    {['canceled'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Cross color={'#F2C94C'}/></div>}
-    {['error'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#EB5757'}}><Cross color={'#EB5757'}/></div>}
-
-    {['finished'].includes(job.state) && <div className={styles.statusIcon}><img src={'/img/icons/mark.svg'}/></div>}
-    {['started'].includes(job.state) && <div className={styles.loader}>
-        <div className={styles.progressCircle}>
-            <Circle percent={job.progress?.percent} strokeWidth={4} strokeColor="#27AE60"/>
-        </div>
-        <div className={styles.loaderProgress}>{job.progress?.percent > 100 ? 100 : job.progress?.percent?.toFixed(1)}%</div>
-    </div>}
-    <div className={styles.status}>
-      {formatJobStatusName(job.state)}
-    </div>
-  </div>
-}
-const FileDeleted = ({item}: FileJobProps) => {
-  const job = item?.media?.lastJob;
-  return <div className={styles.deleted}>
-
-  </div>
 }
 export default function File({item, basePath, userRole, onDeleteClick, onRestoreClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
   const dispatch = useDispatch();
@@ -160,11 +131,13 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
     e.preventDefault();
     e.stopPropagation();
   }
+  console.log("item.deletedAt ", item.deletedAt );
   return (
-      <div className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
-      <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
       <Link href={getFileLink()}  >
-      <a  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+        <a className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})}>
+          <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
+
+          <div  className={styles.inner} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.title}>
           {item.name}
         </div>
@@ -189,11 +162,10 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
         {(item.parents && props.showBreadcrumbs) && <BreadCrumbs className={styles.breadcrumbs} items={(item?.parents || []).map(i => ({link: `/catalog/${i.id}`, name: i.name, deleted: !!i.deletedAt})).splice(0, item?.parents?.length - 1)} />}
 
 
-      </a>
-      </Link>
+      </div>
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
-        {!item.deletedAt && props.showFavorite && <div className={styles.like}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
+        {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
         {item.deletedAt && <ButtonDots
             showPaste={false}
           showEdit={false}
@@ -210,7 +182,8 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
           showDelete={canEdit}
           showCopy={canEdit}
             showPublicLink={item.entryType === 'file' && ['admin', 'manager'].includes(userRole)} showPaste={ canEdit && item.entryType !== 'file'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} onPublicLinkClick={handlePublicLinkClick}/>}
-      </div>
+      </a>
+      </Link>
   )
 }
 

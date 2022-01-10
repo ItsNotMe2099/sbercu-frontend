@@ -278,6 +278,7 @@ const DeletedPage = (props) => {
                               canEdit={false}
                               showBreadcrumbs={true}
                               additionalInfo={false}
+                              showBasketActions={true}
                               basePath={''}
                               item={item}
                             />))}
@@ -314,6 +315,7 @@ const DeletedPage = (props) => {
                               onDeleteClick={handleDeleteClick}
                               canEdit={false}
                               additionalInfo={false}
+                              showBasketActions={true}
                               basePath={''}
                               item={item}
                             />))}

@@ -21,7 +21,8 @@ export interface CatalogState {
     parentsLoading: boolean,
     page: number
     isSubmitting?: boolean
-    filesFromDropZone: File[]
+    filesFromDropZone: File[],
+    updateIds: number[]
 }
 
 const initialState: CatalogState = {
@@ -37,7 +38,8 @@ const initialState: CatalogState = {
     parentsLoading: false,
     page: 1,
     listTotal: 0,
-    filesFromDropZone: []
+    filesFromDropZone: [],
+    updateIds: []
 }
 
 export default function CatalogReducer(state = { ...initialState }, action) {
@@ -135,12 +137,20 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             }else{
                 state.list = action.payload.data
             }
+            state.updateIds = state.list.filter(item => item?.media?.videoCutting || ['pending', 'started'].includes(item?.media?.lastJob?.state)).map(job => job.id)
             state.listTotal = action.payload.total
             state.listLoading = false;
             break
         case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.FAIL:
             state.listLoading = false;
             break
+        case ActionTypes.FETCH_CATALOG_LIST_BY_IDS + ApiActionTypes.SUCCESS:
+            for(let job of action.payload.data){
+                state.list = state.list.map(item => item.id === job.id ? job : item)
+            }
+            state.updateIds = state.list.filter(item => item?.media?.videoCutting || ['pending', 'started'].includes(item?.media?.lastJob?.state)).map(job => job.id)
+            break;
+
         case ActionTypes.CATALOG_ADD_TO_FAVORITE:
             if(state.currentCatalogItem && state.currentCatalogItem?.id === action.payload.id){
                 state.currentCatalogItem = {...state.currentCatalogItem, inFavorites: true}
