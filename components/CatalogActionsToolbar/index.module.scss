@@ -1,0 +1,38 @@
+@import "../../scss/index";
+
+.root{
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media screen and (max-width: $sm-mid) {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.buttonDelete{
+  color: black;
+  > span{
+    display: flex;
+    align-items: center;
+
+    flex-direction: row;
+  }
+  .cleanBasketTitle{
+    margin-top: 3px;
+  }
+  svg{
+    margin-right: 8px;
+    path{
+      fill: #000000;
+    }
+  }
+  &:hover {
+    color: #EB5757;
+    svg {
+      path {
+        fill: #EB5757;
+      }
+    }
+  }
+}

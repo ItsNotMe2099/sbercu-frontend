@@ -19,6 +19,7 @@ import LikeOutline from 'components/svg/LikeOutline'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
 import {FileJobInfo} from 'components/file/FileJobInfo'
+import SelectCheckbox from 'components/ui/SelectCheckbox'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
@@ -26,6 +27,7 @@ interface Props{
   showBreadcrumbs?: boolean
   showBasketActions?: boolean
   size?: any,
+  isSelected?: boolean
   onClick?: (item) => void
   basePath?: string,
   length?: any,
@@ -34,6 +36,7 @@ interface Props{
   onDeleteClick?: (item) => void
   onRestoreClick?: (item) => void
   onPublicLinkClick?: (item) => void
+  onSelect?: (check) => void
   userRole?: string
 }
 export default function File({item, basePath, userRole, onDeleteClick, onRestoreClick, onPublicLinkClick, onEditClick, onClick, canEdit, ...props}: Props){
@@ -134,7 +137,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
   console.log("item.deletedAt ", item.deletedAt );
   return (
       <Link href={getFileLink()}  >
-        <a className={cx(styles.root, {[styles.withDots]: showDots, [styles.deleted]: !!item.deletedAt})} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+        <a className={cx(styles.root, {[styles.withDots]: showDots,[styles.isChecked]: props.isSelected, [styles.deleted]: !!item.deletedAt})} onClick={item.deletedAt ? noop : handleClick} target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
           <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder')} alt=''/></div>
 
           <div  className={styles.inner} >
@@ -166,6 +169,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
         {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
+          {(canEdit && props.onSelect) && <div className={cx(styles.checkbox, {[styles.isChecked]: props.isSelected})}><SelectCheckbox isChecked={props.isSelected} onChange={(check) => props.onSelect(check)}/></div>}
         {item.deletedAt &&<div className={styles.dots}> <ButtonDots
             showPaste={false}
           showEdit={false}

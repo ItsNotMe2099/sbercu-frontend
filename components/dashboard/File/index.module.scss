@@ -18,9 +18,15 @@
       cursor: inherit;
 
   }
+  &.isChecked{
+    background: rgba(155, 81, 224, 0.1);
+  }
   &:hover{
     background: rgba(155, 81, 224, 0.1);
 
+    .checkbox{
+      display: block;
+    }
     .like{
       &.noLike{
         display: block;
@@ -182,4 +188,11 @@
 }
 .dots{
   margin-left: 20px;
+}
+.checkbox{
+  display: none;
+  margin-left: 20px;
+  &.isChecked{
+    display: block;
+  }
 }

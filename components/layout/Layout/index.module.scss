@@ -1,10 +1,33 @@
 @import "scss/index";
-
 .root{
   display: flex;
   min-height: 100%;
   position:relative;
   flex-direction: column;
+  --toastify-color-light: #F0F0F2;
+  --toastify-text-color-light: #000000;
+  --toastify-toast-min-height: 37px;
+  --toastify-toast-width: 250px;
+  :global .Toastify__toast-container {
+
+  }
+  :global .Toastify__toast-container--top-right{
+    top: 5em;
+  }
+  :global .Toastify__toast {
+    font-size: 12px;
+    border-radius: 5px;
+    box-shadow: none;
+    padding: 12px 18px;
+  }
+  :global .Toastify__toast-body{
+    padding: 0px;
+    margin: 0px;
+  }
+
+
+
+
 }
 
 .container{

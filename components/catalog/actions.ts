@@ -24,6 +24,13 @@ export const updateCatalogRequest = (id: number, data: ICatalogEntry) => action(
     data: data,
   }
 })
+export const moveCatalogRequest = (entries: number[], parentId: number) => action(ActionTypes.MOVE_CATALOG_REQUEST, {
+  api: {
+    url: `/api/catalog/move`,
+    method: 'POST',
+    data: {entries, parentId},
+  }
+})
 
 export const fetchMyUploadedFiles = (userId: number, data: any = {}) => action(ActionTypes.FETCH_MY_UPLOADED_FILES, {
   api: {
@@ -66,6 +73,14 @@ export const deleteCatalogRequest = (id: number) => action(ActionTypes.DELETE_CA
   api: {
     url: `/api/catalog/${id}`,
     method: 'DELETE'
+  }
+})
+export const deleteManyCatalog = (entries: number[]) => action(ActionTypes.DELETE_MANY_CATALOG, {entries})
+export const deleteManyCatalogRequest = (entries: number[]) => action(ActionTypes.DELETE_MANY_CATALOG_REQUEST, {
+  api: {
+    url: `/api/catalog/delete`,
+    method: 'POST',
+    data: {entries}
   }
 })
 
@@ -133,7 +148,7 @@ export const setCatalogPage = (page: number) => action(ActionTypes.SET_CATALOG_P
 export const resetCatalogList = (shallow: boolean = false, myFiles = true) => action(ActionTypes.RESET_CATALOG_LIST, {shallow, myFiles})
 
 export const resetMyUploadedFiles = (shallow: boolean = false, myFiles = true) => action(ActionTypes.RESET_MY_UPLOADED_FILES)
-export const catalogCopy = (item: ICatalogEntry) => action(ActionTypes.CATALOG_COPY, item)
+export const catalogCopy = (item: ICatalogEntry[] | ICatalogEntry) => action(ActionTypes.CATALOG_COPY, item)
 export const catalogPaste = (toCatalogId: number, name?: string) => action(ActionTypes.CATALOG_PASTE, {toCatalogId, name})
 export const resetFilesFromDropzone = () => action(ActionTypes.RESET_FILES_FROM_DROPZONE)
 export const setFilesFromDropZone = (files: File[]) => action(ActionTypes.SET_FILES_FROM_DROPZONE, {files});

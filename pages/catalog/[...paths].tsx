@@ -46,7 +46,8 @@ import useInterval from 'react-useinterval'
 import {fetchJobListByIds} from 'components/jobs/actions'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import CatalogSortToolbar from 'components/CatalogSortToolbar'
-
+import CatalogActionsToolbar from 'components/CatalogActionsToolbar'
+import { toast } from "react-toastify";
 const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const Catalog = (props) => {
 
   const [sortField, setSortField] = useState(null)
   const [sortOrder, setSortOrder] = useState(null)
+  const [selectedIds, setSelectedIds] = useState([])
   useInterval(() => {
     if(updateIds.length > 0){
       const id = paths[paths.length - 1]
@@ -138,10 +140,39 @@ const Catalog = (props) => {
 
   const handlePasteClick = () => {
     try{
-      const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
+      const copyItems = JSON.parse(localStorage.getItem('copyCatalog'));
+      const getTitle = () => {
+        if(copyItems.length === 1){
+          return `Вы уверены, что хотите переместить ${copyItems[0].entryType === 'file' ? 'файл' : 'папку'} ?`;
+        }else{
+          const folders = copyItems.filter(i => i.entryType === 'folder');
+          const files = copyItems.filter(i => i.entryType === 'file');
+          return `Вы уверены, что хотите переместить ${folders.length > 0 ? `${folders.length} ${pluralize(folders.length, 'папка', 'папки', 'папок')}` : ''} 
+          ${files.length > 0 ? `${files.length} ${pluralize(files.length, 'файл', 'файла', 'файлов')}` : ''} ?`;
+
+        }
+      }
+      const getDescription = () => {
+        if(copyItems.length === 1){
+          return `${copyItems[0].entryType === 'file' ? 'Файл' : 'Папка'} «${copyItems[0].name}» будет ${copyItems[0].entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`
+        }else{
+          const hasFolders = copyItems.filter(i => i.entryType === 'folder').length > 0;
+          const hasFiles = copyItems.filter(i => i.entryType === 'file').length > 0;
+          let titlePrefix = '';
+          if(hasFiles && hasFolders){
+            titlePrefix = 'Файлы и папки'
+          }else if(hasFolders){
+            titlePrefix = 'Папки'
+          }else if(hasFiles){
+            titlePrefix = 'Файлы'
+          }
+          return `${titlePrefix} будет ${copyItems[0].entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`
+
+        }
+      }
       dispatch(confirmOpen({
-        title: `Вы уверены, что хотите переместить ${copyItem.entryType === 'file' ? 'файл' : 'папку'} ?`,
-        description: `${copyItem.entryType === 'file' ? 'Файл' : 'Папка'} «${copyItem.name}» будет ${copyItem.entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`,
+        title: getTitle(),
+        description: getDescription(),
         confirmText: 'Переместить',
         onConfirm: () => {
           dispatch(catalogPaste(currentCatalogItem.id));
@@ -186,6 +217,17 @@ const Catalog = (props) => {
     dispatch(resetCatalogList())
     dispatch(fetchCatalogList(id, 1, 30, sortField, sortOrder))
   }
+  const handleSelect = (id, check) => {
+    if(selectedIds.includes(id)){
+      setSelectedIds(selectedIds.filter(i => i !== id));
+    }else{
+      setSelectedIds([...selectedIds, id]);
+
+    }
+  }
+  const handleUnSelectAll = () => {
+    setSelectedIds([]);
+  }
   console.log("ModalKey", modalKey)
   return (
     <Layout>
@@ -208,7 +250,7 @@ const Catalog = (props) => {
       {items.length > 0  &&
       <div className={styles.toolbar}>
           <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>
-      <CatalogSortToolbar sortOrder={sortOrder} sortField={sortField} onChange={handleChangeSort}/>
+        {selectedIds.length > 0 ? <CatalogActionsToolbar selectedIds={selectedIds} onUnSelectAll={handleUnSelectAll}/> : <CatalogSortToolbar sortOrder={sortOrder} sortField={sortField} onChange={handleChangeSort}/>}
       </div>}
       {items.length > 0 ?
       <InfiniteScroll
@@ -222,6 +264,8 @@ const Catalog = (props) => {
       <div className={styles.files}>
         {items.map(item => (<File
             showFavorite={true}
+            isSelected={selectedIds.includes(item.id)}
+            onSelect={(check) => handleSelect(item.id, check)}
             userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
