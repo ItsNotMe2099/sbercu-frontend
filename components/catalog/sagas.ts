@@ -157,7 +157,7 @@ function* catalogSaga() {
             yield put(fetchCatalogItemRequest(action.payload.id, {...(action.payload.data.entryType === 'file' ? {showTags: true} : {})}))
           } else {
             yield put(resetCatalogList(true));
-            yield put(fetchCatalogList(currentCatalogId, 1, 15));
+            yield put(fetchCatalogList(currentCatalogId, 1, 30));
           }
         }
       }
