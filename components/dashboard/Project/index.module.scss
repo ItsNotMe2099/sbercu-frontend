@@ -10,6 +10,11 @@
     .square, .cover{
       box-shadow: 4px 4px 20px 0px rgba(34, 60, 80, 0.5);
     }
+    .favorite{
+      &.noFavorite{
+        display: block;
+      }
+    }
   }
   &.deleted{
     cursor: initial;
@@ -53,6 +58,9 @@
   position: absolute;
   top: 15px;
   right: 15px;
+    &.noFavorite{
+      display: none;
+    }
 }
 
 .dots {

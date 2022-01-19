@@ -52,8 +52,7 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
                 src={`${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files/${item.projectCover}`}
                 alt=''/>
               : null}
-            {!item.deletedAt &&
-            <div className={styles.favorite}><FavoriteCatalogButton item={item} style={'project'}/></div>}
+            {!item.deletedAt && <div className={cx(styles.favorite, {[styles.noFavorite]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'project'}/></div>}
             {item.deletedAt && <div className={styles.dots}><ButtonDots
                 style={'white'}
                 showBasketActions={true}

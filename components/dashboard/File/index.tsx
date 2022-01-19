@@ -168,9 +168,10 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
       </div>
         {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
 
-        {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
           {(canEdit && props.onSelect) && <div className={cx(styles.checkbox, {[styles.isChecked]: props.isSelected})}><SelectCheckbox isChecked={props.isSelected} onChange={(check) => props.onSelect(check)}/></div>}
-        {item.deletedAt &&<div className={styles.dots}> <ButtonDots
+
+          {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
+         {item.deletedAt &&<div className={styles.dots}> <ButtonDots
             showPaste={false}
           showEdit={false}
           showDelete={false}
