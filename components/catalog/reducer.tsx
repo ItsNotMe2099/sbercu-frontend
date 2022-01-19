@@ -191,7 +191,9 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             break;
 
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST:
-            state.currentLoading = true;
+            if(!action.payload.shallow) {
+                state.currentLoading = true;
+            }
             break
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
             let path = '/catalog'

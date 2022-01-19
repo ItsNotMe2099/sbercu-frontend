@@ -20,6 +20,7 @@ import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
 import {FileJobInfo} from 'components/file/FileJobInfo'
 import SelectCheckbox from 'components/ui/SelectCheckbox'
+import {DragSourceMonitor, useDrag} from 'react-dnd'
 interface Props{
   item: ICatalogEntry,
   additionalInfo?: boolean,
@@ -166,7 +167,7 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
 
 
       </div>
-        {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item} />}
+          {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <div className={styles.jobInfo}><FileJobInfo item={item} /></div>}
 
         {!item.deletedAt && props.showFavorite && <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'catalog'}/></div>}
           {(canEdit && props.onSelect) && <div className={cx(styles.checkbox, {[styles.isChecked]: props.isSelected})}><SelectCheckbox isChecked={props.isSelected} onChange={(check) => props.onSelect(check)}/></div>}
@@ -194,4 +195,24 @@ export default function File({item, basePath, userRole, onDeleteClick, onRestore
 File.defaultProps = {
   additionalInfo: true,
   showFavorite: false
+}
+export const DraggableFile = (props: Props) => {
+  const {item} = props;
+  const [collected, drag, dragPreview] = useDrag(() => ({
+    type: item.id + '',
+    item: item,
+    end: (item, monitor) => {
+
+    },
+    collect: (monitor: DragSourceMonitor) => ({
+      opacity: monitor.isDragging() ? 0.4 : 1,
+    }),
+  }))
+
+  console.log("collected", collected);
+   return ( <div ref={drag} style={{...collected}} >
+      <File {...props}/>
+    </div>
+  )
+
 }

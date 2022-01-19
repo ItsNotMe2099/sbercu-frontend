@@ -60,8 +60,8 @@ export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.F
 })
 
 export const setCatalogItem = (data: any) => action(ActionTypes.SET_CATALOG_MEDIA_ITEM, data);
-export const fetchCatalogItemRequest = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
-
+export const fetchCatalogItemRequest = (id, data = {}, shallow?: boolean) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
+  shallow,
   api: {
     url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',
