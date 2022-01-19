@@ -116,7 +116,7 @@ const Search = (props) => {
     }
 
     const handleShowFolders = () => {
-        if(showFiles){
+        if(showFolders){
             setShowAllFolders(false)
         }else{
             setShowAllFolders(true)
