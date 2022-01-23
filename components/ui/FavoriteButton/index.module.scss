@@ -93,6 +93,12 @@
 
   }
 
+  &:hover{
+    .icon {
+      visibility: visible;
+    }
+  }
+
 }
 .icon{
   width: 20px;
