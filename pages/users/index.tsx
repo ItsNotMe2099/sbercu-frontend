@@ -79,8 +79,7 @@ const Users = (props) => {
 
     }
     useEffect(() => {
-        dispatch(resetUserList());
-        fetchList(1);
+
         dispatch(fetchTagCategoryListByName('Подразделения'));
     }, [])
 
