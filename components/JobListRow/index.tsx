@@ -2,7 +2,7 @@ import ButtonDots from "components/ui/ButtonDots";
 import {format} from "date-fns";
 import {FileActionType, IJob, IUser} from "types";
 import styles from './index.module.scss'
-import {formatJobDuration, formatJobStatusName, formatSize} from "utils/formatters";
+import {formatJobDuration, formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
 import {Circle} from "rc-progress";
 import React from "react";
 import Cross from "components/svg/Cross";
@@ -89,6 +89,11 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                             <div className={styles.separator}></div>
                             {job.codecInfo?.duration &&
                             <div className={styles.greyText}>{formatJobDuration(job.codecInfo?.duration)}</div>}
+                            {job?.estimatedTimeInSeconds > 0 && <>
+                                <div className={styles.separator}></div>
+                                <div className={styles.estimate}>
+                                Осталось: ~{formatSeconds(job?.estimatedTimeInSeconds)}
+                            </div></>}
                         </div>
                     </div>
                 </div>

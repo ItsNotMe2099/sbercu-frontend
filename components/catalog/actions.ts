@@ -54,14 +54,14 @@ export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) =
 })
 export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.FETCH_CATALOG_LIST_BY_IDS, {
   api: {
-    url: `/api/catalog/list/${id}?filter=id||$in||${ids.join(',')}`,
+    url: `/api/catalog/list/${id}?onlyIds=${ids.join(',')}`,
     method: 'GET',
   }
 })
 
 export const setCatalogItem = (data: any) => action(ActionTypes.SET_CATALOG_MEDIA_ITEM, data);
-export const fetchCatalogItemRequest = (id, data = {}) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
-
+export const fetchCatalogItemRequest = (id, data = {}, shallow = false) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
+shallow,
   api: {
     url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',

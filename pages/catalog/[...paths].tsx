@@ -47,7 +47,6 @@ import {fetchJobListByIds} from 'components/jobs/actions'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import CatalogSortToolbar from 'components/CatalogSortToolbar'
 import CatalogActionsToolbar from 'components/CatalogActionsToolbar'
-import { toast } from "react-toastify";
 import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
 const Catalog = (props) => {
   const router = useRouter()

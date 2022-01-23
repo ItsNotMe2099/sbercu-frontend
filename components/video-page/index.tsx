@@ -80,7 +80,7 @@ const VideoPage = (props: Props) => {
   useInterval(() => {
     const isConverting =  video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
     if(isConverting){
-      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}, true));
     }
 
   }, 3000);
