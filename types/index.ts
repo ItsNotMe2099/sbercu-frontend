@@ -223,6 +223,10 @@ export interface ISpeaker {
   nameEng?: string
   cover?: string[]
   mainCover?: string
+  priceType?: string
+  currency?: string
+  awards?: string
+  publications: string
   bio?: string
   description?: string
   inFavorites?: boolean
@@ -249,3 +253,14 @@ export enum IHeaderType {
   Speaker = 'speaker',
   Catalog = 'catalog'
 }
+export const SpeakerPriceCurrencyList = [
+  {label: 'Руб.', value: 'RUB'},
+  {label: 'USD', value: 'USD'},
+  {label: '£', value: 'GBP'},
+  {label: '€', value: 'EUR'}
+]
+export const SpeakerPriceTypeList = [
+  {label: 'Тренинг-час', value: 'trainingHour'},
+  {label: 'Коучинг', value: 'coaching'},
+  {label: 'Лекция', value: 'lecture'}
+]

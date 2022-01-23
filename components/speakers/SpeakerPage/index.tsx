@@ -1,7 +1,7 @@
 import Layout from "components/layout/Layout";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
-import {ICatalogEntry, IHeaderType, IRootState, ISpeaker} from "types";
+import {ICatalogEntry, IHeaderType, IRootState, ISpeaker, SpeakerPriceCurrencyList, SpeakerPriceTypeList} from "types";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
 import BreadCrumbs from 'components/ui/Breadcrumbs';
@@ -156,6 +156,16 @@ const SpeakerPage = (props: Props) => {
     setGalleryIndex(speaker.mainCover ? index + 1 : index)
   }
 
+  const renderPriceText = () => {
+    if(!speaker.price){
+      return '';
+    }
+    const priceType = SpeakerPriceTypeList?.find(i => i.value === speaker.priceType)?.label || '';
+    const currency = SpeakerPriceCurrencyList?.find(i => i.value === speaker.currency)?.label || '';
+
+    return `${speaker.price}${currency ? ` ${currency}` : ''}${priceType ? `, ${priceType}` : ''}`
+  }
+
   return (
     <Layout>
       {speaker && <NextSeo title={speaker.name}/>}
@@ -188,8 +198,10 @@ const SpeakerPage = (props: Props) => {
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.nameEng}>{speaker.nameEng}</div>
                   <div className={styles.shortDescription}>{speaker.shortDescription}</div>
-                  <div className={styles.description}>{speaker.description}</div>
-                  <div className={styles.bio}>{speaker.bio}</div>
+                {speaker.description && <div className={styles.description}>{speaker.description}</div>}
+                {speaker.awards && <div className={styles.awards}>{speaker.awards}</div>}
+                {speaker.bio && <div className={styles.bio}>{speaker.bio}</div>}
+                {speaker.publications && <div className={styles.publications}>{speaker.publications}</div>}
 
               </div>
               <div className={styles.tags}>
@@ -209,7 +221,7 @@ const SpeakerPage = (props: Props) => {
                           onClick={handleCreateFeedbackClick}>Оставить отзыв</Button>
                   <div className={styles.info}>
                     {renderInfoItem('Юридическое лицо (в 1С)', speaker.legalEntity)}
-                    {renderInfoItem('Стоимость', speaker.price)}
+                    {renderInfoItem('Стоимость', renderPriceText())}
                     {renderInfoItem('Язык выступления', speaker.languages?.map(i => capitalizeFirstLetter(LanguagesList[i])).join(', '))}
                     {(speaker.speakerContactPhone || speaker.speakerContactEmail) && renderInfoContactItem('Контакты спикера', speaker.speakerContactPhone, speaker.speakerContactEmail)}
                     {(speaker.agentContactPhone || speaker.agentContactEmail) && renderInfoContactItem('Контакты агента', speaker.agentContactPhone, speaker.agentContactEmail)}

@@ -3,10 +3,10 @@ import {useRouter} from "next/router";
 import {Field, formValueSelector, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import Button from 'components/ui/Button'
-import {IRootState, ITagCategoryType} from "types";
+import {IRootState, ITagCategoryType, SpeakerPriceCurrencyList, SpeakerPriceTypeList} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
-import {email, phone, required} from 'utils/validations'
+import {email, phone, required, speakerPriceFieldRequired} from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import AvatarInput from "components/ui/AvatarInput";
 import InputPhone from 'components/ui/Inputs/InputPhone'
@@ -17,6 +17,7 @@ import {useState} from 'react'
 import FilesUploadInput from 'components/ui/Inputs/FilesUploadInput'
 import ImagesUploadInput from 'components/ui/Inputs/ImagesUploadInput'
 import {formatPhone} from 'utils/formatters'
+import SelectInput from 'components/ui/Inputs/SelectInput'
 
 let SpeakerForm = props => {
   const router = useRouter()
@@ -73,7 +74,7 @@ let SpeakerForm = props => {
           </div>
         </div>
         <div className={styles.section}>
-          <div className={styles.title}>Описание</div>
+          <div className={styles.title}>Общая информация</div>
           <div className={styles.border}></div>
           <div className={styles.desc}>
             <div className={styles.twoColumns}>
@@ -117,23 +118,58 @@ let SpeakerForm = props => {
               component={Input}
               label="Юридической лицо (в 1С)"
             />
+            <div className={styles.textArea}>
+            <div className={styles.head__right}>Ценообразование</div>
+            <div className={styles.priceArea}>
+            <Field
+              name="priceType"
+              component={SelectInput}
+              placeholder="Тип цены"
+              validate={speakerPriceFieldRequired}
+              options={SpeakerPriceTypeList}
+
+            />
             <Field
               name="price"
               component={Input}
-              label="Стоимость"
+              className={styles.priceField}
+              type={'number'}
+              placeholder="Стоимость"
             />
+            <Field
+              name="currency"
+              component={SelectInput}
+              placeholder="Валюта"
+              validate={speakerPriceFieldRequired}
+              options={SpeakerPriceCurrencyList}
+
+            />
+            </div>
+            </div>
             <div className={styles.textArea}>
-              <div className={styles.head__right}>Краткое описание</div>
+              <div className={styles.head__right}>Должность / Проект/ Краткое описание деятельности</div>
               <Field
                 name="description"
                 component={TextArea}
-                label="Краткое описание"
+                label="Должность / Проект/ Краткое описание деятельности"
+              />
+              <div className={styles.head__right}>Награды / Регалии/ Принадлежность к бизнес-школам</div>
+              <Field
+                name="awards"
+                component={TextArea}
+                label="Награды / Регалии/ Принадлежность к бизнес-школам"
               />
               <div className={styles.head__right}>Биография</div>
               <Field
                 name="bio"
                 component={TextArea}
                 label="Биография"
+              />
+              <div className={styles.head__right}>Презентации / Книги/ Публикации</div>
+              <Field
+                name="publications"
+                component={TextArea}
+                label="Презентации / Книги/ Публикации"
               />
               <div className={styles.head__right}>Языки</div>
               <div className={cx(styles.twoColumns, styles.formField)}>
