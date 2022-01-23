@@ -215,3 +215,13 @@ export enum SortOrder{
     Asc = 'ASC',
     Desc = 'DESC'
 }
+export enum FileActionType {
+    Edit,
+    PublicLink,
+    Cut,
+    Paste,
+    Delete,
+    Restore,
+    DeleteForever,
+    Cancel
+}

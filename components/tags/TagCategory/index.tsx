@@ -3,7 +3,7 @@ import { useDetectOutsideClick } from "components/dashboard/TagSelect/useDetectO
 import Button from 'components/ui/Button'
 import ButtonDots from "components/ui/ButtonDots";
 import { useRef, useState } from 'react'
-import { ITag, ITagCategory } from "types";
+import {FileActionType, ITag, ITagCategory} from "types";
 import styles from './index.module.scss'
 import TagItem from './TagItem'
 import cx from 'classnames'
@@ -31,23 +31,34 @@ export default function TagCategory({ item, editMode, onTagClick, onTagEditClick
     const onClick = () => {
         setShowAll(show => !show)
     }
-    const handleEditClick = () => {
-        if(onEditClick){
-            onEditClick(item)
-        }
-    }
-    const handleDeleteClick = () => {
-        if(onDeleteClick){
-            onDeleteClick(item)
-        }
-    }
 
+    const actions = (() => {
+        let actions = [
+            {name: 'Редактировать', key: FileActionType.Edit},
+            {name: 'Удалить', key: FileActionType.Delete},
+        ];
+        return actions;
+    })()
+    const handleActionClick = (action: FileActionType) => {
+        switch (action) {
+            case FileActionType.Edit:
+                if(onEditClick){
+                    onEditClick(item)
+                }
+                break;
+            case FileActionType.Delete:
+                if (onDeleteClick) {
+                    onDeleteClick(item)
+                }
+                break;
+        }
+    }
 
     return (
         <div className={styles.root}>
             <div className={styles.head}>
                 {!props.hideHeader && <div className={styles.categoryText}>{item.name}</div>}
-                {editMode && <ButtonDots onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} showEdit={true} showDelete={true}/>}
+                {editMode && <ButtonDots  options={actions} onClick={handleActionClick}/>}
             </div>
             <div className={styles.clearfix}>
                 {(show ? item.tags : item.tags.slice(0, 3)).map(item =>

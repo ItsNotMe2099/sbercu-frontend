@@ -45,3 +45,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 /auth/password-forgot
 /auth/password-reset
 /auth/registration
+
+$2b$10$X6mBi5Xcc5NGdMf.YVJvWOafJCdW7kZfKEuxCLat5czZ8rBStby9S

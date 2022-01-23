@@ -24,11 +24,11 @@ import CreateFolder from "pages/catalog/components/CreateFolder";
 import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
 import React, { useCallback, useEffect, useState } from "react";
-import { IRootState } from "types";
+import {FileActionType, IRootState} from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
 import Link from "next/link";
 import { useRouter } from 'next/router'
@@ -48,6 +48,7 @@ import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import CatalogSortToolbar from 'components/CatalogSortToolbar'
 import CatalogActionsToolbar from 'components/CatalogActionsToolbar'
 import { toast } from "react-toastify";
+import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
 const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
@@ -96,27 +97,7 @@ const Catalog = (props) => {
     }
   }, [router.query.paths])
 
-  const handleRootEditClick = useCallback(() => {
 
-    console.log("EditClick", currentCatalogItem)
-    if(currentCatalogItem?.entryType === 'project'){
-      router.push(`/project/edit/${currentCatalogItem.id}`)
-    }else{
-      setCurrentEditCatalog(currentCatalogItem);
-      dispatch(createFolderOpen());
-    }
-  }, [currentCatalogItem])
-  const handleRootDeleteClick = () => {
-    dispatch(confirmOpen({
-      title: `Вы уверены, что хотите удалить ${currentCatalogItem?.entryType === 'project' ? 'Проект' : 'Папку'}?`,
-      description: currentCatalogItem.name,
-      confirmColor: 'red',
-      confirmText: 'Удалить',
-      onConfirm: () => {
-        dispatch(deleteCatalog(currentCatalogItem?.id));
-      }
-    }));
-  }
   const handleEditClick = useCallback((item) => {
     if(item.entryType === 'file') {
       setCurrentEditCatalog(item);
@@ -134,55 +115,6 @@ const Catalog = (props) => {
     }
   }, [currentCatalogItem])
 
-  const handleCopyClick = () => {
-    dispatch(catalogCopy(currentCatalogItem));
-  }
-
-  const handlePasteClick = () => {
-    try{
-      const copyItems = JSON.parse(localStorage.getItem('copyCatalog'));
-      const getTitle = () => {
-        if(copyItems.length === 1){
-          return `Вы уверены, что хотите переместить ${copyItems[0].entryType === 'file' ? 'файл' : 'папку'} ?`;
-        }else{
-          const folders = copyItems.filter(i => i.entryType === 'folder');
-          const files = copyItems.filter(i => i.entryType === 'file');
-          return `Вы уверены, что хотите переместить ${folders.length > 0 ? `${folders.length} ${pluralize(folders.length, 'папка', 'папки', 'папок')}` : ''} 
-          ${files.length > 0 ? `${files.length} ${pluralize(files.length, 'файл', 'файла', 'файлов')}` : ''} ?`;
-
-        }
-      }
-      const getDescription = () => {
-        if(copyItems.length === 1){
-          return `${copyItems[0].entryType === 'file' ? 'Файл' : 'Папка'} «${copyItems[0].name}» будет ${copyItems[0].entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`
-        }else{
-          const hasFolders = copyItems.filter(i => i.entryType === 'folder').length > 0;
-          const hasFiles = copyItems.filter(i => i.entryType === 'file').length > 0;
-          let titlePrefix = '';
-          if(hasFiles && hasFolders){
-            titlePrefix = 'Файлы и папки'
-          }else if(hasFolders){
-            titlePrefix = 'Папки'
-          }else if(hasFiles){
-            titlePrefix = 'Файлы'
-          }
-          return `${titlePrefix} будет ${copyItems[0].entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`
-
-        }
-      }
-      dispatch(confirmOpen({
-        title: getTitle(),
-        description: getDescription(),
-        confirmText: 'Переместить',
-        onConfirm: () => {
-          dispatch(catalogPaste(currentCatalogItem.id));
-        }
-      }));
-    }catch (e) {
-
-    }
-
-  }
 
   const handleCreateFolderClick = (item) => {
       setCurrentEditCatalog(null);
@@ -228,6 +160,63 @@ const Catalog = (props) => {
   const handleUnSelectAll = () => {
     setSelectedIds([]);
   }
+
+  const handleActionClick = (action: FileActionType) => {
+    switch (action) {
+      case FileActionType.Edit:
+        console.log("EditClick", currentCatalogItem)
+        if(currentCatalogItem?.entryType === 'project'){
+          router.push(`/project/edit/${currentCatalogItem.id}`)
+        }else{
+          setCurrentEditCatalog(currentCatalogItem);
+          dispatch(createFolderOpen());
+        }
+        break;
+      case FileActionType.PublicLink:
+
+        break;
+      case FileActionType.Cut:
+        dispatch(catalogCopy(currentCatalogItem));
+        break;
+      case FileActionType.Paste:
+        try{
+          const copyItems = JSON.parse(localStorage.getItem('copyCatalog'));
+
+          dispatch(confirmOpen({
+            title: getPasteFileTitle(copyItems),
+            description: getPasteFileDescription(copyItems, currentCatalogItem),
+            confirmText: 'Переместить',
+            onConfirm: () => {
+              dispatch(catalogPaste(currentCatalogItem.id));
+            }
+          }));
+        }catch (e) {
+
+        }
+        break;
+      case FileActionType.Delete:
+        dispatch(confirmOpen({
+          title: `Вы уверены, что хотите удалить ${currentCatalogItem?.entryType === 'project' ? 'Проект' : 'Папку'}?`,
+          description: currentCatalogItem.name,
+          confirmColor: 'red',
+          confirmText: 'Удалить',
+          onConfirm: () => {
+            dispatch(deleteCatalog(currentCatalogItem?.id));
+          }
+        }));
+        break;
+    }
+  }
+  const actions = (() => {
+    let actions = [
+      ...(currentCatalogItem?.canEdit ? [{name: 'Редактировать', key: FileActionType.Edit}] : []),
+      ...((currentCatalogItem?.canEdit && currentCatalogItem?.entryType !== 'project') ? [{name: 'Вырезать', key: FileActionType.Cut}] : []),
+      ...((currentCatalogItem?.canEdit && currentCatalogItem?.entryType !== 'file' && (typeof localStorage !== 'undefined' && localStorage.getItem('copyCatalog'))) ? [{name: 'Вставить', key: FileActionType.Paste}] : []),
+      ...(currentCatalogItem?.canEdit ? [{name: 'Удалить', key: FileActionType.Delete}] : []),
+    ];
+    return actions;
+
+  })()
   console.log("ModalKey", modalKey)
   return (
     <Layout>
@@ -243,7 +232,8 @@ const Catalog = (props) => {
           <FavoriteCatalogButton item={currentCatalogItem} style={'video'}/>
         </div>}
         <div className={styles.image}>
-          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showEdit={true} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} showPaste={true} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
+          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots
+              options={actions} onClick={handleActionClick}/>}
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
@@ -263,14 +253,13 @@ const Catalog = (props) => {
       >
       <div className={styles.files}>
         {items.map(item => (<File
-            showFavorite={true}
             isSelected={selectedIds.includes(item.id)}
             onSelect={(check) => handleSelect(item.id, check)}
             userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             onPublicLinkClick={handlePublicLinkClick}
-            basePath={basePath}
+            showType={FileShowType.Catalog}
             canEdit={currentCatalogItem?.canEdit}
             item={item}
         />))}

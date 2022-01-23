@@ -20,12 +20,13 @@ import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
 import { useDispatch, useSelector } from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 import {useRouter} from "next/router";
+import * as React from 'react'
 const queryString = require('query-string')
 
 const Dashboard = (props) => {
@@ -199,9 +200,8 @@ const Dashboard = (props) => {
               {(showFiles ? files : files.slice(0, 5)).map(item => (<File
                   onEditClick={handleEditClick}
                   onDeleteClick={handleDeleteClick}
-                  showFavorite={true}
-                  canEdit={false}
-                  basePath={''}
+                  showType={FileShowType.MyFiles}
+                  canEdit={true}
                   item={item}
               />))}
 

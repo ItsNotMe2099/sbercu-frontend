@@ -1,19 +1,18 @@
-import { fetchCatalogProjects, fetchMyUploadedFiles, resetCatalogList } from "components/catalog/actions";
+import {fetchMyUploadedFiles, resetCatalogList} from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, editFileOpen, modalClose } from "components/Modal/actions";
-import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import {confirmOpen, editFileOpen, modalClose} from "components/Modal/actions";
 import FileEditModal from "components/FileEditModal";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState } from "types";
+import {IRootState} from "types";
 import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Quantity from "pages/dashboard/components";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import { useDispatch, useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 const Profile = (props) => {
   const user = props.user;
@@ -151,8 +150,8 @@ const Profile = (props) => {
             {(showFiles ? files : files.slice(0, 5)).map(item => (<File
                 onEditClick={handleEditClick}
                 onDeleteClick={handleDeleteClick}
-                canEdit={false}
-                basePath={''}
+                showType={FileShowType.MyFiles}
+                canEdit={true}
                 item={item}
             />))}
 

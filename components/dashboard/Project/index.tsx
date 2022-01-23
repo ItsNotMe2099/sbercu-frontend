@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {ICatalogEntry} from "types";
+import {FileActionType, ICatalogEntry} from "types";
 import styles from './index.module.scss'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import React from 'react'
@@ -13,33 +13,32 @@ interface Props {
 
 export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
 
-  const getColorByType = (type) => {
-    switch (type) {
-      case 'black':
-        return '#333333'
-      case 'red':
-        return '#EB5757'
-      case 'yellow':
-        return '#F2C94C'
-      case 'blue':
-      default:
-        return '#2D9CDB'
-    }
-
-  }
-  const handleDeleteClick = () => {
-    if (onDeleteClick) {
-      onDeleteClick(item)
-    }
-  }
-  const handleRestoreClick = () => {
-    if (onRestoreClick) {
-      onRestoreClick(item)
-    }
-  }
   const noop = (e) => {
     e.preventDefault();
     e.stopPropagation();
+  }
+  const actions = (() => {
+    let actions = [
+      {name: 'Восстановить', key: FileActionType.Restore},
+      {name: 'Удалить  навсегда', key: FileActionType.DeleteForever},
+    ];
+
+    return actions;
+
+  })()
+  const handleActionClick = (action: FileActionType) => {
+    switch (action) {
+      case FileActionType.Restore:
+        if (onRestoreClick) {
+          onRestoreClick(item)
+        }
+        break;
+      case FileActionType.DeleteForever:
+        if (onDeleteClick) {
+          onDeleteClick(item)
+        }
+        break;
+    }
   }
 
   return (
@@ -55,9 +54,8 @@ export default function Project({item, onDeleteClick, onRestoreClick}: Props) {
             {!item.deletedAt && <div className={cx(styles.favorite, {[styles.noFavorite]: !item.inFavorites})}><FavoriteCatalogButton item={item} style={'project'}/></div>}
             {item.deletedAt && <div className={styles.dots}><ButtonDots
                 style={'white'}
-                showBasketActions={true}
-                onRestoreClick={handleRestoreClick}
-                onDeleteBasketClick={handleDeleteClick}
+              options={actions}
+                onClick={handleActionClick}
             /></div>}
           </div>
           <div className={styles.title}>{item.name}</div>

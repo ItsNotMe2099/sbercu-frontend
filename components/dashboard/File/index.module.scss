@@ -88,7 +88,10 @@
     width: 2%;
   }
   @media screen and (max-width: $sm-max) {
-    margin: auto 8px auto auto;
+    margin: 0 8px 0 0;
+  }
+  img{
+    vertical-align: middle;
   }
 }
 
