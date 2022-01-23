@@ -194,7 +194,7 @@ const Search = (props) => {
                 <NoFiles/>}
                 { (filesTotal > 0 || projectsTotal > 0 || foldersTotal > 0 || speakersTotal > 0) &&
                   <div
-                    className={styles.titleSearch}>{projectsTotal + filesTotal} {pluralize(projectsTotal + filesTotal, 'результат', 'результата', 'результатов')} поиска
+                    className={styles.titleSearch}>{projectsTotal + filesTotal + foldersTotal + speakersTotal} {pluralize(projectsTotal + filesTotal + foldersTotal + speakersTotal, 'результат', 'результата', 'результатов')} поиска
                     «{query}»
                   </div>}
                 {isInit && <TagSelect items={tagCategories} selectedTags={tags} onChangeSelectedTags={handleTagChangeTags}/>}
@@ -238,7 +238,6 @@ const Search = (props) => {
                           quantity={speakersTotal}
                         />
                         </div>
-                        <Link href={'/speakers'}><a className={styles.speakersAllLink}>Перейти в раздел</a></Link>
                     </div>
                     <InfiniteScroll
                       dataLength={projects.length}
