@@ -29,15 +29,16 @@
     }
     .like{
       &.noLike{
-        display: block;
+        visibility: visible;
       }
     }
   }
 }
 
 .like{
+
   &.noLike{
-    display: none;
+    visibility: hidden;
   }
 }
 
