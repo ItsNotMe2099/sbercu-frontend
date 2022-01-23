@@ -1,0 +1,109 @@
+@import "../../scss/index";
+
+.root{
+  position: relative;
+  @media screen and (min-width: $container-lg) {
+    width: $container-lg;
+    margin: 0 auto 50px;
+  }
+  @media screen and (max-width: $container-lg) {
+    padding: 0px 22px;
+  }
+  margin-bottom: 0px;
+
+}
+
+.white{
+  background-color: #fff;
+}
+
+.title{
+  font-size: 24px;
+  color: #000;
+  @media screen and (max-width: $sm-max) {
+
+    font-weight: bold;
+  }
+}
+
+.content{
+  margin-top: 23px;
+  display: flex;
+
+}
+
+.tags{
+  margin-left: 22px;
+  width: 30%;
+  @media screen and (max-width: $sm-max) {
+    display: none;
+  }
+  &__mobile{
+    display: none;
+    @media screen and (max-width: $sm-max) {
+      display: block;
+      margin-top: 40px;
+    }
+  }
+}
+
+
+.regularBtn{
+}
+
+.loading{
+  display: flex;
+  background: #E0E0E0;
+  border-radius: 5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: 416px;
+  @media screen and (max-width: $sm-max) {
+    min-height: 230px;
+  }
+}
+
+.wait{
+  padding: 20px 85px;
+  background: #fff;
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  @media screen and (max-width: $sm-max) {
+    padding: 20px 65px;
+  }
+
+
+  display: flex;
+  align-items: center;
+  .inner{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .waitImage{
+    display: flex;
+  }
+
+  .bottom{
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 17px;
+  }
+
+  .clock{
+    height: 62px;
+  }
+}
+
+
+.videoWrapper{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  div{
+    &:active{
+      outline: none;
+    }
+  }
+}

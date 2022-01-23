@@ -244,6 +244,7 @@ export default function File({
       return `/audio/${item.id}`;
     }
     if (item.entryType === 'file') {
+      return `/file/${item.id}`;
       return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
     }
 
