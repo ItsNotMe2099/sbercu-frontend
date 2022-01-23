@@ -211,6 +211,7 @@ const Search = (props) => {
                       dataLength={projects.length}
                       next={handleScrollNextProjects}
                       loader={<div></div>}
+                      style={{overflow: "inherit"}}
                       hasMore={showProjects && projectsTotal !== projects.length}
                       className={styles.scroll}
                     >
@@ -243,6 +244,7 @@ const Search = (props) => {
                       dataLength={projects.length}
                       next={handleScrollNextSpeakers}
                       loader={<div></div>}
+                      style={{overflow: "inherit"}}
                       hasMore={showSpeakers && speakersTotal !== speakers.length}
                       className={styles.scroll}
                     >
