@@ -146,7 +146,7 @@ export default function File({
       return '/img/icons/folder.svg'
     }
     if(type === 'video'){
-      return  (item.media && (!item.media.videoConverted || item.media.videoCutting)) ? '/img/icons/video_disabled.svg' : '/img/icons/camera.svg'
+      return '/img/icons/file_types/mp4.svg'
     }
     const ext = fileName?.split('.')?.pop() || '';
 

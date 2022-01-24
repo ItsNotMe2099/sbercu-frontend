@@ -17,16 +17,7 @@ interface Props {
 
 export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
 
-    const handleCancelClick = () => {
-        if (onCancelClick) {
-            onCancelClick(job)
-        }
-    }
-    const handleDeleteClick = () => {
-        if (onDeleteClick) {
-            onDeleteClick(job)
-        }
-    }
+
     const getTypeName = (type) => {
         switch (type) {
             case 'converting':
@@ -39,7 +30,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
     const actions = (() => {
         let actions = [
         ...(['started'].includes(job.state) ? [{name: 'Редактировать', key: FileActionType.Restore}] : []) ,
-            ...(['pending', 'canceled'].includes(job.state) ? [{name: 'Удалить ', key: FileActionType.Delete}] : []),
+            ...(['started', 'pending', 'canceled'].includes(job.state) ? [{name: 'Удалить ', key: FileActionType.Delete}] : []),
         ];
 
         return actions;
