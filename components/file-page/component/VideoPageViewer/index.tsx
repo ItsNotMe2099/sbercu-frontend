@@ -30,6 +30,7 @@ export default function VideoPageViewer(props: Props){
   const getDefaultSource = () => {
     const path = item.media?.fileName;
 
+    return 'https://media.sberbank-school.ru/media-link/public/RZMjZ9pQOor6Y1O8FK0bFAjEtgSOpv2Vx5nUszNFBP1_QgCMrKSax_ifmuqCCCh25g==';
     const qualityItem = item.media?.videoElements?.find(el => el.quality === '1080p') || item.media?.videoElements[item.media?.videoElements?.length - 1];
     const quality = qualityItem?.quality;
     return qualityItem && quality ? `${getMediaPathWithQuality(path, quality)}&duration=${qualityItem.duration}` : getMediaPath(path)
@@ -39,9 +40,9 @@ export default function VideoPageViewer(props: Props){
     <Player
       isAudio={isAudio}
       poster={getMediaPath(item.poster)}
-      sources={item.media?.videoElements?.map(el => ({
+      sources={item.media?.videoElements?.map((el,i) => ({
         label: el.quality,
-        value: `${getMediaPathWithQuality(item.media.fileName, el.quality)}&duration=${el.duration}`
+        value: i < 2 ? 'https://media.sberbank-school.ru/media-link/public/RZMjZ9pQOoqta1e-EftMFA3HtQzdpqnEkZPTsDRAUfwuEwPb_PqfwPifmuqCCCh25g==' : 'https://media.sberbank-school.ru/media-link/public/RZMjZ9pQOor6Y1O8FK0bFAjEtgSOpv2Vx5nUszNFBP1_QgCMrKSax_ifmuqCCCh25g=='// `${getMediaPathWithQuality(item.media.fileName, el.quality)}&duration=${el.duration}`
       })) || []}
       getViewHistory={loadVideoViewHistory}
       onChangeProgress={handleProgressChange}
