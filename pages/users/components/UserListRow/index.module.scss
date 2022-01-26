@@ -14,6 +14,10 @@
       padding-bottom: 10px;
     }
   }
+  &:hover{
+    background: rgba(155, 81, 224, 0.1);
+
+  }
 }
 .cell{
   display: table-cell;
@@ -23,12 +27,20 @@
   position: relative;
   vertical-align: middle;
   position: relative;
+  &.cellUser{
+    padding-left: 12px;
+    .inner{
+      display: flex;
+      flex-direction: column;
+    }
+    .role{
+      margin-top: 3px;
+    }
+  }
 }
 .role{
-  position: absolute;
-  bottom: 8px;
   font-size: 10px;
-  left: 0px;
+
   color: #bdbdbd;
 }
 .registeredAt{
@@ -41,6 +53,7 @@
 }
 .editCell{
   padding: 0px;
+  padding-right: 13px;
   width: 38px;
   @media screen and (max-width: $sm-max) {
     width: auto;

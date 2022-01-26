@@ -79,6 +79,10 @@
   cursor: pointer;
   img{
     vertical-align: middle;
+    margin-top: -2.0px;
+  }
+  &.fio{
+    padding-left: 13px;
   }
 }
 .tagBtn{

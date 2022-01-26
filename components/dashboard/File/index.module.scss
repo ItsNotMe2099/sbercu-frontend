@@ -5,19 +5,40 @@
     border-top: 1px solid #e0e0e0;
   }
   display: flex;
-  padding-top: 13px;
-  padding-bottom: 8px;
+  padding: 7px 13px;
   align-items: center;
-
+  text-decoration: none;
+  border-top: 1px solid #E0E0E0;;
   &.withDots{
     .like{
-      margin-right: 20px;
+      margin-left: 20px;
     }
   }
   &.deleted{
-    .inner{
       cursor: inherit;
+
+  }
+  &.isChecked{
+    background: rgba(155, 81, 224, 0.1);
+  }
+  &:hover{
+    background: rgba(155, 81, 224, 0.1);
+
+    .checkbox{
+      display: block;
     }
+    .like{
+      &.noLike{
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.like{
+
+  &.noLike{
+    visibility: hidden;
   }
 }
 
@@ -30,10 +51,10 @@
     margin: auto;
   }
 }
-
 .title{
   font-size: 14px;
   color: black;
+  word-break: break-all;
   @media screen and (max-width: $sm-max) {
     font-size: 10px;
   }
@@ -61,18 +82,17 @@
     font-size: 10px;
   }
 }
-.encoding{
-  color: #828282;
-  font-size: 10px;
-  margin-right: 27px;
-}
+
 .image{
   margin: auto 22px auto 0;
   @media screen and (min-width: $container-lg) {
     width: 2%;
   }
   @media screen and (max-width: $sm-max) {
-    margin: auto 8px auto auto;
+    margin: 0 8px 0 0;
+  }
+  img{
+    vertical-align: middle;
   }
 }
 
@@ -87,33 +107,6 @@
   }
 }
 
-.dots{
-  position: relative;
-  cursor: pointer;
-  width: 36px;
-  display: flex;
-    svg{
-      fill: #828282;
-      margin: auto;
-    }
-  &:hover{
-    border: 1px solid #2F80ED;
-    border-radius: 5px;
-      svg{
-        fill: #2F80ED;
-      }
-  }
-  &:active{
-    border: 2px solid #2F80ED;
-    border-radius: 5px;
-      svg{
-        fill: #2F80ED;
-    }
-  }
-  @media screen and (max-width: $sm-max) {
-    display: none;
-  }
-}
 
 .additional{
   display: flex;
@@ -147,7 +140,7 @@
 
 
 .jobInfo{
-  margin-right: 20px;
+  margin-left: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -195,5 +188,15 @@
   margin-top: 5px !important;
   a{
     color: #828282;
+  }
+}
+.dots{
+  margin-left: 20px;
+}
+.checkbox{
+  display: none;
+  margin-left: 20px;
+  &.isChecked{
+    display: block;
   }
 }

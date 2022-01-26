@@ -51,6 +51,7 @@
 .projects{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 2rem;
   @media screen and (max-width: $sm-mid) {
     display: grid;
     grid-template-columns: 1fr 1fr;

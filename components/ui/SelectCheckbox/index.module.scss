@@ -1,0 +1,26 @@
+@import "scss/index";
+
+.root{
+  position: relative;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  &.checked{
+    &:hover{
+      svg{
+        path{
+          fill: #828282;
+        }
+      }
+    }
+  }
+  &:hover{
+    svg{
+      path{
+        fill: black;
+      }
+    }
+  }
+
+}
+

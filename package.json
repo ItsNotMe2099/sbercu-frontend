@@ -47,6 +47,7 @@
     "react-redux": "^7.2.1",
     "react-s3-uploader": "^5.0.0",
     "react-text-ellipsis": "^1.6.0",
+    "react-toastify": "^8.1.0",
     "react-useinterval": "^1.0.2",
     "recompose": "^0.30.0",
     "redux": "^4.0.5",

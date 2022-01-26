@@ -1,13 +1,14 @@
 import ButtonDots from "components/ui/ButtonDots";
 import {format} from "date-fns";
-import {IJob, IUser} from "types";
+import {FileActionType, IJob, IUser} from "types";
 import styles from './index.module.scss'
-import {formatJobDuration, formatJobStatusName, formatSize} from "utils/formatters";
+import {formatJobDuration, formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
 import {Circle} from "rc-progress";
 import React from "react";
 import Cross from "components/svg/Cross";
 import Dots from "components/svg/Dots";
 import Link from "next/link";
+import cx from 'classnames'
 interface Props {
     job: IJob
     onCancelClick?: (item: IJob) => void
@@ -16,16 +17,7 @@ interface Props {
 
 export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
 
-    const handleCancelClick = () => {
-        if (onCancelClick) {
-            onCancelClick(job)
-        }
-    }
-    const handleDeleteClick = () => {
-        if (onDeleteClick) {
-            onDeleteClick(job)
-        }
-    }
+
     const getTypeName = (type) => {
         switch (type) {
             case 'converting':
@@ -35,10 +27,35 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
         }
     }
 
+    const actions = (() => {
+        let actions = [
+        ...(['started'].includes(job.state) ? [{name: 'Редактировать', key: FileActionType.Restore}] : []) ,
+            ...(['started', 'pending', 'canceled'].includes(job.state) ? [{name: 'Удалить ', key: FileActionType.Delete}] : []),
+        ];
+
+        return actions;
+
+    })()
+
+    const handleActionClick = (action: FileActionType) => {
+        switch (action) {
+            case FileActionType.Cancel:
+                if (onCancelClick) {
+                    onCancelClick(job)
+                }
+                break;
+            case FileActionType.Delete:
+                if (onDeleteClick) {
+                    onDeleteClick(job)
+                }
+                break;
+        }
+    }
+
     return (
         <>
             <div className={styles.root}>
-                <div className={`${styles.cell}`}>{job.id}</div>
+                <div className={cx(styles.cell, styles.cellId)}>{job.id}</div>
                 <div className={`${styles.cell} ${styles.cellFileInfo}`}>
                     {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}
 
@@ -63,6 +80,11 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                             <div className={styles.separator}></div>
                             {job.codecInfo?.duration &&
                             <div className={styles.greyText}>{formatJobDuration(job.codecInfo?.duration)}</div>}
+                            {job?.estimatedTimeInSeconds > 0 && <>
+                                <div className={styles.separator}></div>
+                                <div className={styles.estimate}>
+                                Осталось: ~{formatSeconds(job?.estimatedTimeInSeconds)}
+                            </div></>}
                         </div>
                     </div>
                 </div>
@@ -74,14 +96,16 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                 <div className={`${styles.cell}`}></div>
 
                 <div className={`${styles.cell} ${styles.editCell}`}>
-                    {['pending', 'canceled', 'started'].includes(job.state) &&<ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showEdit={false} showDelete={['pending', 'canceled'].includes(job.state)} showCopy={false} />}
+                    {actions.length > 0 && <ButtonDots
+                      options={actions} onClick={handleActionClick} />}
                 </div>
             </div>
             <div className={styles.root__mobile}>
                 <div className={styles.row}>
                     <div className={styles.name}>{job.id}</div>
                     <div className={`${styles.editCell}`}>
-                        {['pending', 'canceled', 'started'].includes(job.state) && <ButtonDots onDeleteClick={handleDeleteClick} onCancelClick={handleCancelClick} showCancel={['started'].includes(job.state)} showPaste={false} showDelete={['pending', 'canceled'].includes(job.state)} showEdit={false} showCopy={false} />}
+                        {actions.length > 0 && <ButtonDots
+                          options={actions} onClick={handleActionClick} />}
                     </div>
                 </div>
                 <div className={styles.row}>

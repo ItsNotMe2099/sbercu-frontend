@@ -205,3 +205,23 @@ export interface VideoViewHistory{
     volume: number
     rate: number
 }
+
+export enum CatalogSortField{
+    Name = 'name',
+    Type = 'mediaType',
+    CreatedAt = 'createdAt'
+}
+export enum SortOrder{
+    Asc = 'ASC',
+    Desc = 'DESC'
+}
+export enum FileActionType {
+    Edit,
+    PublicLink,
+    Cut,
+    Paste,
+    Delete,
+    Restore,
+    DeleteForever,
+    Cancel
+}

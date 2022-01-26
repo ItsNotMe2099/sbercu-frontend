@@ -112,3 +112,18 @@
     }
   }
 }
+.mobile{
+  display: none;
+  @media screen and (max-width: $sm-mid) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.notMobile{
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: $sm-mid) {
+    display: none;
+  }
+}

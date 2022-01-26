@@ -23,6 +23,7 @@ export interface CatalogState {
     isSubmitting?: boolean
     filesFromDropZone: File[],
     updateIds: number[]
+    selectedIds?: number[]
 }
 
 const initialState: CatalogState = {
@@ -39,7 +40,8 @@ const initialState: CatalogState = {
     page: 1,
     listTotal: 0,
     filesFromDropZone: [],
-    updateIds: []
+    updateIds: [],
+    selectedIds: []
 }
 
 export default function CatalogReducer(state = { ...initialState }, action) {
@@ -174,6 +176,7 @@ export default function CatalogReducer(state = { ...initialState }, action) {
 
             console.log("RESET")
             if (!action.payload?.shallow) {
+                state.selectedIds = [];
                 state.list = []
                 state.listTotal = 0
                 state.projects = [];
@@ -188,7 +191,9 @@ export default function CatalogReducer(state = { ...initialState }, action) {
             break;
 
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST:
-            state.currentLoading = true;
+            if(!action.payload.shallow) {
+                state.currentLoading = true;
+            }
             break
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
             let path = '/catalog'

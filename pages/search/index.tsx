@@ -21,7 +21,7 @@ import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
 import { useDispatch, useSelector } from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
@@ -116,7 +116,7 @@ const Search = (props) => {
     }
 
     const handleShowFolders = () => {
-        if(showFiles){
+        if(showFolders){
             setShowAllFolders(false)
         }else{
             setShowAllFolders(true)
@@ -214,11 +214,7 @@ const Search = (props) => {
                           className={styles.scroll}
                         >
                             {(showFolders ? folders : folders.slice(0, 5)).map(item => (<File
-                              onEditClick={handleEditClick}
-                              onDeleteClick={handleDeleteClick}
-                              canEdit={false}
-                              additionalInfo={false}
-                              basePath={''}
+                              showType={FileShowType.Search}
                               item={item}
                             />))}
 
@@ -249,11 +245,7 @@ const Search = (props) => {
                           className={styles.scroll}
                         >
                             {(showFiles ? files : files.slice(0, 5)).map(item => (<File
-                              onEditClick={handleEditClick}
-                              onDeleteClick={handleDeleteClick}
-                              canEdit={false}
-                              additionalInfo={false}
-                              basePath={''}
+                              showType={FileShowType.Search}
                               item={item}
                             />))}
 

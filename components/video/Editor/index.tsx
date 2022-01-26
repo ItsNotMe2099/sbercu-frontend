@@ -118,7 +118,6 @@ export default function VideoEditor(props: Props) {
 
 
     const handleProgress = state => {
-        console.log("handleProgress", state)
         setPlayed(state.played);
         setLoaded(state.loaded);
     }

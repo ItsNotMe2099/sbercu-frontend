@@ -23,12 +23,12 @@ import ButtonDots from "components/ui/ButtonDots";
 import CreateFolder from "pages/catalog/components/CreateFolder";
 import FileEditModal from "components/FileEditModal";
 import UserModal from "pages/users/components/UserModal";
-import { useCallback, useEffect, useState } from "react";
-import { IRootState } from "types";
+import React, { useCallback, useEffect, useState } from "react";
+import {FileActionType, IRootState} from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
 import Link from "next/link";
 import { useRouter } from 'next/router'
@@ -44,7 +44,10 @@ import MediaLinkPublicModal from 'components/MediaLinkPublicModal'
 import request from 'utils/request'
 import useInterval from 'react-useinterval'
 import {fetchJobListByIds} from 'components/jobs/actions'
-
+import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
+import CatalogSortToolbar from 'components/CatalogSortToolbar'
+import CatalogActionsToolbar from 'components/CatalogActionsToolbar'
+import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
 const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
@@ -60,6 +63,10 @@ const Catalog = (props) => {
   const paths = router.query.paths as string[] || []
   const filesFromDropZone = useSelector((state: IRootState) => state.catalog.filesFromDropZone)
   const updateIds = useSelector((state: IRootState) => state.catalog.updateIds)
+
+  const [sortField, setSortField] = useState(null)
+  const [sortOrder, setSortOrder] = useState(null)
+  const [selectedIds, setSelectedIds] = useState([])
   useInterval(() => {
     if(updateIds.length > 0){
       const id = paths[paths.length - 1]
@@ -72,7 +79,7 @@ const Catalog = (props) => {
     const newPage = page + 1;
     dispatch(setCatalogPage(newPage))
     console.log("PAGE", page)
-    dispatch(fetchCatalogList(id, newPage, 30))
+    dispatch(fetchCatalogList(id, newPage, 30, sortField, sortOrder))
   }
 
   useEffect(() => {
@@ -89,27 +96,7 @@ const Catalog = (props) => {
     }
   }, [router.query.paths])
 
-  const handleRootEditClick = useCallback(() => {
 
-    console.log("EditClick", currentCatalogItem)
-    if(currentCatalogItem?.entryType === 'project'){
-      router.push(`/project/edit/${currentCatalogItem.id}`)
-    }else{
-      setCurrentEditCatalog(currentCatalogItem);
-      dispatch(createFolderOpen());
-    }
-  }, [currentCatalogItem])
-  const handleRootDeleteClick = () => {
-    dispatch(confirmOpen({
-      title: `Вы уверены, что хотите удалить ${currentCatalogItem?.entryType === 'project' ? 'Проект' : 'Папку'}?`,
-      description: currentCatalogItem.name,
-      confirmColor: 'red',
-      confirmText: 'Удалить',
-      onConfirm: () => {
-        dispatch(deleteCatalog(currentCatalogItem?.id));
-      }
-    }));
-  }
   const handleEditClick = useCallback((item) => {
     if(item.entryType === 'file') {
       setCurrentEditCatalog(item);
@@ -127,26 +114,6 @@ const Catalog = (props) => {
     }
   }, [currentCatalogItem])
 
-  const handleCopyClick = () => {
-    dispatch(catalogCopy(currentCatalogItem));
-  }
-
-  const handlePasteClick = () => {
-    try{
-      const copyItem = JSON.parse(localStorage.getItem('copyCatalog'));
-      dispatch(confirmOpen({
-        title: `Вы уверены, что хотите переместить ${copyItem.entryType === 'file' ? 'файл' : 'папку'} ?`,
-        description: `${copyItem.entryType === 'file' ? 'Файл' : 'Папка'} «${copyItem.name}» будет ${copyItem.entryType === 'file' ? 'перемещен' : 'перемещена'} в ${currentCatalogItem.entryType === 'project' ? 'проект' : 'папку'} «${currentCatalogItem.name}»`,
-        confirmText: 'Переместить',
-        onConfirm: () => {
-          dispatch(catalogPaste(currentCatalogItem.id));
-        }
-      }));
-    }catch (e) {
-
-    }
-
-  }
 
   const handleCreateFolderClick = (item) => {
       setCurrentEditCatalog(null);
@@ -174,6 +141,81 @@ const Catalog = (props) => {
   const handleUploadFiles = () => {
     dispatch(uploadFilesModalOpen())
   }
+  const handleChangeSort = (sortField, sortOrder) => {
+    const id = paths[paths.length - 1]
+    setSortField(sortField);
+    setSortOrder(sortOrder);
+    dispatch(resetCatalogList())
+    dispatch(fetchCatalogList(id, 1, 30, sortField, sortOrder))
+  }
+  const handleSelect = (id, check) => {
+    if(selectedIds.includes(id)){
+      setSelectedIds(selectedIds.filter(i => i !== id));
+    }else{
+      setSelectedIds([...selectedIds, id]);
+
+    }
+  }
+  const handleUnSelectAll = () => {
+    setSelectedIds([]);
+  }
+
+  const handleActionClick = (action: FileActionType) => {
+    switch (action) {
+      case FileActionType.Edit:
+        console.log("EditClick", currentCatalogItem)
+        if(currentCatalogItem?.entryType === 'project'){
+          router.push(`/project/edit/${currentCatalogItem.id}`)
+        }else{
+          setCurrentEditCatalog(currentCatalogItem);
+          dispatch(createFolderOpen());
+        }
+        break;
+      case FileActionType.PublicLink:
+
+        break;
+      case FileActionType.Cut:
+        dispatch(catalogCopy(currentCatalogItem));
+        break;
+      case FileActionType.Paste:
+        try{
+          const copyItems = JSON.parse(localStorage.getItem('copyCatalog'));
+
+          dispatch(confirmOpen({
+            title: getPasteFileTitle(copyItems),
+            description: getPasteFileDescription(copyItems, currentCatalogItem),
+            confirmText: 'Переместить',
+            onConfirm: () => {
+              dispatch(catalogPaste(currentCatalogItem.id));
+            }
+          }));
+        }catch (e) {
+
+        }
+        break;
+      case FileActionType.Delete:
+        dispatch(confirmOpen({
+          title: `Вы уверены, что хотите удалить ${currentCatalogItem?.entryType === 'project' ? 'Проект' : 'Папку'}?`,
+          description: currentCatalogItem.name,
+          confirmColor: 'red',
+          confirmText: 'Удалить',
+          onConfirm: () => {
+            dispatch(deleteCatalog(currentCatalogItem?.id));
+          }
+        }));
+        break;
+    }
+  }
+  const actions = (() => {
+    let actions = [
+      ...(currentCatalogItem?.canEdit ? [{name: 'Редактировать', key: FileActionType.Edit}] : []),
+      ...((currentCatalogItem?.canEdit && currentCatalogItem?.entryType !== 'project') ? [{name: 'Вырезать', key: FileActionType.Cut}] : []),
+      ...((currentCatalogItem?.canEdit && currentCatalogItem?.entryType !== 'file' && (typeof localStorage !== 'undefined' && localStorage.getItem('copyCatalog'))) ? [{name: 'Вставить', key: FileActionType.Paste}] : []),
+      ...(currentCatalogItem?.canEdit ? [{name: 'Удалить', key: FileActionType.Delete}] : []),
+    ];
+    return actions;
+
+  })()
   console.log("ModalKey", modalKey)
   return (
     <Layout>
@@ -185,12 +227,20 @@ const Catalog = (props) => {
     <div className={styles.root}>
       <div className={styles.head}>
       <div className={styles.title}>{currentCatalogItem?.name}</div>
+        {currentCatalogItem && <div className={styles.favorite}>
+          <FavoriteCatalogButton item={currentCatalogItem} style={'video'}/>
+        </div>}
         <div className={styles.image}>
-          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots showDelete={props.user?.role === 'admin'} showEdit={true} showCopy={currentCatalogItem.entryType !== 'project'} onCopyClick={handleCopyClick} onPasteClick={handlePasteClick} showPaste={true} onEditClick={handleRootEditClick} onDeleteClick={handleRootDeleteClick}/>}
+          {currentCatalogItem && currentCatalogItem.canEdit && <ButtonDots
+              options={actions} onClick={handleActionClick}/>}
         </div>
       </div>
       <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
-      {items.length > 0  &&  <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>}
+      {items.length > 0  &&
+      <div className={styles.toolbar}>
+          <div className={styles.duration}>{totalItems} {pluralize(totalItems, 'материал', 'материала', 'материалов')}</div>
+        {selectedIds.length > 0 ? <CatalogActionsToolbar selectedIds={selectedIds} onUnSelectAll={handleUnSelectAll}/> : <CatalogSortToolbar sortOrder={sortOrder} sortField={sortField} onChange={handleChangeSort}/>}
+      </div>}
       {items.length > 0 ?
       <InfiniteScroll
       dataLength={items.length}
@@ -202,12 +252,13 @@ const Catalog = (props) => {
       >
       <div className={styles.files}>
         {items.map(item => (<File
-            showFavorite={true}
+            isSelected={selectedIds.includes(item.id)}
+            onSelect={(check) => handleSelect(item.id, check)}
             userRole={props.user?.role}
             onEditClick={handleEditClick}
             onDeleteClick={handleDeleteClick}
             onPublicLinkClick={handlePublicLinkClick}
-            basePath={basePath}
+            showType={FileShowType.Catalog}
             canEdit={currentCatalogItem?.canEdit}
             item={item}
         />))}

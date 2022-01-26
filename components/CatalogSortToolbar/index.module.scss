@@ -1,0 +1,42 @@
+@import "../../scss/index";
+
+.root{
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: $sm-mid) {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.button{
+  cursor: pointer;
+  &:hover{
+    color: black;
+    svg{
+      path{
+        fill: black;
+      }
+    }
+  }
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #828282;
+  margin-left: 32px;
+  &:first-of-type{
+    margin-left: 0px;
+  }
+  .order{
+    margin-left: 3px;
+  }
+
+  @media screen and (max-width: $sm-mid) {
+    flex: 1;
+    margin-left: 0px;
+    text-align: center;
+    .name{
+      width: 100%;
+    }
+  }
+}

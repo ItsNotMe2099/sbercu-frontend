@@ -9,7 +9,7 @@ import {
   resetAutoCompleteCatalogSearch
 } from "components/search/actions";
 import { IRootState } from "types";
-import File from 'components/dashboard/File';
+import File, {FileShowType} from 'components/dashboard/File';
 import Link from 'next/link';
 import SearchSuggestionLoader from 'components/ContentLoaders/searchSuggestionLoader';
 
@@ -108,9 +108,7 @@ export default function InputCatalogSearch(props: Props) {
                 <div className={styles.title}>Папки</div>
                 <div className={styles.wrapper}>{folders.map(file => (<File
                   onClick={handleFileClick}
-                  canEdit={false}
-                  additionalInfo={false}
-                  showFavorite={false}
+                  showType={FileShowType.SearchAutocomplete}
                   item={file}
                 />))}</div>
               </div>}
@@ -119,9 +117,8 @@ export default function InputCatalogSearch(props: Props) {
                 <div className={styles.title}>Файлы</div>
                 <div className={styles.wrapper}>{files.map(file => (<File
                   onClick={handleFileClick}
-                  canEdit={false}
-                  additionalInfo={false}
                   item={file}
+                  showType={FileShowType.SearchAutocomplete}
                 />))}</div>
               </div>}
               </div>

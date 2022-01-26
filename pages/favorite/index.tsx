@@ -21,12 +21,13 @@ import styles from './index.module.scss'
 import { TagSelect } from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
-import File from "components/dashboard/File";
+import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
 import { useDispatch, useSelector } from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 import NoFavorite from 'pages/favorite/components/NoFavorite'
+import * as React from 'react'
 
 
 const FavoritePage = (props) => {
@@ -214,10 +215,7 @@ const FavoritePage = (props) => {
                             {(showFolders ? folders : folders.slice(0, 5)).map(item => (<File
                               onEditClick={handleEditClick}
                               onDeleteClick={handleDeleteClick}
-                              canEdit={false}
-                              showFavorite={true}
-                              additionalInfo={false}
-                              basePath={''}
+                              showType={FileShowType.Favorite}
                               item={item}
                             />))}
 
@@ -250,10 +248,7 @@ const FavoritePage = (props) => {
                             {(showFiles ? files : files.slice(0, 5)).map(item => (<File
                               onEditClick={handleEditClick}
                               onDeleteClick={handleDeleteClick}
-                              canEdit={false}
-                              showFavorite={true}
-                              additionalInfo={false}
-                              basePath={''}
+                              showType={FileShowType.Favorite}
                               item={item}
                             />))}
 

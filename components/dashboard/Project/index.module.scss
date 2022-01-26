@@ -1,33 +1,35 @@
 @import "scss/index";
 
-.root{
+.root {
+  width: 100%;
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  &:hover{
+    .square, .cover{
+      box-shadow: 4px 4px 20px 0px rgba(34, 60, 80, 0.5);
+    }
+    .favorite{
+      &.noFavorite{
+        display: block;
+      }
+    }
+  }
   &.deleted{
-    .inner{
-      cursor: inherit;
+    cursor: initial;
+    &:hover {
+      .square, .cover {
+        box-shadow: none;
+      }
     }
   }
 }
 
-
-.container{
-  text-decoration: none;
-  @media screen and (min-width: $sm-mid) {
-    display: flex;
-  }
-  &.deleted{
-    cursor: initial;
-  }
-}
-
-.square{
+.square {
   position: relative;
-    width: 193px;
-    margin: auto;
-  @media screen and (max-width: $sm-max) {
-    width: 128px;
-  }
   border-radius: 5px;
+  background-color: #2D9CDB;
 }
 
 .square:after {
@@ -36,35 +38,38 @@
   padding-bottom: 100%;
 }
 
-.cover{
-  border-radius: 5px;
-  width: 193px;
-  height: 193px;
-  margin: auto;
+.cover {
   position: relative;
-  @media screen and (max-width: $sm-max) {
-    width: 128px;
-    height: 128px;
-  }
-  img{
-    height: 100%;
+  border-radius: 5px;
+  img {
+    position: absolute;
     width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 5px;
-    }
+  }
 }
-.favorite{
+.cover:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.favorite {
   position: absolute;
   top: 15px;
   right: 15px;
+    &.noFavorite{
+      display: none;
+    }
 }
-.dots{
+
+.dots {
   position: absolute;
   top: 15px;
   right: 15px;
 }
 
-.title{
+.title {
   @media screen and (min-width: $container-lg) {
     font-size: 14px;
   }

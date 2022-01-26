@@ -12,7 +12,6 @@ function request(requestData: IRequestData, ctx: any = null): Promise<IResponse>
   }
   const session = ctx ? nextCookie(ctx).btv_session : Cookies.get('media_sberbank_school_session')
 
-  console.log("TokenUrl",url, token);
   const ts = (new Date()).getTime();
   const controller = typeof window !== 'undefined' ? new AbortController() : null;
   const promise =  (

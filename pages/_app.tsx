@@ -6,7 +6,7 @@ import 'scss/app.scss'
 import 'videojs-vr/dist/videojs-vr.css'
 import 'components/video/Editor/EditorTrimmer/Range/index.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-
+import 'react-toastify/dist/ReactToastify.css';
 export default function App({Component, pageProps}) {
   return (
     <Provider store={store}>
@@ -37,6 +37,7 @@ export default function App({Component, pageProps}) {
         }}/>
       </Head>
       <Component {...pageProps} />
+
     </Provider>
   )
 }

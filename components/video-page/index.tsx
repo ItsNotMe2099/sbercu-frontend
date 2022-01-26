@@ -80,7 +80,7 @@ const VideoPage = (props: Props) => {
   useInterval(() => {
     const isConverting =  video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
     if(isConverting){
-      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}, true));
     }
 
   }, 3000);
@@ -202,7 +202,7 @@ const VideoPage = (props: Props) => {
                     <VideoConverting isCutting={video.media?.videoCutting} item={video}/>
                     <div className={styles.btns}>
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick}
-                                                                   options={[{value: 'edit', label: 'Редактировать'}]}
+                                                                   options={[{value: 'edit', label: 'Редактировать'}, {value: 'delete', label: 'Удалить'}]}
                                                                    size="9px 20px">Настройки</ButtonSelect></div>
                     </div>
                   </>

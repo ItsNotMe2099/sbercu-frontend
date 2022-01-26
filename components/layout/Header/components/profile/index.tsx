@@ -30,11 +30,18 @@ export default function Profile({user, showSearch}: Props){
         logout();
     }
 
+    const renderIcons = () => {
+      return <>
+        <Link href="/basket"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/basket'})}><BasketMenu/><span>Корзина</span></a></Link>
+        <Link href="/favorite"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/favorite'})}>{router.asPath === '/favorite' ? <LikeFilled/> : <LikeOutline/>}<span>Избранное</span></a></Link>
+      </>
+    }
   return (
     <div className={styles.root}>
-      {!showSearch && <Link href="/basket"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/basket'})}><BasketMenu/><span>Корзина</span></a></Link>}
-
-      {!showSearch &&<Link href="/favorite"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/favorite'})}>{router.asPath === '/favorite' ? <LikeFilled/> : <LikeOutline/>}<span>Избранное</span></a></Link>}
+      {!showSearch ?
+        <div className={styles.mobile}>{renderIcons()}</div>
+        :null}
+      <div className={styles.notMobile}>{renderIcons()}</div>
 
       <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>
