@@ -88,6 +88,14 @@ export default function Player(props) {
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
                 setSource(newSource.value);
                 sourceRef.current = newSource.value;
+                setTimeout(() => {
+                    if (playing) {
+                        (player as any)?.current?.pause();
+                        setTimeout(() => {
+                            (player as any)?.current?.play();
+                        }, 300);
+                    }
+                }, 500)
                 handleWaiting();
             }
             console.log("sourceUpdate2", props.sources);
