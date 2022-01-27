@@ -68,6 +68,9 @@ export default function Player(props) {
         setSource(props.source)
         sourceRef.current = props.source;
     }, [])
+    useEffect(() => {
+       console.log("handleSetPlay1")
+    }, [playing])
 
 
     const resetPlay = () => {
@@ -178,7 +181,7 @@ export default function Player(props) {
     }
 
     const handleEnded = () => {
-        setPlaying(loop);
+        setPlaying(false);
         props.onChangeProgress({
             currentTime: 0,
             muted,
