@@ -28,7 +28,13 @@ import SpeakerReviewModal from 'components/speakers/SpeakerReviewModal'
 import {StarFilled} from 'components/svg/Star'
 import Button from 'components/ui/Button'
 import ButtonSelect from 'components/ui/ButtonSelect'
-import {catalogCopy, deleteCatalog} from 'components/catalog/actions'
+import {
+  catalogCopy,
+  deleteCatalog,
+  fetchCatalogFiles,
+  fetchMyUploadedFiles,
+  resetCatalogList
+} from 'components/catalog/actions'
 import {fetchFeedbackList} from 'components/feedback/actions'
 import SpeakerFeedbackList from 'components/speakers/SpeakerFeedbackList'
 import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
@@ -39,6 +45,9 @@ import {LanguagesList} from 'utils/languages'
 import {getMediaPath} from 'utils/media'
 
 import Lightbox from "react-awesome-lightbox";
+import Quantity from 'pages/dashboard/components'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import File from 'components/dashboard/File'
 const queryString = require('query-string')
 
 interface Props {
@@ -54,27 +63,57 @@ const SpeakerPage = (props: Props) => {
   const currentLoading = useSelector((state: IRootState) => state.catalog.currentLoading)
   const speaker = useSelector((state: IRootState) => state.speakers.currentSpeakerItem)
   const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
+  const files = useSelector((state: IRootState) => state.catalog.list)
+  const filesTotal = useSelector((state: IRootState) => state.catalog.listTotal)
+  const filesLoading = useSelector((state: IRootState) => state.catalog.listLoading)
+  const [showFiles, setShowAllFiles] = useState(false)
+  const [pageFiles, setPageFiles] = useState(1);
+
   const [currentEditFeedback, setCurrentEditFeedback] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter()
   console.log("Auth", props)
 
+  const limitFiles = 30;
   const canEdit = props.user.role === 'admin' || (speaker?.userId && speaker?.userId === props.user?.id);
   const settings = [
     {value: 'edit', label: 'Редактировать'},
     {value: 'delete', label: 'Удалить'}
   ];
+  const speakerId = router.query.id;
 
   useEffect(() => {
+    dispatch(resetCatalogList());
     dispatch(resetSpeakerItem());
     if (!router.query.id) {
       return;
     }
+    dispatch(fetchCatalogFiles( speakerId, {  page: 1, limit: limitFiles }));
 
       dispatch(fetchSpeakerItemRequest(router.query.id, {showTags: '1'}));
 
+    return () => {
+      dispatch(resetCatalogList());
+    }
 
   }, [router.query.id])
+
+  const handleShowFiles = () => {
+    if(showFiles){
+      setShowAllFiles(false)
+    }else{
+      setShowAllFiles(true)
+      if(pageFiles === 1){
+        setPageFiles(pageFiles + 1)
+        dispatch(fetchCatalogFiles( speaker.id, {  page: pageFiles + 1, limit: limitFiles }));
+      }
+    }
+
+  }
+  const handleScrollNextFiles = () => {
+    setPageFiles(pageFiles + 1)
+    dispatch(fetchCatalogFiles(speaker.id, { page: pageFiles + 1, limit: limitFiles }));
+  }
 
   const getTagCategories = () => {
     const categoriesMap = {};
@@ -228,6 +267,39 @@ const SpeakerPage = (props: Props) => {
                   </div>
               </div>
           </div>
+
+        {filesTotal > 0 && <>
+            <div className={styles.titleContainer}>
+                <div className={styles.title}>Связанные файлы</div>
+                <Quantity
+                    quantity={filesTotal}
+                />
+            </div>
+            <div className={styles.files}>
+                <InfiniteScroll
+                    dataLength={files.length}
+                    next={handleScrollNextFiles}
+                    loader={<div></div>}
+                    style={{overflow: "inherit"}}
+                    hasMore={showFiles && filesTotal !== files.length}
+                    className={styles.scroll}
+                >
+                  {(showFiles ? files : files.slice(0, 5)).map(item => (<File
+                    showFavorite={true}
+                    canEdit={false}
+                    basePath={''}
+                    item={item}
+                  />))}
+                </InfiniteScroll>
+            </div>
+          {filesTotal > 5 && <div className={styles.moreFiles}>
+              <a onClick={handleShowFiles}>
+                  <img className={showFiles ? styles.hide : null} src="img/icons/arrowDown.svg"
+                       alt=''/>{showFiles ? <span>Скрыть</span> : <span>Показать еще</span>}
+              </a>
+          </div>}
+        </>}
+
         {speaker && <SpeakerFeedbackList user={props.user} speakerId={speaker?.id} onEditClick={handleEditFeedbackClick}
                                          onCreateClick={handleCreateFeedbackClick}/>}
       </div>}
