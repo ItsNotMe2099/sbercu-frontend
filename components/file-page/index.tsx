@@ -117,7 +117,7 @@ const FilePage = (props: Props) => {
     const isVideo = video?.media?.type === 'video';
     const isAudio = video?.media?.type === 'audio';
     const isDocument = video?.media?.type === 'audio';
-    const ext = video?.media.filePath?.split('.')?.pop()?.toLowerCase() || '';
+    const ext = video?.media?.filePath?.split('.')?.pop()?.toLowerCase() || '';
 
     if(isVideo || isAudio){
       return <VideoPageViewer item={video}/>
