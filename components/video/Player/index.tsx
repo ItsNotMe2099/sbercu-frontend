@@ -198,7 +198,7 @@ export default function Player(props) {
 
         if(props.getViewHistory && !viewHistoryRef.current) {
             const viewHistory = await props.getViewHistory();
-           console.log("viewHistory", viewHistory);
+           console.log("viewHistory11", viewHistory ,playing);
             if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
                 handleSeekChange(viewHistory?.currentTime);
                 setPlayed(viewHistory?.currentTime / duration);
@@ -208,7 +208,7 @@ export default function Player(props) {
             }
             viewHistoryRef.current = true;
             if(playing){
-                console.log("RestartPlay")
+                console.log("RestartPlay", playing)
                 resetPlay();
             }
         }
