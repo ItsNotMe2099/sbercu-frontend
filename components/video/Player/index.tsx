@@ -69,7 +69,7 @@ export default function Player(props) {
         sourceRef.current = props.source;
     }, [])
     useEffect(() => {
-       console.log("handleSetPlay1")
+       console.log("handleSetPlay1", playing)
     }, [playing])
 
 
