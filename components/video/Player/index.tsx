@@ -77,7 +77,7 @@ export default function Player(props) {
 
     const resetPlay = () => {
         setTimeout(() => {
-            if (playing) {
+            if (playingRef.current) {
                 (player as any)?.current?.pause();
                 setTimeout(() => {
                     (player as any)?.current?.play();
