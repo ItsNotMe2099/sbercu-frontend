@@ -46,6 +46,7 @@ export default function Player(props) {
     const [seeking, setSeeking] = useState(false);
 
     const viewHistoryRef = useRef(false);
+    const slowInternetTimeoutRef = useRef(null);
 
     const player = useRef();
     const root = useRef();
@@ -65,6 +66,27 @@ export default function Player(props) {
         setSource(props.source)
     }, [])
 
+
+    const handleWaiting = () => {
+        console.log('handleWaiting');
+        slowInternetTimeoutRef.current = setTimeout(() => {
+            const currentIndex = props.sources.findIndex(i => i.source === source);
+            console.log("sourceUpdate", props.sources);
+            if(currentIndex > 0){
+                const newSource = props.sources[currentIndex - 1];
+                console.log("setSourceLess", props.sources[currentIndex - 1]);
+                setSource(newSource.value);
+            }
+            console.log("sourceUpdate", props.sources);
+        }, 5000);
+    }
+    const handlePlaying = () => {
+        console.log('handlePlaying');
+        if(slowInternetTimeoutRef.current ){
+            clearTimeout(slowInternetTimeoutRef.current)
+            slowInternetTimeoutRef.current = null;
+        }
+    }
     const handlePlayPause = () => {
        if (!playing) {
                  (player as any)?.current?.play();
@@ -238,6 +260,8 @@ export default function Player(props) {
                 onPause={handlePause}
                 onError={e => console.log('onError', e)}
                 onReady={handleReady}
+                onWaiting={handleWaiting}
+                onPlaying={handlePlaying}
                 onBuffer={() => console.log('onBuffer')}
             />
             <div className={styles.shadow}></div>

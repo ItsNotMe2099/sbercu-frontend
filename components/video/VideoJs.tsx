@@ -24,6 +24,8 @@ interface Props {
     onEnded: () => void
     onPause: () => void
     onError: (e) => void
+    onWaiting: () => void
+    onPlaying: () => void
     isAudio?: boolean
     contentType?: string
 }
@@ -89,6 +91,12 @@ export default function VideoJs(props: Props) {
             props.onEnded()
         }
 
+    }
+    const handleWaiting = () => {
+        props.onWaiting()
+    }
+    const handlePlaying = () => {
+        props.onPlaying()
     }
 
     const handleError = (e) => {
@@ -240,6 +248,10 @@ export default function VideoJs(props: Props) {
                 handleEnded()
                 break;
             case 'waiting':
+                handleWaiting()
+                break;
+            case 'playing':
+                handlePlaying()
                 break;
             case 'timeupdate':
                 progress();

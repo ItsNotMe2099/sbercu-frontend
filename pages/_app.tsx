@@ -7,6 +7,7 @@ import 'videojs-vr/dist/videojs-vr.css'
 import 'components/video/Editor/EditorTrimmer/Range/index.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import 'react-toastify/dist/ReactToastify.css';
+import "react-awesome-lightbox/build/style.css";
 export default function App({Component, pageProps}) {
   return (
     <Provider store={store}>

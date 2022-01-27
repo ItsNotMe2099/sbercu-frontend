@@ -25,4 +25,13 @@ export const createMediaLinkVirtSchool = (data: any) => action(ActionTypes.CREAT
     data
   }
 })
+
+export const createMediaLinkTempDocViewer = (data: any) => action(ActionTypes.CREATE_MEDIA_LINK_TEMP_DOC_VIEWER, {
+  api: {
+    url: `/api/media-link/public-temp-doc-viewer`,
+    method: 'POST',
+    data
+  }
+})
+
 export const resetMediaLinkForm = () => action(ActionTypes.RESET_MEDIA_LINK_FORM)
