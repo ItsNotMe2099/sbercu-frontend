@@ -14,6 +14,7 @@ import { findDOMNode } from 'react-dom'
 import cx from 'classnames'
 import {useThrottleFn} from '@react-cmpt/use-throttle'
 import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
+import useMobileDetect from 'utils/useMobileDetect'
 
 const VideoJs = dynamic(() => import('components/video/VideoJs'), {
     ssr: false
@@ -44,7 +45,7 @@ export default function Player(props) {
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
-
+    const {isMobile} = useMobileDetect();
     const manualSourceSetRes = useRef(false);
     const sourceRef = useRef(false);
     const viewHistoryRef = useRef(false);
@@ -301,8 +302,8 @@ export default function Player(props) {
                 onBuffer={() => console.log('onBuffer')}
             />
 
-            <div className={styles.shadow} onClick={handlePlayPause}></div>
-          <div className={styles.playBg}></div>
+         <div className={styles.shadow}></div>
+        {isMobile() && <div className={styles.playBg}  onClick={handlePlayPause}></div>}
           <div className={styles.controls}>
                 <div className={styles.progress}>
                     <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
