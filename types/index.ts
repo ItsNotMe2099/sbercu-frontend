@@ -83,6 +83,8 @@ export interface ICatalogEntry {
   name?: string
   entryType?: 'project' | 'folder' | 'file'
   parentId?: number
+  speakersIds?: number[]
+  speakers?: ISpeaker[]
   projectManager?: string
   projectManagerMail?: string
   projectCover?: string,

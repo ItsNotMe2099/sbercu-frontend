@@ -1,0 +1,276 @@
+@import "scss/index";
+
+.inputContainer{
+  position: relative;
+
+  input{
+    border-bottom: 1px solid #E0E0E0;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    width: 100%;
+    height: 22px;
+    margin-top: 9px;
+    padding-bottom: 7px;
+    background: transparent;
+    &::placeholder{
+      color: #828282;
+      font-size: 16px;
+    }
+    &:disabled{
+      color: #000000;
+      font-size: 16px;
+    }
+  }
+  button{
+    padding: 4px 0 4px 4px;
+    position: absolute;
+    top: 0;
+    background: transparent;
+    @media screen and (max-width: $sm-mid) {
+      position: relative;
+    }
+  }
+}
+
+.btn{
+  @media screen and (max-width: $sm-mid) {
+    display: none;
+  }
+}
+
+
+.root{
+
+  margin-top: 18px;
+  @media screen and (max-width: $sm-mid) {
+    margin-right: 15px;
+  }
+  &.open{
+    .open{
+      @media screen and (max-width: $sm-mid) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+
+.inputContainer__mobile{
+  position: relative;
+  input{
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    height: 32px;
+    padding-left: 38px;
+    width: 100%;
+    &::placeholder{
+      font-size: 12px;
+      color: #828282;
+    }
+  }
+  button{
+    padding: 4px 0 4px 10px;
+    position: absolute;
+    top: 0;
+    background: transparent;
+  }
+}
+
+.noSuggestion{
+  color: #BDBDBD;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  position: absolute;
+
+  top: 34px;
+    font-size: 11px;
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+    left: 0px;
+    right: -50px;
+  }
+}
+.loaderWrapper{
+  z-index: 1;
+  position: absolute;
+  top: 34px;
+  color: #BDBDBD;
+  font-size: 11px;
+  @media screen and (max-width: $sm-max) {
+    font-size: 10px;
+  }
+}
+.notFound{
+  font-size: 12px;
+  color: #000000;
+  font-weight: bold;
+  margin: 13px auto 0 auto;
+}
+
+.try{
+  font-size: 10px;
+  color: #000;
+  margin: 8px auto 0 auto;
+  text-align: center;
+}
+
+.suggestion{
+  border-radius: 5px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: 43px;
+  width: 302px;
+  z-index: 4;
+
+  .selectTip{
+    color: #BDBDBD;
+    font-size: 11px;
+    padding: 12px 12px 0px 12px;
+  }
+  @media screen and (max-width: $sm-max) {
+    .selectTip {
+      font-size: 10px;
+    }
+    width: 100%;
+  }
+}
+
+
+.speaker{
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+  padding: 6px 12px 6px 12px;
+  background-color: transparent;
+  &:first-of-type{
+    padding-top: 12px;
+  }
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  &:hover{
+    background-color: #F2F2F2;
+  }
+  .info{
+    padding-left: 13px;
+  }
+
+  .name{
+    font-weight: bold;
+
+    margin-bottom: 7px;
+  }
+  .description{
+
+  }
+
+
+  .stub{
+    position: relative;
+    width: 42px;
+    height: 42px;
+    margin: auto;
+    background: #F2C94C;
+
+    border-radius: 5px;
+  }
+
+  .square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .cover{
+    border-radius: 5px;
+    width: 42px;
+    height: 42px;
+    position: relative;
+    img{
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+
+}
+
+
+
+.show{
+  padding: 9px 16px;
+  background: #27AE60;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+.transparent{
+  padding-top: 36px;
+  padding-bottom: 22px;
+  background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.51) 100%);
+  display: flex;
+}
+
+.innerWrapper{
+  position: relative;
+  padding-bottom: 4px;
+  max-height: 500px;
+  overflow-y: auto;
+  @media screen and (max-width: $sm-max) {
+    max-height: auto;
+  }
+}
+.items{
+
+  overflow-y: auto;
+}
+
+
+.speakerInput{
+  margin-top: 9px;
+  padding-bottom: 7px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #E0E0E0;
+  .speakerInputName{
+    margin-left: 8px;
+    font-size: 12px;
+    color: #000;
+    font-weight: bold;
+  }
+  .speakerInputRemove{
+    cursor: pointer;
+    margin-left: 8px;
+    svg{
+      width: 8px;
+      height: 8px;
+      path{
+        fill: #BDBDBD;
+      }
+    }
+    &:hover{
+      svg{
+        path{
+          fill: #BA3D3D;
+        }
+      }
+
+    }
+  }
+}
+.label{
+  font-size: 12px;
+  line-height: 14px;
+  color: #BDBDBD;
+}

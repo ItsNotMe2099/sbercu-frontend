@@ -2,7 +2,7 @@
 
 .root{
   position: relative;
-  margin-top:18px;
+  margin-top: 15px;
 
 }
 
@@ -20,10 +20,7 @@
 .error{
   border-color: #FF1066;
 }
-.root{
-  position: relative;
-  margin-top: 15px;
-}
+
 .rootInput{
   position: relative;
   margin-top: 9px;
@@ -56,4 +53,22 @@
     }
   }
 
+}
+.item{
+ position: relative;
+  .remove{
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    margin-top: -6px;
+    &:hover{
+      svg{
+        path{
+          fill: #BA3D3D;
+        }
+      }
+
+    }
+  }
 }

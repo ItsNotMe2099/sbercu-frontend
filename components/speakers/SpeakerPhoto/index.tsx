@@ -4,7 +4,7 @@ import SpeakerIcon from 'components/svg/SpeakerIcon'
 import cx from 'classnames';
 interface Props {
  photo?: string
-  size: 'small' | 'normal' | 'large'
+  size: 'exSmall' | 'small' | 'normal' | 'large'
   children?: ReactElement | ReactElement[]
   onClick?: () => void | null
 }
@@ -15,6 +15,7 @@ export default function SpeakerPhoto({photo, size, children, onClick}: Props) {
   return (
           <div className={cx(styles.root, {
             [styles.stub]: !photo,
+            [styles.sizeExSmall]: size === 'exSmall',
             [styles.sizeSmall]: size === 'small',
             [styles.sizeNormal]: size === 'normal',
             [styles.sizeLarge]: size === 'large',
