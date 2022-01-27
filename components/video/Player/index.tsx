@@ -67,15 +67,17 @@ export default function Player(props) {
     }, [])
 
 
+
     const handleWaiting = () => {
         console.log('handleWaiting');
         slowInternetTimeoutRef.current = setTimeout(() => {
-            const currentIndex = props.sources.findIndex(i => i.source === source);
-            console.log("sourceUpdate1", props.sources);
+            const currentIndex = props.sources.findIndex(i => i.value === source);
+            console.log("sourceUpdate1", props.sources, source, currentIndex);
             if(currentIndex > 0){
                 const newSource = props.sources[currentIndex - 1];
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
                 setSource(newSource.value);
+                handleWaiting();
             }
             console.log("sourceUpdate2", props.sources);
         }, 5000);
