@@ -110,7 +110,7 @@ export default function FileBottomToolbar(props: Props) {
         <FavoriteCatalogButton item={item} style={'video'}/>
       </div>
       <div className={styles.select__down}>
-        <ButtonSelect href={isVideo ? `${getMediaPath(item.media?.fileName)}?download=1` : null} size="9px 20px"
+        <ButtonSelect href={!isVideo ? `${getMediaPath(item.media?.fileName)}?download=1` : null} size="9px 20px"
                       minWidth="120px" onChange={handleDownload}
                       options={item.media?.videoElements?.map(el => ({
                         label: `${el.quality}`,

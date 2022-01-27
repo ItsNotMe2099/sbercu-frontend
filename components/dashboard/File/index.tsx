@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, {useRef} from "react";
 import {FileActionType, ICatalogEntry} from "types";
 import {formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
-import {getMediaPath} from "utils/media";
+import {getMediaPath, isAudio, isDocument, isImage, isVideo} from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Dots from "components/svg/Dots";
@@ -237,18 +237,17 @@ export default function File({
   }
 
   const getFileLink = () => {
-    if (item.entryType === 'file' && item.media?.type === 'video') {
-      return `/video/${item.id}`;
-    }
-    if (item.entryType === 'file' && item.media?.type === 'audio') {
-      return `/audio/${item.id}`;
-    }
-    if (item.entryType === 'file') {
-      return `/file/${item.id}`;
-      return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
+    const source = item.media?.fileName;
+
+    if(item.entryType === 'folder') {
+      return `/catalog/${item.id}`;
     }
 
-    return `/catalog/${item.id}`;
+    if ( item.entryType === 'file' && isAudio(source) || isVideo(source) || isDocument(source) || isImage(source)) {
+      return `/file/${item.id}`;
+    }
+
+    return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
 
   }
   const getDetailsText = () => {

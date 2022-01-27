@@ -20,7 +20,6 @@ export default function DocumentPageViewer(props: Props){
   }, [])
   return (
           <div className={styles.root}>
-            Файл тут <a href={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURI(link)}&wdAccPdf=0&wdEmbedFS=1`} target={'blank'}>Взять</a>
             {link && <iframe className={styles.iframe} src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURI(link)}&wdAccPdf=0&wdEmbedFS=1`}/>}
           </div>
   )

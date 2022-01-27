@@ -14,10 +14,18 @@ export const getMediaPathWithQuality = (file, quality) => {
     }
     return `${getMediaPath(file)}?quality=${quality}`;
 }
-
+export const getFileExtension = source => {
+    return source?.split('.')?.pop()?.toLowerCase() || '';
+}
 export const isAudio = source => {
-    const parts =  source.split('.');
-    const ext = parts.length > 0 ? parts[parts.length - 1] : '';
-
-    return ['mp3', 'ogg', 'wav'].includes(ext);
+    return ['mp3', 'ogg', 'wav'].includes(getFileExtension(source));
+}
+export const isVideo = source => {
+    return ['mp3', 'avi'].includes(getFileExtension(source));
+}
+export const isImage = source => {
+    return ['png', 'jpg', 'jpeg', 'gif'].includes(getFileExtension(source));
+}
+export const isDocument = source => {
+    return ['ppt', 'pptx', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'rtf'].includes(getFileExtension(source));
 }

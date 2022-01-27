@@ -12,20 +12,20 @@ interface Props {
     playInline?: boolean
     playing: boolean
     muted?: boolean
-    playbackRate: number,
+    playbackRate?: number,
     pip?: boolean
     volume?: number
     onCreateRef: (ref) => void
-    onDuration: (duration) => void
-    onProgress: (progress) => void
-    onBuffer: (buffer) => void
-    onReady: () => void
-    onPlay: () => void
-    onEnded: () => void
-    onPause: () => void
-    onError: (e) => void
-    onWaiting: () => void
-    onPlaying: () => void
+    onDuration?: (duration) => void
+    onProgress?: (progress) => void
+    onBuffer?: (buffer) => void
+    onReady?: () => void
+    onPlay?: () => void
+    onEnded?: () => void
+    onPause?: () => void
+    onError?: (e) => void
+    onWaiting?: () => void
+    onPlaying?: () => void
     isAudio?: boolean
     contentType?: string
 }
@@ -93,10 +93,14 @@ export default function VideoJs(props: Props) {
 
     }
     const handleWaiting = () => {
-        props.onWaiting()
+        if( props.onWaiting) {
+            props.onWaiting()
+        }
     }
     const handlePlaying = () => {
-        props.onPlaying()
+        if(props.onPlaying) {
+            props.onPlaying()
+        }
     }
 
     const handleError = (e) => {
