@@ -70,7 +70,16 @@ export default function Player(props) {
     }, [])
 
 
-
+    const resetPlay = () => {
+        setTimeout(() => {
+            if (playing) {
+                (player as any)?.current?.pause();
+                setTimeout(() => {
+                    (player as any)?.current?.play();
+                }, 300);
+            }
+        }, 500)
+    }
     const handleWaiting = () => {
         console.log('handleWaiting');
         if( manualSourceSetRes.current){
@@ -88,14 +97,7 @@ export default function Player(props) {
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
                 setSource(newSource.value);
                 sourceRef.current = newSource.value;
-                setTimeout(() => {
-                    if (playing) {
-                        (player as any)?.current?.pause();
-                        setTimeout(() => {
-                            (player as any)?.current?.play();
-                        }, 300);
-                    }
-                }, 500)
+                resetPlay();
                 handleWaiting();
             }
             console.log("sourceUpdate2", props.sources);
@@ -195,6 +197,9 @@ export default function Player(props) {
                 handleSeekChange(viewHistory?.currentTime);
                 setPlayed(viewHistory?.currentTime / duration);
                 (player?.current as any).currentTime(viewHistory?.currentTime);
+                if(playing){
+                    resetPlay();
+                }
                 setVolume(viewHistory.volume);
             }
             viewHistoryRef.current = true;
