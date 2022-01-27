@@ -198,6 +198,7 @@ export default function Player(props) {
                 setPlayed(viewHistory?.currentTime / duration);
                 (player?.current as any).currentTime(viewHistory?.currentTime);
                 if(playing){
+                    console.log("RestartPlay")
                     resetPlay();
                 }
                 setVolume(viewHistory.volume);
