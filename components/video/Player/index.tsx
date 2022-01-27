@@ -45,6 +45,8 @@ export default function Player(props) {
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
 
+    const manualSourceSetRes = useRef(false);
+    const sourceRef = useRef(false);
     const viewHistoryRef = useRef(false);
     const slowInternetTimeoutRef = useRef(null);
 
@@ -64,19 +66,28 @@ export default function Player(props) {
 
     useEffect(() => {
         setSource(props.source)
+        sourceRef.current = props.source;
     }, [])
 
 
 
     const handleWaiting = () => {
         console.log('handleWaiting');
+        if( manualSourceSetRes.current){
+            return;
+        }
         slowInternetTimeoutRef.current = setTimeout(() => {
-            const currentIndex = props.sources.findIndex(i => i.value === source);
-            console.log("sourceUpdate1", props.sources, source, currentIndex);
+            if( manualSourceSetRes.current){
+                console.log("manualSourceSetRes");
+                return;
+            }
+            const currentIndex = props.sources.findIndex(i => i.value === sourceRef.current);
+            console.log("sourceUpdate1", props.sources, sourceRef.current, currentIndex);
             if(currentIndex > 0){
                 const newSource = props.sources[currentIndex - 1];
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
                 setSource(newSource.value);
+                sourceRef.current = newSource.value;
                 handleWaiting();
             }
             console.log("sourceUpdate2", props.sources);
@@ -101,6 +112,7 @@ export default function Player(props) {
 
     const handleStop = () => {
         setSource(null);
+        sourceRef.current = null;
         setPlaying(false);
     }
 
@@ -211,6 +223,8 @@ export default function Player(props) {
         setLoaded(0);
         setPip(false);
         setSource(item.value);
+        sourceRef.current = item.value;
+        manualSourceSetRes.current = true;
 
     }
 
