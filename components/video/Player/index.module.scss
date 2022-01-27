@@ -31,7 +31,7 @@
         margin: 0 auto;
         max-width: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
   &.fullSize{
     :global .vjs-tech {

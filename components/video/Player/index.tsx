@@ -49,6 +49,7 @@ export default function Player(props) {
     const manualSourceSetRes = useRef(false);
     const sourceRef = useRef(false);
     const viewHistoryRef = useRef(false);
+    const playingRef = useRef(false);
     const slowInternetTimeoutRef = useRef(null);
 
     const player = useRef();
@@ -123,6 +124,7 @@ export default function Player(props) {
                (player as any)?.current?.pause();
         }
         setPlaying((playing) => !playing);
+        playingRef.current = !playing;
 
     }
 
@@ -130,6 +132,7 @@ export default function Player(props) {
         setSource(null);
         sourceRef.current = null;
         setPlaying(false);
+        playingRef.current = false;
     }
 
 
@@ -152,6 +155,7 @@ export default function Player(props) {
     const handlePlay = () => {
         console.log('onPlay')
         setPlaying(true);
+        playingRef.current = true;
     }
 
     const handleEnablePIP = () => {
@@ -167,6 +171,7 @@ export default function Player(props) {
     const handlePause = () => {
         console.log('handlePause')
         setPlaying(false);
+        playingRef.current = false;
     }
 
 
@@ -185,6 +190,7 @@ export default function Player(props) {
 
     const handleEnded = () => {
         setPlaying(false);
+        playingRef.current = false;
         props.onChangeProgress({
             currentTime: 0,
             muted,
@@ -198,7 +204,7 @@ export default function Player(props) {
 
         if(props.getViewHistory && !viewHistoryRef.current) {
             const viewHistory = await props.getViewHistory();
-           console.log("viewHistory11", viewHistory ,playing);
+           console.log("viewHistory11", viewHistory ,playingRef.current);
             if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
                 handleSeekChange(viewHistory?.currentTime);
                 setPlayed(viewHistory?.currentTime / duration);
@@ -207,8 +213,8 @@ export default function Player(props) {
                 setVolume(viewHistory.volume);
             }
             viewHistoryRef.current = true;
-            if(playing){
-                console.log("RestartPlay", playing)
+            if(playingRef.current){
+                console.log("RestartPlay", playingRef.current)
                 resetPlay();
             }
         }
