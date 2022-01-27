@@ -58,7 +58,14 @@
   height: 70px;
   background: linear-gradient(to bottom, transparent 0%, black 100%);
 }
-
+.playBg{
+  z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
 .player {
   video {
     border-radius: 10px;

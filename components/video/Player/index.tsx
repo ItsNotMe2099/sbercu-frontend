@@ -298,8 +298,10 @@ export default function Player(props) {
                 onPlaying={handlePlaying}
                 onBuffer={() => console.log('onBuffer')}
             />
-            <div className={styles.shadow}></div>
-            <div className={styles.controls}>
+
+            <div className={styles.shadow} onClick={handlePlayPause}></div>
+          <div className={styles.playBg}></div>
+          <div className={styles.controls}>
                 <div className={styles.progress}>
                     <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
                                 currentTime={duration * played} onChange={handleSeekChange}
