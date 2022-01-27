@@ -113,7 +113,9 @@ export default function Player(props) {
             slowInternetTimeoutRef.current = null;
         }
     }
-    const handlePlayPause = () => {
+    const handlePlayPause = (e) => {
+        e.stopPropagation();
+        console.log("handlePlayPause")
        if (!playing) {
                  (player as any)?.current?.play();
         } else {
