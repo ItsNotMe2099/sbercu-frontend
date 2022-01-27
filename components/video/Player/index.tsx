@@ -222,7 +222,7 @@ export default function Player(props) {
               onProgress={handleProgress}
               onDuration={handleDuration}
           />*/}
-          <div style={{background: 'black', position: 'absolute', top: '0', left: '0', right: '0', bottom: '0', zIndex: '0'}}/>
+          <div style={{background: 'black', position: 'absolute', top: '0', left: '0', right: '0', bottom: '0', zIndex: 0}}/>
             <VideoJs
                 isAudio={props.isAudio}
                 contentType={props.contentType}
