@@ -21,9 +21,8 @@
   &.audioNoPoster{
     max-height: 64px;
   }
-  > div{
+  :global .vjs-fluid{
     z-index: 1;
-    position: relative;
   }
     :global .vjs-tech {
         position: absolute;
