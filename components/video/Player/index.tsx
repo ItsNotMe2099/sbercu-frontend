@@ -107,9 +107,9 @@ export default function Player(props) {
                 }
                 setSource(newSource.value);
                 showAlertTimeoutRef.current = setTimeout(() => {
-                    setShowAlert(true);
+                    setShowAlert(false);
                 }, 3000)
-
+                setShowAlert(true);
                 sourceRef.current = newSource.value;
                 resetPlay();
                 handleWaiting();
