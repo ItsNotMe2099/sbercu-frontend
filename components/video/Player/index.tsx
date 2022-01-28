@@ -322,7 +322,7 @@ export default function Player(props) {
         <div className={cx(styles.alert, {[styles.showAlert]: showAlert})}><div className={styles.circle}/>Плохой интернет. Качество видео уменьшено.</div>
           <div className={styles.controls}>
                 <div className={styles.progress}>
-                    <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
+                    <SeekSlider hideHoverTime={false} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
                                 currentTime={duration * played} onChange={handleSeekChange}
                                 onChangeCurTime={handleChangeCurrentTime}/>
                 </div>

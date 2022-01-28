@@ -28,6 +28,8 @@ export default function VideoPageViewer(props: Props){
     return viewHistoryRes?.data;
   }
   const getDefaultSource = () => {
+
+      return '/063289d237bda928be78fa9534df0671.mp4'
     const path = item.media?.fileName;
 
     const qualityItem = item.media?.videoElements?.find(el => el.quality === '1080p') || item.media?.videoElements[item.media?.videoElements?.length - 1];
