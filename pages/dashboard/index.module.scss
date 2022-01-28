@@ -65,6 +65,10 @@
   img{
     margin-right: 6px;
   }
+  a{
+    margin: auto;
+
+  }
   span{
     font-size: 12px;
     color: #828282;
@@ -84,16 +88,11 @@
   margin-bottom: 12px;
   a{
     margin: auto;
-    @media screen and (max-width: $sm-max) {
-      margin: 0;
-    }
-    img{
-      margin-right: 6px;
-    }
-    span{
-      font-size: 12px;
-      color: #828282;
-    }
+
+  }
+  span{
+    font-size: 12px;
+    color: #828282;
   }
 }
 
