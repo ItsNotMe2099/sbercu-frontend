@@ -37,7 +37,6 @@ export default function InputCatalogSearch(props: Props) {
     const projectsLoading = useSelector((state: IRootState) => state.search.autocompleteProjectsLoading)
     const folders = useSelector((state: IRootState) => state.search.autoCompleteFolders)
     const foldersLoading = useSelector((state: IRootState) => state.search.autocompleteFoldersLoading)
-    console.log("SearchFolders", folders);
     const loading = filesLoading || projectsLoading || foldersLoading;
 
     useEffect(() => {

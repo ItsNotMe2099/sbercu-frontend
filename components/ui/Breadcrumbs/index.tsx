@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function BreadCrumbs({ items, className }: Props) {
-    console.log("breadItems", items, className);
     const noop = (e) => {
         e.preventDefault();
         e.stopPropagation();

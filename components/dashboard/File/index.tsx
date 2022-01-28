@@ -20,12 +20,13 @@ import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
 import {FileJobInfo} from 'components/file/FileJobInfo'
 import SelectCheckbox from 'components/ui/SelectCheckbox'
-import {DragSourceMonitor, useDrag} from 'react-dnd'
+import {DragSourceMonitor, useDrag, useDrop} from 'react-dnd'
 import {action} from 'typesafe-actions'
 import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
-
+import { Draggable } from 'react-beautiful-dnd';
 interface Props {
   item: ICatalogEntry,
+  index?: number
   isSelected?: boolean
   onClick?: (item) => void
   canEdit?: boolean
@@ -36,6 +37,9 @@ interface Props {
   onSelect?: (check) => void
   userRole?: string
   showType: FileShowType
+  isDragging?: boolean
+  isGroupedOver?: boolean
+  dragOverId?: any
 }
 
 export enum FileShowType {
@@ -49,7 +53,7 @@ export enum FileShowType {
 
 
 
-export default function File({
+const File = ({
                                item,
                                userRole,
                                onDeleteClick,
@@ -59,8 +63,10 @@ export default function File({
                                onClick,
                                canEdit,
                                showType,
+                           isDragging,
+                           isGroupedOver,
                                ...props
-                             }: Props) {
+                             }: Props) => {
   const dispatch = useDispatch();
 
   const validActions = (() => {
@@ -272,10 +278,12 @@ export default function File({
     e.preventDefault();
     e.stopPropagation();
   }
-  console.log("item.deletedAt ", item.deletedAt);
+
   return (
     <Link href={getFileLink()}>
-      <a className={cx(styles.root, {
+      <a id={`catalog-item-${item.id}`} className={cx(styles.root, {
+        [styles.isDragging]: isDragging,
+        [styles.isGroupedOver]: item.entryType === 'folder' &&  `${item.id}` === `${props.dragOverId}`,
         [styles.withDots]: showDots,
         [styles.isChecked]: props.isSelected,
         [styles.deleted]: !!item.deletedAt
@@ -338,28 +346,50 @@ export default function File({
       </a>
     </Link>
   )
+};
+export default File;
+function getStyle(style, snapshot, isFile) {
+
+  if (!snapshot.isDragging) return {};
+  if (!snapshot.isDropAnimating) {
+
+    return style;
+  }
+  if(isFile){
+    return {};
+  }
+  return style;
+  const { moveTo, curve, duration } = snapshot.dropAnimation;
+  // move to the right spot
+  const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
+  // add a bit of turn for fun
+  const rotate = 'rotate(0.5turn)';
+
+  // patching the existing style
+  return {
+    ...style,
+    transform: `${translate} ${rotate}`,
+    // slowing down the drop because we can
+    transition: `all ${curve} ${duration + 1}s`,
+  };
 }
 
-File.defaultProps = {
-
-}
 export const DraggableFile = (props: Props) => {
-  const {item} = props;
-  const [collected, drag, dragPreview] = useDrag(() => ({
-    type: item.id + '',
-    item: item,
-    end: (item, monitor) => {
+  const {item, index} = props;
 
-    },
-    collect: (monitor: DragSourceMonitor) => ({
-      opacity: monitor.isDragging() ? 0.4 : 1,
-    }),
-  }))
 
-  console.log("collected", collected);
-   return ( <div ref={drag} style={{...collected}} >
-      <File {...props}/>
-    </div>
+   return (   <Draggable draggableId={`${item.id}`} index={index}>
+     {(provided, snapshot) => {
+       return (<div ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+
+                                    style={getStyle(provided.draggableProps.style, snapshot, item.entryType === 'file')}
+     ><File {...props} isDragging={snapshot.isDragging && !snapshot.isDropAnimating}
+            isGroupedOver={ Boolean(snapshot.combineTargetFor)}
+     />
+       </div>)}}
+     </Draggable>
   )
 
 }

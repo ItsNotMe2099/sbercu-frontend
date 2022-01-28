@@ -33,6 +33,13 @@
       }
     }
   }
+  &.isDragging{
+    background: rgba(155, 81, 224, 0.1);
+    border: 1px solid #828282;
+  }
+  &.isGroupedOver{
+    background: rgba(155, 81, 224, 0.1);
+  }
 }
 
 .like{

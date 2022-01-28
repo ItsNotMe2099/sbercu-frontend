@@ -19,7 +19,6 @@ interface Props {
 export default function Profile({user, showSearch}: Props){
   const dropdownRef = useRef(null);
   const router = useRouter();
-  console.log("Router", router);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
     const onClick = (e) => {
         e.preventDefault()

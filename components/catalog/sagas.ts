@@ -194,14 +194,14 @@ function* catalogSaga() {
     function* (action: ActionType<typeof catalogPaste>) {
       try {
         const items = JSON.parse(localStorage.getItem('copyCatalog'));
-        const entries = items.map(i => i.id);
+        const entries = action.payload.sourceId ? [action.payload.sourceId] :  items.map(i => i.id);
         const parentId = action.payload.toCatalogId;
         yield put(moveCatalogRequest(entries, parentId));
         const result = yield take([ActionTypes.MOVE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.MOVE_CATALOG_REQUEST + ApiActionTypes.FAIL])
         if (result.type === ActionTypes.MOVE_CATALOG_REQUEST + ApiActionTypes.SUCCESS) {
           yield put(modalClose());
           const currentCatalogId = yield select((state: IRootState) => state.catalog.currentCatalogId)
-          if (parentId === currentCatalogId) {
+          if (parentId === currentCatalogId || action.payload.sourceId) {
             yield put(fetchCatalogItemRequest(currentCatalogId));
             yield put(resetCatalogList(true));
             yield put(fetchCatalogList(currentCatalogId, 1, 30));
