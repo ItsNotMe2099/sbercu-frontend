@@ -62,6 +62,7 @@
 
 .more{
   margin-top: 10px;
+  display: flex;
   img{
     margin-right: 6px;
   }
@@ -89,6 +90,9 @@
   a{
     margin: auto;
 
+  }
+  img{
+    margin-right: 6px;
   }
   span{
     font-size: 12px;
