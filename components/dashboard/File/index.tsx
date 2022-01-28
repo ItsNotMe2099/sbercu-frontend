@@ -20,6 +20,7 @@ import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
 import {FileJobInfo} from 'components/file/FileJobInfo'
 import SelectCheckbox from 'components/ui/SelectCheckbox'
+import {DragSourceMonitor, useDrag} from 'react-dnd'
 import {action} from 'typesafe-actions'
 import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
 
@@ -318,7 +319,8 @@ export default function File({
 
 
         </div>
-        {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item}/>}
+          {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <div className={styles.jobInfo}><FileJobInfo item={item} /></div>}
+
 
         {(canEdit && props.onSelect) &&
         <div className={cx(styles.checkbox, {[styles.isChecked]: props.isSelected})}><SelectCheckbox
@@ -339,5 +341,25 @@ export default function File({
 }
 
 File.defaultProps = {
+
+}
+export const DraggableFile = (props: Props) => {
+  const {item} = props;
+  const [collected, drag, dragPreview] = useDrag(() => ({
+    type: item.id + '',
+    item: item,
+    end: (item, monitor) => {
+
+    },
+    collect: (monitor: DragSourceMonitor) => ({
+      opacity: monitor.isDragging() ? 0.4 : 1,
+    }),
+  }))
+
+  console.log("collected", collected);
+   return ( <div ref={drag} style={{...collected}} >
+      <File {...props}/>
+    </div>
+  )
 
 }

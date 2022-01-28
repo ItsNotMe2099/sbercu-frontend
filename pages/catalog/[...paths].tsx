@@ -28,11 +28,15 @@ import {FileActionType, IRootState} from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import { pluralize } from "utils/formatters";
 import styles from './index.module.scss'
+<<<<<<< HEAD
 import File, {FileShowType} from "components/dashboard/File";
+=======
+import File, {DraggableFile} from "components/dashboard/File";
+>>>>>>> file_move
 import Header from "components/layout/Header";
 import Link from "next/link";
 import { useRouter } from 'next/router'
-
+import Draggable from 'react-draggable';
 import { useDispatch, useSelector } from 'react-redux'
 import ProjectLoader from "components/ContentLoaders/projectLoader";
 import UploadFilesModal from "./components/UploadFilesModal";
@@ -47,7 +51,13 @@ import {fetchJobListByIds} from 'components/jobs/actions'
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import CatalogSortToolbar from 'components/CatalogSortToolbar'
 import CatalogActionsToolbar from 'components/CatalogActionsToolbar'
+<<<<<<< HEAD
 import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
+=======
+import { toast } from "react-toastify";
+import {DndProvider} from 'react-dnd'
+import {HTML5Backend} from 'react-dnd-html5-backend'
+>>>>>>> file_move
 const Catalog = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
@@ -219,6 +229,7 @@ const Catalog = (props) => {
   console.log("ModalKey", modalKey)
   return (
     <Layout>
+      <DndProvider backend={HTML5Backend}>
       {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
     <Header {...props}>
       {currentCatalogItem && currentCatalogItem.canEdit && <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button" onClick={handleCreateFolderClick}>Создать папку</Button></div>}
@@ -251,7 +262,12 @@ const Catalog = (props) => {
       className={styles.scroll}
       >
       <div className={styles.files}>
+<<<<<<< HEAD
         {items.map(item => (<File
+=======
+        {items.map(item => (<DraggableFile
+            showFavorite={true}
+>>>>>>> file_move
             isSelected={selectedIds.includes(item.id)}
             onSelect={(check) => handleSelect(item.id, check)}
             userRole={props.user?.role}
@@ -288,7 +304,7 @@ const Catalog = (props) => {
       {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
       {modalKey === 'pasteCatalogItemDuplicate' && <PasteCatalogItem  onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}
       {modalKey === 'mediaLinkPublic' && <MediaLinkPublicModal isOpen={true} file={currentEditCatalog} onRequestClose={() => dispatch(modalClose())}/>}
-
+        </DndProvider>
     </Layout>
   )
 }

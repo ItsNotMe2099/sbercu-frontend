@@ -200,11 +200,11 @@ const VideoPage = (props: Props) => {
                 {video.media?.type === 'video' && (!video.media || !video.media?.videoConverted || video.media?.videoCutting) ?
                   <>
                     <VideoConverting isCutting={video.media?.videoCutting} item={video}/>
-                    <div className={styles.btns}>
+                    {video?.canEdit && <div className={styles.btns}>
                       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick}
                                                                    options={[{value: 'edit', label: 'Редактировать'}, {value: 'delete', label: 'Удалить'}]}
                                                                    size="9px 20px">Настройки</ButtonSelect></div>
-                    </div>
+                    </div>}
                   </>
                   :
                   <>
