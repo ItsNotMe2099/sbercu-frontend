@@ -100,7 +100,7 @@ export default function FileBottomToolbar(props: Props) {
   const renderEncodingToolbar = () => {
     return (
       <div className={styles.select}><ButtonSelect onChange={handleSettingsClick}
-                                                   options={[{value: 'edit', label: 'Редактировать'}]}
+                                                   options={[{value: 'edit', label: 'Редактировать'}, {value: 'delete', label: 'Удалить'}]}
                                                    size="9px 20px">Настройки</ButtonSelect></div>
     );
   }
