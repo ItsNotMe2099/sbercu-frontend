@@ -52,6 +52,7 @@ export default function Player(props) {
     const viewHistoryRef = useRef(false);
     const playingRef = useRef(false);
     const slowInternetTimeoutRef = useRef(null);
+    const showAlertTimeoutRef = useRef(null);
 
     const player = useRef();
     const root = useRef();
@@ -101,8 +102,14 @@ export default function Player(props) {
             if(currentIndex > 0){
                 const newSource = props.sources[currentIndex - 1];
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
+                if( showAlertTimeoutRef.current){
+                    clearTimeout( showAlertTimeoutRef.current);
+                }
                 setSource(newSource.value);
-                setShowAlert(true);
+                showAlertTimeoutRef.current = setTimeout(() => {
+                    setShowAlert(true);
+                }, 3000)
+
                 sourceRef.current = newSource.value;
                 resetPlay();
                 handleWaiting();
