@@ -43,7 +43,6 @@ const Editor = (props: Props) => {
     dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
   }, [router.query.id])
   const getDefaultSource = () => {
-    return '/063289d237bda928be78fa9534df0671.mp4'
     const path = video.media.fileName;
     const qualityItem = video.media?.videoElements?.find(el => el.quality === '1080p') || video.media?.videoElements[video.media?.videoElements?.length - 1];
     const quality = qualityItem?.quality;
