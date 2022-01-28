@@ -34,6 +34,7 @@ export default function Player(props) {
     const [source, setSource] = useState(null);
     const [pip, setPip] = useState(false);
     const [playing, setPlaying] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [controls, setControls] = useState(false);
     const [light, setLight] = useState(false);
     const [volume, setVolume] = useState(50);
@@ -101,6 +102,7 @@ export default function Player(props) {
                 const newSource = props.sources[currentIndex - 1];
                 console.log("setSourceLess", props.sources[currentIndex - 1]);
                 setSource(newSource.value);
+                setShowAlert(true);
                 sourceRef.current = newSource.value;
                 resetPlay();
                 handleWaiting();
@@ -310,6 +312,7 @@ export default function Player(props) {
 
          <div className={styles.shadow}></div>
         {isMobile() && <div className={styles.playBg}  onClick={handlePlayPause}></div>}
+        <div className={cx(styles.alert, {[styles.showAlert]: showAlert})}><div className={styles.circle}/>Плохой интернет. Качество видео уменьшено.</div>
           <div className={styles.controls}>
                 <div className={styles.progress}>
                     <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
