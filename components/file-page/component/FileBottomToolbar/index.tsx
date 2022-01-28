@@ -50,8 +50,9 @@ export default function FileBottomToolbar(props: Props) {
   ];
 
 
-  const handleSettingsClick = (item) => {
-    switch (item.value) {
+  const handleSettingsClick = (action) => {
+
+    switch (action.value) {
       case 'share':
         break;
       case 'poster':
@@ -73,6 +74,7 @@ export default function FileBottomToolbar(props: Props) {
           confirmColor: 'red',
           confirmText: 'Удалить',
           onConfirm: () => {
+            console.log("delete111", item)
             dispatch(deleteCatalog(item?.id));
           }
         }));
