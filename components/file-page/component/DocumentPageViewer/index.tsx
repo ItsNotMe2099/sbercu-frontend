@@ -4,6 +4,12 @@ import {ICatalogEntry, IRootState} from 'types'
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {createMediaLinkTempDocViewer} from 'components/media-links/actions'
+import {getExtension} from 'next/dist/server/serve-static'
+import {getFileExtension} from 'utils/media'
+import OfficePageViewer from 'components/file-page/component/DocumentPageViewer/OfficePageViewer'
+import PdfPageViewer from 'components/file-page/component/DocumentPageViewer/PdfPageViewer'
+import TiffPageViewer from 'components/file-page/component/DocumentPageViewer/TiffPageViewer'
+import TxtPageViewer from 'components/file-page/component/DocumentPageViewer/TxtPageViewer'
 
 interface Props{
   item: ICatalogEntry
@@ -11,16 +17,31 @@ interface Props{
 
 export default function DocumentPageViewer(props: Props){
   const {item} = props;
-  const linkLoading = useSelector((state: IRootState) => state.mediaLink.tempDocLinkLoading)
-  const link = useSelector((state: IRootState) => state.mediaLink.currentTempDocLink)
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-      dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
-  }, [])
+  const renderDocument = () => {
+    const ext = getFileExtension(item.media.filePath);
+    console.log('renderDocument', ext, item.media.filePath);
+    if(['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'].includes(ext)){
+      return <OfficePageViewer item={item}/>
+    }
+    if(['pdf'].includes(ext)){
+      return <PdfPageViewer item={item}/>
+    }
+    if(['tiff', 'tif'].includes(ext)){
+      console.log("renderTiff");
+      return <TiffPageViewer item={item}/>
+    }
+    if(['txt'].includes(ext)){
+      return  <TxtPageViewer item={item}/>
+    }
+    if(['bmp'].includes(ext)){
+      return  null
+    }
+    return null;
+  }
   return (
           <div className={styles.root}>
-            {link && <iframe className={styles.iframe} src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURI(link)}&wdAccPdf=0&wdEmbedFS=1`}/>}
+            {renderDocument()}
           </div>
   )
 }

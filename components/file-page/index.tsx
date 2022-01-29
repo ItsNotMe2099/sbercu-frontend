@@ -21,7 +21,7 @@ import {useRouter} from "next/router";
 import React, {useEffect} from "react";
 import {ICatalogEntry, IRootState} from "types";
 import {capitalizeFirstLetter, formatSize} from "utils/formatters";
-import {getMediaPath, getMediaPathWithQuality} from "utils/media";
+import {getMediaPath, getMediaPathWithQuality, isDocument, isImage} from "utils/media";
 import styles from 'components/file-page/index.module.scss'
 import Header from "components/layout/Header";
 import BreadCrumbs from 'components/ui/Breadcrumbs';
@@ -31,7 +31,7 @@ import Button from 'components/ui/Button';
 import Info from 'components/file-page/component/info';
 import Player from 'components/video/Player';
 import {useDispatch, useSelector} from 'react-redux'
-
+import dynamic from "next/dynamic";
 import {format} from 'date-fns'
 import MediaLinkTempModal from "components/MediaLinkTempModal";
 import MediaLinkVirtSchoolModal from "components/MediaLinkVirtSchoolModal";
@@ -43,12 +43,12 @@ import {IUser} from "types";
 import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import useInterval from 'react-useinterval'
 import {fetchJobListByIds} from 'components/jobs/actions'
-import DocumentViewer from 'components/file-page/component/DocumentPageViewer'
 import FileBottomToolbar from 'components/file-page/component/FileBottomToolbar'
-import DocumentPageViewer from 'components/file-page/component/DocumentPageViewer'
 import VideoPageViewer from 'components/file-page/component/VideoPageViewer'
 import ImagePageViewer from 'components/file-page/component/ImagePageViewer'
-
+const DocumentPageViewer = dynamic(() => import("components/file-page/component/DocumentPageViewer"), {
+  ssr: false
+});
 const queryString = require('query-string')
 
 interface Props {
@@ -116,14 +116,12 @@ const FilePage = (props: Props) => {
   const renderFilePreview = () => {
     const isVideo = video?.media?.type === 'video';
     const isAudio = video?.media?.type === 'audio';
-    const isDocument = video?.media?.type === 'audio';
-    const ext = video?.media?.filePath?.split('.')?.pop()?.toLowerCase() || '';
-
+    const source = video?.media?.filePath;
     if(isVideo || isAudio){
       return <VideoPageViewer item={video}/>
-    }else if(['ppt', 'pptx', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'rtf'].includes(ext)){
+    }else if(isDocument(source)){
       return  <DocumentPageViewer item={video}/>
-    }else if(['png', 'jpg', 'jpeg', 'gif'].includes(ext)){
+    }else if(isImage(source)){
       return <ImagePageViewer item={video}/>;
     }
   }

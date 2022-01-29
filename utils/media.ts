@@ -27,5 +27,5 @@ export const isImage = source => {
     return ['png', 'jpg', 'jpeg', 'gif'].includes(getFileExtension(source));
 }
 export const isDocument = source => {
-    return ['ppt', 'pptx', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'rtf'].includes(getFileExtension(source));
+    return ['ppt', 'pptx', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'rtf', 'tif', 'bmp'].includes(getFileExtension(source));
 }

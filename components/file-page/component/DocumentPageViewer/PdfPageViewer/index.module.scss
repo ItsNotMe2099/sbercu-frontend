@@ -1,0 +1,22 @@
+@import "scss/index";
+
+.root{
+  .pagination > div{
+    opacity: 0;
+  }
+  &:hover{
+    .pagination > div{
+      opacity: 1;
+    }
+  }
+  @media screen and (max-width: $sm-max) {
+    .pagination > div{
+      opacity: 1;
+    }
+  }
+}
+.document{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
