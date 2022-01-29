@@ -10,6 +10,7 @@ import OfficePageViewer from 'components/file-page/component/DocumentPageViewer/
 import PdfPageViewer from 'components/file-page/component/DocumentPageViewer/PdfPageViewer'
 import TiffPageViewer from 'components/file-page/component/DocumentPageViewer/TiffPageViewer'
 import TxtPageViewer from 'components/file-page/component/DocumentPageViewer/TxtPageViewer'
+import RtfPageViewer from 'components/file-page/component/DocumentPageViewer/RtfPageViewer'
 
 interface Props{
   item: ICatalogEntry
@@ -33,6 +34,9 @@ export default function DocumentPageViewer(props: Props){
     }
     if(['txt'].includes(ext)){
       return  <TxtPageViewer item={item}/>
+    }
+    if(['rtf'].includes(ext)){
+      return  <RtfPageViewer item={item}/>
     }
     if(['bmp'].includes(ext)){
       return  null
