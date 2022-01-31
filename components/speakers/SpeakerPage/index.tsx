@@ -9,6 +9,7 @@ import Tag from 'components/video-page/component/tag';
 import {useDispatch, useSelector} from 'react-redux'
 import {NextSeo} from 'next-seo'
 import {IUser} from "types";
+import Linkify from 'react-linkify';
 import {
   deleteSpeaker,
   fetchSpeakerItemRequest,
@@ -48,6 +49,7 @@ import Lightbox from "react-awesome-lightbox";
 import Quantity from 'pages/dashboard/components'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import File from 'components/dashboard/File'
+
 const queryString = require('query-string')
 
 interface Props {
@@ -88,9 +90,9 @@ const SpeakerPage = (props: Props) => {
     if (!router.query.id) {
       return;
     }
-    dispatch(fetchCatalogFiles( speakerId, {  page: 1, limit: limitFiles }));
+    dispatch(fetchCatalogFiles(speakerId, {page: 1, limit: limitFiles}));
 
-      dispatch(fetchSpeakerItemRequest(router.query.id, {showTags: '1'}));
+    dispatch(fetchSpeakerItemRequest(router.query.id, {showTags: '1'}));
 
     return () => {
       dispatch(resetCatalogList());
@@ -99,20 +101,20 @@ const SpeakerPage = (props: Props) => {
   }, [router.query.id])
 
   const handleShowFiles = () => {
-    if(showFiles){
+    if (showFiles) {
       setShowAllFiles(false)
-    }else{
+    } else {
       setShowAllFiles(true)
-      if(pageFiles === 1){
+      if (pageFiles === 1) {
         setPageFiles(pageFiles + 1)
-        dispatch(fetchCatalogFiles( speaker.id, {  page: pageFiles + 1, limit: limitFiles }));
+        dispatch(fetchCatalogFiles(speaker.id, {page: pageFiles + 1, limit: limitFiles}));
       }
     }
 
   }
   const handleScrollNextFiles = () => {
     setPageFiles(pageFiles + 1)
-    dispatch(fetchCatalogFiles(speaker.id, { page: pageFiles + 1, limit: limitFiles }));
+    dispatch(fetchCatalogFiles(speaker.id, {page: pageFiles + 1, limit: limitFiles}));
   }
 
   const getTagCategories = () => {
@@ -149,13 +151,14 @@ const SpeakerPage = (props: Props) => {
     </div>
   }
 
-  const renderInfoContactItem = (label: string, phone: string,  email: string) => {
+  const renderInfoContactItem = (label: string, phone: string, email: string) => {
 
     return <div className={styles.infoItem}>
       <div className={styles.label}>{label}</div>
       <div className={styles.value}>
         {phone && <a className={styles.contact} href={`tel:${phone}`}>{formatPhone(`+${phone}`)}</a>}
-        {email && <a className={cx(styles.contact, {[styles.space]: phone && email})} href={`mailto:${email}`}>{email}</a>}
+        {email &&
+        <a className={cx(styles.contact, {[styles.space]: phone && email})} href={`mailto:${email}`}>{email}</a>}
       </div>
     </div>
   }
@@ -185,18 +188,18 @@ const SpeakerPage = (props: Props) => {
     setCurrentEditFeedback(item);
     dispatch(createSpeakerFeedbackOpen());
   }
-  const handleMainPhotoClick = () =>{
-    setShowGallery( !showGallery);
+  const handleMainPhotoClick = () => {
+    setShowGallery(!showGallery);
     setGalleryIndex(0)
   }
-  const handleGalleryItemClick= (index) =>{
+  const handleGalleryItemClick = (index) => {
     console.log("SetGallery", showGallery)
-    setShowGallery( !showGallery);
+    setShowGallery(!showGallery);
     setGalleryIndex(speaker.mainCover ? index + 1 : index)
   }
 
   const renderPriceText = () => {
-    if(!speaker.price){
+    if (!speaker.price) {
       return '';
     }
     const priceType = SpeakerPriceTypeList?.find(i => i.value === speaker.priceType)?.label || '';
@@ -205,6 +208,11 @@ const SpeakerPage = (props: Props) => {
     return `${speaker.price}${currency ? ` ${currency}` : ''}${priceType ? `, ${priceType}` : ''}`
   }
 
+  const linkifyComponent = (decoratedHref, decoratedText, key) => (
+    <a target="blank" href={decoratedHref} key={key}>
+      {decoratedText}
+    </a>
+  )
   return (
     <Layout>
       {speaker && <NextSeo title={speaker.name}/>}
@@ -215,32 +223,44 @@ const SpeakerPage = (props: Props) => {
           <div className={styles.content}>
               <div className={styles.left}>
 
-                <div className={styles.gallery}>
-                    <div className={styles.mainPhoto}><SpeakerPhoto size={'large'} photo={speaker.mainCover} onClick={speaker.mainCover && handleMainPhotoClick }/></div>
-                    <div className={styles.photoList}>
-                      {(speaker.cover.length > 5
+                  <div className={styles.gallery}>
+                      <div className={styles.mainPhoto}><SpeakerPhoto size={'large'} photo={speaker.mainCover}
+                                                                      onClick={speaker.mainCover && handleMainPhotoClick}/>
+                      </div>
+                      <div className={styles.photoList}>
+                        {(speaker.cover.length > 5
                             ? speaker.cover.slice(0, 5)
                             : speaker.cover
-                      ).map((i, index) => <div className={styles.photoItem} onClick={() => handleGalleryItemClick(index)}><img src={getMediaPath(i)}/></div>)}
-                      {speaker.cover.length > 5 && (
-                        <div className={styles.photoItem} onClick={() => handleGalleryItemClick(5)}><img src={getMediaPath(speaker.cover[6])}/>
-                          <div className={styles.overlay}/>
-                          <div className={styles.number}>
+                        ).map((i, index) => <div className={styles.photoItem}
+                                                 onClick={() => handleGalleryItemClick(index)}><img
+                          src={getMediaPath(i)}/></div>)}
+                        {speaker.cover.length > 5 && (
+                          <div className={styles.photoItem} onClick={() => handleGalleryItemClick(5)}><img
+                            src={getMediaPath(speaker.cover[6])}/>
+                            <div className={styles.overlay}/>
+                            <div className={styles.number}>
                               +{speaker.cover.length - speaker.cover.slice(0, 5).length}
+                            </div>
+
                           </div>
 
-                        </div>
-
-                      )}
-                    </div>
-                </div>
+                        )}
+                      </div>
+                  </div>
                   <div className={styles.name}>{speaker.name}</div>
                   <div className={styles.nameEng}>{speaker.nameEng}</div>
-                  <div className={styles.shortDescription}>{speaker.shortDescription}</div>
-                {speaker.description && <div className={styles.description}>{speaker.description}</div>}
-                {speaker.awards && <div className={styles.awards}>{speaker.awards}</div>}
-                {speaker.bio && <div className={styles.bio}>{speaker.bio}</div>}
-                {speaker.publications && <div className={styles.publications}>{speaker.publications}</div>}
+                {speaker.shortDescription && <div className={styles.shortDescription}><Linkify
+                    componentDecorator={linkifyComponent}>{speaker.shortDescription}</Linkify></div>}
+                {speaker.description &&
+                <div className={styles.description}>
+                    <Linkify
+                        componentDecorator={linkifyComponent}>{speaker.description}</Linkify></div>}
+                {speaker.awards && <div className={styles.awards}><Linkify
+                    componentDecorator={linkifyComponent}>{speaker.awards}</Linkify></div>}
+                {speaker.bio && <div className={styles.bio}><Linkify
+                    componentDecorator={linkifyComponent}>{speaker.bio}</Linkify></div>}
+                {speaker.publications && <div className={styles.publications}><Linkify
+                    componentDecorator={linkifyComponent}>{speaker.publications}</Linkify></div>}
 
               </div>
               <div className={styles.tags}>
@@ -310,9 +330,10 @@ const SpeakerPage = (props: Props) => {
                                                                    speakerId={speaker.id}/>}
       <Footer/>
 
-      {showGallery && <Lightbox  images={[...(speaker.mainCover ? [getMediaPath(speaker.mainCover)] : [] ), ...speaker.cover.map(file => getMediaPath(file)) ]}
-                               startIndex={galleryIndex}
-                               onClose={() => setShowGallery(false)}/>}
+      {showGallery && <Lightbox
+          images={[...(speaker.mainCover ? [getMediaPath(speaker.mainCover)] : []), ...speaker.cover.map(file => getMediaPath(file))]}
+          startIndex={galleryIndex}
+          onClose={() => setShowGallery(false)}/>}
 
 
     </Layout>

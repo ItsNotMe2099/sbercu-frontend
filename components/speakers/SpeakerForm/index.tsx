@@ -13,7 +13,7 @@ import InputPhone from 'components/ui/Inputs/InputPhone'
 import cx from 'classnames'
 import cyrillicToTranslit from 'cyrillic-to-translit-js'
 import LanguageInputList from 'components/ui/Inputs/LanguageInputList'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import FilesUploadInput from 'components/ui/Inputs/FilesUploadInput'
 import ImagesUploadInput from 'components/ui/Inputs/ImagesUploadInput'
 import {formatPhone} from 'utils/formatters'
@@ -116,7 +116,7 @@ let SpeakerForm = props => {
             <Field
               name="legalEntity"
               component={Input}
-              label="Юридической лицо (в 1С)"
+              label="Юридическое лицо в соответствии с 1С"
             />
             <div className={styles.textArea}>
             <div className={styles.head__right}>Ценообразование</div>
@@ -240,6 +240,8 @@ let SpeakerForm = props => {
               name="mainCover"
               component={AvatarInput}
               addFileTitle={'Загрузить фото'}
+              validate={required}
+
             />
             <div className={styles.head}>Галерея</div>
 
