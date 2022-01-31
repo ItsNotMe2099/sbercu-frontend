@@ -207,7 +207,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
         onDrop,
       })
 
-      console.log('fileProgress', fileProgress)
+      console.log('errorMeta', props.meta)
       return (
       <div className={`${styles.root} ${!!(files.length > 0) && styles.hasBackDrop}`}>
 
@@ -241,7 +241,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           </div>
         </div>
 
-        <ErrorInput {...props?.meta} />
+        <ErrorInput meta={props?.meta} />
             </div>
       )
     }
