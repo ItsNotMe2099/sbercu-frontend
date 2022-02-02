@@ -107,6 +107,12 @@ export default function InputCatalogSearch(props: Props) {
             {projects.length || files.length || folders.length || speakers.length ?
               <div className={styles.suggestion}>
                 <div className={styles.innerWrapper}>
+                  {projects.length >0 && <div className={styles.projects}>
+                      <div className={styles.title}>Проекты</div>
+                    {projects.map(project =>
+                      <div className={styles.project} key={project} onClick={() => handleProjectClick(project)}>{project.name}</div>
+                    )}
+                  </div>}
 
                   {speakers.length > 0 && <div className={styles.speakers}>
                       <div className={styles.title}>Спикеры</div>
