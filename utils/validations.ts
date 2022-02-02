@@ -24,6 +24,7 @@ export function phone(value: string) {
   return value && !isPossiblePhoneNumber(`${value?.includes('+') ? value : `+${value}`}`) ? 'Неверный формат телефона' : undefined;
 }
 
+
 export function speakerPriceFieldRequired(value: string, allValues: any) {
   console.log("passwordsMatch", value, allValues)
   return !value && allValues.price && allValues.price  > 0 ? 'Обязательное поле' : undefined

@@ -117,6 +117,7 @@ let SpeakerForm = props => {
               name="legalEntity"
               component={Input}
               label="Юридическое лицо в соответствии с 1С"
+              validate={required}
             />
             <div className={styles.textArea}>
             <div className={styles.head__right}>Ценообразование</div>
@@ -135,6 +136,7 @@ let SpeakerForm = props => {
               className={styles.priceField}
               type={'number'}
               placeholder="Стоимость"
+              validate={required}
             />
             <Field
               name="currency"
@@ -152,6 +154,7 @@ let SpeakerForm = props => {
                 name="description"
                 component={TextArea}
                 label="Должность / Проект/ Краткое описание деятельности"
+                validate={required}
               />
               <div className={styles.head__right}>Награды / Регалии/ Принадлежность к бизнес-школам</div>
               <Field
@@ -164,6 +167,7 @@ let SpeakerForm = props => {
                 name="bio"
                 component={TextArea}
                 label="Биография"
+                validate={required}
               />
               <div className={styles.head__right}>Презентации / Книги/ Публикации</div>
               <Field
@@ -178,6 +182,10 @@ let SpeakerForm = props => {
                   name="languages"
                   component={LanguageInputList}
                   label="Выберите язык"
+                  validate={(val) => {
+                    return !val || val.length === 0 ? 'Обязательое поле' : undefined;
+
+                  }}
                 />
               </div>
               <div className={styles.head__right}>Контакты спикера</div>
@@ -188,13 +196,24 @@ let SpeakerForm = props => {
                   component={InputPhone}
                   label="Телефон"
                   format={formatPhone}
-                  validate={phone}
+                  validate={(val) => {
+                    if(required(val)){
+                      return required(val)
+                    }
+                    return phone(val);
+                  }}
+
                 />
                 <Field
                   name="speakerContactEmail"
                   component={Input}
                   label="Email"
-                  validate={email}
+                  validate={(val) => {
+                    if(required(val)){
+                      return required(val)
+                    }
+                    return email(val);
+                  }}
                 />
               </div>
               <div className={cx(styles.head__right)}>Контакты агента</div>

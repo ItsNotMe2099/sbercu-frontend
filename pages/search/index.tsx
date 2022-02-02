@@ -164,7 +164,7 @@ const Search = (props) => {
 
 
     const handleShowSpeakers = () => {
-        if(showProjects){
+        if(showSpeakers){
             setShowAllSpeakers(false)
         }else{
             setShowAllSpeakers(true)
