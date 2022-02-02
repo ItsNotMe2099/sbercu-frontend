@@ -20,8 +20,7 @@ const minLength = min => value =>
 
 export const minL = minLength(8)
 export function phone(value: string) {
-  console.log("ValidPhone", value)
-  return value?.trim() && !isPossiblePhoneNumber(`${value?.includes('+') ? value : `+${value}`}`) ? 'Неверный формат телефона' : undefined;
+  return value?.trim() && value !== '+7' && !isPossiblePhoneNumber(`${value?.includes('+') ? value : `+${value}`}`) ? 'Неверный формат телефона' : undefined;
 }
 
 
