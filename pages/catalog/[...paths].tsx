@@ -337,16 +337,11 @@ const Catalog = (props) => {
             hasMore={totalItems !== items.length}
             className={styles.scroll}
           >
-            <DragDropContext onDragEnd={handleDragEnd}
-                             onDragUpdate={handleDragUpdate}
-            >
-              <Droppable droppableId="list" isCombineEnabled={true}>
-                {(provided, snapshot) => (
-                  <div  {...provided.droppableProps}
-                       isDraggingFrom={Boolean(snapshot.draggingFromThisWith)}
+
+
+                  <div
                        className={styles.files} onMouseMove={handleMouseMove} onMouseLeave={() => mousePositionRef.current = null}>
-                    <div ref={provided.innerRef}>
-                    {items.map((item, index) => (<DraggableFile
+                    {items.map((item, index) => (<File
                       key={`${item.id}`}
                       index={index}
                       isSelected={selectedIds.includes(item.id)}
@@ -360,11 +355,8 @@ const Catalog = (props) => {
                       dragOverId={dragOverId}
                       item={item}
                     />))}
-                    </div>
                   </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+
           </InfiniteScroll>
           : !listLoading ?
             <a className={styles.noFiles} onClick={currentCatalogItem?.canEdit ? handleUploadFiles : null}>
