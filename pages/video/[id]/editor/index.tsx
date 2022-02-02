@@ -60,11 +60,11 @@ const Editor = (props: Props) => {
         confirmText: 'Да',
         onConfirm: () => {
           dispatch(modalClose());
-          router.replace(`/video/${router.query.id}`);
+          router.replace(`/file/${router.query.id}`);
         }
       }));
     } else {
-      router.replace(`/video/${router.query.id}`);
+      router.replace(`/file/${router.query.id}`);
     }
   }
   const handleSubmit = (cutItems, duration) => {

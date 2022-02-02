@@ -71,7 +71,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                     </div>}
                     <div className={styles.fileInfo}>
                         <div className={styles.fileName}>
-                            {job.catalog && <Link href={`/video/${job.catalog?.id}`}  >{job.catalog?.name}</Link>}
+                            {job.catalog && <Link href={`/file/${job.catalog?.id}`}  >{job.catalog?.name}</Link>}
                         </div>
                         <div className={styles.additionalInfo}>
                             <div className={styles.greyText}>{getTypeName(job.type)}</div>

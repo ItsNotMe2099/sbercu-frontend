@@ -178,7 +178,7 @@ function* catalogSaga() {
       const result = yield take([ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.FAIL])
       if (result.type === ActionTypes.CUT_VIDEO_REQUEST + ApiActionTypes.SUCCESS) {
         const currentCatalogItem = yield select((state: IRootState) => state.catalog.currentCatalogItem)
-        Router.push(`/video/${currentCatalogItem.id}`)
+        Router.push(`/file/${currentCatalogItem.id}`)
       }
     })
   yield takeLatest(ActionTypes.CATALOG_COPY,
