@@ -66,6 +66,7 @@ let SpeakerForm = props => {
       setError('Заполните хотя бы один из контактов спикера')
       return;
     }
+    setError(null);
     handleSubmit(e);
   }
   return (
