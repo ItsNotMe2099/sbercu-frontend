@@ -25,7 +25,7 @@ export default function RtfPageViewer(props: Props){
 
       const arrayBuffer = this.response;
       console.log("onLoad", arrayBuffer);
-      const doc = new (window as any).Document(arrayBuffer, {
+      const doc = new (window as any).RTFJS.Document(arrayBuffer, {
 
       });
     console.log("Doc", doc)
