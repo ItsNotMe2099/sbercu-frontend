@@ -387,7 +387,7 @@ const Catalog = (props) => {
                         onClose={handleCloseFilesUploadModal}/>}
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog}
                      onRequestClose={() => dispatch(modalClose())}/>
-      
+      {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
       {modalKey === 'pasteCatalogItemDuplicate' &&
       <PasteCatalogItem onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}
       {modalKey === 'mediaLinkPublic' &&
