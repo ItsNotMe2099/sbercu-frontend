@@ -29,3 +29,19 @@ export function speakerPriceFieldRequired(value: string, allValues: any) {
   console.log("passwordsMatch", value, allValues)
   return !value && allValues.price && allValues.price  > 0 ? 'Обязательное поле' : undefined
 }
+export function speakerContactsRequiredEmail(value: string, data: any) {
+  if(email(value)){
+    return email(value);
+  }
+  if (!data.speakerContactPhone && !data.speakerContactEmail && !data.agentContactPhone && !data.agentContactEmail) {
+    return 'Заполните хотя бы один из контактов спикера';
+  }
+}
+export function speakerContactsRequiredPhone(value: string, data: any) {
+  if(phone(value)){
+    return phone(value);
+  }
+  if (!data.speakerContactPhone && !data.speakerContactEmail && !data.agentContactPhone && !data.agentContactEmail) {
+    return 'Заполните один из контактов спикера';
+  }
+}

@@ -6,7 +6,14 @@ import Button from 'components/ui/Button'
 import {IRootState, ITagCategoryType, SpeakerPriceCurrencyList, SpeakerPriceTypeList} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
-import {email, phone, required, speakerPriceFieldRequired} from 'utils/validations'
+import {
+  email,
+  phone,
+  required,
+  speakerContactsRequiredEmail,
+  speakerContactsRequiredPhone,
+  speakerPriceFieldRequired
+} from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import AvatarInput from "components/ui/AvatarInput";
 import InputPhone from 'components/ui/Inputs/InputPhone'
@@ -23,8 +30,8 @@ import FormError from 'components/ui/Form/FormError'
 let SpeakerForm = props => {
   const router = useRouter()
 
-  const {handleSubmit, initialValues, firstName, lastName, speakerContactPhone, speakerContactEmail, agentContactPhone, agentContactEmail} = props
-  const [error, setError] = useState(null);
+  const {handleSubmit, initialValues, firstName, lastName, errors} = props
+
   const [firstNameEnTouched, setFirstNameEnTouched] = useState(false);
   const [lastNameEnTouched, setLastNameEnTouched] = useState(false);
   const [uploadingGalleryInProgress, setUploadingGalleryInProgress] = useState(false);
@@ -59,20 +66,10 @@ let SpeakerForm = props => {
       setUploadingGalleryInProgress(false);
     }
   }
-  console.log("initialValues", initialValues)
-  const onSubmit = (e) => {
+  console.log("errors", errors)
 
-    console.log("onSubmit")
-    if(!speakerContactPhone && !speakerContactEmail && !agentContactPhone && !agentContactEmail){
-      setError('Заполните хотя бы один из контактов спикера')
-      e?.preventDefault();
-      return;
-    }
-    setError(null);
-    handleSubmit(e);
-  }
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className={styles.form}>
         <div className={styles.section__mobile}>
           <div className={styles.title}>Тегирование</div>
@@ -209,14 +206,14 @@ let SpeakerForm = props => {
                   component={InputPhone}
                   label="Телефон"
                   format={formatPhone}
-                  validate={phone}
+                  validate={speakerContactsRequiredPhone}
 
                 />
                 <Field
                   name="speakerContactEmail"
                   component={Input}
                   label="Email"
-                  validate={email}
+                  validate={speakerContactsRequiredEmail}
                 />
               </div>
               <div className={cx(styles.head__right)}>Контакты агента</div>
@@ -227,13 +224,13 @@ let SpeakerForm = props => {
                   component={InputPhone}
                   label="Телефон"
                   format={formatPhone}
-                  validate={phone}
+                  validate={speakerContactsRequiredPhone}
                 />
                 <Field
                   name="agentContactEmail"
                   component={Input}
                   label="Email"
-                  validate={email}
+                  validate={speakerContactsRequiredEmail}
                 />
               </div>
             </div>
@@ -278,7 +275,7 @@ let SpeakerForm = props => {
           </div>
         </div>
       </div>
-      <div style={{display: 'inline-block'}}><FormError error={error}/></div>
+      <div style={{display: 'inline-block'}}><FormError error={errors?.speakers ?? ''}/></div>
       <div className={styles.btnContainer}>
         <Button disabled={uploadingGalleryInProgress} green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
         <Button transparent textLightGrey type={'button'} onClick={handleCancel}>Отмена</Button>
@@ -297,12 +294,9 @@ const selector = formValueSelector('speakerForm')
 SpeakerForm = connect(state => {
     const firstName = selector(state, 'firstName')
   const lastName = selector(state, 'lastName')
-  const speakerContactPhone = selector(state, 'speakerContactPhone')
-  const speakerContactEmail = selector(state, 'speakerContactEmail')
-  const agentContactPhone = selector(state, 'agentContactPhone')
-  const agentContactEmail = selector(state, 'agentContactEmail')
 
-    return {firstName, lastName, speakerContactPhone, speakerContactEmail, agentContactPhone, agentContactEmail}
+
+    return {firstName, lastName}
   }
 )(SpeakerForm)
 export default SpeakerForm

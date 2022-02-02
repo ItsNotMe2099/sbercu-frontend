@@ -80,7 +80,7 @@ export default function PdfPageViewer(props: Props){
 
               {handle.active && <div className={styles.fullscreen}>
                 {link && <Document debug file={{
-                  url: '/SVRIMK LOWQ.pdf.pdf',
+                  url: getMediaPath(item.media.fileName),
                   withCredentials: true,
                 }}
                                    loading={<DocumentLoader/>}
