@@ -5,7 +5,7 @@ export const getMediaPath = (file) => {
     if(file.includes('https://')){
         return file;
     }
-    return `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/files${file.indexOf('/') === 0 ? file : `/${file}`}`
+    return `${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/files${file.indexOf('/') === 0 ? file : `/${file}`}`
 }
 
 export const getMediaPathWithQuality = (file, quality) => {
@@ -14,10 +14,18 @@ export const getMediaPathWithQuality = (file, quality) => {
     }
     return `${getMediaPath(file)}?quality=${quality}`;
 }
-
+export const getFileExtension = source => {
+    return source?.split('.')?.pop()?.toLowerCase() || '';
+}
 export const isAudio = source => {
-    const parts =  source.split('.');
-    const ext = parts.length > 0 ? parts[parts.length - 1] : '';
-
-    return ['mp3', 'ogg', 'wav'].includes(ext);
+    return ['mp3', 'ogg', 'wav'].includes(getFileExtension(source));
+}
+export const isVideo = source => {
+    return ['mp4', 'avi'].includes(getFileExtension(source));
+}
+export const isImage = source => {
+    return ['png', 'jpg', 'jpeg', 'gif'].includes(getFileExtension(source));
+}
+export const isDocument = source => {
+    return ['ppt', 'pptx', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'rtf', 'tif', 'bmp'].includes(getFileExtension(source));
 }

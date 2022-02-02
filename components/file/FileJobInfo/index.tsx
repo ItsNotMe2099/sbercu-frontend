@@ -10,7 +10,6 @@ interface FileJobProps{
 }
 export const FileJobInfo = ({item}: FileJobProps) => {
   const job = item?.media?.lastJob;
-  console.log("estimatedTimeInSeconds", job?.estimatedTimeInSeconds)
   return <div className={styles.jobInfo}>
 
     {['pending'].includes(job.state) && <div className={styles.statusIcon} style={{borderColor: '#F2C94C'}}><Dots color={'#F2C94C'}/></div>}

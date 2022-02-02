@@ -28,6 +28,7 @@ export type VideoSeekSliderStates = {
     ready: boolean;
     trackWidth: number;
     seekHoverPosition: number;
+    isHover: boolean
 };
 
 export type TransformType = {
@@ -58,6 +59,7 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
             ready: false,
             trackWidth: 0,
             seekHoverPosition: 0,
+            isHover: false
         };
 
     }
@@ -162,11 +164,15 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
                 if(this.seeking) {
                     this.setSeeking(false, evt);
                 }
+
             }else {
                 this.setState({
                     seekHoverPosition: position,
                 });
             }
+            this.setState({
+                isHover: !clear,
+            });
         }
     }
 
@@ -339,13 +345,18 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
     private renderHoverProgress = () => {
         if (this.props.sliderHoverColor) {
             return <div
-                className={styles["seek-hover"]}
-                style={{...this.getSeekHoverPosition(), backgroundColor: this.props.sliderHoverColor}}/>;
+              className={styles["seek-hover"]}
+              style={{...this.getSeekHoverPosition(), backgroundColor: this.props.sliderHoverColor}}/>;
         } else {
             return <div
-                className={styles["seek-hover"]}
-                style={this.getSeekHoverPosition()}/>;
+              className={styles["seek-hover"]}
+              style={this.getSeekHoverPosition()}/>;
         }
+    }
+    private renderHoverTime = () => {
+        return <div
+          className={styles["seek-hover-tem"]}
+          style={this.getSeekHoverPosition()}/>;
     }
 
     private renderThumb = (): React.ReactNode => {
@@ -366,14 +377,17 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
     }
 
     private drawHoverTime(): React.ReactNode {
+
         if (!this.props.hideHoverTime) {
+            console.log("drawHoverTime", this.getHoverTime())
             return (
                 <div
-                    className={this.isThumbActive() ? `${styles["hover-time"]} ${styles.active}` : styles["hover-time"]}
+                    className={`${styles["hover-time"]} ${styles.active}`}
                     style={this.getHoverTimePosition()}
                     ref={ref => this.hoverTime = ref}
                 >
                     {this.getHoverTime()}
+                    <div className={styles.arrowDown}/>
                 </div>
             );
         } else {
@@ -400,7 +414,7 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
                     </div>
                 </div>
 
-                {this.drawHoverTime()}
+                {this.state.isHover && this.drawHoverTime()}
 
                 {this.renderThumb()}
             </div>

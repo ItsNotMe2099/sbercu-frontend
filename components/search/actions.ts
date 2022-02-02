@@ -25,6 +25,13 @@ export const fetchCatalogFoldersSearch = (query, options) => action(ActionTypes.
   }
 })
 
+export const fetchSpeakersSearch = (query, options) => action(ActionTypes.FETCH_SPEAKERS_SEARCH_LIST, {
+  api: {
+    url: `/api/speaker/search?query=${query}&${queryString.stringify(options)}`,
+    method: 'GET',
+  }
+})
+
 
 export const fetchAutoCompleteCatalogProjectsSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST, {
   api: {
@@ -41,6 +48,12 @@ export const fetchAutoCompleteCatalogFilesSearch = (query, options) => action(Ac
 export const fetchAutoCompleteCatalogFoldersSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FOLDERS_SEARCH_LIST, {
   api: {
     url: `/api/catalog/search/folders?query=${query}&${queryString.stringify(options)}`,
+    method: 'GET',
+  }
+})
+export const fetchAutoCompleteSpeakersSearch = (query, options) => action(ActionTypes.FETCH_AUTOCOMPLETE_SPEAKERS_SEARCH_LIST, {
+  api: {
+    url: `/api/speaker/search?query=${query}&${queryString.stringify(options)}`,
     method: 'GET',
   }
 })

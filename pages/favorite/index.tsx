@@ -1,31 +1,27 @@
-import { fetchCatalogList, fetchCatalogProjects, fetchMyUploadedFiles } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
+import {confirmOpen, editFileOpen, modalClose} from "components/Modal/actions";
 import {
     fetchCatalogFilesFavorite,
     fetchCatalogFoldersFavorite,
     fetchCatalogProjectsFavorite,
     resetCatalogFavorite
 } from "components/favorite/actions";
-import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
-import NoFiles from "components/ui/NoFiles";
-import { useRouter } from "next/router";
+import {fetchTagCategoryList} from "components/tags/TagCategory/actions";
+import {useRouter} from "next/router";
 import FileEditModal from "components/FileEditModal";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState } from "types";
-import {getAuthServerSide, logout} from "utils/auth";
-import { pluralize } from "utils/formatters";
+import {IRootState, ITagCategoryType} from "types";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
-import { TagSelect } from "components/dashboard/TagSelect";
+import {TagSelect} from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
 import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
-import { useDispatch, useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
-import ProjectLoader from "components/ContentLoaders/projectLoader";
 import NoFavorite from 'pages/favorite/components/NoFavorite'
 import * as React from 'react'
 
@@ -65,7 +61,7 @@ const FavoritePage = (props) => {
     useEffect(() => {
 
         dispatch(resetCatalogFavorite());
-        dispatch(fetchTagCategoryList());
+        dispatch(fetchTagCategoryList(ITagCategoryType.Project));
         dispatch(fetchCatalogProjectsFavorite( {limit: limitProjects}));
         dispatch(fetchCatalogFilesFavorite( { limit: limitFiles }));
         dispatch(fetchCatalogFoldersFavorite( { limit: limitFiles }));

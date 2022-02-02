@@ -39,7 +39,7 @@ export const RadioList = (props) => {
                      value={item.value} isActive={item.value === input.value} label={item.label} onChange={handleCheckboxChanged}/>
         </div>
       ))}
-      <ErrorInput {...props.meta}/>
+      <ErrorInput  meta={props.meta}/>
       </div>
 
   );

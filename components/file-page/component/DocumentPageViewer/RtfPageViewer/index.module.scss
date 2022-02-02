@@ -1,0 +1,14 @@
+@import "scss/index";
+
+.root{
+
+}
+.text{
+  font-size: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+  white-space: pre-line;
+  @media screen and (max-width: $sm-max) {
+    max-height: 200px;
+  }
+}

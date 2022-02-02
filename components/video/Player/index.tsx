@@ -14,6 +14,7 @@ import { findDOMNode } from 'react-dom'
 import cx from 'classnames'
 import {useThrottleFn} from '@react-cmpt/use-throttle'
 import {createVideoViewHistory, getVideoViewHistory} from 'utils/requests'
+import useMobileDetect from 'utils/useMobileDetect'
 
 const VideoJs = dynamic(() => import('components/video/VideoJs'), {
     ssr: false
@@ -33,6 +34,7 @@ export default function Player(props) {
     const [source, setSource] = useState(null);
     const [pip, setPip] = useState(false);
     const [playing, setPlaying] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [controls, setControls] = useState(false);
     const [light, setLight] = useState(false);
     const [volume, setVolume] = useState(50);
@@ -44,8 +46,13 @@ export default function Player(props) {
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [loop, setLoop] = useState(false);
     const [seeking, setSeeking] = useState(false);
-
+    const {isMobile} = useMobileDetect();
+    const manualSourceSetRes = useRef(false);
+    const sourceRef = useRef(false);
     const viewHistoryRef = useRef(false);
+    const playingRef = useRef(false);
+    const slowInternetTimeoutRef = useRef(null);
+    const showAlertTimeoutRef = useRef(null);
 
     const player = useRef();
     const root = useRef();
@@ -63,21 +70,78 @@ export default function Player(props) {
 
     useEffect(() => {
         setSource(props.source)
+        sourceRef.current = props.source;
     }, [])
+    useEffect(() => {
+       console.log("handleSetPlay1", playing)
+    }, [playing])
 
-    const handlePlayPause = () => {
+
+    const resetPlay = () => {
+        setTimeout(() => {
+            if (playingRef.current) {
+                (player as any)?.current?.pause();
+                setTimeout(() => {
+                    (player as any)?.current?.play();
+                }, 300);
+            }
+        }, 500)
+    }
+    const handleWaiting = () => {
+        console.log('handleWaiting');
+        if( manualSourceSetRes.current){
+            return;
+        }
+        slowInternetTimeoutRef.current = setTimeout(() => {
+            if( manualSourceSetRes.current){
+                console.log("manualSourceSetRes");
+                return;
+            }
+            const currentIndex = props.sources.findIndex(i => i.value === sourceRef.current);
+            console.log("sourceUpdate1", props.sources, sourceRef.current, currentIndex);
+            if(currentIndex > 0){
+                const newSource = props.sources[currentIndex - 1];
+                console.log("setSourceLess", props.sources[currentIndex - 1]);
+                if( showAlertTimeoutRef.current){
+                    clearTimeout( showAlertTimeoutRef.current);
+                }
+                setSource(newSource.value);
+                showAlertTimeoutRef.current = setTimeout(() => {
+                    setShowAlert(false);
+                }, 3000)
+                setShowAlert(true);
+                sourceRef.current = newSource.value;
+                resetPlay();
+                handleWaiting();
+            }
+            console.log("sourceUpdate2", props.sources);
+        }, 5000);
+    }
+    const handlePlaying = () => {
+        console.log('handlePlaying');
+        if(slowInternetTimeoutRef.current ){
+            clearTimeout(slowInternetTimeoutRef.current)
+            slowInternetTimeoutRef.current = null;
+        }
+    }
+    const handlePlayPause = (e) => {
+        e.stopPropagation();
+        console.log("handlePlayPause")
        if (!playing) {
                  (player as any)?.current?.play();
         } else {
                (player as any)?.current?.pause();
         }
         setPlaying((playing) => !playing);
+        playingRef.current = !playing;
 
     }
 
     const handleStop = () => {
         setSource(null);
+        sourceRef.current = null;
         setPlaying(false);
+        playingRef.current = false;
     }
 
 
@@ -100,6 +164,7 @@ export default function Player(props) {
     const handlePlay = () => {
         console.log('onPlay')
         setPlaying(true);
+        playingRef.current = true;
     }
 
     const handleEnablePIP = () => {
@@ -115,6 +180,7 @@ export default function Player(props) {
     const handlePause = () => {
         console.log('handlePause')
         setPlaying(false);
+        playingRef.current = false;
     }
 
 
@@ -132,7 +198,8 @@ export default function Player(props) {
     }
 
     const handleEnded = () => {
-        setPlaying(loop);
+        setPlaying(false);
+        playingRef.current = false;
         props.onChangeProgress({
             currentTime: 0,
             muted,
@@ -146,14 +213,19 @@ export default function Player(props) {
 
         if(props.getViewHistory && !viewHistoryRef.current) {
             const viewHistory = await props.getViewHistory();
-           console.log("viewHistory", viewHistory);
+           console.log("viewHistory11", viewHistory ,playingRef.current);
             if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
                 handleSeekChange(viewHistory?.currentTime);
                 setPlayed(viewHistory?.currentTime / duration);
                 (player?.current as any).currentTime(viewHistory?.currentTime);
+
                 setVolume(viewHistory.volume);
             }
             viewHistoryRef.current = true;
+            if(playingRef.current){
+                console.log("RestartPlay", playingRef.current)
+                resetPlay();
+            }
         }
     }
 
@@ -187,6 +259,8 @@ export default function Player(props) {
         setLoaded(0);
         setPip(false);
         setSource(item.value);
+        sourceRef.current = item.value;
+        manualSourceSetRes.current = true;
 
     }
 
@@ -239,12 +313,17 @@ export default function Player(props) {
                 onPause={handlePause}
                 onError={e => console.log('onError', e)}
                 onReady={handleReady}
+                onWaiting={handleWaiting}
+                onPlaying={handlePlaying}
                 onBuffer={() => console.log('onBuffer')}
             />
-            <div className={styles.shadow}></div>
-            <div className={styles.controls}>
+
+         <div className={styles.shadow}></div>
+        {isMobile() && <div className={styles.playBg}  onClick={handlePlayPause}></div>}
+        <div className={cx(styles.alert, {[styles.showAlert]: showAlert})}><div className={styles.circle}/>Плохой интернет. Качество видео уменьшено.</div>
+          <div className={styles.controls}>
                 <div className={styles.progress}>
-                    <SeekSlider hideHoverTime={true} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
+                    <SeekSlider hideHoverTime={false} fullTime={duration} bufferColor={'#D4ECDE'} bufferProgress={duration * loaded}
                                 currentTime={duration * played} onChange={handleSeekChange}
                                 onChangeCurTime={handleChangeCurrentTime}/>
                 </div>

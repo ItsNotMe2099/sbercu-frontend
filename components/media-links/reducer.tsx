@@ -5,11 +5,14 @@ import ActionTypes from "./const";
 export interface MediaLinkState {
   currentMediaLink?: string,
   formLoading: boolean,
+  tempDocLinkLoading: boolean,
+  currentTempDocLink?: string,
   formError?: string | string[]
 }
 
 const initialState: MediaLinkState = {
   formLoading: false,
+  tempDocLinkLoading: false
 
 }
 
@@ -53,10 +56,22 @@ export default function MediaLinkReducer(state = {...initialState}, action) {
       state.formError = action.payload?.message || 'Unknown error'
       break;
 
+    case ActionTypes.CREATE_MEDIA_LINK_TEMP_DOC_VIEWER :
+      state.tempDocLinkLoading = true
+      break;
+    case ActionTypes.CREATE_MEDIA_LINK_TEMP_DOC_VIEWER + ApiActionTypes.SUCCESS:
+      state.currentTempDocLink = action.payload.link;
+      state.tempDocLinkLoading = false
+      break;
+    case ActionTypes.CREATE_MEDIA_LINK_TEMP_DOC_VIEWER + ApiActionTypes.FAIL:
+      state.tempDocLinkLoading = false
+      break;
+
     case ActionTypes.RESET_MEDIA_LINK_FORM:
       state.formLoading = false
       state.formError = null;
       state.currentMediaLink = null;
+      state.currentTempDocLink = null;
       break;
   }
 

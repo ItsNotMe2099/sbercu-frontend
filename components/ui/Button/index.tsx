@@ -32,6 +32,7 @@ interface Props {
   btnGreen?: boolean
   btnWhite?: boolean
   brdrDarkGrey?: boolean
+  brdrLightGrey?: boolean
   brdrGreen?: boolean
   brdrRed?: boolean
   createGroup?: boolean
@@ -59,6 +60,7 @@ export default function Button(props: Props) {
         ${props.textRed && styles.text__red}
         ${props.textWhite && styles.text__white}
         ${props.closeBtn && styles.closeBtn}
+        ${props.brdrLightGrey && styles.brdr__lightGrey}
         ${props.brdrDarkGrey && styles.brdr__darkGrey}
         ${props.brdrGreen && styles.brdr__green}
       ${props.brdrRed && styles.brdr__red}

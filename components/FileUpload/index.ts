@@ -80,18 +80,22 @@ export class FileUpload {
                     cancelToken: this.currentRequest.token,
                 });
 
-            const resCatalog = await axios
-                .post(`${process.env.NEXT_PUBLIC_API_URL}/api/catalog`, {
-                    mediaId: res.data.mediaId,
-                    name: file.name,
-                    entryType: 'file',
-                    parentId: this.props.catalogId
-                }, {
-                    headers: this.props.headers,
-                });
+            if(this.props.catalogId) {
+                const resCatalog = await axios
+                  .post(`${process.env.NEXT_PUBLIC_API_URL}/api/catalog`, {
+                      mediaId: res.data.mediaId,
+                      name: file.name,
+                      entryType: 'file',
+                      parentId: this.props.catalogId
+                  }, {
+                      headers: this.props.headers,
+                  });
 
-            console.log("resCatalog.data", resCatalog.data)
-            this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
+                console.log("resCatalog.data", resCatalog.data)
+                this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
+            }else{
+                this.props.onFinish({...res.data});
+            }
         }catch(e){
             console.log("Error happened", axios.isCancel(e))
         }

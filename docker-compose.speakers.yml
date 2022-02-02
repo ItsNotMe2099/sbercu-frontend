@@ -1,0 +1,59 @@
+version: '3'
+
+networks:
+  app:
+    driver: bridge
+  nginx-proxy:
+    external: true
+services:
+    app:
+        build:
+          context: .
+          dockerfile: docker/app/Dockerfile
+          args:
+            - ENV_FILE=.env.speakers
+        image: ${APP_IMAGE}
+        container_name: sbercu-speakers-front-app
+        restart: ${DK_RESTART}
+        networks:
+          - app
+    nginx:
+        build:
+          context: .
+          dockerfile: docker/nginx/Dockerfile
+          args:
+            - APP_IMAGE=${APP_IMAGE}
+        image: ${NGINX_IMAGE}
+        container_name: sbercu-speakers-front-nginx
+        restart: ${DK_RESTART}
+        networks:
+          - app
+          - nginx-proxy
+        depends_on:
+          - app
+        environment:
+          API_HOST: http://sber-cu-api-speakers-nginx
+          VIRTUAL_HOST: speakers.sbercu.dev.glob-com.ru
+          LETSENCRYPT_HOST: speakers.sbercu.dev.glob-com.ru
+          LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
+          VIRTUAL_PORT: 80
+    nginx_firelabs:
+      build:
+        context: .
+        dockerfile: docker/nginx/Dockerfile
+        args:
+          - APP_IMAGE=${APP_IMAGE}
+      image: ${NGINX_IMAGE}
+      container_name: sbercu-speakers-front-nginx-firelabs
+      restart: ${DK_RESTART}
+      networks:
+        - app
+        - nginx-proxy
+      depends_on:
+        - app
+      environment:
+        API_HOST: http://sber-cu-api-speakers-nginx
+        VIRTUAL_HOST: speakers.sber.dev.firelabs.ru
+        LETSENCRYPT_HOST: speakers.sber.dev.firelabs.ru
+        LETSENCRYPT_EMAIL: sites.globcom@yandex.ru
+        VIRTUAL_PORT: 80

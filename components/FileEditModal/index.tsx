@@ -15,15 +15,22 @@ interface Props {
 }
 
 export default function FileEditModal(props: Props){
+  const {catalog} = props;
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
-    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: data.presenters}));
+    const speakersIds = data.presenters.filter(i => i?.id).map(i =>parseInt( i.id, 10));
+    const presenters = data.presenters.filter(i => !i?.id)
+    console.log("data.presenters", speakersIds, presenters);
+
+    dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: presenters, speakersIds }));
     console.log('success')
   }
-
+  if(!catalog){
+    return null;
+  }
   return (
     <Modal {...props} title="Редактирование файла">
-        <FileEditForm onSubmit={handleSubmit} initialValues={{...props.catalog}}/>
+        <FileEditForm onSubmit={handleSubmit} initialValues={{...props.catalog, presenters: [...(catalog.speakers ? catalog.speakers : []),...(catalog.presenters ? catalog.presenters : [])]}}/>
     </Modal>
   )
 }

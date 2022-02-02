@@ -64,6 +64,9 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.PASTE_CATALOG_ITEM_DUPLICATE:
       state.modalKey = 'pasteCatalogItemDuplicate'
       break
+    case ActionTypes.CREATE_SPEAKER_FEEDBACK:
+      state.modalKey = 'createSpeakerFeedback'
+      break
 
 
   }

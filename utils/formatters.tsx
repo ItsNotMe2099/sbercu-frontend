@@ -1,5 +1,6 @@
 
 const pluralizeNative = require('numeralize-ru').pluralize;
+import parsePhoneNumber from 'libphonenumber-js'
 export const pluralize = (number, word1, word2, word3) => {
     return pluralizeNative(number, word1, word2, word3);
 }
@@ -49,4 +50,14 @@ export const formatJobStatusName = (status) => {
         case  'error':
             return 'Ошибка';
     }
+}
+export const formatPhone = (phone) => {
+    try {
+        const phoneNumber = parsePhoneNumber(phone.includes('+') ? phone :`+${phone}`);
+        console.log("Format", phoneNumber.format('INTERNATIONAL', {nationalPrefix: true}));
+        return phoneNumber.format('INTERNATIONAL', {nationalPrefix: true});
+    }catch (e){
+
+    }
+    return phone;
 }

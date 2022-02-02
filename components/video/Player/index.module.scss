@@ -4,7 +4,6 @@
   position: relative;
   padding-bottom: 30px;
   border-radius: 5px;
-  overflow: hidden;
   max-height: 480px;
   &.fullSize{
     height: 100%;
@@ -60,7 +59,50 @@
   height: 70px;
   background: linear-gradient(to bottom, transparent 0%, black 100%);
 }
+.playBg{
+  z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+.alert{
+  transition: opacity 1s ease-in-out;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: white;
+  padding: 10px 20px;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 12px;
+  transform: translate(-50%, -50%);
+  @media screen and (max-width: $sm-mid) {
+   text-align: center;
+    transform: translate(-0%, -50%);
+    left: 5px;
+    right: 5px;
+    font-size: 11px;
 
+  }
+  .circle{
+    width: 8px;
+    height: 8px;
+    margin-top: -1px;
+    background: #BA3D3D;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+  opacity: 0;
+  &.showAlert{
+    opacity: 1;
+  }
+}
 .player {
   video {
     border-radius: 10px;

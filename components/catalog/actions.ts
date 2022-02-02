@@ -52,6 +52,12 @@ export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) =
     method: 'GET',
   }
 })
+export const fetchCatalogFiles = (speakerId, {page, limit}) => action(ActionTypes.FETCH_CATALOG_LIST, {
+  api: {
+    url: `/api/catalog/files/?page=${page || 1}&per_page=${limit || 10}&sort=createdAt,ASC&speakerId=${speakerId}`,
+    method: 'GET',
+  }
+})
 export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.FETCH_CATALOG_LIST_BY_IDS, {
   api: {
     url: `/api/catalog/list/${id}?onlyIds=${ids.join(',')}`,
@@ -61,7 +67,7 @@ export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.F
 
 export const setCatalogItem = (data: any) => action(ActionTypes.SET_CATALOG_MEDIA_ITEM, data);
 export const fetchCatalogItemRequest = (id, data = {}, shallow = false) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
-shallow,
+  shallow,
   api: {
     url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',
@@ -149,6 +155,6 @@ export const resetCatalogList = (shallow: boolean = false, myFiles = true) => ac
 
 export const resetMyUploadedFiles = (shallow: boolean = false, myFiles = true) => action(ActionTypes.RESET_MY_UPLOADED_FILES)
 export const catalogCopy = (item: ICatalogEntry[] | ICatalogEntry) => action(ActionTypes.CATALOG_COPY, item)
-export const catalogPaste = (toCatalogId: number, name?: string) => action(ActionTypes.CATALOG_PASTE, {toCatalogId, name})
+export const catalogPaste = (toCatalogId: number, name?: string, sourceId?: number) => action(ActionTypes.CATALOG_PASTE, {toCatalogId, name, sourceId})
 export const resetFilesFromDropzone = () => action(ActionTypes.RESET_FILES_FROM_DROPZONE)
 export const setFilesFromDropZone = (files: File[]) => action(ActionTypes.SET_FILES_FROM_DROPZONE, {files});

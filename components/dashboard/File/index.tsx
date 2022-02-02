@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, {useRef} from "react";
 import {FileActionType, ICatalogEntry} from "types";
 import {formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
-import {getMediaPath} from "utils/media";
+import {getMediaPath, isAudio, isDocument, isImage, isVideo} from "utils/media";
 import styles from './index.module.scss'
 import cx from 'classnames'
 import Dots from "components/svg/Dots";
@@ -20,11 +20,13 @@ import FavoriteCatalogButton from 'components/FavoriteCatalogButton'
 import BreadCrumbs from 'components/ui/Breadcrumbs'
 import {FileJobInfo} from 'components/file/FileJobInfo'
 import SelectCheckbox from 'components/ui/SelectCheckbox'
+import {DragSourceMonitor, useDrag, useDrop} from 'react-dnd'
 import {action} from 'typesafe-actions'
 import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
-
+import { Draggable } from 'react-beautiful-dnd';
 interface Props {
   item: ICatalogEntry,
+  index?: number
   isSelected?: boolean
   onClick?: (item) => void
   canEdit?: boolean
@@ -35,6 +37,9 @@ interface Props {
   onSelect?: (check) => void
   userRole?: string
   showType: FileShowType
+  isDragging?: boolean
+  isGroupedOver?: boolean
+  dragOverId?: any
 }
 
 export enum FileShowType {
@@ -44,11 +49,12 @@ export enum FileShowType {
   SearchAutocomplete,
   MyFiles,
   Basket,
+  Speaker,
 }
 
 
 
-export default function File({
+const File = ({
                                item,
                                userRole,
                                onDeleteClick,
@@ -58,8 +64,10 @@ export default function File({
                                onClick,
                                canEdit,
                                showType,
+                           isDragging,
+                           isGroupedOver,
                                ...props
-                             }: Props) {
+                             }: Props) => {
   const dispatch = useDispatch();
 
   const validActions = (() => {
@@ -76,6 +84,10 @@ export default function File({
         return []
       case FileShowType.Favorite:
         return [];
+      case FileShowType.Speaker:
+        return [];
+      default:
+        return []
     }
   })()
   const showFavorite = (() => {
@@ -95,6 +107,8 @@ export default function File({
         return true
       case FileShowType.Favorite:
         return true;
+      case FileShowType.Speaker:
+        return true;
     }
   })()
   const showAdditionalFile = (() => {
@@ -111,6 +125,8 @@ export default function File({
         return true
       case FileShowType.Favorite:
         return true;
+      case FileShowType.Speaker:
+        return false;
     }
   })()
 
@@ -237,17 +253,17 @@ export default function File({
   }
 
   const getFileLink = () => {
-    if (item.entryType === 'file' && item.media?.type === 'video') {
-      return `/video/${item.id}`;
-    }
-    if (item.entryType === 'file' && item.media?.type === 'audio') {
-      return `/audio/${item.id}`;
-    }
-    if (item.entryType === 'file') {
-      return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
+    const source = item.media?.fileName;
+
+    if(item.entryType === 'folder') {
+      return `/catalog/${item.id}`;
     }
 
-    return `/catalog/${item.id}`;
+    if ( item.entryType === 'file' && isAudio(source) || isVideo(source) || isDocument(source) || isImage(source)) {
+      return `/file/${item.id}`;
+    }
+
+    return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
 
   }
   const getDetailsText = () => {
@@ -271,15 +287,19 @@ export default function File({
     e.preventDefault();
     e.stopPropagation();
   }
-  console.log("item.deletedAt ", item.deletedAt);
+
   return (
     <Link href={getFileLink()}>
-      <a className={cx(styles.root, {
+      <a id={`catalog-item-${item.id}`} className={cx(styles.root, {
+        [styles.isDragging]: isDragging,
+        [styles.isGroupedOver]: item.entryType === 'folder' &&  `${item.id}` === `${props.dragOverId}`,
         [styles.withDots]: showDots,
         [styles.isChecked]: props.isSelected,
         [styles.deleted]: !!item.deletedAt
       })} onClick={item.deletedAt ? noop : handleClick}
-         target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+         target={
+           (item.entryType === 'file' && !isAudio(item.media.fileName) && !isVideo(item.media.fileName) && !isDocument(item.media.fileName) && !isImage(item.media.fileName))
+         && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder', item.media?.filePath)}
                                            alt=''/></div>
 
@@ -318,7 +338,8 @@ export default function File({
 
 
         </div>
-        {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <FileJobInfo item={item}/>}
+          {item?.media?.lastJob && item?.media?.lastJob.state !== 'finished' && <div className={styles.jobInfo}><FileJobInfo item={item} /></div>}
+
 
         {(canEdit && props.onSelect) &&
         <div className={cx(styles.checkbox, {[styles.isChecked]: props.isSelected})}><SelectCheckbox
@@ -336,8 +357,50 @@ export default function File({
       </a>
     </Link>
   )
+};
+export default File;
+function getStyle(style, snapshot, isFile) {
+
+  if (!snapshot.isDragging) return {};
+  if (!snapshot.isDropAnimating) {
+
+    return style;
+  }
+  if(isFile){
+    return {};
+  }
+  return style;
+  const { moveTo, curve, duration } = snapshot.dropAnimation;
+  // move to the right spot
+  const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
+  // add a bit of turn for fun
+  const rotate = 'rotate(0.5turn)';
+
+  // patching the existing style
+  return {
+    ...style,
+    transform: `${translate} ${rotate}`,
+    // slowing down the drop because we can
+    transition: `all ${curve} ${duration + 1}s`,
+  };
 }
 
-File.defaultProps = {
+export const DraggableFile = (props: Props) => {
+  const {item, index} = props;
+
+
+   return (   <Draggable draggableId={`${item.id}`} index={index}>
+     {(provided, snapshot) => {
+       return (<div ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+
+                                    style={getStyle(provided.draggableProps.style, snapshot, item.entryType === 'file')}
+     ><File {...props} isDragging={snapshot.isDragging && !snapshot.isDropAnimating}
+            isGroupedOver={ Boolean(snapshot.combineTargetFor)}
+     />
+       </div>)}}
+     </Draggable>
+  )
 
 }

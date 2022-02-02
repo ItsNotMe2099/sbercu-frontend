@@ -12,7 +12,7 @@ COPY . .
 
 ARG ENV_FILE=.env
 COPY enviroments/${ENV_FILE} ./.env
-
+RUN echo enviroments/${ENV_FILE}
 # Building app
 RUN npm run build
 EXPOSE 8080/tcp

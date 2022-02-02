@@ -6,21 +6,24 @@ import styles from './index.module.scss'
 import cx from 'classnames'
 
 interface Props {
-  options: [{ value: string, label: string }],
+  options: { value: string, label: string }[],
   onSearchChange?: (string) => void,
   onOpenDropDown?: () => void;
   changeWithValue?: boolean
   allowCustomInput?: boolean,
   restrictedValues: any[],
+  className?: string
+  inputClassName?: string
   input?: any,
   meta?: any,
   label?: string,
   labelType?: any,
+  placeholder?: string
 
 }
 
 const SelectInput = (props: Props) => {
-  const { meta: { error, touched },restrictedValues, input, options, onOpenDropDown, label, ...rest } = props;
+  const { meta: { error, touched },restrictedValues, input, options, onOpenDropDown, className, inputClassName, label, placeholder, ...rest } = props;
   const dropdownRef = useRef(null);
   const searchInputRef = useRef(null);
   const valueInputRef = useRef(null);
@@ -77,11 +80,11 @@ const SelectInput = (props: Props) => {
   }
   return (
 
-      <div className={styles.root}>
-        <label className={styles.label}>{props.label}</label>
-        <div className={styles.rootInput}>
+      <div className={cx(styles.root, className)}>
+        {props.label && <label className={styles.label}>{props.label}</label>}
+        <div className={cx(styles.rootInput, inputClassName)}>
         <div className={`${styles.inputContainer} ${(error && touched) && styles.error}`} onClick={onClick}>
-          {currentLabel}
+          {currentLabel ? currentLabel : <span className={styles.placeholder}>{placeholder || ''}</span>}
           <a className={styles.dropDownTrigger}>
             <img src='/img/icons/select-trigger.svg' alt=''/>
           </a>
@@ -101,7 +104,7 @@ const SelectInput = (props: Props) => {
         </ul>
       </div>
         </div>
-        <ErrorInput {...props.meta}/>
+        <ErrorInput meta={props.meta}/>
     </div>
 
   );

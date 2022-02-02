@@ -96,18 +96,33 @@ $main_color_blue: #27AE60;
     }
     .hover-time {
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.3);
-        line-height: 18px;
-        font-size: 12px;
-        color: #ffffff;
-        top: -25px;
-        left: 0;
-        padding: 5px 10px;
+        background: #4d4d4d;
         border-radius: 5px;
+        padding: 3px 6px;
+        color: white;
+        font-size: 12px;
+        line-height: 18px;
+
+        top: -20px;
+        left: 0;
+        z-index: 2;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        opacity: 0;
+        opacity: 1;
         transform: translateX(150px);
         pointer-events: none;
+        .arrowDown {
+            position: absolute;
+            bottom: -5px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #4d4d4d;
+            left: 50%;
+            transform: translate(0, -50%);
+
+            margin-left: -5.3px;
+        }
         &.active {
             opacity: 1;
         }
