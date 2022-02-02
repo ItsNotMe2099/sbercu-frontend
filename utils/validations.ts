@@ -34,7 +34,7 @@ export function speakerContactsRequiredEmail(value: string, data: any) {
     return email(value);
   }
   if (!data.speakerContactPhone && !data.speakerContactEmail && !data.agentContactPhone && !data.agentContactEmail) {
-    return 'Заполните хотя бы один из контактов спикера';
+    return 'Заполните один из контактов спикера';
   }
 }
 export function speakerContactsRequiredPhone(value: string, data: any) {
