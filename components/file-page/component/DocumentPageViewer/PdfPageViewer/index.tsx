@@ -7,6 +7,7 @@ import workerSrc from "components/file-page/component/DocumentPageViewer/PdfPage
 import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
 import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
 import {getMediaPath} from 'utils/media'
+import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
@@ -19,6 +20,17 @@ export default function PdfPageViewer(props: Props){
    const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
+  const linkLoading = useSelector((state: IRootState) => state.mediaLink.tempDocLinkLoading)
+  const link = useSelector((state: IRootState) => state.mediaLink.currentTempDocLink)
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    return () => {
+      dispatch(resetMediaLinkForm());
+    }
+  }, [])
+
   const onDocumentLoadSuccess = ({ numPages }) => {
     setTotalPages(numPages)
     setIsLoading(false)
@@ -32,13 +44,13 @@ export default function PdfPageViewer(props: Props){
           <div className={styles.root}>
             {isLoading && <DocumentLoader/>}
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
-            <Document
-              file={getMediaPath(item.media?.fileName)}
+              {link && <Document
+              file={link}
               //getMediaPath(item.media.fileName)}
               onLoadSuccess={onDocumentLoadSuccess}
             >
               <Page pageNumber={page} />
-            </Document>
+            </Document>}
               {!isLoading && <div className={styles.pagination}>
                 <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
               </div>}

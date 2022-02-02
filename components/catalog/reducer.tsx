@@ -268,6 +268,7 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.RESET_FILES_FROM_DROPZONE:
             state.filesFromDropZone = []
             break
+
     }
 
     return state

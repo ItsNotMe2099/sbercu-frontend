@@ -3,7 +3,7 @@ import {pluralize} from 'utils/formatters'
 import {ICatalogEntry, IRootState} from 'types'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {createMediaLinkTempDocViewer} from 'components/media-links/actions'
+import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
 import { Document, Page } from 'react-pdf';
 import {getMediaPath} from 'utils/media'
 
@@ -19,6 +19,9 @@ export default function OfficePageViewer(props: Props){
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    return () => {
+      dispatch(resetMediaLinkForm());
+    }
   }, [])
   return (
     <div className={styles.root}>

@@ -71,6 +71,7 @@ export default function MediaLinkReducer(state = {...initialState}, action) {
       state.formLoading = false
       state.formError = null;
       state.currentMediaLink = null;
+      state.currentTempDocLink = null;
       break;
   }
 
