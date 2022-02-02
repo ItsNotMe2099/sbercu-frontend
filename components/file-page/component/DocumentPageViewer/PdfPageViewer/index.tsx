@@ -47,6 +47,7 @@ export default function PdfPageViewer(props: Props){
                 url: getMediaPath(item.media.fileName),
                 withCredentials: true,
               }}
+                                 width={800}
                                  loading={<DocumentLoader/>}
               //getMediaPath(item.media.fileName)}
               onLoadSuccess={onDocumentLoadSuccess}
