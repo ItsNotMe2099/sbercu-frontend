@@ -18,11 +18,13 @@ import FilesUploadInput from 'components/ui/Inputs/FilesUploadInput'
 import ImagesUploadInput from 'components/ui/Inputs/ImagesUploadInput'
 import {formatPhone} from 'utils/formatters'
 import SelectInput from 'components/ui/Inputs/SelectInput'
+import FormError from 'components/ui/Form/FormError'
 
 let SpeakerForm = props => {
   const router = useRouter()
 
-  const {handleSubmit, initialValues, firstName, lastName} = props
+  const {handleSubmit, initialValues, firstName, lastName, speakerContactPhone, speakerContactEmail, agentContactPhone, agentContactEmail} = props
+  const [error, setError] = useState(null);
   const [firstNameEnTouched, setFirstNameEnTouched] = useState(false);
   const [lastNameEnTouched, setLastNameEnTouched] = useState(false);
   const [uploadingGalleryInProgress, setUploadingGalleryInProgress] = useState(false);
@@ -58,8 +60,16 @@ let SpeakerForm = props => {
     }
   }
   console.log("initialValues", initialValues)
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if(!speakerContactPhone && !speakerContactEmail && !agentContactPhone && !agentContactEmail){
+      setError('Заполните хотя бы один из контактов спикера')
+      return;
+    }
+    handleSubmit(e);
+  }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className={styles.form}>
         <div className={styles.section__mobile}>
           <div className={styles.title}>Тегирование</div>
@@ -196,24 +206,14 @@ let SpeakerForm = props => {
                   component={InputPhone}
                   label="Телефон"
                   format={formatPhone}
-                  validate={(val) => {
-                    if(required(val)){
-                      return required(val)
-                    }
-                    return phone(val);
-                  }}
+                  validate={phone}
 
                 />
                 <Field
                   name="speakerContactEmail"
                   component={Input}
                   label="Email"
-                  validate={(val) => {
-                    if(required(val)){
-                      return required(val)
-                    }
-                    return email(val);
-                  }}
+                  validate={email}
                 />
               </div>
               <div className={cx(styles.head__right)}>Контакты агента</div>
@@ -275,6 +275,7 @@ let SpeakerForm = props => {
           </div>
         </div>
       </div>
+      <div style={{display: 'inline-block'}}><FormError error={error}/></div>
       <div className={styles.btnContainer}>
         <Button disabled={uploadingGalleryInProgress} green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
         <Button transparent textLightGrey type={'button'} onClick={handleCancel}>Отмена</Button>
@@ -292,9 +293,13 @@ SpeakerForm = reduxForm({
 const selector = formValueSelector('speakerForm')
 SpeakerForm = connect(state => {
     const firstName = selector(state, 'firstName')
-    const lastName = selector(state, 'lastName')
+  const lastName = selector(state, 'lastName')
+  const speakerContactPhone = selector(state, 'speakerContactPhone')
+  const speakerContactEmail = selector(state, 'speakerContactEmail')
+  const agentContactPhone = selector(state, 'agentContactPhone')
+  const agentContactEmail = selector(state, 'agentContactEmail')
 
-    return {firstName, lastName}
+    return {firstName, lastName, speakerContactPhone, speakerContactEmail, agentContactPhone, agentContactEmail}
   }
 )(SpeakerForm)
 export default SpeakerForm
