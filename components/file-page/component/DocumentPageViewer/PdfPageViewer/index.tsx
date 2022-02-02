@@ -42,12 +42,12 @@ export default function PdfPageViewer(props: Props){
   console.log("PdfLoad", getMediaPath(item.media?.fileName));
   return (
           <div className={styles.root}>
-            {isLoading && <DocumentLoader/>}
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
               {link && <Document debug file={{
                 url: getMediaPath(item.media.fileName),
                 withCredentials: true,
               }}
+                                 loading={<DocumentLoader/>}
               //getMediaPath(item.media.fileName)}
               onLoadSuccess={onDocumentLoadSuccess}
             >
