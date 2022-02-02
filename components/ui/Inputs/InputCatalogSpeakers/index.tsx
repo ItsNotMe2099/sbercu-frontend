@@ -141,7 +141,7 @@ export default function InputCatalogSpeakers(props: Props) {
           <>
             {speakers.length > 0  &&
               <div className={styles.suggestion}>
-                <div className={styles.selectTip}>Выберите спикера из списка липо продолжите вводить вручную и нажмите enter</div>
+                <div className={styles.selectTip}>Выберите спикера из списка либо продолжите вводить вручную и нажмите enter</div>
                 <div className={styles.innerWrapper}>
 
                   {speakers.length > 0 && <div className={styles.speakers}>
