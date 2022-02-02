@@ -51,6 +51,15 @@ export default function PdfPageViewer(props: Props){
     setPage(page);
 
   }
+  const handleKeyDown = (e) => {
+    console.log("dsds",e.keyCode )
+    if (e.keyCode === 37 && page > 1) {
+      setPage(page -1);
+    } else if (e.keyCode === 39 && page < totalPages - 1) {
+      setPage(page + 1);
+    }
+  }
+
   return (
           <div className={styles.root} ref={(ref) => {
               if(ref) {
@@ -61,7 +70,7 @@ export default function PdfPageViewer(props: Props){
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
               {link && <Document debug file={{
-                url: '/SVRIMK LOWQ.pdf.pdf',
+                url: getMediaPath(item.media.fileName),
                 withCredentials: true,
               }}
                                  loading={<DocumentLoader/>}
@@ -76,7 +85,7 @@ export default function PdfPageViewer(props: Props){
                 <DocumentToolbar onFullScreen={handle.enter} page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
 
             </div>}
-            <FullScreen handle={handle}>
+            <FullScreen handle={handle} >
 
               {handle.active && <div className={styles.fullscreen}>
                 {link && <Document debug file={{

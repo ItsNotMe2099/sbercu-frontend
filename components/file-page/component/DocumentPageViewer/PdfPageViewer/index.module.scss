@@ -43,6 +43,9 @@
 
 .fullscreen{
   background: white;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
   :global canvas{
     margin: auto;
   }
