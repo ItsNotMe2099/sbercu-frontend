@@ -44,6 +44,7 @@ const LanguageInputList = (props: Props) => {
   const handleRemove = (val) => {
     setItems(items => items.filter(i => i !== val));
   }
+
   return (
 
       <div className={styles.root}>
@@ -51,7 +52,7 @@ const LanguageInputList = (props: Props) => {
         <div className={styles.remove} onClick={() => handleRemove(val)}><Basket/></div>
         </div>)}
         <div className={styles.addButton} onClick={handleAdd} style={{...(items.length > 0 ? {marginTop: '18px'}: {})}}><PlusSvg/>Добавить язык</div>
-        <ErrorInput {...props.meta}/>
+        <ErrorInput meta={props.meta}/>
     </div>
 
   );

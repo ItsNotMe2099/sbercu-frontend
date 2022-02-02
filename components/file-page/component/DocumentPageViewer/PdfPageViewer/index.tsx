@@ -8,6 +8,8 @@ import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/D
 import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
 import {getMediaPath} from 'utils/media'
 import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
+import {FullScreen, useFullScreenHandle} from 'react-full-screen'
+import Cross from 'components/svg/Cross'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/vendor-js/pdf.worker.js';
 
@@ -25,7 +27,7 @@ export default function PdfPageViewer(props: Props){
   const link = useSelector((state: IRootState) => state.mediaLink.currentTempDocLink)
   const [width, setWidth] = useState(0)
   const dispatch = useDispatch();
-
+  const handle = useFullScreenHandle();
   useEffect(() => {
     const setDivSize = () => {
 
@@ -59,7 +61,7 @@ export default function PdfPageViewer(props: Props){
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
               {link && <Document debug file={{
-                url: getMediaPath(item.media.fileName),
+                url: '/SVRIMK LOWQ.pdf.pdf',
                 withCredentials: true,
               }}
                                  loading={<DocumentLoader/>}
@@ -72,7 +74,28 @@ export default function PdfPageViewer(props: Props){
             </div>
             {!isLoading && <div className={styles.pagination}>
                 <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
+                <div onClick={handle.enter} >FULL</div>
             </div>}
+            <FullScreen handle={handle}>
+
+              {handle.active && <div className={styles.fullscreen}>
+                {link && <Document debug file={{
+                  url: '/SVRIMK LOWQ.pdf.pdf',
+                  withCredentials: true,
+                }}
+                                   loading={<DocumentLoader/>}
+                  //getMediaPath(item.media.fileName)}
+                                   onLoadSuccess={onDocumentLoadSuccess}
+                >
+                    <Page pageNumber={page}
+                          width={window.screen.width }/>
+                </Document>}
+                <div className={styles.close} onClick={handle.exit}><Cross/></div>
+                {!isLoading && <div className={styles.paginationFullScreen}>
+                    <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
+                </div>}
+              </div>}
+              </FullScreen>
           </div>
   )
 }

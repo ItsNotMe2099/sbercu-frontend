@@ -56,7 +56,7 @@ const SpeakersInputList = (props: Props) => {
           <div className={styles.remove} onClick={() => handleRemove(index)}><Basket/></div>
           </div>)}
         <div className={styles.addButton} onClick={handleAdd} style={{...(items.length > 0 ? {marginTop: '18px'}: {})}}><PlusSvg/>Добавить спикера</div>
-        <ErrorInput {...props.meta}/>
+        <ErrorInput  meta={props.meta}/>
     </div>
 
   );

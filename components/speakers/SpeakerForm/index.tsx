@@ -61,9 +61,11 @@ let SpeakerForm = props => {
   }
   console.log("initialValues", initialValues)
   const onSubmit = (e) => {
-    e.preventDefault();
+
+    console.log("onSubmit")
     if(!speakerContactPhone && !speakerContactEmail && !agentContactPhone && !agentContactEmail){
       setError('Заполните хотя бы один из контактов спикера')
+      e?.preventDefault();
       return;
     }
     setError(null);
@@ -194,7 +196,7 @@ let SpeakerForm = props => {
                   component={LanguageInputList}
                   label="Выберите язык"
                   validate={(val) => {
-                    return !val || val.length === 0 ? 'Обязательое поле' : undefined;
+                    return !val?.length ? 'Обязательое поле' : undefined;
 
                   }}
                 />

@@ -19,6 +19,9 @@
       opacity: 1;
     }
   }
+  :global .fullscreen-enabled{
+    background: white;
+  }
 
 
 }
@@ -36,4 +39,55 @@
 
 
   }
+}
+
+.fullscreen{
+  background: white;
+  :global canvas{
+    margin: auto;
+  }
+
+  .paginationFullScreen{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 200px;
+    display: flex;
+    padding-bottom: 20px;
+    align-items: flex-end;
+    justify-content: center;
+    > div{
+      opacity: 0;
+    }
+    &:hover{
+      > div{
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: $sm-max) {
+      height: auto;
+    }
+  }
+
+  .close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    svg{
+      path {
+        fill: #27AE60;
+      }
+    }
+    &:hover{
+      svg{
+        path {
+          fill: black;
+        }
+      }
+    }
+  }
+
 }
