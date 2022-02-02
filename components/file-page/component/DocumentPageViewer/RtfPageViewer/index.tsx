@@ -22,7 +22,7 @@ export default function RtfPageViewer(props: Props){
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', getMediaPath(item.media?.fileName))//getMediaPath(item.media.fileName));
+    xhr.open('GET', '/test.rtf')//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
 
