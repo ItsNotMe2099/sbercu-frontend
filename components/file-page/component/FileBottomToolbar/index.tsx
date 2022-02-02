@@ -133,7 +133,7 @@ export default function FileBottomToolbar(props: Props) {
       <div className={styles.btns}>
         {isConverting ? renderEncodingToolbar() : renderFullToolbar()}
       </div>
-      <Info totalViews={item.media?.totalViews} authors={item.presenters}
+      <Info totalViews={item.media?.totalViews} presenters={item.presenters} speakers={item.speakers}
             date={item.createdAt ? format(new Date(item.createdAt), 'dd.MM.yyy') : ''}
             language="Русский, Английский"/>
     </div>
