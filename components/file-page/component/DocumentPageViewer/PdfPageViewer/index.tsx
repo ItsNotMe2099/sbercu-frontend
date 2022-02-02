@@ -53,10 +53,10 @@ export default function PdfPageViewer(props: Props){
             >
               <Page pageNumber={page} />
             </Document>}
-              {!isLoading && <div className={styles.pagination}>
-                <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
-              </div>}
             </div>
+            {!isLoading && <div className={styles.pagination}>
+                <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
+            </div>}
           </div>
   )
 }
