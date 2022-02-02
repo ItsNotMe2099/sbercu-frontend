@@ -1,0 +1,83 @@
+@import 'scss/mixins.scss';
+
+.root{
+  position: relative;
+  margin-top:18px;
+
+}
+.field{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 15px;
+  .input{
+    min-width: 200px;
+    .select{
+      margin-top: 0px;
+    }
+  }
+  .remove{
+    margin-left: 15px;
+    cursor: pointer;
+    margin-top: 2px;
+    &:hover{
+      svg{
+        path{
+          fill: #FF1066;
+        }
+      }
+    }
+  }
+}
+
+
+.inputContainer{
+  position: relative;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  padding: 8px 6px;
+  font-size: 14px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.error{
+  border-color: #FF1066;
+}
+.root{
+  position: relative;
+  margin-top: 15px;
+}
+.rootInput{
+  position: relative;
+  margin-top: 9px;
+}
+.label{
+  font-size: 12px;
+  line-height: 14px;
+  color: #BDBDBD;
+
+}
+.addButton{
+  font-size: 12px;
+  font-weight: 400;
+  color: #BDBDBD;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  svg{
+    margin-right: 10px;
+    path{
+      fill: #BDBDBD;
+    }
+  }
+  &:hover{
+    color: #27AE60;
+    svg{
+      path{
+        fill: #27AE60;
+      }
+    }
+  }
+
+}

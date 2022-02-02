@@ -24,6 +24,7 @@ let AuthForm = props => {
               component={Input}
               placeholder="Логин"
               className={styles.login}
+              hasAutoComplete={true}
               validate={[required, email]}
             />
 

@@ -10,6 +10,8 @@ variables:
   IMAGE_TAG_DEV: $CI_REGISTRY_IMAGE:latestdev
   IMAGE_TAG_DEV_APP: $CI_REGISTRY_IMAGE:app_latestdev
   IMAGE_TAG_DEV_NGINX: $CI_REGISTRY_IMAGE:nginx_latestdev
+  IMAGE_TAG_SPEAKERS_APP: $CI_REGISTRY_IMAGE:app_latestspeakers
+  IMAGE_TAG_SPEAKERS_NGINX: $CI_REGISTRY_IMAGE:nginx_latestspeakers
   IMAGE_TAG_APP: $CI_REGISTRY_IMAGE:app_latest
   IMAGE_TAG_NGINX: $CI_REGISTRY_IMAGE:nginx_latest
   DOCKER_TLS_CERTDIR: ""
@@ -32,6 +34,23 @@ build_dev_image:
 #  when: manual
   only:
     - dev
+
+build_speakers_image:
+  stage: build-docker
+  tags:
+    - docker
+  script:
+    - export APP_IMAGE=$IMAGE_TAG_SPEAKERS_APP
+    - export NGINX_IMAGE=$IMAGE_TAG_SPEAKERS_NGINX
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker-compose -f docker-compose.speakers.yml build app
+    - docker-compose -f docker-compose.speakers.yml push app
+    - docker-compose -f docker-compose.speakers.yml build --pull nginx
+    - docker-compose -f docker-compose.speakers.yml push nginx
+  #  when: manual
+  only:
+    - speakers
+
 
 build_prod_image:
   stage: build-docker
@@ -61,6 +80,20 @@ deploy_dev:
       - ansible-playbook deploy/deploy.yml -i deploy/dev  -e CI_COMMIT_SHA="\"$CI_COMMIT_SHA\"" -e "CI_JOB_TOKEN=$CI_JOB_TOKEN" -e "CI_REGISTRY=$CI_REGISTRY" -e "APP_IMAGE=$IMAGE_TAG_DEV_APP" -e "NGINX_IMAGE=$IMAGE_TAG_DEV_NGINX" -e "branch=$CI_BUILD_REF_NAME"
   only:
     - dev
+
+deploy_speakers:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ansible-playbook deploy/deploy.yml -i deploy/dev  -e CI_COMMIT_SHA="\"$CI_COMMIT_SHA\"" -e "CI_JOB_TOKEN=$CI_JOB_TOKEN" -e "CI_REGISTRY=$CI_REGISTRY" -e "APP_IMAGE=$IMAGE_TAG_SPEAKERS_APP" -e "NGINX_IMAGE=$IMAGE_TAG_SPEAKERS_NGINX" -e "branch=$CI_BUILD_REF_NAME"
+  only:
+    - speakers
+
 
 deploy_prod:
   stage: deploy

@@ -29,6 +29,8 @@ export default function Footer(props: Props){
                 <a href={'https://media.sberbank-school.ru/updates'} className={styles.menuLink}>Что нового?</a>
                 <div className={styles.menuSeparator}/>
                 <a href={'https://media.sberbank-school.ru/firststeps'} className={styles.menuLink}>First steps</a>
+                <div className={styles.menuSeparator}/>
+                <Link href={'/speakers'}><a  className={styles.menuLink}>Спикеры</a></Link>
               </div>
               <div className={styles.support}>
                 Нашли ошибку? Напишите нам <br/><a href={'mailto:media@sber.university'} rel="noreferrer" target={'_blank'}>media@sber.university</a>

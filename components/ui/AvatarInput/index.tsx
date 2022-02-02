@@ -25,6 +25,7 @@ export interface AvatarInputProps {
   labelSingle?: string
   maxSize?: number
   minSize?: number
+  addFileTitle?: string
   multiple?: boolean,
   handleChangePhoto?: (string) => {}
   handleDeletePhoto?: () => {}
@@ -142,7 +143,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           onFinishS3Put: onFinishFileUpload,
           onProgress: onFileProgress,
           onError: onFileUploadError,
-          signingUrl: `${process.env.NEXT_PUBLIC_API_URL || 'https://dev.sbercu.firelabs.ru'}/api/media/sign`,
+          signingUrl: `${process.env.NEXT_PUBLIC_API_URL || ''}/api/media/sign`,
           s3path: '',
           ...uploadOptions,
         }
@@ -206,7 +207,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
         onDrop,
       })
 
-      console.log('fileProgress', fileProgress)
+      console.log('errorMeta', props.meta)
       return (
       <div className={`${styles.root} ${!!(files.length > 0) && styles.hasBackDrop}`}>
 
@@ -226,7 +227,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             >
             </AvatarInputPreview>
           ))}
-            {files.length === 0 ? <AddFileButton uploadBtn/> :
+            {files.length === 0 ? <Button transparent textGreen brdrGreen size="9px 20px" type="button">{props.addFileTitle || `Загрузить обложку`}</Button>:
             <div className={styles.btns}>
             <Button onClick={handleChangePhoto} transparent textGreen brdrGreen size="9px 20px" type="button">Заменить</Button>
           </div>}
@@ -240,7 +241,7 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           </div>
         </div>
 
-        <ErrorInput {...props?.meta} />
+        <ErrorInput meta={props?.meta} />
             </div>
       )
     }

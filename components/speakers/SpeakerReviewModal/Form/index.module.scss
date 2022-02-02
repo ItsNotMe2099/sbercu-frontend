@@ -1,0 +1,19 @@
+@import "scss/index";
+
+.btnContainer{
+    display: flex;
+    margin-top: 27px;
+    button{
+        &:first-child{
+            margin-right: 24px;
+        }
+    }
+}
+
+.form{
+
+}
+.label{
+    margin-bottom: 12px;
+    font-size: 14px;
+}

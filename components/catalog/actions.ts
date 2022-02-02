@@ -52,6 +52,12 @@ export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) =
     method: 'GET',
   }
 })
+export const fetchCatalogFiles = (speakerId, {page, limit}) => action(ActionTypes.FETCH_CATALOG_LIST, {
+  api: {
+    url: `/api/catalog/files/?page=${page || 1}&per_page=${limit || 10}&sort=createdAt,ASC&speakerId=${speakerId}`,
+    method: 'GET',
+  }
+})
 export const fetchCatalogListByIds = (id, ids: number[]) => action(ActionTypes.FETCH_CATALOG_LIST_BY_IDS, {
   api: {
     url: `/api/catalog/list/${id}?onlyIds=${ids.join(',')}`,

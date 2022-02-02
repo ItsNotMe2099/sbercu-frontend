@@ -1,5 +1,5 @@
 import ApiActionTypes from "constants/api";
-import { ICatalogEntry, ITagCategory } from "types";
+import {ICatalogEntry, ISpeaker, ITagCategory} from "types";
 import ActionTypes from "./const"
 import CatalogActionTypes from "components/catalog/const";
 
@@ -10,9 +10,12 @@ export interface CatalogSearchList {
   projectsTotal?: number,
   folders: ICatalogEntry[],
   foldersTotal?: number,
+  speakers: ICatalogEntry[],
+  speakersTotal?: number,
   listProjectsLoading: boolean,
   listFilesLoading: boolean,
   listFoldersLoading: boolean,
+  listSpeakersLoading: boolean,
   autoCompleteFiles: ICatalogEntry[],
   autoCompleteFilesTotal: number,
   autocompleteFilesLoading: boolean,
@@ -22,6 +25,9 @@ export interface CatalogSearchList {
   autoCompleteProjects: ICatalogEntry[],
   autoCompleteProjectsTotal: number,
   autocompleteProjectsLoading: boolean,
+  autoCompleteSpeakers: ISpeaker[],
+  autoCompleteSpeakersTotal: number,
+  autocompleteSpeakersLoading: boolean,
 
 }
 
@@ -29,21 +35,27 @@ const initialState: CatalogSearchList = {
   files: [],
   projects: [],
   folders: [],
+  speakers: [],
   listProjectsLoading: false,
   listFilesLoading: false,
   listFoldersLoading: false,
+  listSpeakersLoading: false,
   projectsTotal: 0,
   filesTotal: 0,
   foldersTotal: 0,
+  speakersTotal: 0,
   autoCompleteFiles: [],
   autoCompleteProjects: [],
   autoCompleteFolders: [],
+  autoCompleteSpeakers: [],
   autocompleteProjectsLoading: false,
   autocompleteFilesLoading: false,
   autocompleteFoldersLoading: false,
+  autocompleteSpeakersLoading: false,
   autoCompleteProjectsTotal: 0,
   autoCompleteFilesTotal: 0,
   autoCompleteFoldersTotal: 0,
+  autoCompleteSpeakersTotal: 0
 }
 
 export default function CatalogSearchReducer(state = {...initialState}, action) {
@@ -84,16 +96,31 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
       state.listFoldersLoading = false;
       break;
 
+    case ActionTypes.FETCH_SPEAKERS_SEARCH_LIST:
+      state.listSpeakersLoading = true;
+      break;
+    case ActionTypes.FETCH_SPEAKERS_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.speakers = [...state.speakers, ...action.payload.data];
+      state.speakersTotal = action.payload.total
+      state.listSpeakersLoading = false;
+      break;
+    case ActionTypes.FETCH_SPEAKERS_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.listSpeakersLoading = false;
+      break;
+
     case ActionTypes.RESET_SEARCH:
       state.listFilesLoading = false;
       state.listProjectsLoading = false;
       state.listFoldersLoading = false;
+      state.listSpeakersLoading = false;
       state.files = [];
       state.projects = [];
       state.folders = [];
+      state.speakers = [];
       state.filesTotal = 0;
       state.projectsTotal = 0;
       state.foldersTotal = 0;
+      state.speakersTotal = 0;
       break;
 
     case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_PROJECTS_SEARCH_LIST:
@@ -130,6 +157,17 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
       state.autocompleteFoldersLoading = false
       break;
 
+    case ActionTypes.FETCH_AUTOCOMPLETE_SPEAKERS_SEARCH_LIST:
+      state.autocompleteSpeakersLoading = true
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_SPEAKERS_SEARCH_LIST + ApiActionTypes.SUCCESS:
+      state.autoCompleteSpeakers =  action.payload.data.map(item => ({...item}));
+      state.autocompleteSpeakersLoading = false;
+      break;
+    case ActionTypes.FETCH_AUTOCOMPLETE_SPEAKERS_SEARCH_LIST + ApiActionTypes.FAIL:
+      state.autocompleteSpeakersLoading = false
+      break;
+
     case CatalogActionTypes.CATALOG_ADD_TO_FAVORITE:
       state.projects = state.projects.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
       state.folders = state.folders.map(i => (i.id === action.payload.id ? {...i, inFavorites: true} : i));
@@ -146,9 +184,11 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
       state.autocompleteFilesLoading = false;
       state.autocompleteProjectsLoading = false;
       state.autocompleteFoldersLoading = false;
+      state.autocompleteSpeakersLoading = false;
       state.autoCompleteProjects = [];
       state.autoCompleteFiles = [];
       state.autoCompleteFolders = [];
+      state.autoCompleteSpeakers = [];
       break;
   }
 

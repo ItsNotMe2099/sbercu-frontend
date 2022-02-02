@@ -288,7 +288,9 @@ const File = ({
         [styles.isChecked]: props.isSelected,
         [styles.deleted]: !!item.deletedAt
       })} onClick={item.deletedAt ? noop : handleClick}
-         target={item.entryType === 'file' && item.media?.type !== 'video' ? 'blank' : ''}>
+         target={
+           (item.entryType === 'file' && !isAudio(item.media.fileName) && !isVideo(item.media.fileName) && !isDocument(item.media.fileName) && !isImage(item.media.fileName))
+         && item.media?.type !== 'video' ? 'blank' : ''}>
         <div className={styles.image}><img src={getIconByType(item.entryType === 'file' ? item.media?.type : 'folder', item.media?.filePath)}
                                            alt=''/></div>
 

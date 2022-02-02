@@ -17,7 +17,7 @@ export default function SelectTagCategory(props) {
     props.input.onChange(value);
   }
   const getSearchCategory = ({id = '',search = ''}) => {
-    return request({url: `/api/tag-category?search=${search || ''}&id=${id || ''}&lang=ru`, method: 'GET'})
+    return request({url: `/api/tag-category?s=${JSON.stringify({categoryType: props.categoryType})}`, method: 'GET'})
         .then((response) => {
           const data = response.data;
           console.log("Response", data)

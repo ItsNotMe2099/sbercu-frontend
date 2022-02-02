@@ -16,7 +16,7 @@ import FileEditModal from "components/FileEditModal";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {IRootState} from "types";
+import {IRootState, ITagCategoryType} from "types";
 import {getAuthServerSide} from "utils/auth";
 import {pluralize} from "utils/formatters";
 import styles from './index.module.scss'
@@ -66,9 +66,8 @@ const DeletedPage = (props) => {
   const {query} = router.query;
   console.log("query", query);
   useEffect(() => {
-
     dispatch(resetCatalogDeleted());
-    dispatch(fetchTagCategoryList());
+    dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjectsDeleted({limit: limitProjects}));
     dispatch(fetchCatalogFilesDeleted({limit: limitFiles}));
     dispatch(fetchCatalogFoldersDeleted({limit: limitFiles}));

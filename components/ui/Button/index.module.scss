@@ -4,7 +4,7 @@
   border: 0;
   cursor: pointer;
   display: flex;
-
+  background: none;
   svg{
     margin: auto;
   }
@@ -86,6 +86,9 @@
   }
   &__lightGrey{
     color: #BDBDBD;
+    &:hover{
+      color: #828282;
+    }
   }
   &__green{
     color: #27AE60;
@@ -111,13 +114,13 @@
 .closeBtn{
   width: 14px;
   height: 14px;
-  background: url('/img/icons/close.svg');
+  background: url('/img/icons/close.svg') no-repeat;
 }
 
 .removeBtn{
   width: 14px;
   height: 18px;
-  background: url('/img/icons/remove.svg');
+  background: url('/img/icons/remove.svg') no-repeat;
 }
 
 .btn{
@@ -147,6 +150,12 @@
 .brdr{
   &__darkGrey{
     border: 1px solid #828282;
+  }
+  &__lightGrey{
+    border: 1px solid #BDBDBD;
+    &:hover{
+      border: 1px solid #828282;
+    }
   }
   &__green{
     border: 1px solid #27AE60;

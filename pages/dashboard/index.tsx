@@ -1,32 +1,33 @@
 import {
-  fetchCatalogList,
   fetchCatalogProjects,
   fetchMyUploadedFiles,
-  resetCatalogList, resetMyUploadedFiles
+  resetCatalogList,
+  resetMyUploadedFiles
 } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen, createFolderOpen, editFileOpen, modalClose } from "components/Modal/actions";
-import { fetchCatalogFilesSearch, fetchCatalogProjectsSearch } from "components/search/actions";
-import { fetchTagCategoryList } from "components/tags/TagCategory/actions";
+import {confirmOpen, editFileOpen, modalClose} from "components/Modal/actions";
+import {fetchTagCategoryList} from "components/tags/TagCategory/actions";
 import FileEditModal from "components/FileEditModal";
 import NoFiles from "components/ui/NoFiles";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState } from "types";
-import {getAuthServerSide, logout} from "utils/auth";
-import { pluralize } from "utils/formatters";
+import {IRootState, ITagCategoryType} from "types";
+import {getAuthServerSide} from "utils/auth";
 import styles from './index.module.scss'
-import { TagSelect } from "components/dashboard/TagSelect";
+import {TagSelect} from "components/dashboard/TagSelect";
 import Project from "components/dashboard/Project";
 import Quantity from "./components";
 import File, {FileShowType} from "components/dashboard/File";
 import Header from "components/layout/Header";
-import { useDispatch, useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import DashboardLoader from "components/ContentLoaders/dashboardLoader";
-import ProjectLoader from "components/ContentLoaders/projectLoader";
 import {useRouter} from "next/router";
 import * as React from 'react'
+import {fetchSpeakerList, resetSpeakerList} from 'components/speakers/actions'
+import SpeakerCard from 'components/speakers/SpeakerCard'
+import Link from 'next/link'
+
 const queryString = require('query-string')
 
 const Dashboard = (props) => {
@@ -39,7 +40,8 @@ const Dashboard = (props) => {
   const tagCategories = useSelector((state: IRootState) => state.tagCategory.list)
   const projectsLoading = useSelector((state: IRootState) => state.catalog.listLoading)
   const filesLoading = useSelector((state: IRootState) => state.catalog.myUploadedFilesListLoading)
-  const loading = projectsLoading || filesLoading;
+  const speakersLoading = useSelector((state: IRootState) => state.speakers.listLoading)
+  const loading = projectsLoading || filesLoading || speakersLoading;
 
 
   const projects = useSelector((state: IRootState) => state.catalog.projects)
@@ -47,12 +49,17 @@ const Dashboard = (props) => {
   const files = useSelector((state: IRootState) => state.catalog.myUploadedFilesList)
   const filesTotal = useSelector((state: IRootState) => state.catalog.myUploadedFilesListTotal)
 
+  const speakers = useSelector((state: IRootState) => state.speakers.list)
+  const speakersTotal = useSelector((state: IRootState) => state.speakers.listTotal)
+
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
 
   const [showProjects, setShowAllProjects] = useState(false)
+  const [showSpeakers, setShowAllSpeakers] = useState(false)
   const [showFiles, setShowAllFiles] = useState(false)
   const [pageFiles, setPageFiles] = useState(1);
   const [pageProjects, setPageProjects] = useState(1);
+  const [pageSpeakers, setPageSpeakers] = useState(1);
   let tagsFromQuery = [];
   try{
     tagsFromQuery = (router.query as any).tags ? JSON.parse((router.query as any).tags) : [];
@@ -64,15 +71,18 @@ const Dashboard = (props) => {
 
   const limitFiles = 30;
   const limitProjects = 30;
+  const limitSpeakers = 30;
 
   useEffect(() => {
     dispatch(resetCatalogList());
     dispatch(resetMyUploadedFiles());
-    dispatch(fetchTagCategoryList());
+    dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjects({entryType: 'project', limit: limitProjects}))
     dispatch(fetchMyUploadedFiles(user.id, {limit: limitFiles}));
+    dispatch(fetchSpeakerList({limit: limitSpeakers}))
     return () => {
       dispatch(resetCatalogList());
+      dispatch(resetSpeakerList());
     }
   }, [])
 
@@ -133,11 +143,25 @@ const Dashboard = (props) => {
         dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageProjects + 1, limit: limitProjects }));
       }
     }
-
+  }
+  const handleShowSpeakers = () => {
+    if(showSpeakers){
+      setShowAllSpeakers(false)
+    }else{
+      setShowAllSpeakers(true)
+      if(pageSpeakers === 1){
+        setPageSpeakers(pageSpeakers + 1)
+        dispatch(fetchSpeakerList({ page: pageSpeakers + 1, limit: limitSpeakers }));
+      }
+    }
   }
   const handleScrollNextProjects = () => {
     setPageProjects(pageProjects + 1)
     dispatch(fetchCatalogProjects({entryType: 'project', ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageProjects + 1, limit: limitProjects }));
+  }
+  const handleScrollNextSpeakers = () => {
+    setPageSpeakers(pageSpeakers + 1)
+    dispatch(fetchSpeakerList({ page: pageSpeakers + 1, limit: limitSpeakers }));
   }
 
   return (
@@ -148,36 +172,68 @@ const Dashboard = (props) => {
 
 
         {(isInit && tagCategories.length > 0) && <TagSelect items={tagCategories} selectedTags={tags} initialTags={tagsFromQuery} onChangeSelectedTags={handleTagChangeTags}/>}
-        {loading && filesTotal === 0 && projectsTotal === 0 && <DashboardLoader/>}
+        {loading && filesTotal === 0  && projectsTotal === 0 && speakersTotal === 0 && <DashboardLoader/>}
         {!loading && projectsTotal === 0 &&
         <NoFiles/>}
         {projectsTotal > 0 && <>
-          <div className={styles.titleContainer}>
-            <div className={styles.title}>Проекты</div>
-            <Quantity
-                quantity={projectsTotal}
-            />
-          </div>
-          <InfiniteScroll
-              dataLength={projects.length}
-              next={handleScrollNextProjects}
-              loader={<div></div>}
-              hasMore={showProjects && projectsTotal !== projects.length}
-              style={{overflow: "inherit"}}
-              className={styles.scroll}
-          >
-            <div className={styles.projects}>
-              {(showProjects ? projects : projects.slice(0, 5)).map(item => (<Project
-                      item={item}
-                  />
-              ))}
+            <div className={styles.titleContainer}>
+                <div className={styles.title}>Проекты</div>
+                <Quantity
+                    quantity={projectsTotal}
+                />
             </div>
-          </InfiniteScroll>
+            <InfiniteScroll
+                dataLength={projects.length}
+                next={handleScrollNextProjects}
+                loader={<div></div>}
+                hasMore={showProjects && projectsTotal !== projects.length}
+                style={{overflow: "inherit"}}
+                className={styles.scroll}
+            >
+                <div className={styles.projects}>
+                  {(showProjects ? projects : projects.slice(0, 5)).map(item => (<Project
+                      item={item}
+                    />
+                  ))}
+                </div>
+            </InfiniteScroll>
           {projectsTotal > 5 && <div className={styles.more}>
-            <a onClick={handleShowProjects}>
-              <img className={showProjects ? styles.hide : null} src="img/icons/arrowDown.svg"
-                   alt=''/>{showProjects ? <span>Скрыть</span> : <span>Показать еще</span>}
-            </a>
+              <a onClick={handleShowProjects}>
+                  <img className={showProjects ? styles.hide : null} src="img/icons/arrowDown.svg"
+                       alt=''/>{showProjects ? <span>Скрыть</span> : <span>Показать еще</span>}
+              </a>
+          </div>}
+        </>}
+
+
+
+        {speakersTotal > 0 && <>
+            <div className={styles.titleContainer}>
+                <div className={styles.titleWrapper}>
+                <div className={styles.title}>Спикеры</div>
+                <Quantity
+                    quantity={speakersTotal}
+                />
+                </div>
+                <Link href={'/speakers'}><a className={styles.speakersAllLink}>Перейти в раздел</a></Link>
+            </div>
+            <InfiniteScroll
+                dataLength={speakers.length}
+                next={handleScrollNextSpeakers}
+                loader={<div></div>}
+                hasMore={showSpeakers && speakersTotal !== speakers.length}
+                style={{overflow: "inherit"}}
+                className={styles.scroll}
+            >
+                <div className={styles.speakers}>
+                  {(showSpeakers ? speakers : speakers.slice(0, 5)).map(item =>  (<SpeakerCard item={item} />))}
+                </div>
+            </InfiniteScroll>
+          {speakersTotal > 5 && <div className={styles.more}>
+              <a onClick={handleShowSpeakers}>
+                  <img className={showSpeakers ? styles.hide : null} src="img/icons/arrowDown.svg"
+                       alt=''/>{showSpeakers ? <span>Скрыть</span> : <span>Показать еще</span>}
+              </a>
           </div>}
         </>}
 

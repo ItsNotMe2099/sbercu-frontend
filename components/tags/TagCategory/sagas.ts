@@ -20,8 +20,8 @@ function* tagCategorySaga() {
       if(result.type === ActionTypes.CREATE_TAG_CATEGORY_REQUEST + ApiActionTypes.SUCCESS){
         console.log("CREATE TAG_CATEGORY SUCCESS")
         yield put(modalClose());
-        const profile = yield select((state: IRootState) => state.tagCategory.currentCategory)
-        yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
   yield takeLatest(ActionTypes.UPDATE_TAG_CATEGORY,
@@ -31,8 +31,8 @@ function* tagCategorySaga() {
       if(result.type === ActionTypes.UPDATE_TAG_CATEGORY_REQUEST + ApiActionTypes.SUCCESS){
         console.log("UPDATE TAG_CATEGORY SUCCESS")
         yield put(modalClose());
-        const profile = yield select((state: IRootState) => state.tagCategory.currentCategory)
-        yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
   yield takeLatest(ActionTypes.DELETE_TAG_CATEGORY,
@@ -44,7 +44,8 @@ function* tagCategorySaga() {
         console.log("DELETE TAG_CATEGORY SUCCESS")
         yield put(modalClose());
         const profile = yield select((state: IRootState) => state.tagCategory.currentCategory)
-        yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
 

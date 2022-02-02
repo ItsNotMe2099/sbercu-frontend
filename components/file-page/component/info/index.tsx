@@ -1,4 +1,4 @@
-import styles from 'components/video-page/component/info/index.module.scss'
+import styles from './index.module.scss'
 import {pluralize} from 'utils/formatters'
 
 interface Props{

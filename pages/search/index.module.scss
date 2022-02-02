@@ -1,19 +1,19 @@
 @import "scss/index";
 
 
-.root{
+.root {
   position: relative;
   @media screen and (min-width: $container-lg-br) {
     width: $container-lg;
-    margin:0 auto;
+    margin: 0 auto;
   }
-  @media screen and (max-width:$container-lg-br) {
+  @media screen and (max-width: $container-lg-br) {
     padding: 0px 22px;
   }
 
 }
 
-.titleSearch{
+.titleSearch {
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
@@ -26,30 +26,50 @@
     line-height: 24px;
   }
 }
-.category{
+
+.category {
   font-size: 14px;
   color: #828282;
   margin-right: 20px;
 }
 
-.white{
+.white {
   background-color: #fff;
 }
 
-.titleContainer{
+.titleContainer {
   display: flex;
+  align-items: center;
   margin-top: 30px;
 
+  .titleWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .speakersAllLink {
+    font-size: 18px;
+    color: #BDBDBD;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (max-width: $sm-max) {
+      font-size: 14px;
+    }
+  }
 }
 
-.title{
+.title {
   font-weight: bold;
   font-size: 18px;
   color: #333333;
   margin-right: 10px;
 
 }
-
 
 .projects {
   display: grid;
@@ -63,50 +83,71 @@
   }
 }
 
-.hide{
+.speakers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  @media screen and (max-width: $sm-mid) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    margin-top: 16px;
+  }
+}
+
+.hide {
   transform: rotate(180deg);
 }
 
 
-
-.more{
+.more {
   margin-top: 10px;
   display: flex;
-  a{
+
+  a {
     margin: auto;
 
-    img{
+    img {
       margin-right: 6px;
     }
-    span{
+
+    span {
       font-size: 12px;
       color: #828282;
     }
-  }
-  span{
-    font-size: 12px;
-    color: #828282;
-  }
 
+
+    span {
+      font-size: 12px;
+      color: #828282;
+    }
+
+  }
 }
 
-.files{
+.files {
   display: flex;
   flex-direction: column;
   margin-top: 21px;
 }
 
-.moreFiles{
+.moreFiles {
   margin-top: 10px;
   display: flex;
   margin-bottom: 12px;
-  a{
+
+  a {
     margin: auto;
 
-    img{
+    img {
       margin-right: 6px;
+      @media screen and (max-width: $sm-max) {
+        margin: 0;
+      }
     }
-    span{
+
+
+    span {
       font-size: 12px;
       color: #828282;
     }

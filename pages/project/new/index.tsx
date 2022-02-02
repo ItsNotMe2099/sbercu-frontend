@@ -1,7 +1,7 @@
 import { createCatalog } from "components/catalog/actions";
 import Footer from "components/layout/Footer";
 import Layout from "components/layout/Layout";
-import { confirmOpen } from "components/Modal/actions";
+import {confirmOpen, modalClose} from "components/Modal/actions";
 import ProjectForm from "pages/project/Form";
 import { IRootState } from "types";
 import {getAuthServerSide} from "utils/auth";
@@ -48,6 +48,7 @@ const CreateProject = (props) => {
             description: data.name,
             confirmText: 'Создать',
             onConfirm: () => {
+                dispatch(modalClose());
                 dispatch(createCatalog({ ...data, entryType: 'project' }))
             }
         }));

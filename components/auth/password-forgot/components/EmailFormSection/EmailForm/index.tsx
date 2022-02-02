@@ -28,6 +28,7 @@ let EmailForm = props => {
               component={Input}
               label="Почта"
               validate={[email, required]}
+              hasAutoComplete={true}
               autoFocus={true}
             />
             <FormError error={formError}/>

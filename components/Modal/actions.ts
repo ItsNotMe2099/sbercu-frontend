@@ -16,4 +16,5 @@ export const mediaLinkTempModalOpen = () => action(ActionTypes.MEDIA_LINK_TEMP_M
 export const mediaLinkPublicModalOpen = () => action(ActionTypes.MEDIA_LINK_PUBLIC_MODAL)
 export const mediaLinkVirtSchoolModalOpen = () => action(ActionTypes.MEDIA_LINK_VIRTSCHOOL_MODAL)
 export const pasteCatalogItemDuplicateOpen = () => action(ActionTypes.PASTE_CATALOG_ITEM_DUPLICATE)
+export const createSpeakerFeedbackOpen = () => action(ActionTypes.CREATE_SPEAKER_FEEDBACK)
 export const modalClose = () => action(ActionTypes.MODAL_CLOSE)

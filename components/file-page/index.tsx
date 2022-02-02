@@ -153,7 +153,7 @@ const FilePage = (props: Props) => {
             />)}
           </div>
       </div>}
-      <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>
+      {video && <FileEditModal isOpen={modalKey === 'editFile'} catalog={video} onRequestClose={() => dispatch(modalClose())}/>}
       {video?.media &&
       <VideoCodeModal isOpen={modalKey === 'videoCode'} video={video} onRequestClose={() => dispatch(modalClose())}/>}
       {video?.media &&

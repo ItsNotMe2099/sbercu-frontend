@@ -21,8 +21,8 @@ function* tagSaga() {
       if(result.type === ActionTypes.CREATE_TAG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("CREATE TAG SUCCESS")
         yield put(modalClose());
-        const profile = yield select((state: IRootState) => state.tagCategory.currentCategory)
-        yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
   yield takeLatest(ActionTypes.UPDATE_TAG,
@@ -32,7 +32,8 @@ function* tagSaga() {
       if(result.type === ActionTypes.UPDATE_TAG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("UPDATE TAG SUCCESS")
         yield put(modalClose());
-          yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
   yield takeLatest(ActionTypes.DELETE_TAG,
@@ -43,7 +44,8 @@ function* tagSaga() {
       if(result.type === ActionTypes.DELETE_TAG_REQUEST + ApiActionTypes.SUCCESS){
         console.log("DELETE TAG SUCCESS")
         yield put(modalClose());
-          yield put(fetchTagCategoryList());
+        const categoryType = yield select((state: IRootState) => state.tagCategory.categoryType)
+        yield put(fetchTagCategoryList(categoryType));
       }
     })
 

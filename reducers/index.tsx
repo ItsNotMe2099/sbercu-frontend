@@ -15,6 +15,8 @@ import JobReducer from "../components/jobs/reducer";
 import MediaLinkReducer from "../components/media-links/reducer";
 import CatalogFavoriteReducer from 'components/favorite/reducer'
 import CatalogDeletedReducer from 'components/basket/reducer'
+import SpeakerReducer from 'components/speakers/reducer'
+import FeedbackReducer from 'components/feedback/reducer'
 
 export default combineReducers({
   form: formReducer,
@@ -32,5 +34,7 @@ export default combineReducers({
   jobs: JobReducer,
   mediaLink: MediaLinkReducer,
   favorite: CatalogFavoriteReducer,
-  basket: CatalogDeletedReducer
+  basket: CatalogDeletedReducer,
+  speakers: SpeakerReducer,
+  feedback: FeedbackReducer
 })

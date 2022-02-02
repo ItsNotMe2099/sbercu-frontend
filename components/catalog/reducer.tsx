@@ -146,6 +146,24 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.FETCH_CATALOG_LIST + ApiActionTypes.FAIL:
             state.listLoading = false;
             break
+
+        case ActionTypes.FETCH_CATALOG_FILES:
+            state.listLoading = true;
+            break
+        case ActionTypes.FETCH_CATALOG_FILES + ApiActionTypes.SUCCESS:
+            if(state.page > 1) {
+                state.list = [...state.list, ...action.payload.data]
+            }else{
+                state.list = action.payload.data
+            }
+            state.updateIds = state.list.filter(item => item?.media?.videoCutting || ['pending', 'started'].includes(item?.media?.lastJob?.state)).map(job => job.id)
+            state.listTotal = action.payload.total
+            state.listLoading = false;
+            break
+        case ActionTypes.FETCH_CATALOG_FILES + ApiActionTypes.FAIL:
+            state.listLoading = false;
+            break
+
         case ActionTypes.FETCH_CATALOG_LIST_BY_IDS + ApiActionTypes.SUCCESS:
             for(let job of action.payload.data){
                 state.list = state.list.map(item => item.id === job.id ? job : item)

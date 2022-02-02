@@ -2,7 +2,7 @@ import TagInput from "components/ui/Inputs/TagInput";
 import { useRouter } from "next/router";
 import { Field, reduxForm } from 'redux-form'
 import Button from 'components/ui/Button'
-import { IRootState } from "types";
+import {IRootState, ITagCategoryType} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
 import {email, required} from 'utils/validations'
@@ -29,6 +29,7 @@ let ProjectForm = props => {
                 <Field
                 name="tagsIds"
                 component={TagInput}
+                categoryType={ITagCategoryType.Project}
                 disabled={props.user?.role !== 'admin'}
                 green
                 />
@@ -103,6 +104,8 @@ let ProjectForm = props => {
                 name="tagsIds"
                 disabled={props.user?.role !== 'admin'}
                 component={TagInput}
+
+                categoryType={ITagCategoryType.Project}
                 isIncludedCategory={(category) => category.name !== 'Видимость'}
                 green
                 />

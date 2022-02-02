@@ -118,9 +118,12 @@ function* catalogSaga() {
 
       for (const file of action.payload.files) {
         console.log("updateCatalogFileRequest", file)
+        const speakersIds = file.presenters.filter(i => (i as any)?.id).map(i => parseInt((i as any).id, 10));
+        const presenters = file.presenters.filter(i => !(i as any)?.id)
         yield put(updateCatalogFileRequest((file as any).catalogId, {
           name: file.name,
-          presenters: file.presenters
+          presenters,
+          speakersIds
         }));
         const result = yield take([ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.UPDATE_CATALOG_FILE_REQUEST + ApiActionTypes.FAIL])
       }
@@ -140,6 +143,7 @@ function* catalogSaga() {
         yield put(fetchCatalogList(currentCatalogId));
       }
     })
+
   yield takeLatest(ActionTypes.UPDATE_FILE,
     function* (action: ActionType<typeof updateFile>) {
       yield put(updateFileRequest(action.payload.id, action.payload.data));
@@ -162,6 +166,8 @@ function* catalogSaga() {
         }
       }
     })
+
+
 
   yield takeLatest(ActionTypes.CUT_VIDEO,
     function* (action: ActionType<typeof cutVideo>) {
@@ -194,7 +200,7 @@ function* catalogSaga() {
     function* (action: ActionType<typeof catalogPaste>) {
       try {
         const items = JSON.parse(localStorage.getItem('copyCatalog'));
-        const entries = action.payload.sourceId ? [action.payload.sourceId] :  items.map(i => i.id);
+        const entries = action.payload.sourceId ? [action.payload.sourceId] : items.map(i => i.id);
         const parentId = action.payload.toCatalogId;
         yield put(moveCatalogRequest(entries, parentId));
         const result = yield take([ActionTypes.MOVE_CATALOG_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.MOVE_CATALOG_REQUEST + ApiActionTypes.FAIL])

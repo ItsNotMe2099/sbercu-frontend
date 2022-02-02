@@ -238,7 +238,7 @@ const VideoPage = (props: Props) => {
                                                                    size="9px 20px">Настройки</ButtonSelect></div>}
                     </div>
                   </>}
-                  <Info totalViews={video.media?.totalViews} authors={video.presenters}
+                  <Info totalViews={video.media?.totalViews} presenters={video.presenters} speakers={video.speakers}
                         date={video.createdAt ? format(new Date(video.createdAt), 'dd.MM.yyy') : ''}
                         language="Русский, Английский"/>
               </div>
@@ -268,7 +268,7 @@ const VideoPage = (props: Props) => {
       <MediaLinkPublicModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
       {(video?.media && modalKey === 'mediaLinkVirtSchool') &&
       <MediaLinkVirtSchoolModal isOpen={true} file={video} onRequestClose={() => dispatch(modalClose())}/>}
-
+      <Footer/>
     </Layout>
   )
 }

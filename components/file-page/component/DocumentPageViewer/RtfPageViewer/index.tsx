@@ -6,13 +6,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import * as Tiff from 'browser-tiff.js';
 import {EMFJS, RTFJS, WMFJS} from 'rtf.js';
 import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
+import {getMediaPath} from 'utils/media'
+import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
 interface Props{
   item: ICatalogEntry
 }
 
 export default function RtfPageViewer(props: Props){
   const {item} = props;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const textRef = useRef(null);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function RtfPageViewer(props: Props){
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', '/test.rtf')//getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media?.fileName))//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
 
@@ -52,7 +54,7 @@ export default function RtfPageViewer(props: Props){
 
   return (
           <div className={styles.root} >
-            {isLoading && <div className={styles.loading}>Загрузкаю...</div>}
+            {isLoading && <DocumentLoader/>}
              <div ref={textRef} className={styles.text}>
 
             </div>

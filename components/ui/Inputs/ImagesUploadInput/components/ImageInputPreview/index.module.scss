@@ -1,0 +1,130 @@
+$imageSize: 112px;
+$borderRadius: 12px;
+.root{
+  position: relative;
+  display: flex;
+  border-radius: $borderRadius;
+}
+.progressCircle{
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+.loader{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+
+}
+.loaderProgress{
+  position: absolute;
+  font-size: 10px;
+  text-align: center;
+  top: 50%;
+  margin-top: -5px;
+  width: 100%;
+  color: white;
+}
+.successArea{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 6px;
+  background: linear-gradient(transparent,#000);
+
+  border-bottom-right-radius: $borderRadius;
+  border-bottom-left-radius: $borderRadius;
+
+}
+.statusIcon{
+  border-radius: 50%;
+  background: white;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 12px;
+  }
+}
+.main{
+  flex: 1;
+  margin-left: 16px;
+}
+
+.deleteButton{
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+  background: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    background: #EB5757;
+  }
+    svg{
+      width: 8px;
+      path {
+        fill: white;
+      }
+  }
+  z-index: 3;
+}
+.title{
+  flex: 1;
+}
+.image{
+  position: relative;
+  width: $imageSize;
+  height: $imageSize;
+
+  > img{
+    width: $imageSize;
+    height: $imageSize;
+    border-radius: $borderRadius;
+    object-fit: cover;
+  }
+
+}
+.overlay{
+
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(0,0,0, 0.5);
+  z-index: 1;
+  border-radius: $borderRadius;
+}
+.statusIcon{
+
+}
+.loaderFill{
+  background: #EB5757;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.btn{
+  float: right;
+  margin-top: 24px;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

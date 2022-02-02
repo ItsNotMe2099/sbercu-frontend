@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useDetectOutsideClick = (el, initialState) => {
+export const useDetectOutsideClick = (el, initialState , onClose = null) => {
   const [isActive, setIsActive] = useState(initialState);
 
   useEffect(() => {
@@ -8,6 +8,9 @@ export const useDetectOutsideClick = (el, initialState) => {
       // If the active element exists and is clicked outside of
       if (el.current !== null && !el.current.contains(e.target)) {
         setIsActive(!isActive);
+        if(isActive && onClose){
+          onClose();
+        }
       }
     };
 

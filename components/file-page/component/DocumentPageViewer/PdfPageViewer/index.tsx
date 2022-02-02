@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Document, Page, pdfjs } from 'react-pdf';
 import workerSrc from "components/file-page/component/DocumentPageViewer/PdfPageViewer/pdf-worker";
 import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
+import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
+import {getMediaPath} from 'utils/media'
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
@@ -28,18 +30,18 @@ export default function PdfPageViewer(props: Props){
 
   return (
           <div className={styles.root}>
-            {isLoading && <div className={styles.loading}>Загрузкаю...</div>}
+            {isLoading && <DocumentLoader/>}
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
             <Document
-              file={`/sample.49a87e34.pdf`}
+              file={getMediaPath(item.media?.fileName)}
               //getMediaPath(item.media.fileName)}
               onLoadSuccess={onDocumentLoadSuccess}
             >
               <Page pageNumber={page} />
             </Document>
-              <div className={styles.pagination}>
+              {!isLoading && <div className={styles.pagination}>
                 <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
-              </div>
+              </div>}
             </div>
           </div>
   )
