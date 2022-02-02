@@ -73,8 +73,8 @@ export default function PdfPageViewer(props: Props){
             </Document>}
             </div>
             {!isLoading && <div className={styles.pagination}>
-                <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
-                <div onClick={handle.enter} >FULL</div>
+                <DocumentToolbar onFullScreen={handle.enter} page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
+
             </div>}
             <FullScreen handle={handle}>
 
@@ -90,9 +90,8 @@ export default function PdfPageViewer(props: Props){
                     <Page pageNumber={page}
                           width={window.screen.width }/>
                 </Document>}
-                <div className={styles.close} onClick={handle.exit}><Cross/></div>
                 {!isLoading && <div className={styles.paginationFullScreen}>
-                    <DocumentToolbar page={page} totalPages={totalPages} onChangePage={handleChangePage}/>
+                    <DocumentToolbar page={page}  isFullScreen onFullScreen={handle.exit} totalPages={totalPages} onChangePage={handleChangePage}/>
                 </div>}
               </div>}
               </FullScreen>

@@ -52,4 +52,36 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+  &.notLast{
+    border-radius: 0;
+  }
+}
+.fullscreen{
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 0;
+  font: inherit;
+  font-size: 0.8em;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:enabled:hover{
+    background-color: #e6e6e6;
+  }
+  &:first-child{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &:last-child{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  svg{
+    path{
+      fill: black;
+    }
+  }
 }
