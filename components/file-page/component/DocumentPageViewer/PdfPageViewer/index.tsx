@@ -27,7 +27,7 @@ export default function PdfPageViewer(props: Props){
     setPage(page);
 
   }
-
+  console.log("PdfLoad", getMediaPath(item.media?.fileName));
   return (
           <div className={styles.root}>
             {isLoading && <DocumentLoader/>}
