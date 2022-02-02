@@ -9,7 +9,7 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
 
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
+pdfjs.GlobalWorkerOptions.workerSrc = '/vendor-js/pdf.worker.js';
 
 interface Props{
   item: ICatalogEntry

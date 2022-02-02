@@ -2,12 +2,10 @@ import styles from './index.module.scss'
 import {pluralize} from 'utils/formatters'
 import {ICatalogEntry, IRootState} from 'types'
 import {useEffect, useRef, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import * as Tiff from 'browser-tiff.js';
-import {EMFJS, RTFJS, WMFJS} from 'rtf.js';
-import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
-import {getMediaPath} from 'utils/media'
+
+import Script from 'next/script'
 import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
+import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
 }
@@ -16,22 +14,21 @@ export default function RtfPageViewer(props: Props){
   const {item} = props;
   const [isLoading, setIsLoading] = useState(true);
   const textRef = useRef(null);
-
-  useEffect(() => {
+  const handleLoadScript = () => {
     console.log("useEffect");
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', '/test.rtf')//getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
 
       const arrayBuffer = this.response;
       console.log("onLoad", arrayBuffer);
-      const doc = new RTFJS.Document(arrayBuffer, {
+      const doc = new (window as any).Document(arrayBuffer, {
 
       });
-
+    console.log("Doc", doc)
 
       doc.render().then(html => {
         console.log("html", html);
@@ -39,8 +36,8 @@ export default function RtfPageViewer(props: Props){
           textRef.current.append(item);
         }
       }).catch(e => {
-        if (e instanceof RTFJS.Error) {
-        console.error("Error");
+        if (e instanceof (window as any).RTFJS.Error) {
+          console.error("Error");
           throw e;
         }
         else {
@@ -50,6 +47,9 @@ export default function RtfPageViewer(props: Props){
       setIsLoading(false)
     }
     xhr.send();
+  }
+  useEffect(() => {
+
   }, [])
 
   return (
@@ -58,6 +58,11 @@ export default function RtfPageViewer(props: Props){
              <div ref={textRef} className={styles.text}>
 
             </div>
+            <Script
+              id="rtfjs"
+              src="/vendor-js/rtfjs.bundle.min.js"
+              onLoad={handleLoadScript}
+            />
           </div>
   )
 }
