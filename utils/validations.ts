@@ -5,7 +5,7 @@ export function required(value: string | number) {
 }
 
 export function email(value: string) {
-  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+  return value?.trim() && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Неверный формат email'
     : undefined
 }
@@ -21,7 +21,7 @@ const minLength = min => value =>
 export const minL = minLength(8)
 export function phone(value: string) {
   console.log("ValidPhone", value)
-  return value && !isPossiblePhoneNumber(`${value?.includes('+') ? value : `+${value}`}`) ? 'Неверный формат телефона' : undefined;
+  return value?.trim() && !isPossiblePhoneNumber(`${value?.includes('+') ? value : `+${value}`}`) ? 'Неверный формат телефона' : undefined;
 }
 
 
