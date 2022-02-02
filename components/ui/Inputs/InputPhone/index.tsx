@@ -31,8 +31,8 @@ const codeDoubles = {
   '61': 'AU',
 }
 import Input from 'react-phone-number-input/input'
-const codesOptions = Object.keys(metadata.metadata.countries).map((key) => {
-  const value = metadata.metadata.countries[key];
+const codesOptions = Object.keys((metadata as any).metadata.countries).map((key) => {
+  const value = (metadata as any).metadata.countries[key];
   return {
     value: key,
     label: `+${value[0]}`,
@@ -44,7 +44,7 @@ const codesOptions = Object.keys(metadata.metadata.countries).map((key) => {
   .filter(item => !codeDoubles[item.phoneCode] || (codeDoubles[item.phoneCode] && !Array.isArray(codeDoubles[item.phoneCode]) && codeDoubles[item.phoneCode] === item.value) || (codeDoubles[item.phoneCode] && Array.isArray(codeDoubles[item.phoneCode]) && codeDoubles[item.phoneCode].includes(item.value)))
 const findCountryCode = (value) => {
   const cleanValue = value ? value.replace(/[^\d]/g, '') : '';
-  const codes = metadata.metadata.country_calling_codes;
+  const codes = (metadata as any).metadata.country_calling_codes;
   const key = Object.keys(codes).reverse().find(key => cleanValue.indexOf(key) === 0)
   if (key) {
     const val = codeDoubles[key] ? (Array.isArray(codeDoubles[key]) ? codeDoubles[key][0] : codeDoubles[key]) : codes[key][0];

@@ -48,18 +48,6 @@ export default function SpeakerCard({item, onDeleteClick, onRestoreClick}: Props
             <SpeakerPhoto size={'normal'} photo={item.mainCover}>
               <div className={styles.rating}><div className={styles.mark}>{item.rating?.toFixed(1) || 0}</div> <StarSmallFilled color={'white'}/></div>
             </SpeakerPhoto>
-
-            {item.deletedAt && <div className={styles.dots}><ButtonDots
-                style={'white'}
-                showPaste={false}
-                showEdit={false}
-                showDelete={false}
-                showCopy={false}
-                showPublicLink={false}
-                showBasketActions={true}
-                onRestoreClick={handleRestoreClick}
-                onDeleteBasketClick={handleDeleteClick}
-            /></div>}
           <div className={styles.title}>{item.name}</div>
           <div className={styles.description}>
             <LinesEllipsis

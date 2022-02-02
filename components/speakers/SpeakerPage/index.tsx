@@ -48,7 +48,7 @@ import {getMediaPath} from 'utils/media'
 import Lightbox from "react-awesome-lightbox";
 import Quantity from 'pages/dashboard/components'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import File from 'components/dashboard/File'
+import File, {FileShowType} from 'components/dashboard/File'
 
 const queryString = require('query-string')
 
@@ -305,9 +305,8 @@ const SpeakerPage = (props: Props) => {
                     className={styles.scroll}
                 >
                   {(showFiles ? files : files.slice(0, 5)).map(item => (<File
-                    showFavorite={true}
+                    showType={FileShowType.Speaker}
                     canEdit={false}
-                    basePath={''}
                     item={item}
                   />))}
                 </InfiniteScroll>

@@ -1,6 +1,5 @@
 import styles from './index.module.scss'
 import { SpinnerCircular } from 'spinners-react'
-import { colors } from 'styles/variables'
 
 interface Props {
   size?: number

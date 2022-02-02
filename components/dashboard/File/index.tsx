@@ -49,6 +49,7 @@ export enum FileShowType {
   SearchAutocomplete,
   MyFiles,
   Basket,
+  Speaker,
 }
 
 
@@ -83,6 +84,10 @@ const File = ({
         return []
       case FileShowType.Favorite:
         return [];
+      case FileShowType.Speaker:
+        return [];
+      default:
+        return []
     }
   })()
   const showFavorite = (() => {
@@ -102,6 +107,8 @@ const File = ({
         return true
       case FileShowType.Favorite:
         return true;
+      case FileShowType.Speaker:
+        return true;
     }
   })()
   const showAdditionalFile = (() => {
@@ -118,6 +125,8 @@ const File = ({
         return true
       case FileShowType.Favorite:
         return true;
+      case FileShowType.Speaker:
+        return false;
     }
   })()
 
