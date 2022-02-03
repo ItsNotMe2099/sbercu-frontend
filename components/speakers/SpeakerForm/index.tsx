@@ -192,10 +192,6 @@ let SpeakerForm = props => {
                   name="languages"
                   component={LanguageInputList}
                   label="Выберите язык"
-                  validate={(val) => {
-                    return !val?.length ? 'Обязательое поле' : undefined;
-
-                  }}
                 />
               </div>
               <div className={styles.head__right}>Контакты спикера</div>
