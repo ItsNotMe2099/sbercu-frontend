@@ -54,7 +54,7 @@ const Home = (props) => {
   const [tags, setTags] = useState([]);
   const [isInit, setIsInit] = useState(false)
 
-  const limit = 30;
+  const limit = 100;
 
   useEffect(() => {
     dispatch(resetSpeakerList());
