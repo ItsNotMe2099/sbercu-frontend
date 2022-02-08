@@ -29,7 +29,7 @@ export default function UserListRow({user, onEditClick, onDeleteClick}: Props){
     }
   const actions = (() => {
     let actions = [
-      {name: 'Редактировать', key: FileActionType.Restore},
+      {name: 'Редактировать', key: FileActionType.Edit},
       {name: 'Удалить ', key: FileActionType.Delete},
     ];
 
