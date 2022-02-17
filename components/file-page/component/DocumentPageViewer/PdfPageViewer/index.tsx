@@ -69,7 +69,7 @@ export default function PdfPageViewer(props: Props){
               }
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
-              {link && handle.active && <Document debug file={{
+              {link && !handle.active && <Document debug file={{
                 url: getMediaPath(item.media.fileName),
                 withCredentials: true,
               }}
