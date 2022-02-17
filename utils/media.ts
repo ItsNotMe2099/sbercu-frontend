@@ -21,7 +21,7 @@ export const isAudio = source => {
     return ['mp3', 'ogg', 'wav'].includes(getFileExtension(source));
 }
 export const isVideo = source => {
-    return ['mp4', 'avi'].includes(getFileExtension(source));
+    return ['mp4', 'avi', 'mov'].includes(getFileExtension(source));
 }
 export const isImage = source => {
     return ['png', 'jpg', 'jpeg', 'gif'].includes(getFileExtension(source));

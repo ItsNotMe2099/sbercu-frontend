@@ -47,7 +47,7 @@ export default function VideoJs(props: Props) {
 
 
     const isSourceHasExt = (source) => {
-        return source.includes('.mp4') || source.includes('.avi') || isAudio(source)
+        return source.includes('.mp4') || source.includes('.avi') || source.includes('.mov') || isAudio(source)
     }
     const [isLoading, setIsLoading] = useState(false);
     const [loadOnReady, setLoadOnReady] = useState(null);
