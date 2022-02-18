@@ -8,6 +8,7 @@ import {isVideoConverting} from 'utils/video'
 
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function VideoPageViewer(props: Props){
@@ -33,7 +34,7 @@ export default function VideoPageViewer(props: Props){
 
     const qualityItem = item.media?.videoElements?.find(el => el.quality === '1080p') || item.media?.videoElements[item.media?.videoElements?.length - 1];
     const quality = qualityItem?.quality;
-    return qualityItem && quality ? `${getMediaPathWithQuality(path, quality)}&duration=${qualityItem.duration}` : getMediaPath(path)
+    return qualityItem && quality ? `${getMediaPathWithQuality(path, quality, props.publicHash)}&duration=${qualityItem.duration}` : getMediaPath(path, props.publicHash)
 
   }
   return (isConverting ? <VideoConverting isCutting={item.media?.videoCutting} item={item}/> :
@@ -42,7 +43,7 @@ export default function VideoPageViewer(props: Props){
       poster={getMediaPath(item.poster)}
       sources={item.media?.videoElements?.map((el,i) => ({
         label: el.quality,
-        value: `${getMediaPathWithQuality(item.media.fileName, el.quality)}&duration=${el.duration}`
+        value: `${getMediaPathWithQuality(item.media.fileName, el.quality, props.publicHash)}&duration=${el.duration}`
       })) || []}
       getViewHistory={loadVideoViewHistory}
       onChangeProgress={handleProgressChange}

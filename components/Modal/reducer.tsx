@@ -67,6 +67,10 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.CREATE_SPEAKER_FEEDBACK:
       state.modalKey = 'createSpeakerFeedback'
       break
+    case ActionTypes.CREATE_FOLDER_PUBLIC_LINK:
+      console.log("SetModalkey", '232323');
+      state.modalKey = 'createFolderPublicLink'
+      break
 
 
   }

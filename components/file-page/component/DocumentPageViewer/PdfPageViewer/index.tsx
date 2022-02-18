@@ -15,6 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = '/vendor-js/pdf.worker.js';
 
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function PdfPageViewer(props: Props){
@@ -69,8 +70,8 @@ export default function PdfPageViewer(props: Props){
               }
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
-              {link && !handle.active && <Document debug file={{
-                url: getMediaPath(item.media.fileName),
+              {(link || props.publicHash) && !handle.active && <Document debug file={{
+                url: getMediaPath(item.media.fileName, props.publicHash),
                 withCredentials: true,
               }}
                                  loading={<DocumentLoader/>}
@@ -88,8 +89,8 @@ export default function PdfPageViewer(props: Props){
             <FullScreen handle={handle} >
 
               {handle.active && <div className={styles.fullscreen}>
-                {link && <Document debug file={{
-                  url: getMediaPath(item.media.fileName),
+                {(link || props.publicHash) && <Document debug file={{
+                  url: getMediaPath(item.media.fileName, props.publicHash),
                   withCredentials: true,
                 }}
                                    loading={<DocumentLoader/>}

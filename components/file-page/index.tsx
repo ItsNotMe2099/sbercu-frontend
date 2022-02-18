@@ -1,7 +1,7 @@
 import {
   catalogCopy,
   deleteCatalog,
-  fetchCatalogItemRequest,
+  fetchCatalogItemRequest, fetchPublicCatalogItemRequest,
   resetCatalogItem,
   setCatalogItem
 } from "components/catalog/actions";
@@ -54,6 +54,8 @@ const queryString = require('query-string')
 interface Props {
   initialVideo: ICatalogEntry,
   user: IUser
+  public?: boolean
+  publicHash?: string
 }
 
 
@@ -64,12 +66,18 @@ const FilePage = (props: Props) => {
 
   const dispatch = useDispatch();
   const router = useRouter()
+  const hash = router.query.hash as string;
+
   console.log("Auth", props)
 
   useInterval(() => {
     const isConverting = video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
     if (isConverting) {
-      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}, true));
+      if(props.public) {
+        dispatch(fetchPublicCatalogItemRequest(router.query.id, {showTags: '1', hash}, true));
+      }else {
+        dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}, true));
+      }
     }
 
   }, 3000);
@@ -80,7 +88,13 @@ const FilePage = (props: Props) => {
       return;
     }
 
-    dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    if(props.public){
+      dispatch(fetchPublicCatalogItemRequest(router.query.id, {showTags: '1' , hash}));
+    }else{
+      dispatch(fetchCatalogItemRequest(router.query.id, {showTags: '1'}));
+    }
+
+
     return () => {
       dispatch(resetCatalogItem());
     }
@@ -110,6 +124,9 @@ const FilePage = (props: Props) => {
 
   const handleTagClick = (tag) => {
     console.log("TagClick", tag);
+    if(props.public){
+      return;
+    }
     router.push(`/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
   }
 
@@ -118,11 +135,11 @@ const FilePage = (props: Props) => {
     const isAudio = video?.media?.type === 'audio';
     const source = video?.media?.filePath;
     if(isVideo || isAudio){
-      return <VideoPageViewer item={video}/>
+      return <VideoPageViewer item={video} publicHash={props.publicHash}/>
     }else if(isDocument(source)){
-      return  <DocumentPageViewer item={video}/>
+      return  <DocumentPageViewer item={video} publicHash={props.publicHash}/>
     }else if(isImage(source)){
-      return <ImagePageViewer item={video}/>;
+      return <ImagePageViewer item={video} publicHash={props.publicHash}/>;
     }
   }
   return (
@@ -131,11 +148,11 @@ const FilePage = (props: Props) => {
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
           <div className={styles.title}>{video.name}</div>
-          <BreadCrumbs items={[{name: 'Главная', link: '/'}, ...(video?.parents ? video?.parents : [])]}/>
+          <BreadCrumbs items={[...(!props.public ? [{name: 'Главная', link: '/'}]: []), ...(video?.parents ? video?.parents : [])]}/>
           <div className={styles.content}>
               <div className={styles.videoWrapper}>
                 {renderFilePreview()}
-                   <FileBottomToolbar item={video} user={props.user}/>
+                {!props.public && <FileBottomToolbar item={video} user={props.user}/>}
 
               </div>
               <div className={styles.tags}>

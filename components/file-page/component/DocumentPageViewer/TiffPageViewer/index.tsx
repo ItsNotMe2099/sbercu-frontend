@@ -9,12 +9,11 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function TiffPageViewer(props: Props){
   const {item} = props;
-  const linkLoading = useSelector((state: IRootState) => state.mediaLink.tempDocLinkLoading)
-  const link = useSelector((state: IRootState) => state.mediaLink.currentTempDocLink)
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
@@ -24,7 +23,7 @@ export default function TiffPageViewer(props: Props){
     console.log("useEffect");
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', getMediaPath(item.media?.fileName))//getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media?.fileName, props.publicHash))//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
       console.log("onLoad", e);

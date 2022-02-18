@@ -233,6 +233,7 @@ function* catalogSaga() {
     function* (action: ActionType<typeof catalogRemoveFromFavorite>) {
       yield put(catalogRemoveFromFavoriteRequest(action.payload.id));
     })
+
 }
 
 export default catalogSaga

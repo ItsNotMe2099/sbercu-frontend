@@ -1,0 +1,11 @@
+@import "scss/index";
+.root{
+  position: absolute;
+  bottom: -16px;
+  color: #FF1066;
+  font-size: 12px;
+  @media screen and (max-width: $sm-mid) {
+    font-size: 10px;
+
+  }
+}

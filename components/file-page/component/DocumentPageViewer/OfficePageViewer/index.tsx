@@ -9,6 +9,7 @@ import {getMediaPath} from 'utils/media'
 
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function OfficePageViewer(props: Props){

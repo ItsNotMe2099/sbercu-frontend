@@ -1,0 +1,38 @@
+.root{
+  position: relative;
+}
+.rootInput{
+  input{
+    padding-right: 26px;
+    font-size: 12px !important;
+  }
+}
+.icon{
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 2px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 0px 5px;
+  svg{
+    width: 16px;
+    height: 16px;
+  }
+  &:hover{
+    path{
+      fill: #27AE60;
+    }
+  }
+}
+.copied{
+  position: absolute;
+  bottom: -18px;
+  left: 0px;
+  right: 0px;
+  font-size: 11px;
+
+}

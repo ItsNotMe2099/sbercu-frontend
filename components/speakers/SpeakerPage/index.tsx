@@ -17,7 +17,7 @@ import {
   resetSpeakerItem,
   setSpeakerItem
 } from 'components/speakers/actions'
-import CreateFolder from 'pages/catalog/components/CreateFolder'
+import CreateFolder from 'components/catalog-page/components/CreateFolder'
 import {
   confirmOpen,
   createSpeakerFeedbackOpen, editFileOpen,

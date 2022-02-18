@@ -2,11 +2,11 @@ import {catalogPaste, createCatalog, resetCatalogForm, updateCatalog} from "comp
 import Button from 'components/ui/Button'
 import Modal from 'components/ui/Modal'
 import { ICatalogEntry, IRootState } from "types";
-import CreateFolderForm from './Form'
-import styles from './index.module.scss'
+import CreateFolderForm from 'components/catalog-page/components/PasteCatalogItem/Form'
+import styles from 'components/catalog-page/components/PasteCatalogItem/index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
-import PasteCatalogItemForm from './Form'
+import PasteCatalogItemForm from 'components/catalog-page/components/PasteCatalogItem/Form'
 
 
 interface Props {

@@ -7,13 +7,13 @@ import {
 } from "components/catalog/actions";
 import {modalClose} from "components/Modal/actions";
 import Modal from 'components/ui/Modal'
-import CreateFolderForm from "pages/catalog/components/CreateFolder/Form";
-import UploadFilesForm from "pages/catalog/components/UploadFilesModal/Form";
+import CreateFolderForm from "components/catalog-page/components/CreateFolder/Form";
+import UploadFilesForm from "components/catalog-page/components/UploadFilesModal/Form";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
-import styles from './index.module.scss'
+import styles from 'components/catalog-page/components/UploadFilesModal/index.module.scss'
 import {put} from "redux-saga/effects";
-import {IRootState} from "../../../../types";
+import {IRootState} from "types";
 
 interface Props {
     isOpen: boolean,

@@ -1,5 +1,5 @@
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
-import { useEffect } from "react";
+import {ReactElement, useEffect} from "react";
 import styles from './index.module.scss'
 import InputMask from 'react-input-mask'
 
@@ -8,8 +8,8 @@ interface Props {
   placeholder?: string
   meta?: any
   input
-  label
-  type,
+  label?: string
+  type?: string,
   disabled?: boolean
   tip?: string
   isLabel?: boolean,
@@ -18,6 +18,8 @@ interface Props {
   className?: string
   autoFocus?: boolean,
   hasAutoComplete?: boolean
+  icon?: ReactElement
+  onIconClick?: string
 }
 
 export default function Input(props: Props) {
@@ -54,6 +56,7 @@ export default function Input(props: Props) {
       ) : (
         renderInput(props.input)
       )}
+        {props.icon}
         <ErrorInput {...props}/>
     </div>
   )

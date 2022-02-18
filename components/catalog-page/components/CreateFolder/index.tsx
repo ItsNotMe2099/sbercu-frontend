@@ -2,8 +2,8 @@ import {createCatalog, resetCatalogForm, updateCatalog} from "components/catalog
 import Button from 'components/ui/Button'
 import Modal from 'components/ui/Modal'
 import { ICatalogEntry, IRootState } from "types";
-import CreateFolderForm from './Form'
-import styles from './index.module.scss'
+import CreateFolderForm from 'components/catalog-page/components/CreateFolder/Form'
+import styles from 'components/catalog-page/components/CreateFolder/index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
 

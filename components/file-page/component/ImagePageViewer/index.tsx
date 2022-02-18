@@ -10,6 +10,7 @@ import Lightbox from "react-awesome-lightbox";
 
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function ImagePageViewer(props: Props){
@@ -23,7 +24,7 @@ export default function ImagePageViewer(props: Props){
     setGalleryIndex(0)
   }
 
-  const path = getMediaPath(item.media?.fileName);
+  const path = getMediaPath(item.media?.fileName, props.publicHash);
   return (
           <div className={styles.root}>
             <div className={styles.image}  onClick={handleMainPhotoClick}>

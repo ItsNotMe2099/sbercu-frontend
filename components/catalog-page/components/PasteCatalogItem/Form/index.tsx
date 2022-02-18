@@ -1,7 +1,7 @@
 import { Field, reduxForm } from 'redux-form'
 import Input from 'components/ui/Inputs/Input'
 import { required } from "utils/validations";
-import styles from './index.module.scss'
+import styles from 'components/catalog-page/components/PasteCatalogItem/Form/index.module.scss'
 import Button from 'components/ui/Button'
 import { useState } from 'react'
 import { useDispatch, useSelector} from 'react-redux'

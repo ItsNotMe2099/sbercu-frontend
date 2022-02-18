@@ -106,6 +106,8 @@ export interface ICatalogEntry {
   highlight?: any,
   inFavorites?: any
   deletedAt?: string
+  publicLink?: string
+  hasPublicAccess?: boolean
 }
 
 export interface ITag {

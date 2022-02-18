@@ -8,6 +8,7 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function RtfPageViewer(props: Props){
@@ -19,7 +20,7 @@ export default function RtfPageViewer(props: Props){
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media.fileName, props.publicHash));
     setIsLoading(true);
     xhr.onload = function(e) {
 

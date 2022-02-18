@@ -57,13 +57,13 @@ export default function Header(props: Props) {
         {type === IHeaderType.Speaker && <Link href={'/speakers'}><a className={styles.speakers} onClick={handleSpeakerClick}>speakers</a></Link>}
         </div>
         <div className={styles.notMedia}>
-          {showSearch && renderSearch()}
+          {user && showSearch && renderSearch()}
           {!isActive ?
             <div className={styles.mobile}>{children}</div>
             : null}
           <div className={styles.notMobile}>{children}</div>
 
-          <Profile user={user} showSearch={isActive}/>
+          {user && <Profile user={user} showSearch={isActive}/>}
         </div>
       </div>
       <ModalConfirm isOpen={key === 'confirm'} onRequestClose={() => dispatch(modalClose())}/>
