@@ -324,7 +324,7 @@ const CatalogPage = (props) => {
     <Layout>
 
       {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
-      {props.public && <Header {...props}>
+      {!props.public && <Header {...props}>
         {currentCatalogItem && currentCatalogItem.canEdit &&
         <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button"
                                                onClick={handleCreateFolderClick}>Создать папку</Button></div>}
@@ -332,12 +332,12 @@ const CatalogPage = (props) => {
         <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button"
                                                  onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
       </Header>}
-      {!props.public && <Header {...props}/>}
+      {props.public && <Header {...props}/>}
 
       <div className={styles.root}>
         <div className={styles.head}>
           <div className={styles.title}>{currentCatalogItem?.name}</div>
-          {currentCatalogItem && <div className={styles.favorite}>
+          {!props.public && currentCatalogItem && <div className={styles.favorite}>
               <FavoriteCatalogButton item={currentCatalogItem} style={'video'}/>
           </div>}
           <div className={styles.image}>
