@@ -168,7 +168,7 @@ const CatalogPage = (props) => {
     setSortOrder(sortOrder);
     dispatch(resetCatalogList())
     if(props.public){
-      dispatch(fetchPublicCatalogList(id, 1, 30, sortField, sortOrder))
+      dispatch(fetchPublicCatalogList(id, hash,1, 30, sortField, sortOrder))
     }else{
       dispatch(fetchCatalogList(id, 1, 30, sortField, sortOrder))
     }
