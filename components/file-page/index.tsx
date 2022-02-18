@@ -148,7 +148,7 @@ const FilePage = (props: Props) => {
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
           <div className={styles.title}>{video.name}</div>
-          <BreadCrumbs items={[...(!props.public ? [{name: 'Главная', link: '/'}]: []), ...(video?.parents ? video?.parents : [])]}/>
+          <BreadCrumbs items={[...(!props.public ? [{name: 'Главная', link: '/'}]: []), ...(video?.parents ? video?.parents.map(i => props.public ? {...i, link: i.link.replace('catalog', `catalog-public/${props.publicHash}`)} : i) : [])]}/>
           <div className={styles.content}>
               <div className={styles.videoWrapper}>
                 {renderFilePreview()}

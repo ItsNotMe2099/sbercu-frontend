@@ -7,7 +7,11 @@ import workerSrc from "components/file-page/component/DocumentPageViewer/PdfPage
 import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
 import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
 import {getMediaPath} from 'utils/media'
-import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
+import {
+  createMediaLinkTempDocViewer,
+  createPublicMediaLinkTempDocViewer,
+  resetMediaLinkForm
+} from 'components/media-links/actions'
 import {FullScreen, useFullScreenHandle} from 'react-full-screen'
 import Cross from 'components/svg/Cross'
 
@@ -35,7 +39,11 @@ export default function PdfPageViewer(props: Props){
       setWidth(wrapperRef.current.getBoundingClientRect().width);
 
     };
-    dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    if(props.publicHash){
+      dispatch(createPublicMediaLinkTempDocViewer({catalogId: item.id}, props.publicHash))
+    }else{
+      dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    }
     window.addEventListener("resize", setDivSize, false);
     return () => {
       window.removeEventListener("resize", setDivSize, false);

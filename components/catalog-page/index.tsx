@@ -345,8 +345,7 @@ const CatalogPage = (props) => {
                 options={actions} onClick={handleActionClick}/>}
           </div>
         </div>
-        <BreadCrumbs
-          items={[ ...(!props.public ? [{name: 'Главная', link: '/'}]: []), ...(currentCatalogItem?.parents ? currentCatalogItem?.parents : [])]}/>
+        <BreadCrumbs items={[...(!props.public ? [{name: 'Главная', link: '/'}]: []), ...(currentCatalogItem?.parents ? currentCatalogItem?.parents.map(i => props.public ? {...i, link: i.link.replace('catalog', `catalog-public/${hash}`)} : i) : [])]}/>
         {items.length > 0 &&
         <div className={styles.toolbar}>
             <div
