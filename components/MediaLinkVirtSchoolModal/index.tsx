@@ -9,6 +9,7 @@ import {
   resetMediaLinkForm
 } from "../media-links/actions";
 import {useEffect} from "react";
+import InputCopy from 'components/ui/Inputs/InputCopy'
 
 
 interface Props {
@@ -30,7 +31,7 @@ export default function MediaLinkVirtSchoolModal(props: Props){
   }
   return (
     <Modal {...props} title={"Ссылка ВШ ID"}>
-      {mediaLink && <div className={styles.link}><a href={mediaLink} target={'blank'}>{mediaLink}</a></div>}
+      {mediaLink && <div className={styles.link}><p><InputCopy value={mediaLink}/></p></div>}
     </Modal>
   )
 }
