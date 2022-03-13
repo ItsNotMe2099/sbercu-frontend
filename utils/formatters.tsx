@@ -13,8 +13,17 @@ export const capitalizeFirstLetter = (string) => {
 export const formatJobDuration = (duration: string) => {
     return duration ? duration.replace(/\..*/,'') : duration;
 }
+export const formatJobDurationToNumber = (time: string): number => {
+    const array = time.split(":")
+    if(array.length < 3){
+        return 0;
+    }
+    const seconds = (parseInt(array[0], 10) * 60 * 60) + (parseInt(array[1], 10) * 60) + parseFloat(array[2])
+    return seconds;
+}
 
-export const formatSeconds = (seconds, showMs = false) => {
+
+export const formatSeconds = (seconds: number, showMs = false) => {
     const date = new Date(seconds * 1000)
     const hh = date.getUTCHours()
     const mm = date.getUTCMinutes()
@@ -22,9 +31,9 @@ export const formatSeconds = (seconds, showMs = false) => {
     const mss = date.getUTCMilliseconds();
 
     if (hh) {
-        return `${hh}:${pad(mm)}:${ss}${showMs ? `.${mss}` : ''}`
+        return `${pad(hh)}:${pad(mm)}:${pad(ss)}${showMs ? `.${mss}` : ''}`
     }
-    return `${mm}:${ss}${showMs ? `.${mss}` : ''}`
+    return `${pad(mm)}:${pad(ss)}${showMs ? `.${mss}` : ''}`
 }
 
 export const pad = (string) => {

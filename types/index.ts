@@ -199,7 +199,7 @@ export interface IJob {
     params: any,
     error: null,
     detailes: string,
-    codecInfo: IJobCodecInfo
+  codecInfo: IJobCodecInfo
     video_details: string[]
     progress: IJobProgress
     catalog: ICatalogEntry

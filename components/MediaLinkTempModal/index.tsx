@@ -28,7 +28,8 @@ export default function MediaLinkTempModal(props: Props){
     dispatch(resetMediaLinkForm());
   }, []);
   const handleSubmit = (data) => {
-    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: format(parse(data.expiredAt, 'dd.mm.yyyy', new Date()), 'yyyy-mm-dd')}));
+    console.log("data.expiredAt", data)
+    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: data.expiredAt}));
     console.log('success')
   }
   return (

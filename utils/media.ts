@@ -14,6 +14,13 @@ export const getMediaPathWithQuality = (file, quality, publicHash = null) => {
     }
     return `${getMediaPath(file, publicHash)}${publicHash ? '&' : '?'}quality=${quality}`;
 }
+export const cleanMediaExtFileName = source => {
+    if(isVideo(source) || isDocument(source) || isImage(source) || isDocument(source)){
+        return source?.split('.')[0];
+    }else{
+        return source;
+    }
+}
 export const getFileExtension = source => {
     return source?.split('.')?.pop()?.toLowerCase() || '';
 }

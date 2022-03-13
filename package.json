@@ -38,6 +38,7 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-content-loader": "^5.1.4",
     "react-custom-scrollbars": "^4.2.1",
+    "react-date-picker": "^8.4.0",
     "react-dnd": "^14.0.5",
     "react-dnd-html5-backend": "^14.1.0",
     "react-dom": "^17.0.2",
@@ -61,6 +62,7 @@
     "react-text-ellipsis": "^1.6.0",
     "react-toastify": "^8.1.0",
     "react-useinterval": "^1.0.2",
+    "reactour": "^1.18.7",
     "recompose": "^0.30.0",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
@@ -69,6 +71,7 @@
     "screenfull": "^5.1.0",
     "spark-md5": "^3.0.1",
     "spinners-react": "^1.0.6",
+    "styled-components": "^4.4.1",
     "typesafe-actions": "^5.1.0",
     "video.js": "^7.10.2",
     "videojs-vr": "^1.7.1"

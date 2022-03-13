@@ -1,4 +1,5 @@
 import axios from "axios";
+import {cleanMediaExtFileName} from 'utils/media'
 
 const SparkMD5 = require('spark-md5');
 const chunkSize = 1 * 1024 * 1024 * 200;
@@ -84,7 +85,7 @@ export class FileUpload {
                 const resCatalog = await axios
                   .post(`${process.env.NEXT_PUBLIC_API_URL}/api/catalog`, {
                       mediaId: res.data.mediaId,
-                      name: file.name,
+                      name: cleanMediaExtFileName(file.name),
                       entryType: 'file',
                       parentId: this.props.catalogId
                   }, {

@@ -13,6 +13,7 @@ import CopySvg from 'components/svg/CopySvg'
 import Input from 'components/ui/Inputs/Input'
 import InputCopy from 'components/ui/Inputs/InputCopy'
 import {confirmOpen, createFolderPublicLinkOpen, modalClose} from 'components/Modal/actions'
+import {toast} from 'react-toastify'
 
 
 interface Props {
@@ -26,6 +27,7 @@ export default function CatalogPublicLinkModal(props: Props){
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [link, setLink] = useState(props.catalog.publicLink)
+  const isProject = props.catalog.entryType === 'project'
   useEffect(() => {
     return () => {
       dispatch(resetCatalogForm())
@@ -54,8 +56,8 @@ export default function CatalogPublicLinkModal(props: Props){
     if(link) {
       console.log("ConfigOpen")
       dispatch(confirmOpen({
-        title: 'Вы уверены, что хотите пересоздать публичную ссылки?',
-        description: 'Доступ к папке будет закрыт для публичного доступа, с кем вы поделились.',
+        title: 'Вы уверены, что хотите пересоздать публичную ссылку?',
+        description: 'Доступ к папке по ссылке будет закрыт для всех с кем вы поделились.',
         confirmColor: 'green',
         confirmText: 'Пересоздать',
         onCancel: () => {
@@ -73,8 +75,8 @@ export default function CatalogPublicLinkModal(props: Props){
   const handleDelete = async (data) => {
 
     dispatch(confirmOpen({
-      title: 'Вы уверены, что хотите удалить публичную ссылки?',
-      description: 'Доступ к папке будет закрыт для публичного доступа, с кем вы поделились.',
+      title: 'Вы уверены, что хотите удалить публичную ссылку?',
+      description: 'Доступ к папке по ссылке будет закрыт для всех с кем вы поделились.',
       confirmColor: 'red',
       confirmText: 'Удалить',
       onCancel: () => {
@@ -90,9 +92,11 @@ export default function CatalogPublicLinkModal(props: Props){
           setError(res.data);
           return;
         }
+
         setLink(null);
         dispatch(updateCatalogItemState(props.catalog.id, res.data));
         dispatch(modalClose());
+        toast.success('Ссылка успешно удалена');
       }
     }));
 
@@ -104,9 +108,9 @@ export default function CatalogPublicLinkModal(props: Props){
     }
   }
   return (
-    <Modal {...props} title={"Публичная ссылка"}>
+    <Modal {...props} title={`Открыть доступ к просмотру ${isProject ? 'проекта' : 'папки'}`}>
       {link && <>
-          <div className={styles.text}>Просматривать смогут все, у кого есть ссылка</div>
+          <div className={styles.text}>Просмотр доступен всем, у кого есть ссылка</div>
           <InputCopy value={getLink(link)}/>
           <div className={styles.buttons}>
               <Button green size="9px 16px" onClick={handleCreate}>Пересоздать</Button>

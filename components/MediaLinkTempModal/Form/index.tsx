@@ -9,6 +9,8 @@ import { useDispatch, useSelector} from 'react-redux'
 import { modalClose } from 'components/Modal/actions'
 import {IRootState} from "../../../types";
 import FormError from "../../ui/Form/FormError";
+import InputDate from 'components/ui/Inputs/InputDate'
+import {required} from 'utils/validations'
 
 let MediaLinkForm = props => {
     const formError = useSelector((state: IRootState) => state.mediaLink.formError)
@@ -24,10 +26,11 @@ let MediaLinkForm = props => {
         <div className={styles.fields}>
         <Field
             name="expiredAt"
-            component={Input}
-            mask={'99.99.9999'}
+            component={InputDate}
             label={"Дата истечения"}
             autoFocus={true}
+            validate={required}
+
         />
         </div>
         </div>

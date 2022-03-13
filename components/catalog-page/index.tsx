@@ -50,13 +50,14 @@ import {getPasteFileDescription, getPasteFileTitle} from 'utils/copyPasteFile'
 import {toast} from "react-toastify";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import CatalogPublicLinkModal from 'components/CatalogPublicLinkModal'
+import UploadFilesModal from 'components/catalog-page/components/UploadFilesModal'
 interface Props{
   public?: boolean
 }
 const CatalogPage = (props) => {
   const router = useRouter()
   const dispatch = useDispatch();
-  const modalKey = useSelector((state: IRootState) => state.ModalReducer.modalKey)
+  const modalKey = props.public ? null : useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const [currentEditCatalog, setCurrentEditCatalog] = useState(null)
   const items = useSelector((state: IRootState) => state.catalog.list)
   const listLoading = useSelector((state: IRootState) => state.catalog.listLoading)
@@ -413,6 +414,10 @@ const CatalogPage = (props) => {
 
       <FileEditModal isOpen={modalKey === 'editFile'} catalog={currentEditCatalog}
                      onRequestClose={() => dispatch(modalClose())}/>
+      {modalKey === 'uploadFiles' &&
+      <UploadFilesModal isOpen={modalKey === 'uploadFiles'} filesFromDropZone={filesFromDropZone}
+                        onClose={handleCloseFilesUploadModal}/>}
+
       {(!modalKey || modalKey === 'uploadFiles') && <CatalogDropZone onDrop={handleDropZoneDrop}/>}
       {modalKey === 'pasteCatalogItemDuplicate' &&
       <PasteCatalogItem onRequestClose={() => dispatch(modalClose())} isOpen={true} catalog={currentCatalogItem}/>}

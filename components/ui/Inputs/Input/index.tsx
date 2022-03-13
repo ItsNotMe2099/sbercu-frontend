@@ -45,6 +45,7 @@ export default function Input(props: Props) {
   return (
     <div className={`${styles.root} ${props.className && props.className}`}>
       {props.label && <div className={styles.label}>{props.label}</div>}
+      <div className={styles.inputWrapper}>
       {props.mask ? (
           <InputMask
             className={`${styles.input} ${(error && touched) && styles.error}`}
@@ -57,6 +58,7 @@ export default function Input(props: Props) {
         renderInput(props.input)
       )}
         {props.icon}
+      </div>
         <ErrorInput {...props}/>
     </div>
   )

@@ -2,6 +2,8 @@ import Head from 'next/head'
 import 'normalize.css'
 import {Provider} from 'react-redux';
 import {store} from 'store'
+import 'react-date-picker/dist/DatePicker.css'
+import 'react-calendar/dist/Calendar.css';
 import 'scss/app.scss'
 import 'videojs-vr/dist/videojs-vr.css'
 import 'components/video/Editor/EditorTrimmer/Range/index.scss'
@@ -9,6 +11,9 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import 'react-toastify/dist/ReactToastify.css'
 import "react-awesome-lightbox/build/style.css"
 import 'react-phone-number-input/style.css'
+
+//import 'react-calendar/dist/Calendar.css';
+
 export default function App({Component, pageProps}) {
   return (
     <Provider store={store}>

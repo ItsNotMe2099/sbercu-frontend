@@ -2,7 +2,13 @@ import ButtonDots from "components/ui/ButtonDots";
 import {format} from "date-fns";
 import {FileActionType, IJob, IUser} from "types";
 import styles from './index.module.scss'
-import {formatJobDuration, formatJobStatusName, formatSeconds, formatSize} from "utils/formatters";
+import {
+    formatJobDuration,
+    formatJobDurationToNumber,
+    formatJobStatusName,
+    formatSeconds,
+    formatSize
+} from "utils/formatters";
 import {Circle} from "rc-progress";
 import React from "react";
 import Cross from "components/svg/Cross";
@@ -16,7 +22,16 @@ interface Props {
 }
 
 export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
-
+    const getCutSize = () => {
+        return job.params.reduce( (previousValue, currentValue) => previousValue + (currentValue.end - currentValue.start),
+          0)
+    }
+    const getNewDuration = () => {
+        if(job.type === 'cutting') {
+            return job.codecInfo?.duration ? formatSeconds(formatJobDurationToNumber(job.codecInfo?.duration) - getCutSize(), true)  : 0;
+        }
+        return job.codecInfo?.duration;
+    }
 
     const getTypeName = (type) => {
         switch (type) {
@@ -79,7 +94,7 @@ export default function JobListRow({job, onCancelClick, onDeleteClick}: Props) {
                             {job.media?.size && <div className={styles.greyText}>{formatSize(job.media?.size)}</div>}
                             <div className={styles.separator}></div>
                             {job.codecInfo?.duration &&
-                            <div className={styles.greyText}>{formatJobDuration(job.codecInfo?.duration)}</div>}
+                            <div className={styles.greyText}>{getNewDuration()}</div>}
                             {job?.estimatedTimeInSeconds > 0 && <>
                                 <div className={styles.separator}></div>
                                 <div className={styles.estimate}>

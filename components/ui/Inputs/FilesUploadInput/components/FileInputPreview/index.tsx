@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import styles from './index.module.scss'
 import Button from 'components/ui/Button'
 import Loader from 'react-loader-spinner'
+import {cleanMediaExtFileName} from 'utils/media'
 interface Props {
     className?: string
     progress?: number,
@@ -60,14 +61,14 @@ const FileInputPreview: FunctionComponent<Props> = props => {
                 <div className={styles.main}>
                     <div className={styles.topBar}>
                         <div className={styles.name}>
-                            {file?.rawFile?.name}
+                            {cleanMediaExtFileName(file?.rawFile?.name)}
                         </div>
                         <div className={styles.deleteButton} onClick={onRemove}>
 
                             <Basket/>
                         </div>
                     </div>
-                    <FileDataForm  form={`${file.key}-form`} initialValues={{name: file?.rawFile?.name}} onChange={handleChangeForm}/>
+                    <FileDataForm  form={`${file.key}-form`} initialValues={{name: cleanMediaExtFileName(file?.rawFile?.name)}} onChange={handleChangeForm}/>
                 </div>
             </div>
         </>
