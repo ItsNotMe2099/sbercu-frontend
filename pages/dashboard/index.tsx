@@ -176,7 +176,7 @@ const Dashboard = (props) => {
         {!loading && projectsTotal === 0 &&
         <NoFiles/>}
         {projectsTotal > 0 && <>
-            <div className={styles.titleContainer}>
+            <div className={styles.titleContainer} data-tour={'projects'}>
                 <div className={styles.title}>Проекты</div>
                 <Quantity
                     quantity={projectsTotal}

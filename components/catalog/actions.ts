@@ -45,6 +45,13 @@ export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH
   }
 })
 
+export const fetchOnBoardingProject = (departmentId: number) => action(ActionTypes.FETCH_ON_BOARDING_PROJECT, {
+  api: {
+    url: `/api/catalog/projects?${queryString.stringify({tags: departmentId, page: 1, limit: 1})}`,
+    method: 'GET',
+  }
+})
+
 export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) => action(ActionTypes.FETCH_CATALOG_LIST, {
   sortField, sortOrder,
   api: {

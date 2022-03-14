@@ -323,10 +323,10 @@ const CatalogPage = (props) => {
       {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
       {!props.public && <Header {...props}>
         {currentCatalogItem && currentCatalogItem.canEdit &&
-        <div className={styles.create}><Button folder transparent textDarkGrey btnDarkGrey type="button"
+        <div className={styles.create} data-tour="create-folder"><Button folder transparent textDarkGrey btnDarkGrey type="button"
                                                onClick={handleCreateFolderClick}>Создать папку</Button></div>}
         {currentCatalogItem && currentCatalogItem.canEdit &&
-        <div className={styles.download}><Button size='6px 16px' green visiblePlus btnWhite type="button"
+        <div className={styles.download} data-tour="create-file"><Button size='6px 16px' green visiblePlus btnWhite type="button"
                                                  onClick={handleUploadFiles}><span>Загрузить файл</span></Button></div>}
       </Header>}
       {props.public && <Header {...props}/>}
@@ -368,6 +368,7 @@ const CatalogPage = (props) => {
               {items.map((item, index) => (<File
                 key={`${item.id}`}
                 index={index}
+                dataTour={index == 0 ? 'catalog-menu' : null}
                 isSelected={selectedIds.includes(item.id)}
                 onSelect={(check) => handleSelect(item.id, check)}
                 userRole={props.user?.role}

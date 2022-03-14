@@ -41,6 +41,7 @@ interface Props {
   isGroupedOver?: boolean
   dragOverId?: any
   publicHash?: string
+  dataTour?: string
 }
 
 export enum FileShowType {
@@ -65,6 +66,7 @@ const File = ({
                                onClick,
                                canEdit,
                                showType,
+                dataTour,
                            isDragging,
                            isGroupedOver,
                                ...props
@@ -351,7 +353,7 @@ const File = ({
         <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item}
                                                                                                       style={'catalog'}/>
         </div>}
-        {showDots && <div className={styles.dots}><ButtonDots
+        {showDots && <div className={styles.dots} data-tour={dataTour}><ButtonDots
             onClick={handleActionClick}
             options={actions}
         /></div>}

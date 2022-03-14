@@ -89,7 +89,7 @@ export default function InputCatalogSearch(props: Props) {
   }
 
   return (
-    <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
+    <form className={isOpen ? styles.open : styles.form} data-tour={'search'} action='/search' onSubmit={handleSubmit}>
       <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
         <input
           name="query"

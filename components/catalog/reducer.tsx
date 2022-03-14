@@ -6,6 +6,7 @@ export interface CatalogState {
     list: ICatalogEntry[],
     listTotal?: number,
     publicLink?: string
+    onBoardingProject?: ICatalogEntry,
     myUploadedFilesList: ICatalogEntry[],
     myUploadedFilesListLoading: boolean,
     myUploadedFilesListTotal?: number,
@@ -241,6 +242,9 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         }
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
             state.currentLoading = false;
+            break
+        case ActionTypes.FETCH_ON_BOARDING_PROJECT + ApiActionTypes.SUCCESS:
+            state.onBoardingProject = action.payload?.data.length > 0 ? action.payload?.data[0] : null;
             break
 
         case ActionTypes.CUT_VIDEO_REQUEST :

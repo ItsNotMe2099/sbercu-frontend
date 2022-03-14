@@ -4,7 +4,7 @@ import Layout from "components/layout/Layout";
 import { confirmOpen, modalClose, tagModalOpen, userModalOpen } from "components/Modal/actions";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IRootState, ITag, IUser } from "types";
+import {IJob, IRootState, ITag, IUser} from "types";
 import {getAuthServerSide, logout} from "utils/auth";
 import styles from './index.module.scss'
 import Header from "components/layout/Header";
@@ -52,7 +52,7 @@ const Jobs = (props) => {
          dispatch(fetchJobList({    page , limit,...data}))
 
     }
-    const handleCancelJob = (item: IUser) => {
+    const handleCancelJob = (item: IJob) => {
         dispatch(confirmOpen({
             title: 'Вы уверены, что хотите отменить задачу?',
             description: `ID задачи: ${item.id}`,
@@ -63,7 +63,7 @@ const Jobs = (props) => {
             }
         }));
     }
-    const handleDeleteJob = (item: IUser) => {
+    const handleDeleteJob = (item: IJob) => {
         dispatch(confirmOpen({
             title: 'Вы уверены, что хотите удалить задачу?',
             description: `ID задачи: ${item.id}`,

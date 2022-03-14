@@ -9,7 +9,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.8.2",
     "@react-cmpt/use-throttle": "^0.3.2",
+    "@reactour/tour": "^2.10.0",
     "@sentry/nextjs": "^6.10.0",
     "@types/date-fns": "^2.6.0",
     "@types/next-seo": "^2.1.2",

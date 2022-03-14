@@ -39,7 +39,7 @@ export default function CatalogSortToolbar(props: Props){
     {name: 'По дате создания', field: CatalogSortField.CreatedAt},
   ]
   return (
-   <div className={styles.root}>
+   <div className={styles.root} data-tour="catalog-sort">
      {buttons.map(i => <CatalogSortButton onChange={onChange} name={i.name} field={i.field} isActive={sortField === i.field} sortOrder={sortOrder}/>)}
    </div>
   )

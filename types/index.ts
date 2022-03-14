@@ -144,7 +144,11 @@ export interface ConfirmDataModal {
   onConfirm: () => void,
   onCancel?: () => void
 }
-
+export enum UserOnBoardingStatus {
+  NotShown = 'notShown',
+  Skipped = 'skipped',
+  Completed = 'completed',
+}
 export interface IUser {
   id?: number
   firstName?: string
@@ -158,6 +162,7 @@ export interface IUser {
   resetPasswordToken?: string
   departmentTags?: ITag[]
   departmentTagIds?: number[]
+  onBoardingStatus?: UserOnBoardingStatus
 }
 
 export interface IVideoTrimRange {
