@@ -26,11 +26,9 @@ const transformFile = file => {
     rawFile: file,
     preview: preview,
   }
-  console.log("transformedFile", transformedFile)
   return transformedFile
 }
 const formatValue = (value): FileEntity[]  => {
-  console.log("FormatValue", value)
   return value ? (Array.isArray(value) ? value.map((file) => { return {path: file?.path as string || file as string}}) : [{path: value?.path as string || value as string}]) : []
 }
 
@@ -95,7 +93,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
-        onChange(filtered.map(item => { console.log("Item", item); return {path: item.path, catalogId: item.catalogId, mediaId: item.mediaId, key: item.key, ...(item as any).data}}))
+        onChange(filtered.map(item => { return {path: item.path, catalogId: item.catalogId, mediaId: item.mediaId, key: item.key, ...(item as any).data}}))
 
     }else{
       onChange(filtered[0]?.path || null)
@@ -115,7 +113,6 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     return nextId("file-");
   }
   const onUpload = (file: FileEntity) => {
-    console.log("onUploadFiles", file)
 
     setFiles(oldFiles => oldFiles.map(item => {
       return {
@@ -125,9 +122,7 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     }))
   }
   const onChangeFileData = (file: FileEntity, data) => {
-    console.log("onChangeFileData", file.path, data)
-    setFiles(oldFiles => oldFiles.map(item => {
-      console.log("Map Exists",  (file.path && item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name) )
+   setFiles(oldFiles => oldFiles.map(item => {
       return {
         ...item,
         ...( ( (file.path && item.path === file.path) || (!file.path && item.rawFile?.name === file.rawFile.name)) ? {data} : {})
@@ -149,7 +144,6 @@ const FilesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     if(file.catalogId) {
       dispatch(deleteCatalogRequest(file.catalogId));
     }
-    console.log("FileRemove", file);
   }
 
   const { getRootProps, getInputProps } = useDropzone({

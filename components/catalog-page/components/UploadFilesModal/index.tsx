@@ -29,14 +29,12 @@ export default function UploadFilesModal(props: Props) {
     const [files, setFiles] = useState([])
     useEffect(() => {
         return () => {
-            console.log("CurrentUploads", (window as any)._fileUploads);
             if(   (window as any)._fileUploads){
                 for(const file of (window as any)._fileUploads){
                     try{
-                        console.log("CancelFile", file);
                         file.cancel();
                     }catch (e){
-                        console.log("CancelFileErorr", e);
+
                     }
                 }
             }
@@ -44,9 +42,7 @@ export default function UploadFilesModal(props: Props) {
         }
     }, [])
     const handleSubmit = (data) => {
-        console.log('handleSubmit', data)
-        if(data.files.filter(file =>  file.name && /^ *$/.test(file.name) || !file.name).length > 0) {
-          console.log("HasEmptyFiles")
+         if(data.files.filter(file =>  file.name && /^ *$/.test(file.name) || !file.name).length > 0) {
            return;
         }
         if (!data.files.find(file => !file.name)) {
@@ -54,7 +50,6 @@ export default function UploadFilesModal(props: Props) {
         }
     }
     const handleChange = (data) => {
-        console.log("HandleChange", data);
         setFiles(data.files || []);
     }
     const handleSyncFiles = (files) => {
@@ -68,7 +63,6 @@ export default function UploadFilesModal(props: Props) {
         if(!isCloseBtn && !allowBgClose){
             return;
         }
-        console.log("isCloseBtn", isCloseBtn)
         if (files.length > 0 && !allowBgClose) {
             return;
         }

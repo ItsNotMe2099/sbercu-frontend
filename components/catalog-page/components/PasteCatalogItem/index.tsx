@@ -21,7 +21,6 @@ export default function PasteCatalogItem(props){
 
   const handleSubmit = (data) => {
   dispatch(catalogPaste(catalog.id, data.name));
-    console.log('success')
   }
   useEffect(() => {
     return () => dispatch(resetCatalogForm());

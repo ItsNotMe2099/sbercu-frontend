@@ -47,7 +47,6 @@ const ImageWrapper = (props: Props) => {
     setIsLoaded(true);
   }
   const onProgress = (progress) => {
-    console.log("onProgress", progress)
     setProgress(progress)
   }
   useEffect(() => {
@@ -65,16 +64,12 @@ const ImageWrapper = (props: Props) => {
         (window as any)._fileUploads = [];
       }
       (window as any)._fileUploads.push(fileUpload.current);
-      console.log("AddFileUpload",   (window as any)._fileUploads);
 
     }
   },[])
   const handleRemove = () => {
     if(  fileUpload.current  && file.rawFile){
-      console.log("Cancel");
       fileUpload.current.cancel();
-    }else{
-      console.log("cantCancel", fileUpload.current, file.rawFile);
     }
     onRemove(file)
     setConfirmRemove(false);

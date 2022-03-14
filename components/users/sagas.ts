@@ -17,7 +17,6 @@ function* userSaga() {
       yield put(createUserRequest( action.payload.data));
       const result = yield take([ActionTypes.CREATE_USER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.FAIL])
       if(result.type === ActionTypes.CREATE_USER_REQUEST + ApiActionTypes.SUCCESS){
-        console.log("CREATE USER SUCCESS")
         yield put(modalClose());
         yield put(resetUserList());
         yield put(fetchUserList());
@@ -28,7 +27,6 @@ function* userSaga() {
       yield put(updateUserRequest(action.payload.id, action.payload.data));
       const result = yield take([ActionTypes.UPDATE_USER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.FAIL])
       if(result.type === ActionTypes.UPDATE_USER_REQUEST + ApiActionTypes.SUCCESS){
-        console.log("UPDATE USER SUCCESS")
         yield put(modalClose());
         yield put(fetchOneUserRequest(action.payload.id));
       }
@@ -38,7 +36,6 @@ function* userSaga() {
       yield put(deleteUserRequest(action.payload.id));
       const result = yield take([ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.FAIL])
       if(result.type === ActionTypes.DELETE_USER_REQUEST + ApiActionTypes.SUCCESS){
-        console.log("DELETE USER SUCCESS")
         yield put(modalClose());
           yield put(resetUserList());
           yield put(fetchUserList());

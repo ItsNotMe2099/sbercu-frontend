@@ -27,9 +27,6 @@ export default function Input(props: Props) {
   const { input, label, type, hasAutoComplete } = props
   const autoCompleteProps: any = !hasAutoComplete ? {autoComplete: 'new-password', autoCorrect: 'off'} : {};
 
-  useEffect(() => {
-    console.log("destroy");
-  }, [])
   const renderInput = (inputProps) => {
     return  (   <input
       className={`${styles.input} ${(error && touched) && styles.error}`}

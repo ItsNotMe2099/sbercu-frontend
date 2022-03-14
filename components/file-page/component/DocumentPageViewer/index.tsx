@@ -18,7 +18,6 @@ export default function DocumentPageViewer(props: Props){
 
   const renderDocument = () => {
     const ext = getFileExtension(item.media.filePath);
-    console.log('renderDocument', ext, item.media.filePath);
     if(['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'].includes(ext)){
       return <OfficePageViewer item={item} publicHash={props.publicHash}/>
     }
@@ -26,8 +25,7 @@ export default function DocumentPageViewer(props: Props){
       return <PdfPageViewer item={item} publicHash={props.publicHash}/>
     }
     if(['tiff', 'tif'].includes(ext)){
-      console.log("renderTiff");
-      return <TiffPageViewer item={item} publicHash={props.publicHash}/>
+       return <TiffPageViewer item={item} publicHash={props.publicHash}/>
     }
     if(['txt'].includes(ext)){
       return  <TxtPageViewer item={item} publicHash={props.publicHash}/>

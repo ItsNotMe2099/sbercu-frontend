@@ -27,11 +27,9 @@ const transformFile = file => {
     rawFile: file,
     preview: preview,
   }
-  console.log("transformedFile", transformedFile)
   return transformedFile
 }
 const formatValue = (value): FileEntity[]  => {
-  console.log("FormatValue", value)
   return value ? (Array.isArray(value) ? value.map((file) => { return {path: file?.path as string || file as string}}) : [{path: value?.path as string || value as string}]) : []
 }
 
@@ -95,7 +93,7 @@ const ImagesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
   useEffect(() => {
     const filtered = files.filter((file => !!file.path))
     if(multiple) {
-        onChange(filtered.map(item => { console.log("Item", item); return item.path}))
+        onChange(filtered.map(item => { return item.path}))
 
     }else{
       onChange(filtered[0]?.path || null)
@@ -115,7 +113,6 @@ const ImagesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
     return nextId("file-");
   }
   const onUpload = (file: FileEntity) => {
-    console.log("onUploadFiles", file)
 
     setFiles(oldFiles => oldFiles.map(item => {
       return {
@@ -142,8 +139,6 @@ const ImagesUploadInput = (props: any & FileInputProps & FileInputOptions) => {
       newFiles.splice(index, 1);
       return newFiles
     });
-
-    console.log("FileRemove", file);
   }
   const onDropRejected = (error) => {
     if(error.length > 0 && error[0].errors.length > 0){

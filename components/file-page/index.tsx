@@ -68,7 +68,6 @@ const FilePage = (props: Props) => {
   const router = useRouter()
   const hash = router.query.hash as string;
 
-  console.log("Auth", props)
 
   useInterval(() => {
     const isConverting = video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
@@ -106,7 +105,6 @@ const FilePage = (props: Props) => {
   const getTagCategories = () => {
     const categoriesMap = {};
     const categories = []
-    console.log("video?.tags", video?.tags)
     for (const tag of video?.tags) {
       if (!tag.tagCategory) {
         continue;
@@ -118,12 +116,10 @@ const FilePage = (props: Props) => {
         categoriesMap[tag.tagCategoryId].tags.push(tag);
       }
     }
-    console.log("categories", categories)
     return categories;
   }
 
   const handleTagClick = (tag) => {
-    console.log("TagClick", tag);
     if(props.public){
       return;
     }

@@ -34,8 +34,7 @@ export function* watchOnRegistration() {
                 method: 'GET',
             } as IRequestData)
 
-            console.log("Res error", res.err);
-            if(res.err){
+             if(res.err){
                 yield put({type: ActionTypes.GET_USER_BY_INVITE_ERROR, payload: res.err?.message})
             }else{
 

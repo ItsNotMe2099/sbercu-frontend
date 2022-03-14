@@ -20,15 +20,12 @@ export default function TiffPageViewer(props: Props){
   const [page, setPage] = useState(1);
   const imgRef = useRef(null);
   useEffect(() => {
-    console.log("useEffect");
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
     xhr.open('GET', getMediaPath(item.media?.fileName, props.publicHash))//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
-      console.log("onLoad", e);
       const arrayBuffer = this.response;
-      console.log("arrayBuffer", arrayBuffer)
       Tiff.initialize({
         TOTAL_MEMORY: 16777216 * 10
       })
@@ -46,7 +43,6 @@ export default function TiffPageViewer(props: Props){
         imgRef.current.src = items[0];
       }
       setItems(items);
-      console.log('tiff', tiff);
       setIsLoading(false)
     }
     xhr.send();

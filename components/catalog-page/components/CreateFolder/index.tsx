@@ -21,7 +21,6 @@ export default function CreateFolder(props){
     }else {
       dispatch(createCatalog({ name: data.name, entryType: 'folder', parentId: currentCatalogId }));
     }
-    console.log('success')
   }
   useEffect(() => {
     return () => dispatch(resetCatalogForm());

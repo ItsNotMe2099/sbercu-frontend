@@ -191,7 +191,6 @@ const CatalogPage = (props) => {
   const handleActionClick = (action: FileActionType) => {
     switch (action) {
       case FileActionType.Edit:
-        console.log("EditClick", currentCatalogItem)
         if (currentCatalogItem?.entryType === 'project') {
           router.push(`/project/edit/${currentCatalogItem.id}`)
         } else {
@@ -200,8 +199,7 @@ const CatalogPage = (props) => {
         }
         break;
       case FileActionType.PublicLink:
-        console.log("PublicClick", currentCatalogItem)
-        setCurrentEditCatalog(currentCatalogItem);
+       setCurrentEditCatalog(currentCatalogItem);
         dispatch(createFolderPublicLinkOpen());
         break;
       case FileActionType.Cut:
@@ -255,7 +253,6 @@ const CatalogPage = (props) => {
   })()
   const handleDragEnd = (result) => {
     setDragOverId(null);
-    console.log("onDragEnd", result)
     const destId = result?.combine?.draggableId ? parseInt(result?.combine?.draggableId, 10) : null
     const sourceId = result?.draggableId ? parseInt(result?.draggableId, 10) : null
     if(!destId || !sourceId){
@@ -320,7 +317,6 @@ const CatalogPage = (props) => {
       setDragOverId(newDragOverId);
     }
   }
-  console.log("modalKey", modalKey);
   return (
     <Layout>
 

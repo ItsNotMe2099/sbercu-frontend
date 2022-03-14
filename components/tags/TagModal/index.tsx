@@ -22,7 +22,7 @@ export default function TagModal(props: Props){
     }else{
       dispatch(createTag({name: data.name, tagCategoryId: data.tagCategoryId,  categoryType: props.categoryType}));
     }
-     console.log('success')
+
   }
 
   return (

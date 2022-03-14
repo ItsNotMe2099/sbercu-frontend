@@ -64,7 +64,6 @@ const DeletedPage = (props) => {
   const limitProjects = 30;
   const limitFolders = 30;
   const {query} = router.query;
-  console.log("query", query);
   useEffect(() => {
     dispatch(resetCatalogDeleted());
     dispatch(fetchTagCategoryList(ITagCategoryType.Project));
@@ -79,7 +78,6 @@ const DeletedPage = (props) => {
   }, [projectsTotal])
 
   const handleTagChangeTags = (tags) => {
-    console.log("handleTagChangeTags");
     setTags(tags);
     setPageFiles(1);
     setPageProjects(1);
@@ -102,7 +100,6 @@ const DeletedPage = (props) => {
   }
 
   const handleRestoreClick = (item) => {
-    console.log("RestoreClick" ,item);
     dispatch(restoreCatalogItemDeleted(item.id));
   }
   const handleDeleteClick = (item) => {

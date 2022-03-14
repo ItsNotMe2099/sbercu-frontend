@@ -23,7 +23,6 @@ export default function TxtPageViewer(props: Props){
       .then(r => r.text())
       .then(text => {
         setText(text);
-        console.log('text decoded:', text);
         setIsLoading(false);
       });
   }, [])

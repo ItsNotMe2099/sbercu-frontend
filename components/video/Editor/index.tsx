@@ -89,12 +89,10 @@ export default function VideoEditor(props: Props) {
     }
 
     const handlePlay = () => {
-        console.log('onPlay')
-        setPlaying(true);
+           setPlaying(true);
     }
 
     const handleEnablePIP = () => {
-        console.log('onEnablePIP')
         setPip(true);
     }
 
@@ -104,16 +102,13 @@ export default function VideoEditor(props: Props) {
     }
 
     const handlePause = () => {
-        console.log('handlePause')
-        setPlaying(false);
+         setPlaying(false);
     }
 
 
     const handleSeekChange = value => {
-        console.log("SeekChange", value, loaded);
         setPlayed(value / duration);
-        console.log("SeekChange111", value, value / duration, (value / duration) * duration);
-        (player?.current as any).currentTime(value);
+         (player?.current as any).currentTime(value);
     }
 
 
@@ -152,15 +147,11 @@ export default function VideoEditor(props: Props) {
 
     }
     const handleChangeCurrentTime = (value) => {
-        console.log("handleChangeCurrentTime", value);
     }
     const handleSourceChange = (item) => {
-        console.log("setSource", item.value)
-
         setLoaded(0);
         setPip(false);
         setSource(item.value);
-
     }
 
 
@@ -212,29 +203,18 @@ export default function VideoEditor(props: Props) {
 
     const handleAddCutRegion = () => {
         const seconds =  currentSecondsRef.current;
-        console.log("HandleCut", seconds);
         const range = duration * 0.01
         const start = Math.floor(seconds - range /2);
         const end = Math.floor(seconds + range /2);
 
         const overlapsRegion = cutItems.find((it) => (start >= it.start && start <= it.end) || (end >= it.start && end <= it.end)  )
         if(overlapsRegion){
-
-            if((start >= overlapsRegion.start && start <= overlapsRegion.end) && (end >= overlapsRegion.start && end <= overlapsRegion.end)){
-                console.log("TOTAL OverLaps")
-            }else if((start >= overlapsRegion.start && start <= overlapsRegion.end)){
-                console.log("OnlyStartOverlaps")
-            }else{
-                console.log("OnlyEndOverlaps")
-            }
-            console.log("OverLaps!!", overlapsRegion);
             return;
         }
         const trimItem : IVideoTrimRange = {
            id: `${start}${end}`, start, end, color: 'red'
         }
 
-        console.log("vutIyems", [...cutItems, trimItem])
         setCutItems((items) => ([...items, trimItem].sort((a, b) => a.start < b.start ? -1 : a.start > b.start  ? 1 : 0 )));
     }
     const handleChangeTrimmer = (value) => {
@@ -265,7 +245,7 @@ export default function VideoEditor(props: Props) {
                 onPause={handlePause}
                 onError={e => console.log('onError', e)}
                 onReady={handleReady}
-                onBuffer={() => console.log('onBuffer')}
+                onBuffer={() => {}}
             />
             <div className={styles.shadow}></div>
             <div className={styles.controls}>

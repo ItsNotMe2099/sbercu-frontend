@@ -12,7 +12,6 @@ interface Props {
 export default function InputDate(props: Props) {
   const {input: {value, onChange}} = props
   const { error, touched } = props.meta ? props.meta : {error: null, touched: false}
-  console.log('ValueNew', value)
   return (
     <div className={styles.root}>
   <label className={styles.label}>{props.label}</label>
@@ -26,13 +25,10 @@ export default function InputDate(props: Props) {
             return
           }
           try {
-            console.log('ValueTime', value.getFullYear())
             if (isNaN(value.getTime()) || value.getFullYear() < 1000) {
               return
             }
-            console.log('ValueDate', value)
-            console.log('HandleDateChange', format(value, 'y-MM-dd'))
-            onChange(format(value, 'y-MM-dd'))
+             onChange(format(value, 'y-MM-dd'))
           }catch (e){
 
           }

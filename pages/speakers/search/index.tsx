@@ -41,7 +41,6 @@ const Search = (props) => {
 
   const limitSpeakers = 30;
   const {query} = router.query;
-  console.log("query", query);
   useEffect(() => {
     if (!query) {
       return;
@@ -57,7 +56,6 @@ const Search = (props) => {
   }, [speakersTotal])
 
   const handleTagChangeTags = (tags) => {
-    console.log("handleTagChangeTags");
     setTags(tags);
     setPageSpeakers(1);
     dispatch(resetCatalogSearch());

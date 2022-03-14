@@ -66,7 +66,6 @@ const Search = (props) => {
     const limitFolders = 30;
     const limitSpeakers = 30;
     const { query } = router.query;
-    console.log("query", query);
     useEffect(() => {
         if (!query) {
             return;
@@ -85,7 +84,6 @@ const Search = (props) => {
     }, [projectsTotal])
 
     const handleTagChangeTags = (tags) => {
-        console.log("handleTagChangeTags");
         setTags(tags);
         setPageFiles(1);
         setPageProjects(1);

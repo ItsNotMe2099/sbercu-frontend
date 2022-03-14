@@ -31,7 +31,6 @@ export default function InputSearch(props: Props) {
     const { callback: onChange, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(props.onChange, 800)
 
     const handleSearch = (e) => {
-        console.log("handleSearch", e);
         setValue(e.target.value);
         onChange(e.target.value);
     }

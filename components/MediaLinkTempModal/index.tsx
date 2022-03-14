@@ -28,9 +28,7 @@ export default function MediaLinkTempModal(props: Props){
     dispatch(resetMediaLinkForm());
   }, []);
   const handleSubmit = (data) => {
-    console.log("data.expiredAt", data)
     dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: data.expiredAt}));
-    console.log('success')
   }
   return (
     <Modal {...props} title={"Создать временную ссылку"}>

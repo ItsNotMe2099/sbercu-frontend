@@ -36,7 +36,7 @@ export default function EditorTrimmer(props: Props) {
 
             return resultArray
         }, [])
-        const trackItems = chunked.map(item => ({id: `${item[0]}${item[1]}`, start: item[0], end: item[1]}));
+        const trackItems = chunked.map(item => ({id: `${item[0]}${item[1]}`, start: item[0], end: item[1] + 0.040 > props.duration ? props.duration : item[1]}));
         props.onChange(trackItems);
     }
     return (<div className={styles.root}>
@@ -57,7 +57,6 @@ export default function EditorTrimmer(props: Props) {
                     value={props.trimItems.map(item => ([item.start, item.end])).flat()}
                     trackStyle={props.trimItems.map((item, index) => ([{backgroundColor: '#EB5757'}, {backgroundColor: '#4d4d4d'}])).flat()}
                     onAfterChange={(value) => {
-                        console.log("onAfterChange", value);
                     }}
                     onChange={handleChange}
                     railStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}

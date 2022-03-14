@@ -41,7 +41,6 @@ export default function registrationReducer(state = {...initialState}, action) {
       state.currentUser = action.payload
       break
     case ActionTypes.GET_USER_BY_INVITE_ERROR:
-      console.log("Error", action.payload);
       state.currentUserError = action.payload
       break
   }

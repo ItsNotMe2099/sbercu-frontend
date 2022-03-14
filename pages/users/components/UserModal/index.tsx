@@ -28,7 +28,6 @@ export default function UserModal(props: Props){
     }else{
       dispatch(createUser({...data, departmentTagId: undefined, departmentTagIds: data.departmentTagId ? [data.departmentTagId] : []}));
     }
-     console.log('success')
   }
 
   return (

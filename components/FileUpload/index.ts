@@ -59,8 +59,6 @@ export class FileUpload {
                         const chunkProgress = e.loaded / e.total;
                         const baseProgress = i / blockCount;
                         const oneItemProgress = 1 / blockCount
-                        console.log(" e.loaded / e.total", e.loaded / e.total, baseProgress, oneItemProgress, chunkProgress, oneItemProgress * chunkProgress * 100)
-
                         const progress = Math.floor((baseProgress + (oneItemProgress * chunkProgress)) * 100)
                         this.props.onProgress(progress === 100 ? 99 : progress)
                     },
@@ -92,13 +90,12 @@ export class FileUpload {
                       headers: this.props.headers,
                   });
 
-                console.log("resCatalog.data", resCatalog.data)
-                this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
+                 this.props.onFinish({...res.data, catalogId: resCatalog.data.id});
             }else{
                 this.props.onFinish({...res.data});
             }
         }catch(e){
-            console.log("Error happened", axios.isCancel(e))
+
         }
     }
 

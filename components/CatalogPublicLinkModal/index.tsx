@@ -44,7 +44,6 @@ export default function CatalogPublicLinkModal(props: Props){
       setError(res.data);
       return;
     }
-    console.log("res.data.publicLink", res.data.publicLink);
 
     dispatch(updateCatalogItemState(props.catalog.id, res.data));
     setLink(res.data.publicLink);
@@ -54,7 +53,6 @@ export default function CatalogPublicLinkModal(props: Props){
     setLink('333');
 
     if(link) {
-      console.log("ConfigOpen")
       dispatch(confirmOpen({
         title: 'Вы уверены, что хотите пересоздать публичную ссылку?',
         description: 'Доступ к папке по ссылке будет закрыт для всех с кем вы поделились.',

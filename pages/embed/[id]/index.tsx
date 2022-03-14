@@ -18,7 +18,6 @@ const Video = (props: Props) => {
 
     const path = video.fileName || video.filePath;
     const quality = video?.videoElements?.find(el => el.quality === '1080p')?.filePath || video?.videoElements[video?.videoElements?.length - 1]?.filePath;
-    console.log("Path", video);
 
     return quality || video.filePath || getMediaPath(path);
   }
@@ -38,6 +37,5 @@ export default Video
 export async function getServerSideProps(ctx) {
   const id = ctx.query.id;
   const res = await request({url: `/api/media-link/public-embed/${id}`, method: 'GET'})
-  console.log("ResData", res)
   return {props: {video: res.data}}
 }

@@ -11,8 +11,7 @@ interface Props {}
 export default function AuthSection(props: Props) {
   const dispatch = useDispatch()
     const router = useRouter()
-    console.log("Query",process.env);
-  const redirect = router.query.redirect as string;
+   const redirect = router.query.redirect as string;
   const submit = values => {
       dispatch(loginReset());
       dispatch(loginSubmit({email: values.login, password: values.password, redirect}))

@@ -20,7 +20,6 @@ export function* watchOnNewPasswordSave() {
                 method: 'POST',
                 data: action.payload,
             } as IRequestData)
-            console.log("Res phone", res)
             if(!res.err){
                 yield put({ type: ActionTypes.PASSWORD_RESET_SUCCESS, payload: res.data })
                 window.location.href = "/";

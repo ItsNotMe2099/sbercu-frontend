@@ -9,7 +9,6 @@ const queryString = require('query-string')
 export async function getServerSideProps(ctx) {
   const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
   if (!authRes?.props?.user) {
-    console.log("authRes", authRes);
     return authRes;
   }
   const authProps = authRes.props;
@@ -25,7 +24,6 @@ export async function getServerSideProps(ctx) {
         notFound: true
       }
     }
-    console.log("GetVideoBackend", res.data);
 
     return {
       props: {initialVideo: res.data, ...authProps},

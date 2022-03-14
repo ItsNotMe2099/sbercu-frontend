@@ -64,11 +64,9 @@ export default function EditorCutInfo(props: Props) {
         }));
     }
     const handleExpand = () => {
-        console.log("ClickExpand", expanded, (hasIteraction && props.cutItems.length === 0) );
         setExpanded(true);
     }
     const handleClose = () => {
-        console.log("ClickExpand1");
         setExpanded(false);
     }
     const renderHelp = (withHeader = false) => {
@@ -107,11 +105,8 @@ export default function EditorCutInfo(props: Props) {
     }
     const handleChangeDuration = (value, index, type) => {
         const newCutItems = cutItems.map((item, idx) => ({...item, ...(idx === index ? {[type] : value} : {} )}))
-        console.log("newCutItems",  value,index, type, newCutItems, newCutItems[index][type])
-        onSetCutItems(newCutItems);
+         onSetCutItems(newCutItems);
     }
-
-    console.log("getDuration " , props.duration)
 
     return (<Draggable offsetParent={window.document.getElementById('video-editor')} bounds="parent">
 

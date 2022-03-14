@@ -68,7 +68,6 @@ export default function InputCatalogSpeakers(props: Props) {
       url: `/api/speaker/search?query=${query}`,
       method: 'GET'
     });
-    console.log("ResLoadData", res);
     setSpeakers(res.data?.data ?? [])
     setSpeakersLoading(false);
   }

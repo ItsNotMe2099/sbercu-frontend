@@ -25,7 +25,6 @@ const isDragHasFiles = (e) => {
     return false;
   }
   for (const type of e.dataTransfer.types) {
-    console.log("checkType", type)
     if (type === "Files") return true;
   }
 }
@@ -40,7 +39,6 @@ const CatalogDropZone = (props: Props) => {
   const handleDragIn = React.useCallback((event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log("isDragHasFiles", isDragHasFiles(event))
     if( !isDragHasFiles(event) ){
       return;
     }
@@ -68,7 +66,6 @@ const CatalogDropZone = (props: Props) => {
     setIsDragging(false);
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
       dragCounter.current = 0;
-      console.log(event.dataTransfer.files);
       props.onDrop(event.dataTransfer.files);
       event.dataTransfer.clearData();
     }

@@ -40,7 +40,6 @@ const Jobs = (props) => {
     }, 3000);
     const handleScrollNext = () => {
         dispatch(setJobListPage(page + 1));
-        console.log("PAGE", page)
         fetchList({page: page + 1});
     }
     useEffect(() => {

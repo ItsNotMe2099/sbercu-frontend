@@ -22,7 +22,6 @@ export default function SpeakerReviewModal(props: Props){
       dispatch(createFeedback({...data, toSpeakerId: speakerId, target: 'speaker' }))
     }
 
-    console.log('success')
   }
 
   return (

@@ -38,7 +38,6 @@ const Users = (props) => {
     const limit = 10;
     const handleScrollNext = () => {
         dispatch(setUserListPage(page + 1));
-        console.log("PAGE", page)
         fetchList({page: page + 1});
     }
     useEffect(() => {
@@ -54,16 +53,13 @@ const Users = (props) => {
     const fetchList = (data: any = {}) => {
         let setFilter = data.search || filter;
         if(!data.search && typeof data.search !== 'undefined'){
-            console.log("dataSearchDelete")
             delete data.search;
             setFilter = null;
         }
-        console.log("FetchUsers", data.search, { ...(setFilter ? {search: setFilter} : {}), page:  page , limit, ...(selectedTags.length > 0 ? {departmentsIds: selectedTags.map(tag => tag.id).join(',')} : {}) ,...data});
         dispatch(fetchUserList({ ...(setFilter ? {search: setFilter} : {}), page:  page , sort, sortOrder, limit, ...(selectedTags.length > 0 ? {departmentsIds: selectedTags.map(tag => tag.id).join(',')} : {}) ,...data}))
 
     }
     const handleTagClick = (selectedItem, selected) => {
-        console.log("HandleTagClick", selectedItem, selected)
         if (selected) {
             setSelectedTags(tags => [...tags, selectedItem])
         } else {

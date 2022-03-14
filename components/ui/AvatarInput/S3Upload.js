@@ -13,7 +13,6 @@ S3Upload.prototype.onFinishS3Put = function(signResult, file) {
 };
 
 S3Upload.prototype.preprocess = function(file, next) {
-  console.log('base.preprocess()', file);
   return next(file);
 };
 
@@ -92,7 +91,6 @@ S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
     response => {
     response.json().then((data) => {
       this.onSignedUrl(data);
-      console.log("OnData", data);
       callback(data);
     })
 
@@ -108,7 +106,6 @@ S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
 };
 
 S3Upload.prototype.uploadToS3 = function(file, signResult) {
-  console.log("Upload file", file)
   var formData = new FormData();
   formData.append("file", file)
   axios.put(`${signResult.signedUrl}`, formData, {
@@ -118,16 +115,13 @@ S3Upload.prototype.uploadToS3 = function(file, signResult) {
     },
     onUploadProgress: (progressEvent) => {
       const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      console.log("percentCompleted",percentCompleted)
       if(percentCompleted !== 100) {
         this.onProgress(percentCompleted);
       }
     }
   }).then(
     response => {
-      console.log("Response", response);
       this.onProgress(100, 'Upload completed', file);
-      console.log("Response", response);
       this.onFinishS3Put(response.data, file)
 
     } // if the response is a JSON object

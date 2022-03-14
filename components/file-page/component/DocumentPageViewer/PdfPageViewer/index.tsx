@@ -61,7 +61,6 @@ export default function PdfPageViewer(props: Props){
 
   }
   const handleKeyDown = (e) => {
-    console.log("dsds",e.keyCode )
     if (e.keyCode === 37 && page > 1) {
       setPage(page -1);
     } else if (e.keyCode === 39 && page < totalPages - 1) {

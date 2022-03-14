@@ -33,7 +33,6 @@ const Editor = (props: Props) => {
   const [duration, setDuration] = useState(0);
   const [cutItems, setCutItems] = useState([]);
   const router = useRouter()
-  console.log("Query", router.query, video)
   useEffect(() => {
     dispatch(resetCatalogItem());
     if (!router.query.id) {
@@ -93,10 +92,6 @@ const Editor = (props: Props) => {
                 debounceTimeoutOnResize={200}
 
                 onResult={(result) => {
-                  if (result === TextEllipsis.RESULT.TRUNCATED)
-                    console.log('text get truncated');
-                  else
-                    console.log('text does not get truncated');
                 }}>
                 Редактирование «{video.name}»
             </TextEllipsis></div>}

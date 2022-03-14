@@ -25,7 +25,6 @@ export const TagSelect = (props: Props) => {
       setIsInit(true);
   }, [selectedTags])
   const handleTagClick = (selectedItem, selected) => {
-    console.log("HandleTagClick", selectedItem, selected)
     if(selected) {
       setSelectedTags(tags => [...tags, selectedItem])
     }else{

@@ -11,7 +11,6 @@ export function email(value: string) {
 }
 
 export function passwordsMatch(value: string, allValues: any) {
-  console.log("passwordsMatch", value, allValues)
   return value !== allValues.new_password ? 'Пароли не совпадают' : undefined
 }
 
@@ -25,7 +24,6 @@ export function phone(value: string) {
 
 
 export function speakerPriceFieldRequired(value: string, allValues: any) {
-  console.log("passwordsMatch", value, allValues)
   return !value && allValues.price && allValues.price  > 0 ? 'Обязательное поле' : undefined
 }
 export function speakerContactsRequiredEmail(value: string, data: any) {

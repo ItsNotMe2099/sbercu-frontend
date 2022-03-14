@@ -26,7 +26,6 @@ export default function CatalogActionsToolbar(props: Props){
     onUnSelectAll();
   }
   const handleCut = () => {
-    console.log("DeletedIds",selectedIds.map(i => items.find(a => a.id === i)));
     dispatch(catalogCopy(selectedIds.map(i => items.find(a => a.id === i))));
     onUnSelectAll();
   }

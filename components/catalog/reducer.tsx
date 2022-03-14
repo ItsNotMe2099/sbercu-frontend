@@ -192,8 +192,6 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.RESET_CATALOG_LIST:
             state.listLoading = false;
             state.page = 1
-
-            console.log("RESET")
             if (!action.payload?.shallow) {
                 state.selectedIds = [];
                 state.list = []

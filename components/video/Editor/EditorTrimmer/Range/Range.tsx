@@ -279,7 +279,6 @@ class Range extends React.Component<RangeProps, RangeState> {
 
     const closestBound = this.getClosestBound(value);
     this.prevMovedHandleIndex = this.getBoundNeedMoving(value, closestBound);
-    console.log("onState", this.prevMovedHandleIndex);
     this.setState({
       handle: this.prevMovedHandleIndex,
       recent: this.prevMovedHandleIndex,
@@ -346,8 +345,7 @@ class Range extends React.Component<RangeProps, RangeState> {
       const { state, props } = this;
       const { bounds, handle } = state;
       const oldValue = bounds[handle === null ? state.recent : handle];
-      console.log("Resent!!!", state.recent, handle);
-      const mutatedValue = valueMutator(oldValue, props);
+       const mutatedValue = valueMutator(oldValue, props);
       const value = trimAlignValue({
         value: mutatedValue,
         handle,
@@ -603,7 +601,7 @@ class Range extends React.Component<RangeProps, RangeState> {
       );
     });
 
-    return { tracks, handles, onFocus: (focus) => console.log("FocusSlider", focus) };
+    return { tracks, handles, onFocus: (focus) => {} };
   }
 }
 

@@ -9,7 +9,6 @@ interface Props {}
 export default function EmailFormSection(props: Props) {
   const dispatch = useDispatch()
   const submit = values => {
-    console.log("Submit")
       dispatch(passwordRecoveryReset())
       dispatch(passwordRecoverySubmit({email: values.email}))
   }

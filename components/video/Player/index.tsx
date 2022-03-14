@@ -59,12 +59,14 @@ export default function Player(props) {
 
     const handleSaveViewHistory = async (progress) => {
         const currentTime = Math.ceil(progress);
+        if(props.onChangeProgress) {
             props.onChangeProgress({
-                currentTime: currentTime - 3 <= 0 ? currentTime : currentTime -3,
+                currentTime: currentTime - 3 <= 0 ? currentTime : currentTime - 3,
                 muted,
                 volume,
                 rate: playbackRate
             })
+        }
     }
     const { callback: saveViewHistory, cancel: cancelSaveViewHistory, callPending: saveViewHistoryPending } = useThrottleFn(handleSaveViewHistory, 3000)
 
@@ -72,9 +74,6 @@ export default function Player(props) {
         setSource(props.source)
         sourceRef.current = props.source;
     }, [])
-    useEffect(() => {
-       console.log("handleSetPlay1", playing)
-    }, [playing])
 
 
     const resetPlay = () => {
@@ -88,20 +87,16 @@ export default function Player(props) {
         }, 500)
     }
     const handleWaiting = () => {
-        console.log('handleWaiting');
         if( manualSourceSetRes.current){
             return;
         }
         slowInternetTimeoutRef.current = setTimeout(() => {
             if( manualSourceSetRes.current){
-                console.log("manualSourceSetRes");
                 return;
             }
             const currentIndex = props.sources.findIndex(i => i.value === sourceRef.current);
-            console.log("sourceUpdate1", props.sources, sourceRef.current, currentIndex);
             if(currentIndex > 0){
                 const newSource = props.sources[currentIndex - 1];
-                console.log("setSourceLess", props.sources[currentIndex - 1]);
                 if( showAlertTimeoutRef.current){
                     clearTimeout( showAlertTimeoutRef.current);
                 }
@@ -114,19 +109,16 @@ export default function Player(props) {
                 resetPlay();
                 handleWaiting();
             }
-            console.log("sourceUpdate2", props.sources);
-        }, 5000);
+              }, 5000);
     }
     const handlePlaying = () => {
-        console.log('handlePlaying');
-        if(slowInternetTimeoutRef.current ){
+         if(slowInternetTimeoutRef.current ){
             clearTimeout(slowInternetTimeoutRef.current)
             slowInternetTimeoutRef.current = null;
         }
     }
     const handlePlayPause = (e) => {
         e.stopPropagation();
-        console.log("handlePlayPause")
        if (!playing) {
                  (player as any)?.current?.play();
         } else {
@@ -162,13 +154,11 @@ export default function Player(props) {
     }
 
     const handlePlay = () => {
-        console.log('onPlay')
         setPlaying(true);
         playingRef.current = true;
     }
 
     const handleEnablePIP = () => {
-        console.log('onEnablePIP')
         setPip(true);
     }
 
@@ -178,14 +168,12 @@ export default function Player(props) {
     }
 
     const handlePause = () => {
-        console.log('handlePause')
         setPlaying(false);
         playingRef.current = false;
     }
 
 
     const handleSeekChange = value => {
-        console.log("SeekChange", value, loaded, value / duration, duration);
         setPlayed(value / duration);
         (player?.current as any).currentTime(value);
     }
@@ -213,7 +201,6 @@ export default function Player(props) {
 
         if(props.getViewHistory && !viewHistoryRef.current) {
             const viewHistory = await props.getViewHistory();
-           console.log("viewHistory11", viewHistory ,playingRef.current);
             if (viewHistory?.currentTime && viewHistory.currentTime < duration && viewHistory.currentTime > 0) {
                 handleSeekChange(viewHistory?.currentTime);
                 setPlayed(viewHistory?.currentTime / duration);
@@ -223,7 +210,6 @@ export default function Player(props) {
             }
             viewHistoryRef.current = true;
             if(playingRef.current){
-                console.log("RestartPlay", playingRef.current)
                 resetPlay();
             }
         }
@@ -251,10 +237,8 @@ export default function Player(props) {
 
     }
     const handleChangeCurrentTime = (value) => {
-        console.log("handleChangeCurrentTime", value);
     }
     const handleSourceChange = (item) => {
-        console.log("setSource", item.value)
 
         setLoaded(0);
         setPip(false);

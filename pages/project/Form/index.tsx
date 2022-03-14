@@ -18,7 +18,6 @@ let ProjectForm = props => {
         router.back();
     }
 
-    console.log("initialValues", initialValues)
   return (
           <form onSubmit={handleSubmit}>
             <div className={styles.form}>

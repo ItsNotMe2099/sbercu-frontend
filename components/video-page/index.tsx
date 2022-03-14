@@ -75,7 +75,6 @@ const VideoPage = (props: Props) => {
   ];
   const dispatch = useDispatch();
   const router = useRouter()
-  console.log("Auth", props)
 
   useInterval(() => {
     const isConverting =  video?.media?.videoCutting || ['pending', 'started'].includes(video?.media?.lastJob?.state)
@@ -112,7 +111,6 @@ const VideoPage = (props: Props) => {
   const getTagCategories = () => {
     const categoriesMap = {};
     const categories = []
-    console.log("video?.tags", video?.tags)
     for (const tag of video?.tags) {
       if (!tag.tagCategory) {
         continue;
@@ -124,7 +122,6 @@ const VideoPage = (props: Props) => {
         categoriesMap[tag.tagCategoryId].tags.push(tag);
       }
     }
-    console.log("categories", categories)
     return categories;
   }
   const handleSettingsClick = (item) => {
@@ -171,8 +168,7 @@ const VideoPage = (props: Props) => {
     }
   }
   const handleTagClick = (tag) => {
-    console.log("TagClick", tag);
-    router.push(`/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
+     router.push(`/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
   }
   const isAudio = video?.media?.type === 'audio';
   const handleProgressChange = async (data) => {

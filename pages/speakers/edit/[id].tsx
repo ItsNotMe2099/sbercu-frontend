@@ -20,8 +20,7 @@ const EditSpeaker= (props) => {
 
 
     useEffect(() => {
-        console.log("fetchSpeakerItemRequest", router.query.id);
-        dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
+       dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
     }, [router.query.id])
     const handleSubmit = (data) => {
 
@@ -32,8 +31,6 @@ const EditSpeaker= (props) => {
             agentContactPhone: data.agentContactPhone === '+7' ? null : (data.agentContactPhone ? data.agentContactPhone?.replace(/[^\d]/g, '') : data.agentContactPhone)
         }))
     }
-    console.log(" currentCatalogItem.tags",  currentCatalogItem?.tags)
-    console.log(" currentCatalogItem.tags2",  currentCatalogItem?.tags?.map(item => item.id) || [])
 
     return (
         <Layout>

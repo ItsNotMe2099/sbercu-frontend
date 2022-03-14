@@ -74,7 +74,6 @@ export default function FileBottomToolbar(props: Props) {
           confirmColor: 'red',
           confirmText: 'Удалить',
           onConfirm: () => {
-            console.log("delete111", item)
             dispatch(deleteCatalog(item?.id));
           }
         }));

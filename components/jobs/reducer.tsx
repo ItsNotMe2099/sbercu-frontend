@@ -32,7 +32,6 @@ export default function JobReducer(state = {...initialState}, action) {
       break;
 
     case ActionTypes.FETCH_ONE_JOB + ApiActionTypes.SUCCESS:
-      console.log(" action.payload",  action.payload);
       state.list = state.list.map(user => user.id === action.payload.id ? action.payload : user);
       break
 

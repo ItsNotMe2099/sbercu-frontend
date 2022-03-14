@@ -27,7 +27,6 @@ export default function loginSubmitReducer(state = {...initialState}, action) {
 
     case ActionTypes.LOGIN_ERROR:
       state.formError = action.payload.error
-      console.log("ERROR", state.formError)
       state.formLoading = false
       break
 

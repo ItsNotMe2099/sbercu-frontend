@@ -64,7 +64,6 @@ const EditProject = (props) => {
         }
         return 'all'
     }
-    console.log("getVisibility()", getVisibility(), props.user)
     return (
         <Layout>
         <Header {...props}/>
