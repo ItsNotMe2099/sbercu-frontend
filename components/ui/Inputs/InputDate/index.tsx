@@ -18,6 +18,9 @@ export default function InputDate(props: Props) {
 
       <DatePicker
         className={styles.datePicker}
+        dayPlaceholder={'__'}
+        monthPlaceholder={'__'}
+        yearPlaceholder={'____'}
         locale={'ru'}
         onChange={(value) => {
           if(!value){
