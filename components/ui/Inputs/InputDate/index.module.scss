@@ -30,6 +30,12 @@
     :global .react-date-picker__button:enabled:focus .react-date-picker__button__icon{
       stroke: #27AE60;
     }
+    :global .react-date-picker__inputGroup__input{
+
+      &::placeholder{
+        font-size: 20px;
+      }
+    }
     :global .react-date-picker__wrapper{
       border-bottom: 1px solid #E0E0E0;
       border-top: 0;

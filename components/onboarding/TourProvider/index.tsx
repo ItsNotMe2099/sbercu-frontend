@@ -84,7 +84,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
                                                }) => {
   const stepsLength = steps.length
-
+  const isLast = (stepsLength - 1) === currentStep;
   function clickHandler(kind) {
     if (!disableAll) {
         if (kind === 'next') {
@@ -120,7 +120,7 @@ const Navigation: React.FC<NavigationProps> = ({
         })}
       </div>
       <div className={styles.buttons}>
-        <Button black size="9px 16px" onClick={() => clickHandler('next')} >Далее</Button>
+        <Button black size="9px 16px" onClick={() => isLast ? setIsOpen(false) : clickHandler('next')} >{isLast ? 'Закрыть' : 'Далее'}</Button>
       </div>
     </div>
   )
@@ -178,6 +178,18 @@ export default function TourProvider(props: Props){
       ],
     },
     {
+      selector: '[data-tour="tag-select"]',
+      mutationObservables: [
+        '[data-tour="tag-select"]'
+      ],
+      highlightedSelectors: [
+        '[data-tour="tag-select"]'
+      ],
+
+      action: handleActionProjects,
+      content: Step.ProjectFilter,
+    },
+    {
       action: handleActionProjects,
       selector: '[data-tour="projects"]',
       mutationObservables: [
@@ -233,18 +245,6 @@ export default function TourProvider(props: Props){
       mutationObservables: [
         '[data-tour="catalog-menu"]'
       ],
-    },
-    {
-      selector: '[data-tour="tag-select"]',
-      mutationObservables: [
-        '[data-tour="tag-select"]'
-      ],
-      highlightedSelectors: [
-        '[data-tour="tag-select"]'
-      ],
-
-      action: handleActionProjects,
-      content: Step.ProjectFilter,
     },
   ]
   const stylesObj = {
