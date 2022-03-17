@@ -152,7 +152,7 @@ function Content({ content,currentStep, ...rest }) {
           const width = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
-          const tourWidth = tourEl.offsetWidth;
+          const tourWidth = (tourEl as any).offsetWidth;
           const realRight = offset + tourWidth + 10 > width
           setIsRight(_isRight && realRight);
         } catch (e) {
@@ -160,7 +160,7 @@ function Content({ content,currentStep, ...rest }) {
         }
       })
     }catch (e){
-      
+
     }
 
   }, [currentStep])
