@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import {ReactElement, useCallback, useEffect} from "react";
+import {ReactElement, useCallback, useEffect, useState} from "react";
 import * as React from 'react'
 
 import {TourProvider as RTourProvider, useTour} from '@reactour/tour'
@@ -13,6 +13,8 @@ import cx from 'classnames'
 import Button from 'components/ui/Button'
 import request from 'utils/request'
 import {setCookie} from 'nookies'
+import dynamic from "next/dynamic";
+
 interface Props {
   user?: IUser,
   children: ReactElement | ReactElement[]
@@ -30,7 +32,7 @@ export enum Step{
 
 
 }
-const StepsContent = {
+export const StepsContent = {
   [Step.Search]: {
     title: 'Поиск',
     content: 'Воспользуйтесь поиском для нахождения проектов, видео, файлов и спикеров.',
@@ -38,10 +40,12 @@ const StepsContent = {
   [Step.Basket]: {
     title: 'Корзина',
     content: 'Здесь вы найдете ваши удаленные файлы. У вас есть возможность восстановить файл, удалить навсегда или же через 30 дней он удалиться сам.',
+    selector: '[data-tour="basket"]',
   },
   [Step.Favorite]: {
     title: 'Избранное',
     content: 'Вы можете помечать проекты, файлы и папки “сердцами”, чтобы быстро находить их.',
+    selector: '[data-tour="favorite"]',
   },
   [Step.Projects]: {
     title: 'Проекты',
@@ -58,10 +62,12 @@ const StepsContent = {
   [Step.CatalogSort]: {
     title: 'Сортировка',
     content: 'Организуйте пространство своего проекта или папки, используйте систему сортировки.',
+    selector: '[data-tour="catalog-sort"]',
   },
   [Step.CatalogDots]: {
     title: 'Бургерное меню или три точки',
     content: 'С помощью данного меню вы можете выполнять ряд доступных действий: редактировать, перемещать, удалять сущности с которыми работаете.',
+    selector: '[data-tour="catalog-menu"]',
   },
   [Step.ProjectFilter]: {
     title: 'Фильтры',
@@ -127,7 +133,37 @@ const Navigation: React.FC<NavigationProps> = ({
 }
 function Content({ content,currentStep, ...rest }) {
   console.log("RestProps", rest);
-  const isRight = [Step.Basket, Step.Favorite, Step.CatalogSort, Step.CatalogDots].includes(content)
+  const [isRight, setIsRight] = useState(false);
+  useEffect(() => {
+    const _isRight = [Step.Basket, Step.Favorite, Step.CatalogSort, Step.CatalogDots].includes(content)
+    try {
+      import('document-offset').then(docOffset => {
+
+        try {
+          const selector = StepsContent[content]?.selector;
+          if (!selector || !_isRight) {
+            setIsRight(false);
+            return;
+          }
+          const contentEl = document.querySelector(selector)
+          const tourEl = document.querySelector('.reactour__popover')
+
+          const offset = docOffset.default(contentEl)?.left
+          const width = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+          const tourWidth = tourEl.offsetWidth;
+          const realRight = offset + tourWidth + 10 > width
+          setIsRight(_isRight && realRight);
+        } catch (e) {
+
+        }
+      })
+    }catch (e){
+      
+    }
+
+  }, [currentStep])
   return (
     <div className={styles.content}>
       <div className={cx(styles.triangle, {[styles.left]: !isRight, [styles.right]: isRight, [styles.forDots]: content === Step.CatalogDots})}/>
@@ -139,7 +175,6 @@ function Content({ content,currentStep, ...rest }) {
 export default function TourProvider(props: Props){
   const dispatch = useDispatch()
   const router = useRouter();
-  const tour = useTour();
   const catalog = useSelector((state: IRootState) => state.catalog)
 
   useEffect(() => {
