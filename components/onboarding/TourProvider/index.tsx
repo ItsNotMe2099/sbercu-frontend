@@ -240,7 +240,7 @@ export default function TourProvider(props: Props){
 
       content: Step.Projects,
     },
-  ...(['manager', 'admin'].includes(props.user.role) ? [ {
+  ...(['manager', 'admin'].includes(props.user?.role) ? [ {
       action: handleActionFolder,
       selector: '[data-tour="create-folder"]',
       highlightedSelectors: [
