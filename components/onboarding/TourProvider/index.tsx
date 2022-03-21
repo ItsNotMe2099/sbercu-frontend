@@ -186,7 +186,7 @@ export default function TourProvider(props: Props){
 
   const handleActionFolder =  useCallback(() => {
     console.log("onBoardingProject", Router.pathname );
-    if(!catalog.onBoardingProjec){
+    if(!catalog.onBoardingProject){
       return;
     }
     if( Router.pathname !== '/catalog/[...paths]') {
