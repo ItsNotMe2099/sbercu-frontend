@@ -155,6 +155,7 @@ function Content({ content,currentStep, ...rest }) {
           const tourWidth = (tourEl as any).offsetWidth;
           const realRight = offset + tourWidth + 10 > width
           setIsRight(_isRight && realRight);
+          console.log("tourWidth", width, offset);
         } catch (e) {
 
         }
@@ -178,7 +179,7 @@ export default function TourProvider(props: Props){
   const catalog = useSelector((state: IRootState) => state.catalog)
 
   useEffect(() => {
-    if(props.user && !catalog.onBoardingProject){
+    if(props.user && !catalog.onBoardingProject && props.user.departmentTags.length > 0){
       dispatch(fetchOnBoardingProject(props.user.departmentTags[0].id))
     }
   }, [])
