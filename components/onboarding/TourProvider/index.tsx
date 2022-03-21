@@ -186,6 +186,9 @@ export default function TourProvider(props: Props){
 
   const handleActionFolder =  useCallback(() => {
     console.log("onBoardingProject", Router.pathname );
+    if(!catalog.onBoardingProjec){
+      return;
+    }
     if( Router.pathname !== '/catalog/[...paths]') {
       router.push(`/catalog/${catalog.onBoardingProject.id}`)
     }
@@ -237,7 +240,7 @@ export default function TourProvider(props: Props){
 
       content: Step.Projects,
     },
-    {
+  ...(['manager', 'admin'].includes(props.user.role) ? [ {
       action: handleActionFolder,
       selector: '[data-tour="create-folder"]',
       highlightedSelectors: [
@@ -281,7 +284,8 @@ export default function TourProvider(props: Props){
       mutationObservables: [
         '[data-tour="catalog-menu"]'
       ],
-    },
+    }
+    ] : [])
   ]
   const stylesObj = {
     popover: base => ({
