@@ -31,9 +31,8 @@ export default function Header(props: Props) {
   const [isActive, setIsActive] = useState(false)
   const [onBoardingStatus, setOnBoardingStatus] = useState(user.onBoardingStatus);
   useEffect(() => {
-    console.log("user.onBoardingStatus ", user.onBoardingStatus, tour.isOpen );
     const cookieOnBoarding =  Cookies.get('onBoardingStatus')
-    if(user.onBoardingStatus === UserOnBoardingStatus.NotShown && !tour.isOpen ){
+    if(user && user.onBoardingStatus === UserOnBoardingStatus.NotShown && !tour.isOpen ){
       dispatch(welcomeOpen())
     }
   }, [])

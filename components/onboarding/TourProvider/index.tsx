@@ -302,7 +302,6 @@ export default function TourProvider(props: Props){
 
   }
   const handleClose = async (target) => {
-    console.log("CloseTarget", props.user.onBoardingStatus);
     const res = await request({
       url: `/api/user/onboarding-status`,
       method: 'PUT',
