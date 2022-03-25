@@ -29,7 +29,6 @@ export default function Header(props: Props) {
   const {isMobile} = useMobileDetect();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const [isActive, setIsActive] = useState(false)
-  const [onBoardingStatus, setOnBoardingStatus] = useState(user.onBoardingStatus);
   useEffect(() => {
     const cookieOnBoarding =  Cookies.get('onBoardingStatus')
     if(user && user.onBoardingStatus === UserOnBoardingStatus.NotShown && !tour.isOpen ){
