@@ -14,6 +14,7 @@ import Button from 'components/ui/Button'
 import request from 'utils/request'
 import {setCookie} from 'nookies'
 import dynamic from "next/dynamic";
+import {docOffset} from 'utils/document_offset'
 
 interface Props {
   user?: IUser,
@@ -136,9 +137,7 @@ function Content({ content,currentStep, ...rest }) {
   const [isRight, setIsRight] = useState(false);
   useEffect(() => {
     const _isRight = [Step.Basket, Step.Favorite, Step.CatalogSort, Step.CatalogDots].includes(content)
-    try {
       console.log("RestProps1");
-      import('document-offset').then(docOffset => {
 
         console.log("RestProps2");
         try {
@@ -153,7 +152,7 @@ function Content({ content,currentStep, ...rest }) {
           const tourEl = document.querySelector('.reactour__popover')
 
           console.log("RestProps4");
-          const offset = docOffset.default(contentEl)?.left
+          const offset = docOffset(contentEl)?.left
           console.log("RestProps5");
           const width = window.innerWidth
             || document.documentElement.clientWidth
@@ -167,10 +166,8 @@ function Content({ content,currentStep, ...rest }) {
         } catch (e) {
 
         }
-      })
-    }catch (e){
 
-    }
+
 
   }, [currentStep])
   return (

@@ -11,7 +11,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import 'react-toastify/dist/ReactToastify.css'
 import "react-awesome-lightbox/build/style.css"
 import 'react-phone-number-input/style.css'
-import TourProvider from 'components/onboarding/TourProvider'
+import dynamic from 'next/dynamic'
+const TourProvider = dynamic(() => import('components/onboarding/TourProvider'))
 
 //import 'react-calendar/dist/Calendar.css';
 
