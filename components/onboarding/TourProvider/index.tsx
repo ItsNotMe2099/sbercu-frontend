@@ -153,18 +153,18 @@ function Content({ content,currentStep, ...rest }) {
 
           console.log("RestProps4");
           const offset = docOffset(contentEl)?.left
-          console.log("RestProps5");
+          console.log("RestProps5", offset);
           const width = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
 
-          console.log("RestProps6");
+          console.log("RestProps6", width);
           const tourWidth = (tourEl as any).offsetWidth;
           const realRight = offset + tourWidth + 10 > width
           setIsRight(_isRight && realRight);
           console.log("tourWidth", width, offset);
         } catch (e) {
-
+          console.error(e);
         }
 
 
