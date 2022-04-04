@@ -79,7 +79,9 @@ const Dashboard = (props) => {
     dispatch(fetchTagCategoryList(ITagCategoryType.Project));
     dispatch(fetchCatalogProjects({entryType: 'project', limit: limitProjects}))
     dispatch(fetchMyUploadedFiles(user.id, {limit: limitFiles}));
-    dispatch(fetchSpeakerList({limit: limitSpeakers}))
+    if(user.role !== 'guest') {
+      dispatch(fetchSpeakerList({limit: limitSpeakers}))
+    }
     return () => {
       dispatch(resetCatalogList());
       dispatch(resetSpeakerList());
@@ -207,7 +209,7 @@ const Dashboard = (props) => {
 
 
 
-        {speakersTotal > 0 && <>
+        {(speakersTotal > 0 && user.role !== 'guest') && <>
             <div className={styles.titleContainer}>
                 <div className={styles.titleWrapper}>
                 <div className={styles.title}>Спикеры</div>

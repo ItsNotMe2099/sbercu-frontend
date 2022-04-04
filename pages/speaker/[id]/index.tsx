@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx) {
       method: 'GET'
     }, ctx);
 
-    if(!res.data){
+    if(!res.data || authRes?.props?.user === 'guest'){
       return {
         notFound: true
       }
