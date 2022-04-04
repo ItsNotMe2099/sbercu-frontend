@@ -62,7 +62,7 @@ export const docOffset = (el) => {
 function bodyOffset(body) {
   let top = body.offsetTop
   let left = body.offsetLeft
-
+  const support = require('dom-support')
   if (support.doesNotIncludeMarginInBodyOffset) {
     top  += parseFloat(body.style.marginTop || '0')
     left += parseFloat(body.style.marginLeft || '0')
