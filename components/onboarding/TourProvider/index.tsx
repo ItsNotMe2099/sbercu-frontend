@@ -137,21 +137,29 @@ function Content({ content,currentStep, ...rest }) {
   useEffect(() => {
     const _isRight = [Step.Basket, Step.Favorite, Step.CatalogSort, Step.CatalogDots].includes(content)
     try {
+      console.log("RestProps1");
       import('document-offset').then(docOffset => {
 
+        console.log("RestProps2");
         try {
           const selector = StepsContent[content]?.selector;
           if (!selector || !_isRight) {
             setIsRight(false);
             return;
           }
+
+          console.log("RestProps3");
           const contentEl = document.querySelector(selector)
           const tourEl = document.querySelector('.reactour__popover')
 
+          console.log("RestProps4");
           const offset = docOffset.default(contentEl)?.left
+          console.log("RestProps5");
           const width = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
+
+          console.log("RestProps6");
           const tourWidth = (tourEl as any).offsetWidth;
           const realRight = offset + tourWidth + 10 > width
           setIsRight(_isRight && realRight);
