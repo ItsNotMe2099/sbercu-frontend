@@ -90,7 +90,12 @@ const CatalogPage = (props) => {
     const id = paths[paths.length - 1]
     const newPage = page + 1;
     dispatch(setCatalogPage(newPage))
-    dispatch(fetchPublicCatalogList(id, hash, newPage, 30, sortField, sortOrder))
+    if(props.public) {
+      dispatch(fetchPublicCatalogList(id, hash, newPage, 30, sortField, sortOrder))
+    }else{
+      dispatch(fetchCatalogList(id, newPage, 30, sortField, sortOrder))
+
+    }
   }
 
   useEffect(() => {

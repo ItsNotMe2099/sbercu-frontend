@@ -16,7 +16,7 @@ export const getMediaPathWithQuality = (file, quality, publicHash = null) => {
 }
 export const cleanMediaExtFileName = source => {
     if(isVideo(source) || isDocument(source) || isImage(source) || isDocument(source)){
-        return source?.split('.')[0];
+        return source?.replace(source.substr(source.lastIndexOf('.')), '')
     }else{
         return source;
     }
