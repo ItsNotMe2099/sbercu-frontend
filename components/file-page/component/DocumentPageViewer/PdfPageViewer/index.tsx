@@ -70,7 +70,7 @@ export default function PdfPageViewer(props: Props){
 
   return (
           <div className={styles.root} ref={(ref) => {
-              if(ref) {
+              if(ref && !wrapperRef.current) {
                 setWidth(ref.getBoundingClientRect().width);
 
                 wrapperRef.current = ref;
@@ -78,7 +78,7 @@ export default function PdfPageViewer(props: Props){
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
               {(link || props.publicHash) && !handle.active && <Document debug file={{
-                url: getMediaPath(item.media.fileName, props.publicHash),
+                url: '/222.pdf',
                 withCredentials: true,
               }}
                                  loading={<DocumentLoader/>}
@@ -97,7 +97,7 @@ export default function PdfPageViewer(props: Props){
 
               {handle.active && <div className={styles.fullscreen}>
                 {(link || props.publicHash) && <Document debug file={{
-                  url: getMediaPath(item.media.fileName, props.publicHash),
+                  url: '/222.pdf',
                   withCredentials: true,
                 }}
                                    loading={<DocumentLoader/>}
