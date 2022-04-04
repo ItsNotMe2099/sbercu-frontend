@@ -9,7 +9,6 @@
  */
 
 export const docOffset = (el) => {
-  const support = require('dom-support')
   const getDocument = require('get-document')
   const withinElement = require('within-element')
   const doc = getDocument(el)
@@ -62,11 +61,6 @@ export const docOffset = (el) => {
 function bodyOffset(body) {
   let top = body.offsetTop
   let left = body.offsetLeft
-  const support = require('dom-support')
-  if (support.doesNotIncludeMarginInBodyOffset) {
-    top  += parseFloat(body.style.marginTop || '0')
-    left += parseFloat(body.style.marginLeft || '0')
-  }
 
   return {
     top: top,
