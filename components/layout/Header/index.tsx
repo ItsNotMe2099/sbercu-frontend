@@ -52,7 +52,7 @@ export default function Header(props: Props) {
     switch (type){
       case IHeaderType.Catalog:
         return <InputCatalogSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)}
-                                   searchValue={props.searchValue}/>;
+                                   searchValue={props.searchValue} user={props.user}/>;
       case IHeaderType.Speaker:
         return <InputSpeakerSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)}
                                    searchValue={props.searchValue}/>;
