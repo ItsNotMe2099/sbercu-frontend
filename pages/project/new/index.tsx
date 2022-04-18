@@ -36,8 +36,7 @@ const CreateProject = (props) => {
         }
 
         if (tag) {
-
-            data.tagsIds = data.tagsIds.filter(tagId => !toRemove.map(tag => tag ? tag.id : -1).includes(tagId))
+            data.tagsIds = (data.tagsIds ?? []).filter(tagId => !toRemove.map(tag => tag ? tag.id : -1).includes(tagId))
             if (!data.tagsIds.includes(tag.id)) {
                 data.tagsIds.push(tag.id);
             }
