@@ -12,7 +12,6 @@ interface Props {
 export default function VolumeControl(props: Props) {
 
     const handleChange = (val) => {
-        console.log("HandleChange", val)
         if(isNaN(val)){
             return;
         }

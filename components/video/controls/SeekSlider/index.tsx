@@ -379,8 +379,7 @@ export default class handleSeekChangeSeekSlider extends React.Component<VideoSee
     private drawHoverTime(): React.ReactNode {
 
         if (!this.props.hideHoverTime) {
-            console.log("drawHoverTime", this.getHoverTime())
-            return (
+             return (
                 <div
                     className={`${styles["hover-time"]} ${styles.active}`}
                     style={this.getHoverTimePosition()}

@@ -9,27 +9,23 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function TiffPageViewer(props: Props){
   const {item} = props;
-  const linkLoading = useSelector((state: IRootState) => state.mediaLink.tempDocLinkLoading)
-  const link = useSelector((state: IRootState) => state.mediaLink.currentTempDocLink)
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const imgRef = useRef(null);
   useEffect(() => {
-    console.log("useEffect");
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', getMediaPath(item.media?.fileName))//getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media?.fileName, props.publicHash))//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
-      console.log("onLoad", e);
       const arrayBuffer = this.response;
-      console.log("arrayBuffer", arrayBuffer)
       Tiff.initialize({
         TOTAL_MEMORY: 16777216 * 10
       })
@@ -47,7 +43,6 @@ export default function TiffPageViewer(props: Props){
         imgRef.current.src = items[0];
       }
       setItems(items);
-      console.log('tiff', tiff);
       setIsLoading(false)
     }
     xhr.send();

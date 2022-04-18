@@ -5,6 +5,8 @@ import ActionTypes from "./const";
 export interface CatalogState {
     list: ICatalogEntry[],
     listTotal?: number,
+    publicLink?: string
+    onBoardingProject?: ICatalogEntry,
     myUploadedFilesList: ICatalogEntry[],
     myUploadedFilesListLoading: boolean,
     myUploadedFilesListTotal?: number,
@@ -191,8 +193,6 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.RESET_CATALOG_LIST:
             state.listLoading = false;
             state.page = 1
-
-            console.log("RESET")
             if (!action.payload?.shallow) {
                 state.selectedIds = [];
                 state.list = []
@@ -243,6 +243,9 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.FETCH_CATALOG_ITEM_REQUEST + ApiActionTypes.FAIL:
             state.currentLoading = false;
             break
+        case ActionTypes.FETCH_ON_BOARDING_PROJECT + ApiActionTypes.SUCCESS:
+            state.onBoardingProject = action.payload?.data.length > 0 ? action.payload?.data[0] : null;
+            break
 
         case ActionTypes.CUT_VIDEO_REQUEST :
             state.isSubmitting = true;
@@ -251,6 +254,15 @@ export default function CatalogReducer(state = { ...initialState }, action) {
         case ActionTypes.CUT_VIDEO_REQUEST  + ApiActionTypes.FAIL:
             state.isSubmitting = false;
             break
+
+        case ActionTypes.UPDATE_CATALOG_ITEM_STATE :
+           if( state.currentCatalogItem === action.payload.id){
+               state.currentCatalogItem = {... state.currentCatalogItem, ...action.payload.data};
+           }else{
+               state.list = state.list.map(i => (i.id === action.payload.id ? {...i,  ...action.payload.data} : i));
+           }
+            break
+
 
         case ActionTypes.FETCH_CATALOG:
             state.currentLoading = true;

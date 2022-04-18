@@ -20,8 +20,7 @@ const EditSpeaker= (props) => {
 
 
     useEffect(() => {
-        console.log("fetchSpeakerItemRequest", router.query.id);
-        dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
+       dispatch(fetchSpeakerItemRequest(parseInt(router.query.id as string, 10), {showTags: '1'}))
     }, [router.query.id])
     const handleSubmit = (data) => {
 
@@ -32,8 +31,6 @@ const EditSpeaker= (props) => {
             agentContactPhone: data.agentContactPhone === '+7' ? null : (data.agentContactPhone ? data.agentContactPhone?.replace(/[^\d]/g, '') : data.agentContactPhone)
         }))
     }
-    console.log(" currentCatalogItem.tags",  currentCatalogItem?.tags)
-    console.log(" currentCatalogItem.tags2",  currentCatalogItem?.tags?.map(item => item.id) || [])
 
     return (
         <Layout>
@@ -50,5 +47,21 @@ const EditSpeaker= (props) => {
         </Layout>
     )
 }
-export const getServerSideProps = getAuthServerSide({redirect: true});
+export async function getServerSideProps(ctx) {
+    const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+    if (!authRes?.props?.user) {
+        return authRes;
+    }
+
+    if(authRes?.props?.user === 'guest'){
+        return {
+            notFound: true
+        }
+    }
+
+    return {
+        props: {...authRes?.props},
+    }
+
+}
 export default EditSpeaker;

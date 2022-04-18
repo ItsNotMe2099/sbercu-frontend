@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 import cx from 'classnames'
 import { IRootState, ITag, ITagCategory } from "types";
 import { fetchTag } from "./actions";
+import * as React from 'react'
 
 interface Props {
   items: ITagCategory[],
@@ -25,7 +26,6 @@ export const TagSelect = (props: Props) => {
       setIsInit(true);
   }, [selectedTags])
   const handleTagClick = (selectedItem, selected) => {
-    console.log("HandleTagClick", selectedItem, selected)
     if(selected) {
       setSelectedTags(tags => [...tags, selectedItem])
     }else{
@@ -52,7 +52,7 @@ export const TagSelect = (props: Props) => {
   }
   return (
     <>
-    <div className={styles.root}>
+    <div className={styles.root}  data-tour={'tag-select'}>
         {props.items.map(item => <TagSelectCategoryItem item={item} selectedTags={selectedTags.filter(i => i.tagCategoryId === item.id)} onTagClick={handleTagClick}/>)}
       <div className={styles.transparent}></div>
     </div>

@@ -131,7 +131,6 @@ export default function createSlider<
         this.dragOffset = p;
         this.startBounds = [...bounds];
       } else {
-        console.log("noDrag", inPoint)
         if (!inPoint) {
           this.dragOffset = 0;
         } else {

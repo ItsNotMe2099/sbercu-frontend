@@ -2,14 +2,17 @@ import ModalConfirm from "components/Modal/ModalConfirm";
 import InputCatalogSearch from "components/ui/Inputs/InputCatalogSearch";
 import Profile from "./components/profile";
 import styles from './index.module.scss'
-import {useSelector, useDispatch} from 'react-redux'
-import {IHeaderType, IRootState, IUser} from "types";
-import {createFolderOpen, modalClose, tagCategoryModalOpen, tagModalOpen} from "components/Modal/actions";
+import {useDispatch, useSelector} from 'react-redux'
+import {IHeaderType, IRootState, IUser, UserOnBoardingStatus} from "types";
+import {modalClose, welcomeOpen} from "components/Modal/actions";
 import Link from 'next/link'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
 import InputSpeakerSearch from 'components/ui/Inputs/InputSpeakerSearch'
-
+import WelcomeModal from 'components/onboarding/WelcomeModal'
+import useMobileDetect from 'utils/useMobileDetect'
+import {useTour} from '@reactour/tour'
+import Cookies from 'js-cookie'
 interface Props {
   children?: any,
   searchValue?: string,
@@ -22,9 +25,17 @@ export default function Header(props: Props) {
   const {type, showSearch, children, user} = props;
   const dispatch = useDispatch()
   const router = useRouter();
+  const tour = useTour();
+  const {isMobile} = useMobileDetect();
   const key = useSelector((state: IRootState) => state.ModalReducer.modalKey)
   const [isActive, setIsActive] = useState(false)
-
+  const [onBoardingStatus, setOnBoardingStatus] = useState(user.onBoardingStatus);
+  useEffect(() => {
+    const cookieOnBoarding =  Cookies.get('onBoardingStatus')
+    if(user && user.onBoardingStatus === UserOnBoardingStatus.NotShown && !tour.isOpen ){
+      dispatch(welcomeOpen())
+    }
+  }, [])
   const handleLogoClick = (e) => {
     if (router.route === '/') {
       e.preventDefault();
@@ -41,7 +52,7 @@ export default function Header(props: Props) {
     switch (type){
       case IHeaderType.Catalog:
         return <InputCatalogSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)}
-                                   searchValue={props.searchValue}/>;
+                                   searchValue={props.searchValue} user={props.user}/>;
       case IHeaderType.Speaker:
         return <InputSpeakerSearch onClick={() => isActive ? setIsActive(false) : setIsActive(true)}
                                    searchValue={props.searchValue}/>;
@@ -57,16 +68,17 @@ export default function Header(props: Props) {
         {type === IHeaderType.Speaker && <Link href={'/speakers'}><a className={styles.speakers} onClick={handleSpeakerClick}>speakers</a></Link>}
         </div>
         <div className={styles.notMedia}>
-          {showSearch && renderSearch()}
-          {!isActive ?
+          {user && showSearch && renderSearch()}
+          {!isActive && isMobile() ?
             <div className={styles.mobile}>{children}</div>
             : null}
-          <div className={styles.notMobile}>{children}</div>
+          <div className={styles.notMobile} data-tut={'reactour__state'}>{children}</div>
 
-          <Profile user={user} showSearch={isActive}/>
+          {user && <Profile user={user} showSearch={isActive}/>}
         </div>
       </div>
       <ModalConfirm isOpen={key === 'confirm'} onRequestClose={() => dispatch(modalClose())}/>
+      {key === 'welcome' && <WelcomeModal isOpen={true} onRequestClose={() => dispatch(modalClose())}/>}
     </div>
   )
 }

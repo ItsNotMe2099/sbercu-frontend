@@ -49,7 +49,6 @@ let SpeakerForm = props => {
     if (lastNameEnTouched) {
       return
     }
-    console.log("ChangeLastName",  `${firstName || ''} ${e.target.value || ''}`);
     props.change('lastNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
   }
   const handleChangeFirstNameEng = (val) => {
@@ -59,14 +58,12 @@ let SpeakerForm = props => {
     setFirstNameEnTouched(true)
   }
   const handleSyncFiles = (files) => {
-    console.log("handleSyncFiles", files.filter(item => item.rawFile && !item.path).length  )
     if(files.filter(item => item.rawFile && !item.path).length > 0){
       setUploadingGalleryInProgress(true);
     }else{
       setUploadingGalleryInProgress(false);
     }
   }
-  console.log("errors", errors)
 
   return (
     <form onSubmit={handleSubmit}>

@@ -8,6 +8,7 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function RtfPageViewer(props: Props){
@@ -15,23 +16,18 @@ export default function RtfPageViewer(props: Props){
   const [isLoading, setIsLoading] = useState(true);
   const textRef = useRef(null);
   const handleLoadScript = () => {
-    console.log("useEffect");
-
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
-    xhr.open('GET', getMediaPath(item.media.fileName));
+    xhr.open('GET', getMediaPath(item.media.fileName, props.publicHash));
     setIsLoading(true);
     xhr.onload = function(e) {
 
       const arrayBuffer = this.response;
-      console.log("onLoad", arrayBuffer);
       const doc = new (window as any).RTFJS.Document(arrayBuffer, {
 
       });
-    console.log("Doc", doc)
 
       doc.render().then(html => {
-        console.log("html", html);
         for(let item of html) {
           textRef.current.append(item);
         }

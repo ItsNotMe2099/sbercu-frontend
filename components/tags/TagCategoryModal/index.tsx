@@ -22,7 +22,6 @@ export default function TagCategoryModal(props: Props){
       dispatch(createTagCategory({...data,  categoryType: props.categoryType, tags:[]}));
 
     }
-     console.log('success')
   }
 
   return (

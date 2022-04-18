@@ -36,7 +36,6 @@ const convertTimeToNumber = (val) => {
   const hours = parseInt(parts[0], 10);
   const mins = parseInt(parts[1], 10);
   const seconds = parseFloat(parts[2]);
-  console.log(`h = ${hours}, m = ${mins}, s = ${seconds}`, parts);
   return (hours * 60 * 60) + (mins * 60) + seconds;
 }
 const formatSeconds = (seconds, showMs = false) => {
@@ -57,7 +56,6 @@ export default function DurationInput({value, onChange, minSeconds, maxSeconds, 
 
   const [newValue, setNewValue] = useState(null);
   useEffect(() => {
-    console.log("Value", value);
     setNewValue(formatSeconds(value, true));
   }, [])
   useEffect(() => {
@@ -78,12 +76,10 @@ export default function DurationInput({value, onChange, minSeconds, maxSeconds, 
         return;
       }
       const seconds = convertTimeToNumber(val);
-      console.log("TimeToNumber", seconds, maxSeconds, seconds >= maxSeconds)
-      if (seconds <= minSeconds || seconds >= maxSeconds) {
+      if (seconds <= minSeconds || seconds > maxSeconds) {
         setError(true);
         return;
       }
-      console.log("Change",maxSeconds, seconds, val, convertTimeToNumber(val), parsed);
       setError(false);
       onChange(convertTimeToNumber(val));
     } catch (e) {
@@ -93,7 +89,6 @@ export default function DurationInput({value, onChange, minSeconds, maxSeconds, 
   const handleBlur = (e) => {
     onClose();
   }
-  console.log("ValueProps", value);
   return (<div className={styles.root} ref={inputRef}>
 
       <input className={cx(styles.input, {[styles.error]: error})} value={newValue} onBlur={handleBlur} onChange={handleChange}/>

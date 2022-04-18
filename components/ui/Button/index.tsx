@@ -35,6 +35,7 @@ interface Props {
   brdrLightGrey?: boolean
   brdrGreen?: boolean
   brdrRed?: boolean
+  black?: boolean
   createGroup?: boolean
   invite?: boolean
   disabled?: boolean
@@ -51,6 +52,7 @@ export default function Button(props: Props) {
         ${styles.root}
         ${props.green && styles.green}
         ${props.red && styles.red}
+        ${props.black && styles.black}
         ${props.white && styles.white}
         ${props.notActive && styles.notActive}
         ${props.transparent && styles.transparent}

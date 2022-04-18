@@ -12,7 +12,7 @@ import {
   resetAutoCompleteCatalogSearch,
 } from "components/search/actions";
 import File, {FileShowType} from 'components/dashboard/File';
-import {IRootState} from "types";
+import {IRootState, IUser} from "types";
 import Link from 'next/link';
 import SearchSuggestionLoader from 'components/ContentLoaders/searchSuggestionLoader';
 import SpeakerPhoto from 'components/speakers/SpeakerPhoto'
@@ -24,6 +24,7 @@ interface Props {
   onClick?: () => void
   searchValue?: string,
   hasAutocomplete?: boolean
+  user?: IUser
 }
 
 export default function InputCatalogSearch(props: Props) {
@@ -69,7 +70,9 @@ export default function InputCatalogSearch(props: Props) {
     dispatch(fetchAutoCompleteCatalogFilesSearch(value, {}))
     dispatch(fetchAutoCompleteCatalogProjectsSearch(value, {}))
     dispatch(fetchAutoCompleteCatalogFoldersSearch(value, {}))
-    dispatch(fetchAutoCompleteSpeakersSearch(value, {}))
+    if(props.user?.role !== 'guest') {
+      dispatch(fetchAutoCompleteSpeakersSearch(value, {}))
+    }
   }
   const handleProjectClick = (item) => {
     router.push(`/catalog/${item.id}`);
@@ -89,7 +92,7 @@ export default function InputCatalogSearch(props: Props) {
   }
 
   return (
-    <form className={isOpen ? styles.open : styles.form} action='/search' onSubmit={handleSubmit}>
+    <form className={isOpen ? styles.open : styles.form} data-tour={'search'} action='/search' onSubmit={handleSubmit}>
       <div className={isOpen ? styles.inputContainer__mobile : styles.inputContainer}>
         <input
           name="query"

@@ -29,7 +29,6 @@ const SelectInput = (props: Props) => {
   const valueInputRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [currentLabel, setCurrentLabel] = useState('');
-  console.log("SelectValue", restrictedValues);
   const onClick = (e) => {
     e.preventDefault()
     if (!isActive && onOpenDropDown) {
@@ -38,7 +37,6 @@ const SelectInput = (props: Props) => {
 
     if (!isActive) {
       setTimeout(() => {
-        console.log("SETFocus", searchInputRef.current)
         if (searchInputRef.current) {
           searchInputRef.current.focus();
         }
@@ -56,7 +54,6 @@ const SelectInput = (props: Props) => {
       input.onChange(item.value);
     }
     setIsActive(false);
-    console.log("setValue", item.value)
     if (searchInputRef && searchInputRef?.current) {
 
       searchInputRef.current.value = '';

@@ -41,7 +41,6 @@ const Search = (props) => {
 
   const limitSpeakers = 30;
   const {query} = router.query;
-  console.log("query", query);
   useEffect(() => {
     if (!query) {
       return;
@@ -57,7 +56,6 @@ const Search = (props) => {
   }, [speakersTotal])
 
   const handleTagChangeTags = (tags) => {
-    console.log("handleTagChangeTags");
     setTags(tags);
     setPageSpeakers(1);
     dispatch(resetCatalogSearch());
@@ -120,6 +118,22 @@ const Search = (props) => {
     </Layout>
   )
 }
-export const getServerSideProps = getAuthServerSide({redirect: true});
+export async function getServerSideProps(ctx) {
+  const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+  if (!authRes?.props?.user) {
+    return authRes;
+  }
+
+  if(authRes?.props?.user === 'guest'){
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {...authRes?.props},
+  }
+
+}
 export default Search
 

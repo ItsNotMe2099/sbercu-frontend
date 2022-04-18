@@ -9,7 +9,6 @@ const queryString = require('query-string')
 export async function getServerSideProps(ctx) {
   const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
   if (!authRes?.props?.user) {
-    console.log("authRes", authRes);
     return authRes;
   }
   const authProps = authRes.props;
@@ -20,7 +19,7 @@ export async function getServerSideProps(ctx) {
       method: 'GET'
     }, ctx);
 
-    if(!res.data){
+    if(!res.data || authRes?.props?.user === 'guest'){
       return {
         notFound: true
       }

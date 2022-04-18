@@ -18,7 +18,6 @@ export default function VideoCodeModal({video, ...props}: Props){
     const getMediaLink = () => {
 
       const filePath = video.media.videoElements.find(i => i.quality === '1080p')?.filePath || video.media.filePath;
-      console.log("FilePath", filePath)
       const host = window.location.protocol + "//" + window.location.host;
       if(filePath.indexOf('/uploads') === 0){
         return `${host}/media-link/virt-school/${filePath.split('/uploads/')[1]}`;

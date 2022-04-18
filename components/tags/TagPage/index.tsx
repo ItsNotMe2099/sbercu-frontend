@@ -57,7 +57,6 @@ const TagPage = (props: Props) => {
   }
 
   const handleEdit = (item: ITag) => {
-    console.log("handleEdit", item)
     setCurrentEditTagCategory(item);
     dispatch(tagCategoryModalOpen());
   }

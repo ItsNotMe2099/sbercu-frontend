@@ -11,6 +11,8 @@ import * as React from 'react'
 import LikeOutline from 'components/svg/LikeOutline'
 import BasketMenu from 'components/svg/BasketMenu'
 import LikeFilled from 'components/svg/LikeFilled'
+import HelpSvg from 'components/svg/Help'
+import {useTour} from '@reactour/tour'
 
 interface Props {
     user: IUser,
@@ -18,6 +20,7 @@ interface Props {
 }
 export default function Profile({user, showSearch}: Props){
   const dropdownRef = useRef(null);
+  const tour = useTour();
   const router = useRouter();
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
     const onClick = (e) => {
@@ -28,11 +31,16 @@ export default function Profile({user, showSearch}: Props){
         e.preventDefault()
         logout();
     }
+  const handleHelpClick = () => {
+    tour.setCurrentStep(0);
+    tour.setIsOpen(true);
+  }
+    const renderIcons = (isDesktop: boolean = false) => {
 
-    const renderIcons = () => {
       return <>
-        <Link href="/basket"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/basket'})}><BasketMenu/><span>Корзина</span></a></Link>
-        <Link href="/favorite"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/favorite'})}>{router.asPath === '/favorite' ? <LikeFilled/> : <LikeOutline/>}<span>Избранное</span></a></Link>
+        {isDesktop && <div onClick={handleHelpClick} className={cx(styles.help)} data-tour={'help'}><HelpSvg/></div>}
+        <Link href="/basket"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/basket'})} data-tour={isDesktop ? 'basket' : null}><BasketMenu/><span>Корзина</span></a></Link>
+        <Link href="/favorite"><a className={cx(styles.link, {[styles.isActive]: router.asPath === '/favorite'})} data-tour={isDesktop ? 'favorite' : null}>{router.asPath === '/favorite' ? <LikeFilled/> : <LikeOutline/>}<span>Избранное</span></a></Link>
       </>
     }
   return (
@@ -40,7 +48,7 @@ export default function Profile({user, showSearch}: Props){
       {!showSearch ?
         <div className={styles.mobile}>{renderIcons()}</div>
         :null}
-      <div className={styles.notMobile}>{renderIcons()}</div>
+      <div className={styles.notMobile}>{renderIcons(true)}</div>
 
       <a onClick={onClick}><img src="/img/icons/profile.svg" alt=''/></a>
         <nav ref={dropdownRef} className={cx(styles.dropDown, { [styles.dropDownActive]: isActive })}>

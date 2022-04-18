@@ -35,14 +35,12 @@ function request(requestData: IRequestData, ctx: any = null): Promise<IResponse>
         const isJson = contentType && contentType.indexOf('application/json') !== -1
 
         if (res.status !== 200 && res.status !== 201) {
-          console.log('Response status:', res.status)
           return (isJson ? res.json() : res.text()).then((resData: any) => {
             throw {status: res.status, data: resData}
           })
         }
         const cookies = parseSetCookies(res.headers.get('Set-Cookie'))
-        console.log('SetCookies', cookies)
-        cookies.forEach((c) =>
+       cookies.forEach((c) =>
           setCookie(ctx, c.name, c.value, {
             path: c.path,
             secure: c.secure,
@@ -54,7 +52,6 @@ function request(requestData: IRequestData, ctx: any = null): Promise<IResponse>
         return isJson ? res.json() : res.text()
       })
       .then(res => {
-        console.log("RES111", res)
         return {
           data: res,
           err: null,

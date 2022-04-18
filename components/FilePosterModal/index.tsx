@@ -19,7 +19,6 @@ export default function FilePosterModal(props: Props){
   const dispatch = useDispatch()
   const handleSubmit = (data) => {
     dispatch(updateFile(props.file?.id,{ poster: data.poster}));
-    console.log('success')
   }
 
   return (

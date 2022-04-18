@@ -14,7 +14,6 @@ function* watchOnEmailSubmit() {
             method: 'POST',
             data: action.payload,
           } as IRequestData)
-          console.log("Res phone", res)
           if(!res.err){
             yield put(passwordRecoverySuccess())
             yield put({type: ActionTypes.PASSWORD_RECOVERY_SUCCESS})

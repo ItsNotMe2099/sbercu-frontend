@@ -29,12 +29,10 @@ const LanguageInputList = (props: Props) => {
   const [items, setItems] = useState(input.value ? input.value : []);
 
   useEffect(() => {
-    console.log("OnChangePresenters", items.filter(item => !!item))
-    input.onChange(items.filter(item => !!item))
+     input.onChange(items.filter(item => !!item))
   }, [items])
   const handleChangeInput = (value, index) => {
-    console.log("change", value, index)
-    setItems(items => items.map((item, key) => key === index ? value : item))
+     setItems(items => items.map((item, key) => key === index ? value : item))
   }
   const options = Object.keys(LanguagesList).map(key => ({value: key, label: capitalizeFirstLetter(LanguagesList[key]) as string}))
 

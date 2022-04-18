@@ -24,6 +24,7 @@ const queryString = require('query-string')
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchSpeakerList, resetSpeakerList} from 'components/speakers/actions'
 import SpeakerCard from 'components/speakers/SpeakerCard'
+import request from 'utils/request'
 const Home = (props) => {
   const user = props.user;
   const dispatch = useDispatch();
@@ -147,5 +148,23 @@ const Home = (props) => {
   )
 
 }
-export const getServerSideProps = getAuthServerSide({redirect: true});
+
+export async function getServerSideProps(ctx) {
+  const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+  if (!authRes?.props?.user) {
+    return authRes;
+  }
+
+  if(authRes?.props?.user === 'guest'){
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {...authRes?.props},
+  }
+
+}
+
 export default Home

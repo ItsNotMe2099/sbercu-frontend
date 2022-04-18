@@ -67,7 +67,12 @@ export default function modalReducer(state = {...initialState}, action) {
     case ActionTypes.CREATE_SPEAKER_FEEDBACK:
       state.modalKey = 'createSpeakerFeedback'
       break
-
+    case ActionTypes.CREATE_FOLDER_PUBLIC_LINK:
+      state.modalKey = 'createFolderPublicLink'
+      break
+    case ActionTypes.WELCOME_MODAL_OPEN:
+      state.modalKey = 'welcome'
+      break;
 
   }
 

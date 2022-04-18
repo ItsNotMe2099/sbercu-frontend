@@ -106,6 +106,8 @@ export interface ICatalogEntry {
   highlight?: any,
   inFavorites?: any
   deletedAt?: string
+  publicLink?: string
+  hasPublicAccess?: boolean
 }
 
 export interface ITag {
@@ -142,7 +144,11 @@ export interface ConfirmDataModal {
   onConfirm: () => void,
   onCancel?: () => void
 }
-
+export enum UserOnBoardingStatus {
+  NotShown = 'notShown',
+  Skipped = 'skipped',
+  Completed = 'completed',
+}
 export interface IUser {
   id?: number
   firstName?: string
@@ -156,6 +162,7 @@ export interface IUser {
   resetPasswordToken?: string
   departmentTags?: ITag[]
   departmentTagIds?: number[]
+  onBoardingStatus?: UserOnBoardingStatus
 }
 
 export interface IVideoTrimRange {
@@ -197,7 +204,7 @@ export interface IJob {
     params: any,
     error: null,
     detailes: string,
-    codecInfo: IJobCodecInfo
+  codecInfo: IJobCodecInfo
     video_details: string[]
     progress: IJobProgress
     catalog: ICatalogEntry

@@ -7,7 +7,11 @@ import workerSrc from "components/file-page/component/DocumentPageViewer/PdfPage
 import DocumentToolbar from 'components/file-page/component/DocumentPageViewer/DocumentToolbar'
 import DocumentLoader from 'components/file-page/component/DocumentPageViewer/DocumentLoader'
 import {getMediaPath} from 'utils/media'
-import {createMediaLinkTempDocViewer, resetMediaLinkForm} from 'components/media-links/actions'
+import {
+  createMediaLinkTempDocViewer,
+  createPublicMediaLinkTempDocViewer,
+  resetMediaLinkForm
+} from 'components/media-links/actions'
 import {FullScreen, useFullScreenHandle} from 'react-full-screen'
 import Cross from 'components/svg/Cross'
 
@@ -15,6 +19,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = '/vendor-js/pdf.worker.js';
 
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function PdfPageViewer(props: Props){
@@ -34,7 +39,11 @@ export default function PdfPageViewer(props: Props){
       setWidth(wrapperRef.current.getBoundingClientRect().width);
 
     };
-    dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    if(props.publicHash){
+      dispatch(createPublicMediaLinkTempDocViewer({catalogId: item.id}, props.publicHash))
+    }else{
+      dispatch(createMediaLinkTempDocViewer({catalogId: item.id}))
+    }
     window.addEventListener("resize", setDivSize, false);
     return () => {
       window.removeEventListener("resize", setDivSize, false);
@@ -52,7 +61,6 @@ export default function PdfPageViewer(props: Props){
 
   }
   const handleKeyDown = (e) => {
-    console.log("dsds",e.keyCode )
     if (e.keyCode === 37 && page > 1) {
       setPage(page -1);
     } else if (e.keyCode === 39 && page < totalPages - 1) {
@@ -62,15 +70,15 @@ export default function PdfPageViewer(props: Props){
 
   return (
           <div className={styles.root} ref={(ref) => {
-              if(ref) {
+              if(ref && !wrapperRef.current) {
                 setWidth(ref.getBoundingClientRect().width);
 
                 wrapperRef.current = ref;
               }
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
-              {link && <Document debug file={{
-                url: getMediaPath(item.media.fileName),
+              {(link || props.publicHash) && !handle.active && <Document debug file={{
+                url: getMediaPath(item.media.fileName, props.publicHash),
                 withCredentials: true,
               }}
                                  loading={<DocumentLoader/>}
@@ -88,8 +96,8 @@ export default function PdfPageViewer(props: Props){
             <FullScreen handle={handle} >
 
               {handle.active && <div className={styles.fullscreen}>
-                {link && <Document debug file={{
-                  url: getMediaPath(item.media.fileName),
+                {(link || props.publicHash) && <Document debug file={{
+                  url: getMediaPath(item.media.fileName, props.publicHash),
                   withCredentials: true,
                 }}
                                    loading={<DocumentLoader/>}

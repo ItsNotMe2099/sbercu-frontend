@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {createMediaLinkPublic, createMediaLinkTemp, resetMediaLinkForm} from "../media-links/actions";
 import {useEffect} from "react";
 import TextArea from "../ui/Inputs/TextArea";
+import InputCopy from 'components/ui/Inputs/InputCopy'
 
 
 interface Props {
@@ -27,7 +28,7 @@ export default function MediaLinkPublicModal(props: Props){
 
   return (
     <Modal {...props} title={"Публичная ссылка"}>
-      {mediaLink && <div className={styles.link}>Публичная ссылка: <p><a href={mediaLink} target={'blank'}>{mediaLink}</a></p></div>}
+      {mediaLink && <div className={styles.link}>Публичная ссылка: <br/><InputCopy value={mediaLink}/></div>}
       {hasIframe && <div className={styles.codeLabel}>Код для вставки:</div>}
       {hasIframe && <TextArea meta={{}} input={{
         value: `<iframe class="mediateka-video" style="max-width:100%;max-height:100%;" src="${mediaLink?.replace('media-link/public', 'embed')}" width="500" height="350" allowvr="yes" frameborder="0" scrolling="no" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>`,

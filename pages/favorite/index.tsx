@@ -57,7 +57,6 @@ const FavoritePage = (props) => {
     const limitProjects = 30;
     const limitFolders = 30;
     const { query } = router.query;
-    console.log("query", query);
     useEffect(() => {
 
         dispatch(resetCatalogFavorite());
@@ -73,7 +72,6 @@ const FavoritePage = (props) => {
     }, [projectsTotal])
 
     const handleTagChangeTags = (tags) => {
-        console.log("handleTagChangeTags");
         setTags(tags);
         setPageFiles(1);
         setPageProjects(1);

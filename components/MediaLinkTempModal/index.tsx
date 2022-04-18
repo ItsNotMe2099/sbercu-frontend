@@ -11,6 +11,7 @@ import {createMediaLinkTemp, resetMediaLinkForm} from "../media-links/actions";
 import MediaLinkForm from "./Form";
 import {useEffect} from "react";
 import {format, parse} from "date-fns";
+import InputCopy from 'components/ui/Inputs/InputCopy'
 
 
 interface Props {
@@ -27,12 +28,11 @@ export default function MediaLinkTempModal(props: Props){
     dispatch(resetMediaLinkForm());
   }, []);
   const handleSubmit = (data) => {
-    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: format(parse(data.expiredAt, 'dd.mm.yyyy', new Date()), 'yyyy-mm-dd')}));
-    console.log('success')
+    dispatch(createMediaLinkTemp({catalogId: props.file.id, mediaId: props.file.mediaId, expiredAt: data.expiredAt}));
   }
   return (
     <Modal {...props} title={"Создать временную ссылку"}>
-      {mediaLink ? <div className={styles.link}>Временная ссылка: <p><a href={mediaLink} target={'blank'}>{mediaLink}</a></p></div> : <MediaLinkForm onSubmit={handleSubmit}/>}
+      {mediaLink ? <div className={styles.link}><InputCopy label={'Временная ссылка'} value={mediaLink}/></div> : <MediaLinkForm onSubmit={handleSubmit}/>}
     </Modal>
   )
 }

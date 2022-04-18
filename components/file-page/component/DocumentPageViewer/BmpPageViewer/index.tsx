@@ -22,13 +22,11 @@ export default function BmpPageViewer(props: Props){
   const imgRef = useRef(null);
 
   useEffect(() => {
-    console.log("useEffect");
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer'
     xhr.open('GET', getMediaPath(item.media?.fileName))//getMediaPath(item.media.fileName));
     setIsLoading(true);
     xhr.onload = function(e) {
-      console.log("onLoad", e);
       const arrayBuffer = this.response;
 
       setIsLoading(false)

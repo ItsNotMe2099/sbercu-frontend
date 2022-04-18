@@ -28,13 +28,11 @@ const SpeakersInputList = (props: Props) => {
   const [items, setItems] = useState(input.value ? input.value : []);
 
   useEffect(() => {
-    console.log("OnChangePresenters", items.filter(item => !!item))
     input.onChange(items.filter(item => !!item))
   }, [items])
   const handleChangeInput = (e, index) => {
     const value = e;
-    console.log("change", value, index)
-    setItems(items => items.map((item, key) => key === index ? value : item))
+     setItems(items => items.map((item, key) => key === index ? value : item))
   }
 
 

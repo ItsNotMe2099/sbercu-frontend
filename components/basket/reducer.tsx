@@ -72,7 +72,6 @@ export default function CatalogDeletedReducer(state = {...initialState}, action)
       state.currentLoadingItems = [...state.currentLoadingItems, action.payload.id];
       break;
     case ActionTypes.RESTORE_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
-      console.log("dsdsadsad", state.projects, action.payload, state.projects.filter( i => i.id !== action.payload.id))
      state.currentLoadingItems = state.currentLoadingItems.filter( i => i != action.payload.id);
 
       if( action.payload.entryType === 'project') {
@@ -96,7 +95,6 @@ export default function CatalogDeletedReducer(state = {...initialState}, action)
       state.currentLoadingItems = [...state.currentLoadingItems, action.payload.id];
       break;
     case ActionTypes.DELETE_CATALOG_ITEM_REQUEST + ApiActionTypes.SUCCESS:
-      console.log("SetDeleted",  action.payload, state.files.filter( i => !action.payload?.includes(i.id)).map(i => i.id));
       state.currentLoadingItems = state.currentLoadingItems.filter( i => !action.payload?.includes(i));
 
       if(state.projects.filter( i => action.payload?.includes(i.id)).length > 0) {

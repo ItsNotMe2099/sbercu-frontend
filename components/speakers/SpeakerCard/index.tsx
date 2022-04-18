@@ -39,7 +39,6 @@ export default function SpeakerCard({item, onDeleteClick, onRestoreClick}: Props
       onRestoreClick(item)
     }
   }
-  console.log('cover', item.cover)
 
   return (
     <Link href={`/speaker/${item.id}`}>

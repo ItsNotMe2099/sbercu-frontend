@@ -28,11 +28,7 @@ export default function AuthControl(props: Props) {
             dispatch(getUserByInvite({ token: token as string }));
         }
     }, [token])
-    useEffect(() => {
-        if (currentUser) {
-            console.log("currentUser", currentUser)
-        }
-    }, [currentUser])
+
     const handleFirstStepSubmit = useCallback(values => {
         setFirstStepIsComplete(true);
         setFormData(values);

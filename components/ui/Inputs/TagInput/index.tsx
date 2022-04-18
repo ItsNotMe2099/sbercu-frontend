@@ -54,7 +54,6 @@ const TagInput = (props: Props) => {
     if(props.disabled){
       return;
     }
-    console.log("HandleTagClick", selectedItem, selected)
     if(selected) {
       setSelectedTags(tags => [...tags, selectedItem])
 

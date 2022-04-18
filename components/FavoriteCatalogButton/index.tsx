@@ -18,7 +18,6 @@ export default function FavoriteCatalogButton({selected, style, item}: Props) {
   const handleClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log("handleClick", item);
       if(item.inFavorites){
         dispatch(catalogRemoveFromFavorite(item.id, item.entryType));
 

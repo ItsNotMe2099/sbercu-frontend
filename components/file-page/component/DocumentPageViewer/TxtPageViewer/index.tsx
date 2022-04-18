@@ -9,6 +9,7 @@ import DocumentLoader from 'components/file-page/component/DocumentPageViewer/Do
 import {getMediaPath} from 'utils/media'
 interface Props{
   item: ICatalogEntry
+  publicHash?: string
 }
 
 export default function TxtPageViewer(props: Props){
@@ -18,11 +19,10 @@ export default function TxtPageViewer(props: Props){
   const imgRef = useRef(null);
   useEffect(() => {
     setIsLoading(true);
-    fetch(getMediaPath(item.media?.fileName))
+    fetch(getMediaPath(item.media?.fileName, props.publicHash))
       .then(r => r.text())
       .then(text => {
         setText(text);
-        console.log('text decoded:', text);
         setIsLoading(false);
       });
   }, [])

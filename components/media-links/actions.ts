@@ -33,5 +33,12 @@ export const createMediaLinkTempDocViewer = (data: any) => action(ActionTypes.CR
     data
   }
 })
+export const createPublicMediaLinkTempDocViewer = (data: any, hash) => action(ActionTypes.CREATE_MEDIA_LINK_TEMP_DOC_VIEWER, {
+  api: {
+    url: `/api/media-link/public/public-temp-doc-viewer?hash=${hash}`,
+    method: 'POST',
+    data
+  }
+})
 
 export const resetMediaLinkForm = () => action(ActionTypes.RESET_MEDIA_LINK_FORM)

@@ -28,8 +28,7 @@ export const logout = () => {
 
 export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  => (async (ctx) => {
     const token = auth(ctx)
-    console.log("Token111", token);
-    const user = token ? await getUser(token) : null
+   const user = token ? await getUser(token) : null
 
     if (!user && redirect) {
       setCookie(ctx, 'authRedirect', ctx.req.url, {
@@ -37,7 +36,6 @@ export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  =>
         path: '/',
       })
 
-      console.log("Try redirect", `/auth/login?redirect=${ctx.req.url}`)
       return {   redirect: {
           destination: `/auth/login?redirect=${ctx.req.url}`,
           permanent: false,
@@ -45,7 +43,6 @@ export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  =>
 
     }else if(user && ctx.req){
       const {authRedirect} = nextCookie(ctx);
-      console.log("authRedirect", authRedirect, ctx.req.url);
       if(authRedirect) {
         setCookie(ctx, 'authRedirect', '', {
           maxAge: 60 * 3,
@@ -62,7 +59,6 @@ export const getAuthServerSide = ({ redirect }: { redirect?: boolean } = {})  =>
     if (!user) {
       return { props: {} }
     }
-    console.log("User11", user);
 
     return { props: { user } }
   })

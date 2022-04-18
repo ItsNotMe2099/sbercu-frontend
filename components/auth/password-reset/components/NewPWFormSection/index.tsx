@@ -12,7 +12,6 @@ export default function NewPWFormSection(props: Props) {
 
   const dispatch = useDispatch()
   const submit = useCallback(values => {
-    console.log("Props", token)
     dispatch(passwordResetReset());
       dispatch(passwordResetSubmit({password: values.new_password, resetPasswordToken : token as string}))
   }, [token]);

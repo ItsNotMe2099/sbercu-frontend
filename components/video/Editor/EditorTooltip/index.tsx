@@ -23,7 +23,7 @@ export default function EditorTooltip({ rootRef, seconds, cutItems, onAdd, onDel
     const cutItem = cutItems.find((it) => (seconds >= it.start && seconds <= it.end))
     const handleAdd = (e) => {
         e.stopPropagation()
-        console.log("OnAdd", seconds)
+
         onAdd(seconds);
 
     }

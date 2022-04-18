@@ -66,7 +66,6 @@ const Search = (props) => {
     const limitFolders = 30;
     const limitSpeakers = 30;
     const { query } = router.query;
-    console.log("query", query);
     useEffect(() => {
         if (!query) {
             return;
@@ -76,7 +75,9 @@ const Search = (props) => {
         dispatch(fetchCatalogProjectsSearch(query, {limit: limitProjects}));
         dispatch(fetchCatalogFilesSearch(query, { limit: limitFiles }));
         dispatch(fetchCatalogFoldersSearch(query, { limit: limitFiles }));
-        dispatch(fetchSpeakersSearch(query, {limit: limitSpeakers}));
+        if(props.user?.role !== 'guest') {
+            dispatch(fetchSpeakersSearch(query, {limit: limitSpeakers}));
+        }
     }, [query])
     useEffect(() => {
         if(projectsTotal > 0){
@@ -85,7 +86,6 @@ const Search = (props) => {
     }, [projectsTotal])
 
     const handleTagChangeTags = (tags) => {
-        console.log("handleTagChangeTags");
         setTags(tags);
         setPageFiles(1);
         setPageProjects(1);
@@ -93,10 +93,12 @@ const Search = (props) => {
         dispatch(fetchCatalogProjectsSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitProjects }));
         dispatch(fetchCatalogFilesSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitProjects }));
         dispatch(fetchCatalogFoldersSearch(query, { ...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: 1, limit: limitFolders }));
-        dispatch(fetchSpeakersSearch(query, {
-            page: 1,
-            limit: limitSpeakers
-        }));
+        if(props.user?.role !== 'guest') {
+            dispatch(fetchSpeakersSearch(query, {
+                page: 1,
+                limit: limitSpeakers
+            }));
+        }
     }
 
     const handleEditClick = useCallback((item) => {
@@ -180,6 +182,9 @@ const Search = (props) => {
         dispatch(fetchCatalogProjectsSearch(query, {...(tags.length > 0 ? { tags: tags.map(tag => tag.id).join(',') } : {}), page: pageProjects + 1, limit: limitProjects }));
     }
     const handleScrollNextSpeakers = () => {
+        if(props.user?.role === 'guest') {
+            return
+        }
         setPageSpeakers(pageSpeakers + 1)
         dispatch(fetchSpeakersSearch(query, {
             page: pageSpeakers + 1,

@@ -150,7 +150,6 @@ export default function CatalogSearchReducer(state = {...initialState}, action) 
       break;
     case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FOLDERS_SEARCH_LIST + ApiActionTypes.SUCCESS:
       state.autoCompleteFolders = action.payload.data;
-      console.log("SetAutoCompleteFodlers", state.autoCompleteFolders);
       state.autocompleteFoldersLoading = false;
       break;
     case ActionTypes.FETCH_AUTOCOMPLETE_CATALOG_FOLDERS_SEARCH_LIST + ApiActionTypes.FAIL:

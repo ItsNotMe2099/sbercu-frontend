@@ -5,7 +5,7 @@ import { action } from 'typesafe-actions'
 import request from 'utils/request'
 const queryString = require('query-string')
 
-export const setCurrentCatalogId = (id: number) => action(ActionTypes.SET_CURRENT_CATALOG_ID, {id})
+export const setCurrentCatalogId = (id: number | string) => action(ActionTypes.SET_CURRENT_CATALOG_ID, {id})
 export const resetCatalogForm = () => action(ActionTypes.RESET_CATALOG_FORM)
 export const createCatalog = ( data: any) => action(ActionTypes.CREATE_CATALOG, {data})
 export const createCatalogRequest = (data: any) => action(ActionTypes.CREATE_CATALOG_REQUEST, {
@@ -45,10 +45,24 @@ export const fetchCatalogProjects = (data: any = {}) => action(ActionTypes.FETCH
   }
 })
 
+export const fetchOnBoardingProject = (departmentId: number) => action(ActionTypes.FETCH_ON_BOARDING_PROJECT, {
+  api: {
+    url: `/api/catalog/projects?${queryString.stringify({tags: departmentId, page: 1, limit: 1})}`,
+    method: 'GET',
+  }
+})
+
 export const fetchCatalogList = (id, page?, per_page?, sortField?, sortOrder?) => action(ActionTypes.FETCH_CATALOG_LIST, {
   sortField, sortOrder,
   api: {
     url: `/api/catalog/list/${id}?page=${page || 1}&per_page=${per_page || 10}&sortField=${sortField || 'name'}&sortOrder=${sortOrder || 'ASC'}${ (!sortOrder || sortField === 'mediaType') ? '&foldersFirst=true' : ''}`,
+    method: 'GET',
+  }
+})
+export const fetchPublicCatalogList = (id, hash, page?, per_page?, sortField?, sortOrder?) => action(ActionTypes.FETCH_CATALOG_LIST, {
+  sortField, sortOrder,
+  api: {
+    url: `/api/catalog/public/list/${id}?hash=${hash}&page=${page || 1}&per_page=${per_page || 10}&sortField=${sortField || 'name'}&sortOrder=${sortOrder || 'ASC'}${ (!sortOrder || sortField === 'mediaType') ? '&foldersFirst=true' : ''}`,
     method: 'GET',
   }
 })
@@ -70,6 +84,13 @@ export const fetchCatalogItemRequest = (id, data = {}, shallow = false) => actio
   shallow,
   api: {
     url: `/api/catalog/show/${id}?${queryString.stringify(data)}`,
+    method: 'GET',
+  }
+})
+export const fetchPublicCatalogItemRequest = (id, data = {}, shallow = false) => action(ActionTypes.FETCH_CATALOG_ITEM_REQUEST, {
+  shallow,
+  api: {
+    url: `/api/catalog/public/show/${id}?${queryString.stringify(data)}`,
     method: 'GET',
   }
 })
@@ -145,6 +166,10 @@ export const cutVideoRequest = (id: number, intervals: any[]) => action(ActionTy
     data: {mediaId: id, intervals},
   }
 })
+
+export const updateCatalogItemState = (id: number, data: any) => action(ActionTypes.UPDATE_CATALOG_ITEM_STATE, { id, data
+})
+
 
 
 export const resetCatalogItem = () => action(ActionTypes.RESET_CATALOG_ITEM)

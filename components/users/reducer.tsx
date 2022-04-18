@@ -66,7 +66,6 @@ export default function UserReducer(state = {...initialState}, action) {
       state.formLoading = false;
       break
     case ActionTypes.FETCH_ONE_USER + ApiActionTypes.SUCCESS:
-      console.log(" action.payload",  action.payload);
       state.list = state.list.map(user => user.id === action.payload.id ? action.payload : user);
       break
     case ActionTypes.DELETE_USER_REQUEST:

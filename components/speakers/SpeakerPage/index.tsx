@@ -17,7 +17,7 @@ import {
   resetSpeakerItem,
   setSpeakerItem
 } from 'components/speakers/actions'
-import CreateFolder from 'pages/catalog/components/CreateFolder'
+import CreateFolder from 'components/catalog-page/components/CreateFolder'
 import {
   confirmOpen,
   createSpeakerFeedbackOpen, editFileOpen,
@@ -74,7 +74,6 @@ const SpeakerPage = (props: Props) => {
   const [currentEditFeedback, setCurrentEditFeedback] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter()
-  console.log("Auth", props)
 
   const limitFiles = 30;
   const canEdit = props.user.role === 'admin' || (speaker?.userId && speaker?.userId === props.user?.id);
@@ -120,8 +119,7 @@ const SpeakerPage = (props: Props) => {
   const getTagCategories = () => {
     const categoriesMap = {};
     const categories = []
-    console.log("SPEAKER?.tags", speaker?.tags)
-    for (const tag of speaker?.tags) {
+   for (const tag of speaker?.tags) {
       if (!tag.tagCategory) {
         continue;
       }
@@ -132,12 +130,10 @@ const SpeakerPage = (props: Props) => {
         categoriesMap[tag.tagCategoryId].tags.push(tag);
       }
     }
-    console.log("categories", categories)
     return categories;
   }
 
   const handleTagClick = (tag) => {
-    console.log("TagClick", tag);
     router.push(`/speakers/?${queryString.stringify({tags: JSON.stringify([tag.id])})}`)
   }
 
@@ -193,7 +189,6 @@ const SpeakerPage = (props: Props) => {
     setGalleryIndex(0)
   }
   const handleGalleryItemClick = (index) => {
-    console.log("SetGallery", showGallery)
     setShowGallery(!showGallery);
     setGalleryIndex(speaker.mainCover ? index + 1 : index)
   }

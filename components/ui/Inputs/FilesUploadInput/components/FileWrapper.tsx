@@ -1,4 +1,3 @@
-
 import { FileUpload } from "components/FileUpload";
 import FileInputPreview from "components/ui/Inputs/FilesUploadInput/components/FileInputPreview";
 import React, {
@@ -50,12 +49,10 @@ const FileWrapper = (props: Props) => {
     setIsLoaded(true);
   }
   const onProgress = (progress) => {
-    console.log("onProgress", progress)
     setProgress(progress)
   }
   useEffect(() => {
     if (file.rawFile &&  !(file.rawFile as any)._uploading) {
-      console.log("Upload", currentCatalogId);
       (file.rawFile as any)._uploading = true;
       const options = {
         ...uploadOptions,
@@ -70,16 +67,12 @@ const FileWrapper = (props: Props) => {
         (window as any)._fileUploads = [];
       }
       (window as any)._fileUploads.push(fileUpload.current);
-      console.log("AddFileUpload",   (window as any)._fileUploads);
 
     }
   },[])
   const handleRemove = () => {
     if(  fileUpload.current  && file.rawFile){
-      console.log("Cancel");
       fileUpload.current.cancel();
-    }else{
-      console.log("cantCancel", fileUpload.current, file.rawFile);
     }
     onRemove(file)
     setConfirmRemove(false);

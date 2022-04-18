@@ -28,7 +28,6 @@ function* speakerSaga() {
             yield put(createSpeakerRequest(action.payload.data));
             const result = yield take([ActionTypes.CREATE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_SPEAKER_REQUEST + ApiActionTypes.FAIL])
             if (result.type === ActionTypes.CREATE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS) {
-                console.log("CREATE TAG_CATEGORY SUCCESS")
                     Router.push(`/speaker/${result.payload.id}`)
 
                 yield put(modalClose());
@@ -39,8 +38,7 @@ function* speakerSaga() {
             yield put(updateSpeakerRequest(action.payload.id, action.payload.data));
             const result = yield take([ActionTypes.UPDATE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_SPEAKER_REQUEST + ApiActionTypes.FAIL])
             if (result.type === ActionTypes.UPDATE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS) {
-                console.log("UPDATE TAG_CATEGORY SUCCESS")
-                    Router.push(`/speaker/${result.payload.id}`)
+                     Router.push(`/speaker/${result.payload.id}`)
 
             }
         })
@@ -49,7 +47,6 @@ function* speakerSaga() {
             yield put(deleteSpeakerRequest(action.payload.id));
             const result = yield take([ActionTypes.DELETE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS, ActionTypes.DELETE_SPEAKER_REQUEST + ApiActionTypes.FAIL])
             if (result.type === ActionTypes.DELETE_SPEAKER_REQUEST + ApiActionTypes.SUCCESS) {
-                console.log("DELETE TAG_CATEGORY SUCCESS")
                 yield put(modalClose());
               Router.replace(`/speakers`);
             }

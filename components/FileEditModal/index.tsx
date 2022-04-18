@@ -20,10 +20,7 @@ export default function FileEditModal(props: Props){
   const handleSubmit = (data) => {
     const speakersIds = data.presenters.filter(i => i?.id).map(i =>parseInt( i.id, 10));
     const presenters = data.presenters.filter(i => !i?.id)
-    console.log("data.presenters", speakersIds, presenters);
-
     dispatch(updateFile(props.catalog?.id,{ name: data.name, presenters: presenters, speakersIds }));
-    console.log('success')
   }
   if(!catalog){
     return null;

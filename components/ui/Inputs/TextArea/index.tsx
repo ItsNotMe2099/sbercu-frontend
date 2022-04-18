@@ -13,7 +13,6 @@ interface Props {
 export default function TextArea(props: Props) {
   const { error, touched } = props.meta
   const { input, label, type } = props
-  console.log("TextAreaError", props.meta);
   return (
     <div className={styles.root}>
       <textarea

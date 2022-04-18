@@ -40,6 +40,8 @@ interface Props {
   isDragging?: boolean
   isGroupedOver?: boolean
   dragOverId?: any
+  publicHash?: string
+  dataTour?: string
 }
 
 export enum FileShowType {
@@ -64,6 +66,7 @@ const File = ({
                                onClick,
                                canEdit,
                                showType,
+                dataTour,
                            isDragging,
                            isGroupedOver,
                                ...props
@@ -73,7 +76,7 @@ const File = ({
   const validActions = (() => {
     switch (showType) {
       case FileShowType.Catalog:
-        return [FileActionType.Edit, FileActionType.Cut, FileActionType.Paste, FileActionType.Delete]
+        return [FileActionType.Edit, FileActionType.Cut, FileActionType.Paste, FileActionType.Delete, FileActionType.PublicLink]
       case FileShowType.Basket:
         return [FileActionType.Restore, FileActionType.DeleteForever]
       case FileShowType.Search:
@@ -256,11 +259,12 @@ const File = ({
     const source = item.media?.fileName;
 
     if(item.entryType === 'folder') {
-      return `/catalog/${item.id}`;
+
+      return `/${props.publicHash ? `catalog-public/${props.publicHash}` : 'catalog'}/${item.id}`;
     }
 
     if ( item.entryType === 'file' && isAudio(source) || isVideo(source) || isDocument(source) || isImage(source)) {
-      return `/file/${item.id}`;
+      return  `/${props.publicHash ? `file-public/${props.publicHash}` : `file`}/${item.id}`;
     }
 
     return getMediaPath(item.media?.fileName) ? `${getMediaPath(item.media?.fileName)}?download=1` : '';
@@ -349,7 +353,7 @@ const File = ({
         <div className={cx(styles.like, {[styles.noLike]: !item.inFavorites})}><FavoriteCatalogButton item={item}
                                                                                                       style={'catalog'}/>
         </div>}
-        {showDots && <div className={styles.dots}><ButtonDots
+        {showDots && <div className={styles.dots} data-tour={dataTour}><ButtonDots
             onClick={handleActionClick}
             options={actions}
         /></div>}

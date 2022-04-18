@@ -91,14 +91,10 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
           preview: preview,
         }
 
-        console.log('transformedFile', transformedFile)
-
-
         return transformedFile
       }
 
       const transformFiles = (files: any[]) => {
-        console.log("TransformFile", files)
         if (!files) {
           return multiple ? [] : null
         }
@@ -121,7 +117,6 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
       }
 
       const onDrop = (newFiles, rejectedFiles, event) => {
-        console.log('OnDrop', newFiles)
         const updatedFiles = multiple ? [...files, ...newFiles] : [...newFiles]
 
         if (multiple) {
@@ -185,7 +180,6 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
             const filteredFiles = files.filter(
                     stateFile => !shallowEqual(stateFile, file),
                 )
-            console.log('onFinishFileUpload', files, result.fileKey)
 
             newFileList = [...filteredFiles, newFile]
           } else {
@@ -207,7 +201,6 @@ const AvatarInput = (props: any & AvatarInputProps & AvatarInputOptions) => {
         onDrop,
       })
 
-      console.log('errorMeta', props.meta)
       return (
       <div className={`${styles.root} ${!!(files.length > 0) && styles.hasBackDrop}`}>
 

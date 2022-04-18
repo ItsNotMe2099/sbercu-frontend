@@ -13,14 +13,12 @@ export default function SelectTagCategory(props) {
   const [value, setValue] = useState();
   const [options, setOptions] = useState([]);
   const handleOnChange = (value) => {
-    console.log("OnChangeLocValue", value)
     props.input.onChange(value);
   }
   const getSearchCategory = ({id = '',search = ''}) => {
     return request({url: `/api/tag-category?s=${JSON.stringify({categoryType: props.categoryType})}`, method: 'GET'})
         .then((response) => {
           const data = response.data;
-          console.log("Response", data)
           setOptions(data ? data.map(item => {
             return {
               value: item.id,

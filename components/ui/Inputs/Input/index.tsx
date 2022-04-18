@@ -1,5 +1,5 @@
 import ErrorInput from "components/ui/Inputs/components/ErrorInput";
-import { useEffect } from "react";
+import {ReactElement, useEffect} from "react";
 import styles from './index.module.scss'
 import InputMask from 'react-input-mask'
 
@@ -8,8 +8,8 @@ interface Props {
   placeholder?: string
   meta?: any
   input
-  label
-  type,
+  label?: string
+  type?: string,
   disabled?: boolean
   tip?: string
   isLabel?: boolean,
@@ -18,6 +18,8 @@ interface Props {
   className?: string
   autoFocus?: boolean,
   hasAutoComplete?: boolean
+  icon?: ReactElement
+  onIconClick?: string
 }
 
 export default function Input(props: Props) {
@@ -25,9 +27,6 @@ export default function Input(props: Props) {
   const { input, label, type, hasAutoComplete } = props
   const autoCompleteProps: any = !hasAutoComplete ? {autoComplete: 'new-password', autoCorrect: 'off'} : {};
 
-  useEffect(() => {
-    console.log("destroy");
-  }, [])
   const renderInput = (inputProps) => {
     return  (   <input
       className={`${styles.input} ${(error && touched) && styles.error}`}
@@ -43,6 +42,7 @@ export default function Input(props: Props) {
   return (
     <div className={`${styles.root} ${props.className && props.className}`}>
       {props.label && <div className={styles.label}>{props.label}</div>}
+      <div className={styles.inputWrapper}>
       {props.mask ? (
           <InputMask
             className={`${styles.input} ${(error && touched) && styles.error}`}
@@ -54,6 +54,8 @@ export default function Input(props: Props) {
       ) : (
         renderInput(props.input)
       )}
+        {props.icon}
+      </div>
         <ErrorInput {...props}/>
     </div>
   )
