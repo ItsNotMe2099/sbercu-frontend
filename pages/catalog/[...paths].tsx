@@ -23,7 +23,7 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: {initialVideo: res.data, host: ctx.req.get('host'), ...authProps},
+    props: {initialVideo: res.data, host: ctx.req.headers['host'], ...authProps},
   }
 
 }
