@@ -10,11 +10,16 @@ import TextArea from 'components/ui/Inputs/TextArea'
 import { RadioList } from 'components/ui/Inputs/RadioList'
 import { useSelector, useDispatch } from 'react-redux'
 import AvatarInput from "components/ui/AvatarInput";
+import FormError from 'components/ui/Form/FormError'
+import React from 'react'
 
 let ProjectForm = props => {
     const router = useRouter()
   const { handleSubmit, initialValues } = props
-    const handleCancel = () => {
+  const formError = useSelector((state: IRootState) => state.speakers.formError)
+  const loading = useSelector((state: IRootState) => state.speakers.formLoading)
+
+  const handleCancel = () => {
         router.back();
     }
 
@@ -132,9 +137,10 @@ let ProjectForm = props => {
               </div>
             </div>
             </div>
+            <FormError error={formError}/>
             <div className={styles.btnContainer}>
-              <Button green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
-              <Button transparent textLightGrey type={'button'} onClick={handleCancel}>Отмена</Button>
+              <Button green size="10px 26px" disabled={loading}>{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
+              <Button transparent textLightGrey type={'button'} onClick={handleCancel}  disabled={loading}>Отмена</Button>
             </div>
           </form>
   )
