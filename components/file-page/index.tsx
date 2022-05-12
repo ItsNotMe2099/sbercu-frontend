@@ -54,6 +54,7 @@ const queryString = require('query-string')
 interface Props {
   initialVideo: ICatalogEntry,
   user: IUser
+  host?: string
   public?: boolean
   publicHash?: string
 }
