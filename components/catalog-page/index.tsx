@@ -322,10 +322,17 @@ const CatalogPage = (props) => {
       setDragOverId(newDragOverId);
     }
   }
+  const initialIem = currentCatalogItem ?? props.initialVideo
   return (
     <Layout>
 
-      {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
+      {initialIem && <NextSeo title={initialIem.name}
+                                      openGraph={{
+                                        type: 'website',
+                                        title: initialIem.name,
+                                      }}
+
+      />}
       {!props.public && <Header {...props}>
         {currentCatalogItem && currentCatalogItem.canEdit &&
         <div className={styles.create} data-tour="create-folder"><Button folder transparent textDarkGrey btnDarkGrey type="button"

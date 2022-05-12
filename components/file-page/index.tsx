@@ -138,9 +138,13 @@ const FilePage = (props: Props) => {
       return <ImagePageViewer item={video} publicHash={props.publicHash}/>;
     }
   }
+  const initialIem = video ?? props.initialVideo
   return (
     <Layout>
-      {video && <NextSeo title={video.name}/>}
+      {initialIem && <NextSeo title={video.name}     openGraph={{
+        type: 'website',
+        title: initialIem.name,
+      }}/>}
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
           <div className={styles.title}>{video.name}</div>
@@ -151,13 +155,13 @@ const FilePage = (props: Props) => {
                 {!props.public && <FileBottomToolbar item={video} user={props.user}/>}
 
               </div>
-              <div className={styles.tags}>
+            {!props.public && <div className={styles.tags}>
                 {getTagCategories().map(category => <Tag
                   onClick={handleTagClick}
                   category={category.category.name}
                   tags={category.tags}
                 />)}
-              </div>
+              </div>}
           </div>
           <div className={styles.tags__mobile}>
             {getTagCategories().map(category => <Tag onClick={handleTagClick}
