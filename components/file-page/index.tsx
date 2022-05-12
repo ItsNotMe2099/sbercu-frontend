@@ -145,6 +145,7 @@ const FilePage = (props: Props) => {
       {initialIem && <NextSeo title={video.name}     openGraph={{
         type: 'website',
         url: `https://${props.host}${router.asPath}`,
+        site_name: `Новая Медиатека`,
         title: initialIem.name,
       }}/>}
       <Header {...props}/>

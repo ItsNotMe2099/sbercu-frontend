@@ -330,6 +330,7 @@ const CatalogPage = (props) => {
       {initialIem && <NextSeo title={initialIem.name}
                                       openGraph={{
                                         type: 'website',
+                                        site_name: `Новая Медиатека`,
                                         url: `https://${props.host}${router.asPath}`,
                                         title: initialIem.name,
                                       }}
