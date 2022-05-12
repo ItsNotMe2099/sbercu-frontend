@@ -327,12 +327,13 @@ const CatalogPage = (props) => {
   return (
     <Layout>
 
-      {initialIem && <NextSeo title={initialIem.name}
+      {initialIem && <NextSeo title={initialIem.name} description={initialIem.name}
                                       openGraph={{
                                         type: 'website',
                                         site_name: `Новая Медиатека`,
                                         url: `https://${props.host}${router.asPath}`,
                                         title: initialIem.name,
+                                        description: initialIem.name,
                                       }}
 
       />}

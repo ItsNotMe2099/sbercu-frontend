@@ -142,11 +142,12 @@ const FilePage = (props: Props) => {
   const initialIem = video ?? props.initialVideo
   return (
     <Layout>
-      {initialIem && <NextSeo title={video.name}     openGraph={{
+      {initialIem && <NextSeo title={video.name}  description={initialIem.name}   openGraph={{
         type: 'website',
         url: `https://${props.host}${router.asPath}`,
         site_name: `Новая Медиатека`,
         title: initialIem.name,
+        description: initialIem.name,
       }}/>}
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
