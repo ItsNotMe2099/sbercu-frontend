@@ -53,6 +53,7 @@ import CatalogPublicLinkModal from 'components/CatalogPublicLinkModal'
 import UploadFilesModal from 'components/catalog-page/components/UploadFilesModal'
 interface Props{
   public?: boolean
+  host?: string
 }
 const CatalogPage = (props) => {
   const router = useRouter()
@@ -329,6 +330,7 @@ const CatalogPage = (props) => {
       {initialIem && <NextSeo title={initialIem.name}
                                       openGraph={{
                                         type: 'website',
+                                        url: `https://${props.host}${router.asPath}`,
                                         title: initialIem.name,
                                       }}
 
