@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: {initialVideo: res.data, host: ctx.req.headers.get('host'), public: true},
+    props: {initialVideo: res.data, host: ctx.req.get('host'), public: true},
   }
 
 }
