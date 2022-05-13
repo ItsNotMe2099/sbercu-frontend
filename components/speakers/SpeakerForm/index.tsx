@@ -6,6 +6,8 @@ import Button from 'components/ui/Button'
 import {IRootState, ITagCategoryType, SpeakerPriceCurrencyList, SpeakerPriceTypeList} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
+
+import { useSelector, useDispatch } from 'react-redux'
 import {
   email,
   phone,
@@ -29,6 +31,8 @@ import FormError from 'components/ui/Form/FormError'
 
 let SpeakerForm = props => {
   const router = useRouter()
+  const formError = useSelector((state: IRootState) => state.speakers.formError)
+  const loading = useSelector((state: IRootState) => state.speakers.formLoading)
 
   const {handleSubmit, initialValues, firstName, lastName, errors} = props
 
@@ -269,9 +273,10 @@ let SpeakerForm = props => {
         </div>
       </div>
       <div style={{display: 'inline-block'}}><FormError error={errors?.speakers ?? ''}/></div>
+      <FormError error={formError}/>
       <div className={styles.btnContainer}>
-        <Button disabled={uploadingGalleryInProgress} green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
-        <Button transparent textLightGrey type={'button'} onClick={handleCancel}>Отмена</Button>
+        <Button disabled={uploadingGalleryInProgress || loading} green size="10px 26px">{initialValues?.id ? 'Сохранить' : 'Создать'}</Button>
+        <Button transparent textLightGrey type={'button'} disabled={loading} onClick={handleCancel}>Отмена</Button>
       </div>
     </form>
   )

@@ -53,6 +53,7 @@ import CatalogPublicLinkModal from 'components/CatalogPublicLinkModal'
 import UploadFilesModal from 'components/catalog-page/components/UploadFilesModal'
 interface Props{
   public?: boolean
+  host?: string
 }
 const CatalogPage = (props) => {
   const router = useRouter()
@@ -322,10 +323,20 @@ const CatalogPage = (props) => {
       setDragOverId(newDragOverId);
     }
   }
+  const initialIem = currentCatalogItem ?? props.initialVideo
   return (
     <Layout>
 
-      {currentCatalogItem && <NextSeo title={currentCatalogItem.name}/>}
+      {initialIem && <NextSeo title={initialIem.name} description={initialIem.name}
+                                      openGraph={{
+                                        type: 'website',
+                                        site_name: `Новая Медиатека`,
+                                        url: `https://${props.host}${router.asPath}`,
+                                        title: initialIem.name,
+                                        description: initialIem.name,
+                                      }}
+
+      />}
       {!props.public && <Header {...props}>
         {currentCatalogItem && currentCatalogItem.canEdit &&
         <div className={styles.create} data-tour="create-folder"><Button folder transparent textDarkGrey btnDarkGrey type="button"
