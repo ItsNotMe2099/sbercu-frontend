@@ -119,6 +119,7 @@ export default function Player(props) {
     }
     const handlePlayPause = (e) => {
         e.stopPropagation();
+        e.preventDefault()
        if (!playing) {
                  (player as any)?.current?.play();
         } else {
