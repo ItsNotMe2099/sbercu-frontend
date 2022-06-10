@@ -95,7 +95,7 @@ const VideoPage = (props: Props) => {
       dispatch(resetCatalogItem());
     }
 
-  }, [])
+  }, [router.query.id])
 
   const getDefaultSource = () => {
     const path = video.media?.fileName;

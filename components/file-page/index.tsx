@@ -99,7 +99,7 @@ const FilePage = (props: Props) => {
       dispatch(resetCatalogItem());
     }
 
-  }, [])
+  }, [router.query.id])
 
 
 
@@ -142,13 +142,17 @@ const FilePage = (props: Props) => {
   const initialIem = video ?? props.initialVideo
   return (
     <Layout>
-      {initialIem && <NextSeo title={initialIem.name}  description={initialIem.name}   openGraph={{
+      {initialIem && <NextSeo title={initialIem.name}
+                             description={'Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.'}
+
+                              openGraph={{
         type: 'website',
         url: `https://${props.host}${router.asPath}`,
-        site_name: `Новая Медиатека`,
+        site_name: `Медиатека — простой и безопасный доступ к контенту`,
         title: initialIem.name,
-        description: initialIem.name,
-      }}/>}
+        description: `Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.`,
+
+                              }}/>}
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
           <div className={styles.title}>{video.name}</div>
