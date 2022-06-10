@@ -55,7 +55,7 @@ let SpeakerForm = props => {
       url: `/api/speaker/search?query=${`${firstName ?? ''} ${lastName ?? ''}`.trim()}`,
       method: 'GET'
     });
-    const exists = !!res.data.data.find(i => (!initialValues.id || i.id !== initialValues.id)  && i.firstName === firstName && i.lastName === lastName)
+    const exists = !!res.data.data.find(i => (!initialValues.id || parseInt(i.id, 10) !== initialValues.id)  && i.firstName === firstName && i.lastName === lastName)
     setSpeakerExists(exists)
     console.log("ChesRes", exists)
   }
