@@ -99,7 +99,7 @@ const FilePage = (props: Props) => {
       dispatch(resetCatalogItem());
     }
 
-  }, [])
+  }, [router.query.id])
 
 
 
