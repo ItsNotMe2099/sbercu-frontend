@@ -77,7 +77,7 @@ export default function PdfPageViewer(props: Props){
               }
           }}>
             <div className={styles.document} style={{opacity: isLoading ? 0 : 1}}>
-              {(link || props.publicHash) && !handle.active && <Document debug file={{
+              {(link || props.publicHash) && !handle.active && <Document file={{
                 url: getMediaPath(item.media.fileName, props.publicHash),
                 withCredentials: true,
               }}
@@ -96,7 +96,7 @@ export default function PdfPageViewer(props: Props){
             <FullScreen handle={handle} >
 
               {handle.active && <div className={styles.fullscreen}>
-                {(link || props.publicHash) && <Document debug file={{
+                {(link || props.publicHash) && <Document file={{
                   url: getMediaPath(item.media.fileName, props.publicHash),
                   withCredentials: true,
                 }}

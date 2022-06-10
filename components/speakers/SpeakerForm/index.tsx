@@ -28,6 +28,8 @@ import ImagesUploadInput from 'components/ui/Inputs/ImagesUploadInput'
 import {formatPhone} from 'utils/formatters'
 import SelectInput from 'components/ui/Inputs/SelectInput'
 import FormError from 'components/ui/Form/FormError'
+import request from 'utils/request'
+import {useThrottleFn} from '@react-cmpt/use-throttle'
 
 let SpeakerForm = props => {
   const router = useRouter()
@@ -38,18 +40,38 @@ let SpeakerForm = props => {
 
   const [firstNameEnTouched, setFirstNameEnTouched] = useState(false);
   const [lastNameEnTouched, setLastNameEnTouched] = useState(false);
+  const [speakerExists, setSpeakerExists] = useState(false);
   const [uploadingGalleryInProgress, setUploadingGalleryInProgress] = useState(false);
   const handleCancel = () => {
     router.back();
   }
-  const handleChangeFirstName = (e) => {
+  const handleCheckName = async (firstName, lastName) => {
+    setSpeakerExists(false)
+    if(!firstName || !lastName){
+      cancelCheckName()
+      return;
+    }
+    const res = await request({
+      url: `/api/speaker/search?query=${`${firstName ?? ''} ${lastName ?? ''}`.trim()}`,
+      method: 'GET'
+    });
+    const exists = !!res.data.data.find(i => (!initialValues.id || i.id !== initialValues.id)  && i.firstName === firstName && i.lastName === lastName)
+    setSpeakerExists(exists)
+    console.log("ChesRes", exists)
+  }
+  const { callback: checkName, cancel: cancelCheckName, callPending: saveViewHistoryPending } = useThrottleFn(handleCheckName, 600)
 
+
+  const handleChangeFirstName = (e) => {
+      checkName(e.target.value, lastName)
     if (firstNameEnTouched) {
       return
     }
+
     props.change('firstNameEng', (new cyrillicToTranslit()).transform(e.target.value || ''));
   }
   const handleChangeLastName = (e) => {
+    checkName(firstName, e.target.value)
     if (lastNameEnTouched) {
       return
     }
@@ -106,6 +128,7 @@ let SpeakerForm = props => {
                 autoFocus={!initialValues?.id}
               />
             </div>
+            {speakerExists && <FormError error={'Спикер с таким именем уже существует'}/>}
 
             <div className={cx(styles.twoColumns, styles.withMargin)}>
               <Field

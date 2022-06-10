@@ -142,13 +142,18 @@ const FilePage = (props: Props) => {
   const initialIem = video ?? props.initialVideo
   return (
     <Layout>
-      {initialIem && <NextSeo title={initialIem.name}  description={initialIem.name}   openGraph={{
+      {initialIem && <NextSeo title={initialIem.name}
+                              keywords={'файловое хранилище, общий доступ к файлам, облачное файловое хранилище, актуальный контент, загрузка файлов, шаринг контента, облачное хранилище, редактор видео, совместный доступ, доступ по ссылке.'}
+                              description={'Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.'}
+
+                              openGraph={{
         type: 'website',
         url: `https://${props.host}${router.asPath}`,
         site_name: `Новая Медиатека`,
         title: initialIem.name,
-        description: initialIem.name,
-      }}/>}
+        description: `Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.`,
+
+                              }}/>}
       <Header {...props}/>
       {(!currentLoading && video) && <div className={styles.root}>
           <div className={styles.title}>{video.name}</div>
