@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import "react-awesome-lightbox/build/style.css"
 import 'react-phone-number-input/style.css'
 import dynamic from 'next/dynamic'
+import {DefaultSeo} from 'next-seo'
 const TourProvider = dynamic(() => import('components/onboarding/TourProvider'))
 
 //import 'react-calendar/dist/Calendar.css';
@@ -20,9 +21,19 @@ export default function App({Component, pageProps}) {
 
   return (
     <Provider store={store}>
+      <DefaultSeo
+        title={'Медиатека — простой и безопасный доступ к контенту'}
+        description={`Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.`}
+      openGraph={{
+          type: 'website',
+          site_name: `Медиатека — простой и безопасный доступ к контенту`,
+          title: 'Медиатека — простой и безопасный доступ к контенту',
+          description: `Вы можете хранить и передавать коллегам файлы и папки, редактировать видео-контент. Медиатека – это облачный сервис, который позволяет не хранить файлы локально, снижая риски потерять важные файлы.`,
 
+        }}
+
+      />
       <Head>
-        <title>Новая Медиатека</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
         <script
           dangerouslySetInnerHTML={{

@@ -57,7 +57,6 @@ let SpeakerForm = props => {
     });
     const exists = !!res.data.data.find(i => (!initialValues.id || parseInt(i.id, 10) !== initialValues.id)  && i.firstName === firstName && i.lastName === lastName)
     setSpeakerExists(exists)
-    console.log("ChesRes", exists)
   }
   const { callback: checkName, cancel: cancelCheckName, callPending: saveViewHistoryPending } = useThrottleFn(handleCheckName, 600)
 
