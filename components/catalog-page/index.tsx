@@ -103,7 +103,7 @@ const CatalogPage = (props) => {
     const id = paths[paths.length - 1]
     dispatch(resetCatalogList())
     if(props.public){
-      dispatch(fetchPublicCatalogList(id, hash, 1, 30))
+      dispatch(fetchPublicCatalogList(id, hash, 1, 70))
 
       dispatch(fetchPublicCatalogItemRequest(id, {hash}));
       dispatch(setCurrentCatalogId(id));
