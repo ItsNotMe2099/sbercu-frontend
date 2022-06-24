@@ -12,7 +12,7 @@ export async function getServerSideProps(ctx) {
     return authRes;
   }
 
-  if(authRes?.props?.user !== 'admin'){
+  if(authRes?.props?.user?.role !== 'admin'){
     return {
       notFound: true
     }

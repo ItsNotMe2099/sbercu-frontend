@@ -52,7 +52,7 @@ export async function getServerSideProps(ctx) {
         return authRes;
     }
 
-    if(authRes?.props?.user === 'guest'){
+    if(authRes?.props?.user?.role === 'guest'){
         return {
             notFound: true
         }
