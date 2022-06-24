@@ -182,5 +182,22 @@ const Users = (props) => {
         </Layout>
     )
 }
-export const getServerSideProps = getAuthServerSide({redirect: true});
+
+export async function getServerSideProps(ctx) {
+    const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+    if (!authRes?.props?.user) {
+        return authRes;
+    }
+
+    if(authRes?.props?.user !== 'admin'){
+        return {
+            notFound: true
+        }
+    }
+
+    return {
+        props: {...authRes?.props},
+    }
+
+}
 export default Users
