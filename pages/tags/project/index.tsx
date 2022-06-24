@@ -5,5 +5,23 @@ import {getAuthServerSide} from 'utils/auth'
 const Tags = (props) => {
   return <TagPage {...props} categoryType={ITagCategoryType.Project}/>
 }
+
+export async function getServerSideProps(ctx) {
+  const authRes = (await getAuthServerSide({redirect: true})(ctx)) as any
+  if (!authRes?.props?.user) {
+    return authRes;
+  }
+
+  if(authRes?.props?.user !== 'admin'){
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {...authRes?.props},
+  }
+
+}
 export default Tags
-export const getServerSideProps = getAuthServerSide({redirect: true});
+
