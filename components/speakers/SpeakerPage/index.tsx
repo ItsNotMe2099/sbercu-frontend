@@ -76,7 +76,7 @@ const SpeakerPage = (props: Props) => {
   const router = useRouter()
 
   const limitFiles = 30;
-  const canEdit = props.user.role === 'admin' || (speaker?.userId && speaker?.userId === props.user?.id);
+  const canEdit = props.user.role !== 'guest' || (speaker?.userId && speaker?.userId === props.user?.id);
   const settings = [
     {value: 'edit', label: 'Редактировать'},
     {value: 'delete', label: 'Удалить'}
