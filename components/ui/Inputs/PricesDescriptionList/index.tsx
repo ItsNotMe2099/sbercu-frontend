@@ -58,7 +58,7 @@ const PricesDescriptionList = (props: Props) => {
           </div>
           <div className={cx(styles.input, styles.price)}>
 
-            <Input className={styles.priceField} type={'number'} meta={props.meta} input={{value: val.price, onChange: (e) => handleChangePrice(e?.currentTarget?.value,index)}} placeholder={'Цена'}  options={props.nameOptions}/>
+            <Input className={styles.priceField} type={'number'} meta={props.meta} input={{value: val.price, onChange: (e) => handleChangePrice(e?.currentTarget?.value,index)}} placeholder={'Цена'}/>
           </div>
           <div className={cx(styles.input, styles.currency)}>
             <SelectInput className={styles.select} inputClassName={styles.select} meta={props.meta} input={{value: val.currency, onChange: (val) => handleChangeCurrency(val,index)}} placeholder={label}  options={SpeakerPriceCurrencyList}/>
