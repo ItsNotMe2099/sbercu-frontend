@@ -3,7 +3,13 @@ import {useRouter} from "next/router";
 import {Field, formValueSelector, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import Button from 'components/ui/Button'
-import {IRootState, ITagCategoryType, SpeakerPriceCurrencyList, SpeakerPriceTypeList} from "types";
+import {
+  IRootState,
+  ITagCategoryType,
+  SpeakerPriceCurrencyList,
+  SpeakerPricePrepareTypeList,
+  SpeakerPriceTypeList
+} from "types";
 import styles from './index.module.scss'
 import Input from 'components/ui/Inputs/Input'
 
@@ -30,6 +36,7 @@ import SelectInput from 'components/ui/Inputs/SelectInput'
 import FormError from 'components/ui/Form/FormError'
 import request from 'utils/request'
 import {useThrottleFn} from '@react-cmpt/use-throttle'
+import PricesDescriptionList from "components/ui/Inputs/PricesDescriptionList";
 
 let SpeakerForm = props => {
   const router = useRouter()
@@ -154,32 +161,20 @@ let SpeakerForm = props => {
             />
             <div className={styles.textArea}>
             <div className={styles.head__right}>Ценообразование</div>
-            <div className={styles.priceArea}>
-            <Field
-              name="priceType"
-              component={SelectInput}
-              placeholder="Тип цены"
-              validate={speakerPriceFieldRequired}
-              options={SpeakerPriceTypeList}
 
-            />
-            <Field
-              name="price"
-              component={Input}
-              className={styles.priceField}
-              type={'number'}
-              placeholder="Стоимость"
-              validate={required}
-            />
-            <Field
-              name="currency"
-              component={SelectInput}
-              placeholder="Валюта"
-              validate={speakerPriceFieldRequired}
-              options={SpeakerPriceCurrencyList}
+              <Field
+                  name="pricesExecute"
+                  component={PricesDescriptionList}
+                  label="Проведение без сопуствующих услуг"
+                  nameOptions={SpeakerPriceTypeList}
+              />
+              <Field
+                  name="pricesPrepare"
+                  component={PricesDescriptionList}
+                  label="Подготовка"
+                  nameOptions={SpeakerPricePrepareTypeList}
+              />
 
-            />
-            </div>
             </div>
             <div className={styles.textArea}>
               <div className={styles.head__right}>Должность / Проект/ Краткое описание деятельности</div>
