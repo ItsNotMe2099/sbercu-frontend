@@ -1,2 +1,2 @@
 [web]
-dev ansible_host=217.77.104.11 ansible_port=14889 ansible_user=sber-ci
+dev ansible_host=188.72.106.123 ansible_port=14889 ansible_user=sber-ci
