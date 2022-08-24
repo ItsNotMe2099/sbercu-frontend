@@ -253,6 +253,11 @@ export enum ITagCategoryType {
   Speaker = 'speaker',
 }
 
+export interface IPriceDescription{
+  name: string,
+  price: number,
+  currency: string
+}
 export interface ISpeaker {
   id?: number
   name?: string
@@ -274,6 +279,8 @@ export interface ISpeaker {
   speakerContactEmail?: string
   agentContactPhone?: string
   agentContactEmail?: string
+  pricesPrepare: IPriceDescription[]
+  pricesExecute: IPriceDescription[]
   rating?: number
 }
 
@@ -299,4 +306,12 @@ export const SpeakerPriceTypeList = [
   {label: 'Тренинг-час', value: 'trainingHour'},
   {label: 'Коучинг', value: 'coaching'},
   {label: 'Лекция', value: 'lecture'}
+]
+
+export const SpeakerPricePrepareTypeList = [
+  {label: 'Сценарий', value: 'Сценарий'},
+  {label: 'Презентация', value: 'Презентация'},
+  {label: 'Раздаточный материал', value: 'Раздаточный материал'},
+  {label: 'Задания', value: 'Задания'},
+  {label: 'Упражнения', value: 'Упражнения'},
 ]

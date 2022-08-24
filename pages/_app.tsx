@@ -13,12 +13,17 @@ import "react-awesome-lightbox/build/style.css"
 import 'react-phone-number-input/style.css'
 import dynamic from 'next/dynamic'
 import {DefaultSeo} from 'next-seo'
+import ErrorPage from "components/ErrorPage";
+import MaintenancePage from "components/MaintenancePage";
 const TourProvider = dynamic(() => import('components/onboarding/TourProvider'))
 
 //import 'react-calendar/dist/Calendar.css';
 
 export default function App({Component, pageProps}) {
 
+    if(process.env.NEXT_PUBLIC_MAITANANCE_MODE){
+        return ( <MaintenancePage/>)
+    }
   return (
     <Provider store={store}>
       <DefaultSeo

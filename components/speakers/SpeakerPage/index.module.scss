@@ -328,3 +328,23 @@
     }
   }
 }
+.priceDescriptions{
+  > * + * {
+    margin-top: 15px;
+  }
+
+}
+.priceDescription{
+  .priceDescriptionLabel{
+    font-size: 14px;
+    line-height: 14px;
+    color: #BDBDBD;
+    margin-bottom: 8px;
+  }
+  .priceDescriptionList{
+    > * + * {
+      margin-top: 4px;
+    }
+
+  }
+}

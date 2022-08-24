@@ -26,6 +26,8 @@ const CreateSpeaker = (props) => {
             onConfirm: () => {
                 dispatch(modalClose());
                 dispatch(createSpeaker({ ...data,
+                    pricesPrepare: (data.pricesPrepare ?? []).filter(i => !!i.name),
+                    pricesExecute: (data.pricesExecute ?? []).filter(i => !!i.name),
                     speakerContactPhone: data.speakerContactPhone ? data.speakerContactPhone?.replace(/[^\d]/g, '') : data.speakerContactPhone ,
                     agentContactPhone: data.agentContactPhone ? data.agentContactPhone?.replace(/[^\d]/g, '') : data.agentContactPhone
                 }))
