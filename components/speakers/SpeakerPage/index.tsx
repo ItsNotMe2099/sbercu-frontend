@@ -212,7 +212,7 @@ const SpeakerPage = (props: Props) => {
             {renderPriceDescription(i, typeList)} </div>)}</div>
     }
     const renderPriceText = () => {
-        if (speaker.pricesPrepare.length > 0 || speaker.pricesExecute.length > 0) {
+        if (speaker.pricesPrepare?.length > 0 || speaker.pricesExecute?.length > 0) {
             return <div className={styles.priceDescriptions}>
                 {speaker.pricesPrepare.length > 0 && <div className={styles.priceDescription}>
                     <div className={styles.priceDescriptionLabel}>
