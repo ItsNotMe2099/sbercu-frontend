@@ -279,8 +279,10 @@ export interface ISpeaker {
   speakerContactEmail?: string
   agentContactPhone?: string
   agentContactEmail?: string
-  pricesPrepare: IPriceDescription[]
   pricesExecute: IPriceDescription[]
+  preparePrice: string;
+  prepareName: string;
+  prepareCurrency: string;
   rating?: number
 }
 

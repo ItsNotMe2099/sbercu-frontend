@@ -54,14 +54,14 @@ const PricesDescriptionList = (props: Props) => {
         {props.label && <div className={styles.label}>{props.label}</div>}
         {items.map((val, index) =><div className={styles.field}>
           <div className={cx(styles.input, styles.name)}>
-            <SelectInput className={styles.select} placeholder={'Услуга'} inputClassName={styles.select} meta={props.meta} input={{value: val.name, onChange: (val) => handleChangeName(val,index)}}  options={props.nameOptions}/>
+            <SelectInput className={styles.select} placeholder={'Услуга'} inputClassName={styles.select} meta={{}}  input={{value: val.name, onChange: (val) => handleChangeName(val,index)}}  options={props.nameOptions}/>
           </div>
           <div className={cx(styles.input, styles.price)}>
 
-            <Input className={styles.priceField} type={'number'} meta={props.meta} input={{value: val.price, onChange: (e) => handleChangePrice(e?.currentTarget?.value,index)}} placeholder={'Цена'}/>
+            <Input className={styles.priceField} type={'number'} meta={{}}  input={{value: val.price, onChange: (e) => handleChangePrice(e?.currentTarget?.value,index)}} placeholder={'Цена'}/>
           </div>
           <div className={cx(styles.input, styles.currency)}>
-            <SelectInput className={styles.select} inputClassName={styles.select} meta={props.meta} input={{value: val.currency, onChange: (val) => handleChangeCurrency(val,index)}} placeholder={label}  options={SpeakerPriceCurrencyList}/>
+            <SelectInput className={styles.select} inputClassName={styles.select} meta={{}} input={{value: val.currency, onChange: (val) => handleChangeCurrency(val,index)}} placeholder={label}  options={SpeakerPriceCurrencyList}/>
           </div>
         <div className={styles.remove} onClick={() => handleRemove(val)}><Basket/></div>
         </div>)}
