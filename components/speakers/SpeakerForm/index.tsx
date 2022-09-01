@@ -260,6 +260,7 @@ let SpeakerForm = props => {
               categoryType={ITagCategoryType.Speaker}
               isIncludedCategory={(category) => category.name !== 'Видимость'}
               green
+              validate={required}
             />
 
           </div>

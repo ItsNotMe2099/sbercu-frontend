@@ -41,7 +41,7 @@ const CreateSpeaker = (props) => {
             <div className={styles.root}>
                 <div className={styles.title}>Создание нового спикера</div>
                 <div className={styles.main}><Link href="/">Главная</Link></div>
-                <SpeakerForm  user={props.user} onSubmit={handleSubmit} initialValues={{visibility: 'all'}}/>
+                <SpeakerForm  user={props.user} onSubmit={handleSubmit} initialValues={{visibility: 'all', pricesExecute: [{name: null, price: null, currency: 'RUB'}]}}/>
             </div>
             <Footer/>
         </Layout>
