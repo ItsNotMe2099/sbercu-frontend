@@ -20,7 +20,7 @@ import {
   required,
   speakerContactsRequiredEmail,
   speakerContactsRequiredPhone,
-  speakerPriceFieldRequired
+  speakerPriceFieldRequired, tagRequired
 } from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import AvatarInput from "components/ui/AvatarInput";
@@ -37,6 +37,11 @@ import FormError from 'components/ui/Form/FormError'
 import request from 'utils/request'
 import {useThrottleFn} from '@react-cmpt/use-throttle'
 import PricesDescriptionList from "components/ui/Inputs/PricesDescriptionList";
+import PricesPrepare from "components/ui/Inputs/PricesPrepare";
+
+function PricesPrepar(props: { label: string }) {
+  return null;
+}
 
 let SpeakerForm = props => {
   const router = useRouter()
@@ -168,12 +173,8 @@ let SpeakerForm = props => {
                   label="Проведение без сопуствующих услуг"
                   nameOptions={SpeakerPriceTypeList}
               />
-              <Field
-                  name="pricesPrepare"
-                  component={PricesDescriptionList}
-                  label="Подготовка"
-                  nameOptions={SpeakerPricePrepareTypeList}
-              />
+              <PricesPrepare label="Подготовка"/>
+
 
             </div>
             <div className={styles.textArea}>
@@ -260,7 +261,7 @@ let SpeakerForm = props => {
               categoryType={ITagCategoryType.Speaker}
               isIncludedCategory={(category) => category.name !== 'Видимость'}
               green
-              validate={required}
+              validate={tagRequired}
             />
 
           </div>

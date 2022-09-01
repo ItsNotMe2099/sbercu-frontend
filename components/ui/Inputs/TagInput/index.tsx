@@ -65,7 +65,7 @@ const TagInput = (props: Props) => {
   return (
       <div className={styles.root}>
         {items.filter(category => !props.isIncludedCategory || props.isIncludedCategory(category)).map(item => <TagCategory onTagClick={handleTagClick} selectedTags={selectedTags.filter(i => i?.tagCategoryId  && i?.tagCategoryId === item.id)} editMode={false} item={item} />)}
-
+        <ErrorInput meta={props.meta}/>
       </div>
 
   );

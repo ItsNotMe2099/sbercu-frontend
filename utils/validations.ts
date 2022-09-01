@@ -3,6 +3,9 @@ export function required(value: string | number) {
   const val = value && typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value;
   return val || typeof val === 'number' ? undefined : 'Обязательное поле'
 }
+export function tagRequired(value: any) {
+ return !value || value?.length ===0 ? 'Выберите хотя бы один тег' : undefined
+}
 
 export function email(value: string) {
   return value?.trim() && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(value)
