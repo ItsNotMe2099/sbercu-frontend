@@ -20,7 +20,7 @@ import {
   required,
   speakerContactsRequiredEmail,
   speakerContactsRequiredPhone,
-  speakerPriceFieldRequired, tagRequired
+  speakerPriceFieldRequired, speakerServicesRequired, tagRequired
 } from 'utils/validations'
 import TextArea from 'components/ui/Inputs/TextArea'
 import AvatarInput from "components/ui/AvatarInput";
@@ -172,6 +172,7 @@ let SpeakerForm = props => {
                   component={PricesDescriptionList}
                   label="Проведение без сопутствующих услуг"
                   nameOptions={SpeakerPriceTypeList}
+                  validate={speakerServicesRequired}
               />
               <PricesPrepare label="Подготовка к проведению лекции / тренинга"/>
 
