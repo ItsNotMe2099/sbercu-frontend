@@ -173,7 +173,7 @@ let SpeakerForm = props => {
                   label="Проведение без сопутствующих услуг"
                   nameOptions={SpeakerPriceTypeList}
               />
-              <PricesPrepare label="Подготовка"/>
+              <PricesPrepare label="Подготовка к проведению лекции / тренинга"/>
 
 
             </div>
