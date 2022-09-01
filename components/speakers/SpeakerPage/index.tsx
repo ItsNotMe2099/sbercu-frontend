@@ -225,7 +225,7 @@ const SpeakerPage = (props: Props) => {
                     <div className={styles.priceDescriptionLabel}>
                         Подготовка
                     </div>
-                    {renderPriceDescriptionList([{name: speaker.prepareName, currency: speaker.prepareCurrency, price: speaker.preparePrice}], SpeakerPricePrepareTypeList)}
+                    {renderPriceDescriptionList([{name: null, currency: speaker.prepareCurrency, price: speaker.preparePrice}], SpeakerPricePrepareTypeList)}
                 </div>}
             </div>
         }

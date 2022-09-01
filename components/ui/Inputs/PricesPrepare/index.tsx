@@ -27,14 +27,9 @@ const PricesPrepare = (props: Props) => {
         {props.label && <div className={styles.label}>{props.label}</div>}
         <div className={styles.field}>
           <div className={cx(styles.input, styles.name)}>
-            <Field
-                className={styles.select}
-                inputClassName={styles.select}
-                name="prepareName"
-                placeholder={'Услуга'}
-                component={SelectInput}
-                options={SpeakerPricePrepareTypeList}
-            />
+            <div className={styles.selectName}>
+              Услуга по подготовке
+            </div>
            </div>
           <div className={cx(styles.input, styles.price)}>
             <Field
