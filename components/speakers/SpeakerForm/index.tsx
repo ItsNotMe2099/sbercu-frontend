@@ -170,7 +170,7 @@ let SpeakerForm = props => {
               <Field
                   name="pricesExecute"
                   component={PricesDescriptionList}
-                  label="Проведение без сопуствующих услуг"
+                  label="Проведение без сопутствующих услуг"
                   nameOptions={SpeakerPriceTypeList}
               />
               <PricesPrepare label="Подготовка"/>
