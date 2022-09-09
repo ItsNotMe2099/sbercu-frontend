@@ -54,6 +54,18 @@ let SpeakerForm = props => {
   const [lastNameEnTouched, setLastNameEnTouched] = useState(false);
   const [speakerExists, setSpeakerExists] = useState(false);
   const [uploadingGalleryInProgress, setUploadingGalleryInProgress] = useState(false);
+  const tags = useSelector((state: IRootState) => state.tagCategory.list)
+  const tagValidator = (ids) => {
+
+    if(tagRequired(ids)){
+      return tagRequired(ids);
+    }
+
+    const isIncludeEvery = tags.every(tagCategory => !!tagCategory.tags.find(i => ids.includes(i.id)))
+    if(!isIncludeEvery){
+      return 'Выберите хотя бы один тег в каждой категории'
+    }
+  }
   const handleCancel = () => {
     router.back();
   }
@@ -262,7 +274,7 @@ let SpeakerForm = props => {
               categoryType={ITagCategoryType.Speaker}
               isIncludedCategory={(category) => category.name !== 'Видимость'}
               green
-              validate={tagRequired}
+              validate={(val) => tagValidator(val)}
             />
 
           </div>
