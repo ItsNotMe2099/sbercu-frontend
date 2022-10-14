@@ -1,0 +1,59 @@
+@import "scss/index";
+.root{
+  position: fixed;
+  bottom: 35px;
+  z-index: 999;
+  width: 100%;
+  opacity: 0;
+  display: none;
+
+  &.show{
+    transition: opacity 0.3s;
+    opacity: 1;
+    display: block;
+  }
+}
+
+.container{
+  position: relative;
+  @media screen and (min-width: $container-lg-br) {
+    width: $container-lg;
+    margin:0 auto;
+  }
+  @media screen and (max-width: $container-lg-br) {
+    padding: 0px 22px;
+  }
+
+}
+.body{
+  display: flex;
+  position: relative;
+  max-width: 1216px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px -5px rgb(0 0 0 / 15%);
+  @media screen and (max-width: $sm-mid) {
+    flex-direction: column;
+    align-items: center;
+
+  }
+}
+.text{
+  flex: 1;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 19px;
+}
+.buttons{
+  margin-left: 15px;
+  @media screen and (max-width: $sm-mid) {
+    margin-top: 15px;
+  }
+}
+.close{
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+}
