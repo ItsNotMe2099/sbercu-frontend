@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {ToastContainer} from 'react-toastify'
+import CookieFooter from "components/layout/CookieFooter";
 
 interface Props{
     children?: any
@@ -22,6 +23,7 @@ export default function Layout(props: Props){
         </svg>
         }
       />
+        <CookieFooter/>
     </div>
   )
 }
