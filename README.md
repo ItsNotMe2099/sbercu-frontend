@@ -1,24 +1,36 @@
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && sudo apt-get update &&   sudo apt-get install docker-ce docker-ce-cli containerd.io && sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose
-sudo adduser sber-ci
+## Getting Started
 
-95cy7TnR64GhfnVYTp8MM6s8XwLaG9Pg
-sudo usermod -aG docker sber-ci && sudo systemctl enable containerd.service && sudo systemctl enable docker.service
+First, run the development server:
 
-sudo mkdir /var/www && sudo mkdir /var/www/sber-cu-api && sudo chown -R sber-ci /var/www/sber-cu-api
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-sudo nano /etc/fstab
-192.168.199.100:/opencast	/mnt/nfs/opencast	nfs	defaults	0	0
-192.168.199.100:file-storage	/mnt/nfs/file-storage	nfs	user,rw	0	0
-ls /mnt/nfs/
-sudo mkdir /mnt/nfs/opencast && sudo mkdir /mnt/nfs/file-storage
-sudo mount -a
-8iUHon0*j#8*
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-sudo -i
-su sber-ci
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-mkdir .ssh
-nano .ssh/authorized_keys
-Insert into .ssh/authorized_keys
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCj8idHDEhV5Q1wyp+kspBANEDnX/jHx6bz8xvNcRlRZg7ehrBPZ6FIWunaprL7+411+yQiw9uWMGwoNEXbpZCjgr6W8H741Tu7Ca8RnBq4VDs8TizJSGzLQ/DFm7h71xLkNlLHtKP+gmvQx1TAPrGlvR1Otj7OfFLLBjA2co2+rcrjxyx5OczNvVzGaCfGQK9el9AUG3/EJUOloJhUCZpk3HV1bileaxhG14Ywlvz773Y078KS6olKzEh4xGJB+lp2koMcNzEPn6QqRgeVvLgiJJ9xsPpC6mrlOTz8xlimsaeTowHPOB6evCiYh/9GMfxdEVmkN9tAP7wRV5OhmW4Z admin@dev
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
